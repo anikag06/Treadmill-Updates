@@ -1,4 +1,4 @@
-import {WEEK} from '@/app.constants';
+import { WEEK } from '@/app.constants';
 import {
   AfterViewInit,
   Component,
@@ -10,10 +10,10 @@ import {
   Optional,
   Output,
 } from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import * as moment from 'moment';
-import {Day} from './day.model';
-import {DateTimePickerService} from './date-time-picker.service';
+import { Day } from './day.model';
+import { DateTimePickerService } from './date-time-picker.service';
 
 @Component({
   selector: 'app-date-time-picker',
@@ -73,11 +73,11 @@ export class DateTimePickerComponent
             this.daysCircle[index].selected = false;
           } else {
             this.daysCircle[index].selected = true;
-            this.totalSelectedDays+=1;
+            this.totalSelectedDays += 1;
           }
         });
         this.isToggleChecked = this.totalSelectedDays === 7;
-        if(this.isSameDate()){
+        if (this.isSameDate()) {
           this.markDays(false);
         }
       }
@@ -114,11 +114,9 @@ export class DateTimePickerComponent
   }
 
   dateTimeMessageSubmit() {
-
-    if(this.isSameDate()){
+    if (this.isSameDate()) {
       this.markDays(false);
-        this.formDataDays = [];
-
+      this.formDataDays = [];
     }
 
     this.formDateTime.push(
@@ -154,7 +152,7 @@ export class DateTimePickerComponent
       this.startEndDate[this.END_DATE],
     );
 
-    const repeat = this.getRepeatedDays(this.daysCircle) ;
+    const repeat = this.getRepeatedDays(this.daysCircle);
 
     this.formDateTime.push(this.formDataDays);
     // const chatDateTimeMessage = date + '<br/>' + hourMinute + '<br/>' + repeat;
@@ -217,8 +215,10 @@ export class DateTimePickerComponent
       }
     }
 
-    if(this.formDataDays.length < 1){
-      const day  = moment(this.startEndDate[this.END_DATE]).format('dddd').toUpperCase();
+    if (this.formDataDays.length < 1) {
+      const day = moment(this.startEndDate[this.END_DATE])
+        .format('dddd')
+        .toUpperCase();
       this.formDataDays.push(day);
       repeatedDays.push(this.capitalizeFirstLetter(day));
     }
@@ -237,22 +237,19 @@ export class DateTimePickerComponent
   }
 
   get showStartEndDate() {
-    return (
-       !this.isSameDate() && this.isNotNullDates()
-    );
+    return !this.isSameDate() && this.isNotNullDates();
   }
 
   get enableButton() {
-
     let daySelected = false;
-    for(let i =0;i < this.daysCircle.length;i++){
-      if(this.daysCircle[i].selected){
+    for (let i = 0; i < this.daysCircle.length; i++) {
+      if (this.daysCircle[i].selected) {
         daySelected = true;
       }
     }
 
-    if(!this.isSameDate()){
-        return this.isNotNullDates() && daySelected;
+    if (!this.isSameDate()) {
+      return this.isNotNullDates() && daySelected;
     }
     return this.isNotNullDates();
   }
@@ -261,27 +258,32 @@ export class DateTimePickerComponent
     return day.charAt(0).toUpperCase() + day.slice(1).toLowerCase();
   }
 
-  isSameDate(){
-    return moment(this.startEndDate[this.END_DATE]).isSame( this.startEndDate[this.START_DATE]);
+  isSameDate() {
+    return moment(this.startEndDate[this.END_DATE]).isSame(
+      this.startEndDate[this.START_DATE],
+    );
   }
 
-  numberOfDays():boolean{
-    const days = moment(this.startEndDate[this.END_DATE]).diff(this.startEndDate[this.START_DATE],'days') + 1;
+  numberOfDays(): boolean {
+    const days =
+      moment(this.startEndDate[this.END_DATE]).diff(
+        this.startEndDate[this.START_DATE],
+        'days',
+      ) + 1;
     return days > 6;
   }
 
-  markDays(value : boolean){
+  markDays(value: boolean) {
     this.daysCircle.forEach(day => {
-     day.selected = value;
+      day.selected = value;
     });
   }
 
-  isNotNullDates(){
+  isNotNullDates() {
     return (
       this.startEndDate[this.END_DATE] !== null &&
       this.startEndDate[this.START_DATE] !== null &&
       this.startEndDate.length === 2
     );
   }
-
 }
