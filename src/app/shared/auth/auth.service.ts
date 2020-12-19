@@ -19,12 +19,15 @@ import {
   TOKEN,
   TOKEN_REFRESH_PATH,
   USERAVATAR,
+  ISLOGGEDIN,
+  LOGGED_IN_PATH,
+  USERNAME,
 } from '@/app.constants';
 import { User } from '@/shared/user.model';
 import { BehaviorSubject } from 'rxjs';
 
 export interface Token {
-  token: string;
+  access_token: string;
 }
 
 @Injectable({
@@ -42,33 +45,38 @@ export class AuthService {
 
   setLoginData(data: any) {
     try {
-      window.localStorage.setItem(TOKEN, data.data.token);
+      window.localStorage.setItem(ISLOGGEDIN, 'true');
+      window.localStorage.setItem(TOKEN, data.data.access_token);
       window.localStorage.setItem(ISADMIN, data.data.is_admin);
       window.localStorage.setItem(USERAVATAR, data.data.avatar);
       window.localStorage.setItem(ISACTIVE, data.data.is_active);
       window.localStorage.setItem(IS_EXP, data.data.is_exp);
+      window.localStorage.setItem(USERNAME, data.data.username);
       window.localStorage.setItem(
         IS_NINETY_DAYS_OVER,
         data.data.is_ninety_days_over,
       );
     } catch (e) {
-      window.sessionStorage.setItem(TOKEN, data.data.token);
+      window.sessionStorage.setItem(ISLOGGEDIN, 'true');
+      window.sessionStorage.setItem(TOKEN, data.data.access_token);
       window.sessionStorage.setItem(ISADMIN, data.data.is_admin);
       window.sessionStorage.setItem(USERAVATAR, data.data.avatar);
       window.sessionStorage.setItem(ISACTIVE, data.data.is_active);
       window.sessionStorage.setItem(IS_EXP, data.data.is_exp);
+      window.sessionStorage.setItem(USERNAME, data.data.username);
       window.localStorage.setItem(
         IS_NINETY_DAYS_OVER,
         data.data.is_ninety_days_over,
       );
     }
     this.getUserFromToken(
-      data.data.token,
+      data.data.access_token,
       data.data.avatar,
       data.data.is_admin,
       data.data.is_active,
       data.data.is_exp,
       data.data.is_ninety_days_over,
+      data.data.username
     );
   }
 
@@ -76,7 +84,9 @@ export class AuthService {
     window.localStorage.clear();
     window.sessionStorage.clear();
     return this.http
-      .post(environment.API_ENDPOINT + LOGIN_PATH, data, this.getOptions())
+      .post(environment.API_ENDPOINT + LOGIN_PATH, data, {
+        withCredentials: true,
+      })
       .toPromise();
   }
 
@@ -89,6 +99,7 @@ export class AuthService {
       let isAdmin = false;
       let isActive = false;
       let isExp = false;
+      let username: string | null;
       let isNinetyDaysOver = false;
       try {
         data = window.localStorage.getItem(TOKEN);
@@ -98,6 +109,7 @@ export class AuthService {
         isExp = window.localStorage.getItem(IS_EXP) === 'true';
         isNinetyDaysOver =
           window.localStorage.getItem(IS_NINETY_DAYS_OVER) === 'true';
+        username = window.localStorage.getItem(USERNAME);
       } catch (e) {
         data = window.sessionStorage.getItem(TOKEN);
         avatar = window.sessionStorage.getItem(USERAVATAR);
@@ -106,8 +118,9 @@ export class AuthService {
         isExp = window.sessionStorage.getItem(IS_EXP) === 'true';
         isNinetyDaysOver =
           window.sessionStorage.getItem(IS_NINETY_DAYS_OVER) === 'true';
+        username = window.sessionStorage.getItem(USERNAME);
       }
-      if (data && avatar && isActive) {
+      if (data && avatar && isActive && username) {
         return this.getUserFromToken(
           data,
           avatar,
@@ -115,6 +128,7 @@ export class AuthService {
           isActive,
           isExp,
           isNinetyDaysOver,
+          username
         );
       }
     }
@@ -127,21 +141,21 @@ export class AuthService {
     isActive: boolean,
     isExp: boolean,
     isNinetyDaysOver: boolean,
+    username: string
   ) {
     const helper = new JwtHelperService();
     const isExpired = helper.isTokenExpired(<string>data);
     const userData = helper.decodeToken(<string>data);
     const user = new User(
       +userData.user_id,
-      userData.username,
-      userData.email,
+      username,
       avatar,
       isAdmin,
       isActive,
       isExp,
       isNinetyDaysOver,
     );
-    if (isExpired === false) {
+    if (!isExpired) {
       this.user = user;
       return user;
     }
@@ -150,33 +164,31 @@ export class AuthService {
   async logout(showDefaultPage: boolean) {
     console.log('log out', showDefaultPage);
     delete this.user;
+    localStorage.setItem(ISLOGGEDIN, 'false');
     localStorage.clear();
     if (showDefaultPage) {
-      console.log('navigate to:', DEFAULT_PATH);
       this.router.navigate([DEFAULT_PATH]);
     } else {
-      console.log('navigate to;', INELIGIBLE_FOR_TRIAL);
       this.router.navigate([INELIGIBLE_FOR_TRIAL]);
     }
   }
 
   refresh() {
-    const token = this.getToken();
-    if (token !== null) {
+    const accessToken = this.getToken();
+    if (accessToken !== null) {
       this.http
-        .post<Token>(
-          environment.API_ENDPOINT + TOKEN_REFRESH_PATH,
-          {
-            token: token,
-          },
-          this.getOptions(),
-        )
+        .get(environment.API_ENDPOINT + TOKEN_REFRESH_PATH, {
+          withCredentials: true,
+        })
         .subscribe(
-          data => {},
+          (data: any) => {
+            window.localStorage.setItem(TOKEN, data.data.access);
+          },
           (error: HttpErrorResponse) => {
             if (error.status >= 400 && error.status < 500) {
               this.router.navigate([DEFAULT_PATH]);
               window.localStorage.removeItem(TOKEN);
+              window.localStorage.removeItem(ISLOGGEDIN);
               window.localStorage.removeItem(USERAVATAR);
               window.localStorage.removeItem(ISADMIN);
               window.localStorage.removeItem(ISACTIVE);
@@ -184,6 +196,7 @@ export class AuthService {
               window.localStorage.removeItem(IS_NINETY_DAYS_OVER);
 
               window.sessionStorage.removeItem(TOKEN);
+              window.sessionStorage.removeItem(ISLOGGEDIN);
               window.sessionStorage.removeItem(USERAVATAR);
               window.sessionStorage.removeItem(ISADMIN);
               window.sessionStorage.removeItem(ISACTIVE);
@@ -194,7 +207,7 @@ export class AuthService {
             } else {
               this.online.next(true);
             }
-          },
+          }
         );
     }
   }
@@ -217,21 +230,21 @@ export class AuthService {
   private logoutCheck() {
     window.addEventListener(
       'storage',
-      event => {
-        if (
-          event.storageArea === localStorage &&
-          event.storageArea.games === undefined
-        ) {
-          const token = window.localStorage.getItem(TOKEN);
-          if (token === null || token === undefined) {
-            // this.router.navigate(['../landing']);
-            window.location.href = '/landing';
+      (event) => {
+        if (event.key === ISLOGGEDIN) {
+          const isLoggedIn = window.localStorage.getItem(ISLOGGEDIN);
+          if (
+            isLoggedIn === null ||
+            isLoggedIn === undefined ||
+            isLoggedIn === 'false'
+          ) {
+            window.location.href = DEFAULT_PATH;
           } else {
-            window.location.href = '/main/dashboard';
+            window.location.href = LOGGED_IN_PATH;
           }
         }
       },
-      false,
+      false
     );
   }
 

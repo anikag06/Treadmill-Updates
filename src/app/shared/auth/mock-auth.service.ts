@@ -4,7 +4,6 @@ import { Observable, of } from 'rxjs';
 export const USER_OBJECT: User = new User(
   1,
   'tester',
-  'test@gmail.com',
   '',
   true,
   true,
