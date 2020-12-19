@@ -34,7 +34,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private titleService: Title,
     private a2HSService: A2HSService,
     private updateService: AppUpdateService,
-    private router: Router
+    private router: Router,
   ) {
     this.titleService.setTitle(TREADWILL);
     this.a2HSService.setDeferredPrompt();
@@ -46,7 +46,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.subscription = interval(this.REFRESH_INTERVAL).subscribe((val) => {
+    this.subscription = interval(this.REFRESH_INTERVAL).subscribe(val => {
       this.auth.refresh();
     });
   }

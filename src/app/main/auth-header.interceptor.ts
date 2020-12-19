@@ -15,7 +15,7 @@ export class AuthHeaderInterceptor implements HttpInterceptor {
   constructor(private authService: AuthService, private router: Router) {}
   intercept(
     req: HttpRequest<any>,
-    next: HttpHandler
+    next: HttpHandler,
   ): Observable<HttpEvent<any>> {
     // Clone the request to add the new header
     const clonedRequest = req.clone({

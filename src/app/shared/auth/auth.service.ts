@@ -76,7 +76,7 @@ export class AuthService {
       data.data.is_active,
       data.data.is_exp,
       data.data.is_ninety_days_over,
-      data.data.username
+      data.data.username,
     );
   }
 
@@ -128,7 +128,7 @@ export class AuthService {
           isActive,
           isExp,
           isNinetyDaysOver,
-          username
+          username,
         );
       }
     }
@@ -141,7 +141,7 @@ export class AuthService {
     isActive: boolean,
     isExp: boolean,
     isNinetyDaysOver: boolean,
-    username: string
+    username: string,
   ) {
     const helper = new JwtHelperService();
     const isExpired = helper.isTokenExpired(<string>data);
@@ -207,7 +207,7 @@ export class AuthService {
             } else {
               this.online.next(true);
             }
-          }
+          },
         );
     }
   }
@@ -230,7 +230,7 @@ export class AuthService {
   private logoutCheck() {
     window.addEventListener(
       'storage',
-      (event) => {
+      event => {
         if (event.key === ISLOGGEDIN) {
           const isLoggedIn = window.localStorage.getItem(ISLOGGEDIN);
           if (
@@ -244,7 +244,7 @@ export class AuthService {
           }
         }
       },
-      false
+      false,
     );
   }
 
