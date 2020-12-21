@@ -27,14 +27,14 @@ export class AppComponent implements OnInit, OnDestroy {
   subscription!: Subscription;
   loading = false;
   isUpdating = false;
-  REFRESH_INTERVAL = 600000;
+  REFRESH_INTERVAL = 840000;
 
   constructor(
     private auth: AuthService,
     private titleService: Title,
     private a2HSService: A2HSService,
     private updateService: AppUpdateService,
-    private router: Router,
+    private router: Router
   ) {
     this.titleService.setTitle(TREADWILL);
     this.a2HSService.setDeferredPrompt();
@@ -43,10 +43,12 @@ export class AppComponent implements OnInit, OnDestroy {
       this.isUpdating = window.localStorage.getItem('UPDATE') === 'update';
       this.navigationInterceptor(event);
     });
+
+    this.auth.refresh();
   }
 
   ngOnInit() {
-    this.subscription = interval(this.REFRESH_INTERVAL).subscribe(val => {
+    this.subscription = interval(this.REFRESH_INTERVAL).subscribe((val) => {
       this.auth.refresh();
     });
   }
