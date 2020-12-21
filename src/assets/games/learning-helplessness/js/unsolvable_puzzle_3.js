@@ -104,94 +104,96 @@ function boxUpMoveRouter(value) {
 }
 
 function setBoxUpGameWidthAndHeight() {
-	// setting asset sizes based on screen size
-	if(window.devicePixelRatio == 2) {
+  // commented out to check whether different size required for different device pixel ratio
 
-		// box up game (unsolvable puzzle 3)
-		$(".box-up-game-square").css({
-			'width': '200',
-			'height': '200'
-		});
-
-		$(`.box-up-game-square>.box-up-inner,
-			.box-up-game-square>.box-up-small-obstacle`).css({
-				'vertical-align': 'middle',
-				'max-height': '120px'
-			});
-
-		$(`.box-up-game-square>.box-up-outer,
-			.box-up-game-square>.box-up-big-obstacle`).css({
-				'vertical-align': 'middle',
-				'max-height': '175px'
-			});
-
-		$(".box-up-ball").css({
-			'position': 'relative',
-			'z-index': '2',
-      // transform property removed after adding svg image
-			// 'transform': 'scale(0.6)'
-		});
-
-		$(`.box-up-inner,
-			.box-up-small-obstacle`).css({
-				'position': 'absolute',
-				'z-index': '1',
-				'top': '38px',
-				'left': '47px'
-			});
-
-		$(`.box-up-outer,
-			.box-up-big-obstacle`).css({
-				'position': 'absolute',
-				'z-index': '0',
-				'top': '14px',
-				'left': '32px'
-			});
-	}else if(window.devicePixelRatio == 1) {
-
-		// box up game (unsolvable puzzle 3)
-		$(".box-up-game-square").css({
-			'width': '50px',
-			'height': '50px'
-		});
-
-		$(`.box-up-game-square>.box-up-inner,
-			.box-up-game-square>.box-up-small-obstacle`).css({
-				'vertical-align': 'middle',
-				'max-height': '30px'
-			});
-
-		$(`.box-up-game-square>.box-up-outer,
-			.box-up-game-square>.box-up-big-obstacle`).css({
-				'vertical-align': 'middle',
-				'max-height': '43.75px'
-			});
-
-		$(".box-up-ball").css({
-			'position': 'relative',
-			'z-index': '2',
-      // transform property removed after adding svg image
-      // 'transform': 'scale(0.2)',
-			// 'margin-left':'-5px',
-			// 'margin-top':'-5px'
-		});
-
-		$(`.box-up-inner,
-			.box-up-small-obstacle`).css({
-				'position': 'absolute',
-				'z-index': '1',
-				'top': '10px',
-				'left': '11.5px'
-			});
-
-		$(`.box-up-outer,
-			.box-up-big-obstacle`).css({
-				'position': 'absolute',
-				'z-index': '0',
-				'top': '4.5px',
-				'left': '7px'
-			});
-	}else {
+  // setting asset sizes based on screen size
+	// if(window.devicePixelRatio == 2) {
+  //
+	// 	// box up game (unsolvable puzzle 3)
+	// 	$(".box-up-game-square").css({
+	// 		'width': '200',
+	// 		'height': '200'
+	// 	});
+  //
+	// 	$(`.box-up-game-square>.box-up-inner,
+	// 		.box-up-game-square>.box-up-small-obstacle`).css({
+	// 			'vertical-align': 'middle',
+	// 			'max-height': '120px'
+	// 		});
+  //
+	// 	$(`.box-up-game-square>.box-up-outer,
+	// 		.box-up-game-square>.box-up-big-obstacle`).css({
+	// 			'vertical-align': 'middle',
+	// 			'max-height': '175px'
+	// 		});
+  //
+	// 	$(".box-up-ball").css({
+	// 		'position': 'relative',
+	// 		'z-index': '2',
+  //     // transform property removed after adding svg image
+	// 		// 'transform': 'scale(0.6)'
+	// 	});
+  //
+	// 	$(`.box-up-inner,
+	// 		.box-up-small-obstacle`).css({
+	// 			'position': 'absolute',
+	// 			'z-index': '1',
+	// 			'top': '38px',
+	// 			'left': '47px'
+	// 		});
+  //
+	// 	$(`.box-up-outer,
+	// 		.box-up-big-obstacle`).css({
+	// 			'position': 'absolute',
+	// 			'z-index': '0',
+	// 			'top': '14px',
+	// 			'left': '32px'
+	// 		});
+	// }else if(window.devicePixelRatio == 1) {
+  //
+	// 	// box up game (unsolvable puzzle 3)
+	// 	$(".box-up-game-square").css({
+	// 		'width': '50px',
+	// 		'height': '50px'
+	// 	});
+  //
+	// 	$(`.box-up-game-square>.box-up-inner,
+	// 		.box-up-game-square>.box-up-small-obstacle`).css({
+	// 			'vertical-align': 'middle',
+	// 			'max-height': '30px'
+	// 		});
+  //
+	// 	$(`.box-up-game-square>.box-up-outer,
+	// 		.box-up-game-square>.box-up-big-obstacle`).css({
+	// 			'vertical-align': 'middle',
+	// 			'max-height': '43.75px'
+	// 		});
+  //
+	// 	$(".box-up-ball").css({
+	// 		'position': 'relative',
+	// 		'z-index': '2',
+  //     // transform property removed after adding svg image
+  //     // 'transform': 'scale(0.2)',
+	// 		// 'margin-left':'-5px',
+	// 		// 'margin-top':'-5px'
+	// 	});
+  //
+	// 	$(`.box-up-inner,
+	// 		.box-up-small-obstacle`).css({
+	// 			'position': 'absolute',
+	// 			'z-index': '1',
+	// 			'top': '10px',
+	// 			'left': '11.5px'
+	// 		});
+  //
+	// 	$(`.box-up-outer,
+	// 		.box-up-big-obstacle`).css({
+	// 			'position': 'absolute',
+	// 			'z-index': '0',
+	// 			'top': '4.5px',
+	// 			'left': '7px'
+	// 		});
+	// }else {
 		// !!IMPORTANT!!
 		// write code for generic device pixel ratio
 		$(".box-up-game-square").css({
@@ -235,7 +237,7 @@ function setBoxUpGameWidthAndHeight() {
 				'top': '4.5px',
 				'left': '7px'
 			});
-	}
+	// }
 }
 
 function isBallInContainer() {

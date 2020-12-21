@@ -92,7 +92,7 @@ $(document).ready(function(){
 		second_time = true;
 		resetGridPuzzleGame();
 		gridPuzzleGameReInit();
-		unsolvable_game_counter=2;	
+		unsolvable_game_counter=2;
 		console.log("call init 1", success);
 		colorReverseInit();
 	});
@@ -114,35 +114,35 @@ $(document).ready(function(){
 
 function setGridPuzzleGameWidthAndHeight() {
 	// setting asset sizes based on screen size
-	if(window.devicePixelRatio == 2) {
-
-		// grid puzzle (unsolvable puzzle 1)
-		$(`.square, 
-			.fifteen-puzzle-square, 
-			.nine-puzzle-square, 
-			.three-puzzle-square`).css({
-				'width': '150',
-				'height': '150'
-			});
-	}else if(window.devicePixelRatio == 1) {
-		
-		// grid puzzle (unsolvable puzzle 1)
-		$(`.square, 
-			.fifteen-puzzle-square, 
-			.nine-puzzle-square, 
-			.three-puzzle-square`).css({
-				'width': '50'
-			});
-	}else {
+	// if(window.devicePixelRatio == 2) {
+  //
+	// 	// grid puzzle (unsolvable puzzle 1)
+	// 	$(`.square,
+	// 		.fifteen-puzzle-square,
+	// 		.nine-puzzle-square,
+	// 		.three-puzzle-square`).css({
+	// 			'width': '150',
+	// 			'height': '150'
+	// 		});
+	// }else if(window.devicePixelRatio == 1) {
+	//
+	// 	// grid puzzle (unsolvable puzzle 1)
+	// 	$(`.square,
+	// 		.fifteen-puzzle-square,
+	// 		.nine-puzzle-square,
+	// 		.three-puzzle-square`).css({
+	// 			'width': '50'
+	// 		});
+	// }else {
 		// !!IMPORTANT!!
 		// write code for generic device pixel ratio
-		$(`.square, 
-			.fifteen-puzzle-square, 
-			.nine-puzzle-square, 
+		$(`.square,
+			.fifteen-puzzle-square,
+			.nine-puzzle-square,
 			.three-puzzle-square`).css({
 				'width': '50'
 			});
-	}
+	// }
 }
 
 function resetThreeGrid() {
@@ -150,9 +150,9 @@ function resetThreeGrid() {
 	$gap.removeClass("gap-three");
 	$("#three-puzzle-square-3").addClass("gap-three");
 
-	$("#three-puzzle-square-1").html(3);		
-	$("#three-puzzle-square-2").html(1);		
-	$("#three-puzzle-square-3").html("");		
+	$("#three-puzzle-square-1").html(3);
+	$("#three-puzzle-square-2").html(1);
+	$("#three-puzzle-square-3").html("");
 	$("#three-puzzle-square-4").html(2);
 	setGridPuzzleGameWidthAndHeight();
 }
@@ -226,6 +226,6 @@ lhGameGetTask1Data = function() {
 	no_of_moves = task1_no_of_moves;
 	no_of_resets = task1_no_of_resets;
 	time_to_give_up = Math.floor((Date.now()-task1_time_to_give_up)/1000);
-	
+
 	return [time_to_give_up, no_of_moves, no_of_resets]
 }
