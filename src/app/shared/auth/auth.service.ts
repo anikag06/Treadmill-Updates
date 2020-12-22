@@ -54,7 +54,7 @@ export class AuthService {
       window.localStorage.setItem(USERNAME, data.data.username);
       window.localStorage.setItem(
         IS_NINETY_DAYS_OVER,
-        data.data.is_ninety_days_over,
+        data.data.is_ninety_days_over
       );
     } catch (e) {
       window.sessionStorage.setItem(ISLOGGEDIN, 'true');
@@ -66,7 +66,7 @@ export class AuthService {
       window.sessionStorage.setItem(USERNAME, data.data.username);
       window.localStorage.setItem(
         IS_NINETY_DAYS_OVER,
-        data.data.is_ninety_days_over,
+        data.data.is_ninety_days_over
       );
     }
     this.getUserFromToken(
@@ -76,7 +76,7 @@ export class AuthService {
       data.data.is_active,
       data.data.is_exp,
       data.data.is_ninety_days_over,
-      data.data.username,
+      data.data.username
     );
   }
 
@@ -128,7 +128,7 @@ export class AuthService {
           isActive,
           isExp,
           isNinetyDaysOver,
-          username,
+          username
         );
       }
     }
@@ -141,10 +141,9 @@ export class AuthService {
     isActive: boolean,
     isExp: boolean,
     isNinetyDaysOver: boolean,
-    username: string,
+    username: string
   ) {
     const helper = new JwtHelperService();
-    const isExpired = helper.isTokenExpired(<string>data);
     const userData = helper.decodeToken(<string>data);
     const user = new User(
       +userData.user_id,
@@ -153,12 +152,10 @@ export class AuthService {
       isAdmin,
       isActive,
       isExp,
-      isNinetyDaysOver,
+      isNinetyDaysOver
     );
-    if (!isExpired) {
-      this.user = user;
-      return user;
-    }
+    this.user = user;
+    return user;
   }
 
   async logout(showDefaultPage: boolean) {
@@ -194,6 +191,7 @@ export class AuthService {
               window.localStorage.removeItem(ISACTIVE);
               window.localStorage.removeItem(IS_EXP);
               window.localStorage.removeItem(IS_NINETY_DAYS_OVER);
+              window.localStorage.removeItem(USERNAME);
 
               window.sessionStorage.removeItem(TOKEN);
               window.sessionStorage.removeItem(ISLOGGEDIN);
@@ -202,12 +200,13 @@ export class AuthService {
               window.sessionStorage.removeItem(ISACTIVE);
               window.sessionStorage.removeItem(IS_EXP);
               window.sessionStorage.removeItem(IS_NINETY_DAYS_OVER);
+              window.sessionStorage.removeItem(USERNAME);
             } else if (error.status === 0) {
               this.updateOnline();
             } else {
               this.online.next(true);
             }
-          },
+          }
         );
     }
   }
@@ -230,7 +229,7 @@ export class AuthService {
   private logoutCheck() {
     window.addEventListener(
       'storage',
-      event => {
+      (event) => {
         if (event.key === ISLOGGEDIN) {
           const isLoggedIn = window.localStorage.getItem(ISLOGGEDIN);
           if (
@@ -244,7 +243,7 @@ export class AuthService {
           }
         }
       },
-      false,
+      false
     );
   }
 
