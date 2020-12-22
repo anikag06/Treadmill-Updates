@@ -17,7 +17,7 @@ import { AuthService } from '@/shared/auth/auth.service';
 import { User } from '@/shared/user.model';
 import { NavigationStart, Router } from '@angular/router';
 import {
-  DEFAULT_PATH,
+  DEFAULT_PATH, LOGGED_IN_PATH,
   MOBILE_WIDTH,
   SHOW_TOAST_DURATION,
   SUPPORT_GROUP,
@@ -118,7 +118,7 @@ export class MainComponent
     public dialog: MatDialog,
   ) {
     this.getScreenSize();
-    this.authService.refresh();
+    // this.authService.refresh();
   }
 
   @HostListener('window:resize', ['$event'])
@@ -149,6 +149,14 @@ export class MainComponent
     //     this.introService.showPointsNotification(this.pointsNotification);
     //   }
     // });
+    this.commonService.checkTimeUpStatus().subscribe( (data: any) => {
+      console.log('TIME UP', data);
+      this.commonService.userTimeUp = data.is_ninety_days_over;
+      if (data.data.to_follow_up) {
+      console.log('FOLLOW UP', data);
+      this.router.navigate([LOGGED_IN_PATH]);
+      }
+    });
 
     this.fcmService.newNotification.subscribe(message => {
       const componentFactory = this.componentFactoryResolver.resolveComponentFactory(

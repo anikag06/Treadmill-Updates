@@ -47,6 +47,7 @@ import {
 } from '@/main/walk-through/intro.constant';
 import { take } from 'rxjs/operators';
 import { LoadFilesService } from '@/main/games/shared/load-files.service';
+import {CommonService} from "@/shared/common.service";
 
 @Component({
   selector: 'app-step',
@@ -66,6 +67,8 @@ export class StepComponent implements OnInit, AfterViewInit {
   isShowConversationBar = false;
   NAVIGATING_TREADWILL = 'Navigating TreadWill';
   POINTS_BADGES = 'Points, badges, and profile';
+  userTimeUp = false;
+
 
   constructor(
     private router: Router,
@@ -79,13 +82,12 @@ export class StepComponent implements OnInit, AfterViewInit {
     private goToService: NavbarGoToService,
     private authService: AuthService,
     private loadFileService: LoadFilesService,
+    private commonService: CommonService,
   ) {
     this.user = <User>this.authService.isLoggedIn();
   }
 
   ngOnInit() {
-    console.log('USER DETAILS', this.user, this.user.is_ninety_days_over);
-
     this.tooltipData = 'Complete the previous steps first';
     if (
       this.step.data_type === CONVERSATION_GROUP &&
@@ -164,6 +166,8 @@ export class StepComponent implements OnInit, AfterViewInit {
     this.goToService.nextControlContentLoad.emit();
     event.preventDefault();
     //
+    this.userTimeUp = this.commonService.userTimeUp;
+    console.log('USER DETAILS', this.userTimeUp);
     this.showTooltipFun();
     window.localStorage.setItem(CURRENT_STEP_ID, this.step.id.toString());
     window.localStorage.setItem(CURRENT_ACTION, this.step.action[0]);
@@ -330,7 +334,7 @@ export class StepComponent implements OnInit, AfterViewInit {
   }
 
   showTooltipFun() {
-    if (!this.user.is_ninety_days_over) {
+    if (this.userTimeUp === false) {
       if (this.step.status === LOCKED && this.step.sequence === 0) {
         this.flowService.getModuleUnlockTime(this.stepGroup.id, false);
         this.flowService.unlockModuleTime.pipe(take(1)).subscribe(data => {
@@ -358,6 +362,7 @@ export class StepComponent implements OnInit, AfterViewInit {
       }
     } else {
       if (this.step.status === LOCKED) {
+        console.log('LOCKED STEP');
         this.flowService.getModuleUnlockTime(this.stepGroup.id, true);
         this.flowService.unlockModuleTime.pipe(take(1)).subscribe(data => {
           if (data === false) {
