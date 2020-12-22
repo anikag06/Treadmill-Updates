@@ -17,7 +17,6 @@ import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
-  MatBottomSheetModule,
   MatExpansionModule,
   MatRadioModule,
   MatSlideToggleModule,
@@ -211,7 +210,6 @@ import { ProsConsInfoComponent } from './forms/problem-solving-worksheets/pros-c
     MatExpansionModule,
     MatRadioModule,
     MatSnackBarModule,
-    MatBottomSheetModule,
     SharedModule,
     ExtraResourcesModule,
   ],

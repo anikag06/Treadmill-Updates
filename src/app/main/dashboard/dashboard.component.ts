@@ -1,15 +1,18 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { User } from '@/shared/user.model';
 import { AuthService } from '@/shared/auth/auth.service';
-import { MOBILE_WIDTH, SCORE, TREADWILL } from '@/app.constants';
+import { MOBILE_WIDTH, SCORE, TABLET_WIDTH, TREADWILL } from '@/app.constants';
 import { Title } from '@angular/platform-browser';
 import { UserProfile } from '../shared/user-profile/UserProfile.model';
 import { UserProfileService } from '../shared/user-profile/user-profile.service';
 import { IntroService } from '@/main/walk-through/intro.service';
-import { Observable, Subscription, timer } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { isNotNullOrUndefined } from 'codelyzer/util/isNotNullOrUndefined';
-import { FlowService } from '@/main/flow/flow.service';
 import { QuizService } from '@/shared/questionnaire/questionnaire.service';
+import { UpdateBottomSheetComponent } from '@/shared/update-bottom-sheet/update-bottom-sheet.component';
+import { SwUpdate } from '@angular/service-worker';
+import { MatBottomSheet } from '@angular/material';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -27,8 +30,11 @@ export class DashboardComponent implements OnInit {
     private userProfileService: UserProfileService,
     private introService: IntroService,
     private quizService: QuizService,
+    private swUpdate: SwUpdate,
+    private _bottomSheet: MatBottomSheet
   ) {
     this.titleService.setTitle('Home | ' + TREADWILL);
+    this.checkForUpdates();
   }
 
   userProfile = new UserProfile('Name', '', 0, 0, 0, 0, [], [], []);
@@ -40,7 +46,7 @@ export class DashboardComponent implements OnInit {
 
     this.userProfileService
       .getUserProfile(this.user.username)
-      .subscribe(profile => {
+      .subscribe((profile) => {
         this.userProfile = new UserProfile(
           profile.username,
           profile.user_avatar,
@@ -50,21 +56,21 @@ export class DashboardComponent implements OnInit {
           profile.no_of_gold_badges,
           profile.badge_list_bronze,
           profile.badge_list_silver,
-          profile.badge_list_gold,
+          profile.badge_list_gold
         );
         window.localStorage.setItem(SCORE, this.userProfile.score.toString());
       });
     if (window.innerWidth < MOBILE_WIDTH) {
       this.introduceSubscription = this.introService.introduceBehaviour.subscribe(
-        showFlow => {
+        (showFlow) => {
           this.showFlow = showFlow;
-        },
+        }
       );
     }
     this.hideSubscription = this.introService.hideBehaviour.subscribe(
-      showFlow => {
+      (showFlow) => {
         this.hideCards = showFlow;
-      },
+      }
     );
     this.quizService.showFollowUp.subscribe(() => {
       this.showQuestionnaire = true;
@@ -80,5 +86,21 @@ export class DashboardComponent implements OnInit {
     if (isNotNullOrUndefined(this.hideSubscription)) {
       this.hideSubscription.unsubscribe();
     }
+  }
+
+  checkForUpdates() {
+    this.swUpdate.available.subscribe((event) => {
+      this.swUpdate.activateUpdate().then(() => {
+        this.openBottomSheet();
+      });
+    });
+  }
+
+  openBottomSheet(): void {
+    this._bottomSheet.open(UpdateBottomSheetComponent, {
+      panelClass:
+        window.innerWidth >= MOBILE_WIDTH ? 'bottom-sheet-container' : '',
+      disableClose: true,
+    });
   }
 }
