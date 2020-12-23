@@ -159,7 +159,11 @@ export class AuthService {
     const accessToken = this.getToken();
     if (accessToken !== null) {
       this.http
-        .get(environment.API_ENDPOINT + TOKEN_REFRESH_PATH, {
+        .get(environment.API_ENDPOINT + TOKEN_REFRESH_PATH,  {
+          headers:  {
+            'Cache-Control':
+              'no-cache, no-store, must-revalidate, post-check=0, pre-check=0',
+          },
           withCredentials: true,
         })
         .subscribe(
