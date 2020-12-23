@@ -31,7 +31,7 @@ export class DashboardComponent implements OnInit {
     private introService: IntroService,
     private quizService: QuizService,
     private swUpdate: SwUpdate,
-    private _bottomSheet: MatBottomSheet
+    private _bottomSheet: MatBottomSheet,
   ) {
     this.titleService.setTitle('Home | ' + TREADWILL);
     this.checkForUpdates();
@@ -46,7 +46,7 @@ export class DashboardComponent implements OnInit {
 
     this.userProfileService
       .getUserProfile(this.user.username)
-      .subscribe((profile) => {
+      .subscribe(profile => {
         this.userProfile = new UserProfile(
           profile.username,
           profile.user_avatar,
@@ -56,21 +56,21 @@ export class DashboardComponent implements OnInit {
           profile.no_of_gold_badges,
           profile.badge_list_bronze,
           profile.badge_list_silver,
-          profile.badge_list_gold
+          profile.badge_list_gold,
         );
         window.localStorage.setItem(SCORE, this.userProfile.score.toString());
       });
     if (window.innerWidth < MOBILE_WIDTH) {
       this.introduceSubscription = this.introService.introduceBehaviour.subscribe(
-        (showFlow) => {
+        showFlow => {
           this.showFlow = showFlow;
-        }
+        },
       );
     }
     this.hideSubscription = this.introService.hideBehaviour.subscribe(
-      (showFlow) => {
+      showFlow => {
         this.hideCards = showFlow;
-      }
+      },
     );
     this.quizService.showFollowUp.subscribe(() => {
       this.showQuestionnaire = true;
@@ -89,7 +89,7 @@ export class DashboardComponent implements OnInit {
   }
 
   checkForUpdates() {
-    this.swUpdate.available.subscribe((event) => {
+    this.swUpdate.available.subscribe(event => {
       this.swUpdate.activateUpdate().then(() => {
         this.openBottomSheet();
       });

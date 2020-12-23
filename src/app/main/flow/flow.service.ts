@@ -47,9 +47,7 @@ export class FlowService {
   }
 
   getFlow() {
-    return this.http.get(
-      environment.API_ENDPOINT + FLOW_STEPS_DATA,
-    );
+    return this.http.get(environment.API_ENDPOINT + FLOW_STEPS_DATA);
   }
 
   markDone(stepId: number, timeSpent: number) {

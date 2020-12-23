@@ -47,7 +47,7 @@ import {
 } from '@/main/walk-through/intro.constant';
 import { take } from 'rxjs/operators';
 import { LoadFilesService } from '@/main/games/shared/load-files.service';
-import {CommonService} from "@/shared/common.service";
+import { CommonService } from '@/shared/common.service';
 
 @Component({
   selector: 'app-step',
@@ -68,7 +68,6 @@ export class StepComponent implements OnInit, AfterViewInit {
   NAVIGATING_TREADWILL = 'Navigating TreadWill';
   POINTS_BADGES = 'Points, badges, and profile';
   userTimeUp = false;
-
 
   constructor(
     private router: Router,

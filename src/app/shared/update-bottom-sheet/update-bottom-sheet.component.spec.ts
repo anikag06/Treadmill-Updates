@@ -8,9 +8,8 @@ describe('UpdateBottomSheetComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UpdateBottomSheetComponent ]
-    })
-    .compileComponents();
+      declarations: [UpdateBottomSheetComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

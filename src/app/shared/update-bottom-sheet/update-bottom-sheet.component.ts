@@ -8,7 +8,7 @@ import { MatBottomSheetRef } from '@angular/material';
 })
 export class UpdateBottomSheetComponent implements OnInit {
   constructor(
-    private _bottomSheetRef: MatBottomSheetRef<UpdateBottomSheetComponent>
+    private _bottomSheetRef: MatBottomSheetRef<UpdateBottomSheetComponent>,
   ) {}
 
   ngOnInit() {}

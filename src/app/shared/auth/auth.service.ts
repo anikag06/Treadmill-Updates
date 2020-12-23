@@ -156,8 +156,8 @@ export class AuthService {
     const accessToken = this.getToken();
     if (accessToken !== null) {
       this.http
-        .get(environment.API_ENDPOINT + TOKEN_REFRESH_PATH,  {
-          headers:  {
+        .get(environment.API_ENDPOINT + TOKEN_REFRESH_PATH, {
+          headers: {
             'Cache-Control':
               'no-cache, no-store, must-revalidate, post-check=0, pre-check=0',
           },
@@ -190,7 +190,7 @@ export class AuthService {
             } else {
               this.online.next(true);
             }
-          }
+          },
         );
     }
   }
@@ -213,7 +213,7 @@ export class AuthService {
   private logoutCheck() {
     window.addEventListener(
       'storage',
-      (event) => {
+      event => {
         if (event.key === ISLOGGEDIN) {
           const isLoggedIn = window.localStorage.getItem(ISLOGGEDIN);
           if (
@@ -227,7 +227,7 @@ export class AuthService {
           }
         }
       },
-      false
+      false,
     );
   }
 

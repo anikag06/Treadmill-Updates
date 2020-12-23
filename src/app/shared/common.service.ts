@@ -129,6 +129,6 @@ export class CommonService {
     return this.http.get(
       environment.API_ENDPOINT + '/api/v1/user/time-up-status/',
       httpOptions,
-      );
+    );
   }
 }

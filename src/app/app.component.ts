@@ -28,7 +28,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.subscription = interval(this.REFRESH_INTERVAL).subscribe((val) => {
+    this.subscription = interval(this.REFRESH_INTERVAL).subscribe(val => {
       this.auth.refresh();
     });
   }
