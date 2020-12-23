@@ -186,7 +186,7 @@ export class SlidesComponent implements OnInit, AfterContentInit, DoCheck {
             this.stepName;
           console.log('STEP DETAIL:', this.navbarTitle);
           this.flowService.stepDetail.emit(this.navbarTitle);
-          this.initVideoData(slide_data);
+          // this.initVideoData(slide_data);    // commented for disabling the mindfulness prompt
           const slideId = slide_data.data.step_data.data.id;
           this.slideService
             .getFeedBackInfo(slideId)

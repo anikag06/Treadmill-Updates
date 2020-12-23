@@ -185,35 +185,36 @@ function showFrogGrid(grid_array){
 }
 
 function setFrogGridGameWidthAndHeight() {
+  // commented out to check whether different size required for different device pixel ratio
 	// setting asset sizes based on screen size
-	if(window.devicePixelRatio == 2) {
-
-		// frog game (unsolvable puzzle 2)
-		$(`.frog-game-flower,
-			.frog-game-flower-dry,
-			.frog-game-square-blank,
-			.frog-right,
-			.frog-left,
-			.frog-up,
-			.frog-down`).css({
-				'width': '150',
-				'height': '150'
-			});
-
-	}else if(window.devicePixelRatio == 1) {
-
-		// frog game (unsolvable puzzle 2)
-		$(`.frog-game-flower,
-			.frog-game-flower-dry,
-			.frog-game-square-blank,
-			.frog-right,
-			.frog-left,
-			.frog-up,
-			.frog-down`).css({
-				'width': '37',
-				'height': '37'
-			});
-	}else {
+	// if(window.devicePixelRatio == 2) {
+  //
+	// 	// frog game (unsolvable puzzle 2)
+	// 	$(`.frog-game-flower,
+	// 		.frog-game-flower-dry,
+	// 		.frog-game-square-blank,
+	// 		.frog-right,
+	// 		.frog-left,
+	// 		.frog-up,
+	// 		.frog-down`).css({
+	// 			'width': '150',
+	// 			'height': '150'
+	// 		});
+  //
+	// }else if(window.devicePixelRatio == 1) {
+  //
+	// 	// frog game (unsolvable puzzle 2)
+	// 	$(`.frog-game-flower,
+	// 		.frog-game-flower-dry,
+	// 		.frog-game-square-blank,
+	// 		.frog-right,
+	// 		.frog-left,
+	// 		.frog-up,
+	// 		.frog-down`).css({
+	// 			'width': '37',
+	// 			'height': '37'
+	// 		});
+	// }else {
 		// !!IMPORTANT!!
 		// write code for generic device pixel ratio
 		$(`.frog-game-flower,
@@ -226,7 +227,7 @@ function setFrogGridGameWidthAndHeight() {
 				'width': '37',
 				'height': '37'
 			});
-	}
+	// }
 }
 
 frogGameInit = function(){

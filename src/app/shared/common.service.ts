@@ -25,6 +25,8 @@ export class CommonService {
   pointsNotificationRef!: ViewContainerRef;
   isIntroPoints = false;
   introScoreSend = new EventEmitter<any>();
+  userTimeUp = false;
+
   constructor(
     private authService: AuthService,
     private http: HttpClient,
@@ -114,5 +116,19 @@ export class CommonService {
   }
   setIsIntroPointsFalse() {
     this.isIntroPoints = false;
+  }
+  checkTimeUpStatus() {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + this.authService.getToken(),
+        'Cache-Control':
+          'no-cache, no-store, must-revalidate, post-check=0, pre-check=0',
+      }),
+    };
+    return this.http.get(
+      environment.API_ENDPOINT + '/api/v1/user/time-up-status/',
+      httpOptions,
+      );
   }
 }

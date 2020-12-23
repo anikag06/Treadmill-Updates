@@ -12,7 +12,6 @@ import {
   DEFAULT_PATH,
   INELIGIBLE_FOR_TRIAL,
   IS_EXP,
-  IS_NINETY_DAYS_OVER,
   ISACTIVE,
   ISADMIN,
   LOGIN_PATH,
@@ -52,10 +51,6 @@ export class AuthService {
       window.localStorage.setItem(ISACTIVE, data.data.is_active);
       window.localStorage.setItem(IS_EXP, data.data.is_exp);
       window.localStorage.setItem(USERNAME, data.data.username);
-      window.localStorage.setItem(
-        IS_NINETY_DAYS_OVER,
-        data.data.is_ninety_days_over
-      );
     } catch (e) {
       window.sessionStorage.setItem(ISLOGGEDIN, 'true');
       window.sessionStorage.setItem(TOKEN, data.data.access_token);
@@ -64,10 +59,6 @@ export class AuthService {
       window.sessionStorage.setItem(ISACTIVE, data.data.is_active);
       window.sessionStorage.setItem(IS_EXP, data.data.is_exp);
       window.sessionStorage.setItem(USERNAME, data.data.username);
-      window.localStorage.setItem(
-        IS_NINETY_DAYS_OVER,
-        data.data.is_ninety_days_over
-      );
     }
     this.getUserFromToken(
       data.data.access_token,
@@ -75,8 +66,7 @@ export class AuthService {
       data.data.is_admin,
       data.data.is_active,
       data.data.is_exp,
-      data.data.is_ninety_days_over,
-      data.data.username
+      data.data.username,
     );
   }
 
@@ -100,15 +90,12 @@ export class AuthService {
       let isActive = false;
       let isExp = false;
       let username: string | null;
-      let isNinetyDaysOver = false;
       try {
         data = window.localStorage.getItem(TOKEN);
         avatar = window.localStorage.getItem(USERAVATAR);
         isAdmin = window.localStorage.getItem(ISADMIN) === 'true';
         isActive = window.localStorage.getItem(ISACTIVE) === 'true';
         isExp = window.localStorage.getItem(IS_EXP) === 'true';
-        isNinetyDaysOver =
-          window.localStorage.getItem(IS_NINETY_DAYS_OVER) === 'true';
         username = window.localStorage.getItem(USERNAME);
       } catch (e) {
         data = window.sessionStorage.getItem(TOKEN);
@@ -116,8 +103,6 @@ export class AuthService {
         isAdmin = window.sessionStorage.getItem(ISADMIN) === 'true';
         isActive = window.sessionStorage.getItem(ISACTIVE) === 'true';
         isExp = window.sessionStorage.getItem(IS_EXP) === 'true';
-        isNinetyDaysOver =
-          window.sessionStorage.getItem(IS_NINETY_DAYS_OVER) === 'true';
         username = window.sessionStorage.getItem(USERNAME);
       }
       if (data && avatar && isActive && username) {
@@ -127,8 +112,7 @@ export class AuthService {
           isAdmin,
           isActive,
           isExp,
-          isNinetyDaysOver,
-          username
+          username,
         );
       }
     }
@@ -140,8 +124,7 @@ export class AuthService {
     isAdmin: boolean,
     isActive: boolean,
     isExp: boolean,
-    isNinetyDaysOver: boolean,
-    username: string
+    username: string,
   ) {
     const helper = new JwtHelperService();
     const userData = helper.decodeToken(<string>data);
@@ -152,7 +135,6 @@ export class AuthService {
       isAdmin,
       isActive,
       isExp,
-      isNinetyDaysOver
     );
     this.user = user;
     return user;
@@ -174,7 +156,11 @@ export class AuthService {
     const accessToken = this.getToken();
     if (accessToken !== null) {
       this.http
-        .get(environment.API_ENDPOINT + TOKEN_REFRESH_PATH, {
+        .get(environment.API_ENDPOINT + TOKEN_REFRESH_PATH,  {
+          headers:  {
+            'Cache-Control':
+              'no-cache, no-store, must-revalidate, post-check=0, pre-check=0',
+          },
           withCredentials: true,
         })
         .subscribe(
@@ -190,7 +176,6 @@ export class AuthService {
               window.localStorage.removeItem(ISADMIN);
               window.localStorage.removeItem(ISACTIVE);
               window.localStorage.removeItem(IS_EXP);
-              window.localStorage.removeItem(IS_NINETY_DAYS_OVER);
               window.localStorage.removeItem(USERNAME);
 
               window.sessionStorage.removeItem(TOKEN);
@@ -199,7 +184,6 @@ export class AuthService {
               window.sessionStorage.removeItem(ISADMIN);
               window.sessionStorage.removeItem(ISACTIVE);
               window.sessionStorage.removeItem(IS_EXP);
-              window.sessionStorage.removeItem(IS_NINETY_DAYS_OVER);
               window.sessionStorage.removeItem(USERNAME);
             } else if (error.status === 0) {
               this.updateOnline();

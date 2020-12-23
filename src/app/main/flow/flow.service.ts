@@ -49,7 +49,6 @@ export class FlowService {
   getFlow() {
     return this.http.get(
       environment.API_ENDPOINT + FLOW_STEPS_DATA,
-      // this.httpOptions,
     );
   }
 

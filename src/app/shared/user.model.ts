@@ -6,6 +6,5 @@ export class User {
     public is_admin: boolean,
     public is_active: boolean,
     public is_exp: boolean,
-    public is_ninety_days_over: boolean,
   ) {}
 }
