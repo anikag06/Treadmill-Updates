@@ -182,6 +182,7 @@ import { SelfCareComponent } from './shared/self-care/self-care.component';
 import { ResourcesIntroComponent } from './walk-through/resources-intro/resources-intro.component';
 import { ReportproblemComponent } from './reportproblem/reportproblem.component';
 import { ReportproblemService } from '@/main/reportproblem/reportproblem.service';
+import { UpdateBottomSheetComponent } from '@/shared/update-bottom-sheet/update-bottom-sheet.component';
 
 // import { Resources2Routing } from './extra-resources/extra-resources-routing.module.ts/extra-resources-routing.module.ts.component';
 
@@ -299,6 +300,7 @@ import { ReportproblemService } from '@/main/reportproblem/reportproblem.service
     SelfCareComponent,
     ResourcesIntroComponent,
     ReportproblemComponent,
+    UpdateBottomSheetComponent,
   ],
   imports: [
     CommonModule,
@@ -413,6 +415,7 @@ import { ReportproblemService } from '@/main/reportproblem/reportproblem.service
     SelfCareComponent,
     ResourcesIntroComponent,
     ReportproblemComponent,
+    UpdateBottomSheetComponent,
   ],
   exports: [TrimStringPipe],
 })

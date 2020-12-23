@@ -47,7 +47,6 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { CommonDialogComponent } from './shared/common-dialog/common-dialog.component';
 import { PointsComponent } from '@/main/shared/points/points.component';
-import { AppUpdateService } from '@/app-update.service';
 import { GlobalErrorHandler } from '@/shared/global-error-handler';
 
 declare let $: any;
@@ -109,7 +108,6 @@ declare let $: any;
     QuizService,
     MatLoginDialogService,
     ResetPasswordService,
-    AppUpdateService,
     { provide: ErrorHandler, useClass: GlobalErrorHandler },
   ],
   bootstrap: [AppComponent],

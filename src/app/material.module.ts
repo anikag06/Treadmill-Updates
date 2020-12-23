@@ -5,6 +5,7 @@
 import { NgModule } from '@angular/core';
 
 import {
+  MatBottomSheetModule,
   MatButtonModule,
   MatCardModule,
   MatCheckboxModule,
@@ -53,6 +54,7 @@ import {
     MatNativeDateModule,
     MatSlideToggleModule,
     MatRadioModule,
+    MatBottomSheetModule,
   ],
   exports: [
     MatButtonModule,
@@ -77,6 +79,7 @@ import {
     MatNativeDateModule,
     MatSlideToggleModule,
     MatRadioModule,
+    MatBottomSheetModule,
   ],
 })
 export class MaterialModule {}
