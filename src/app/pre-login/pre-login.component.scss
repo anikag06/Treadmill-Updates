@@ -42,3 +42,8 @@ body {
   @include font-lato($font-weight: 700);
   font-size: 100% !important;
 }
+.links{
+  flex: none;
+  position: absolute;
+  right: 0;
+}
