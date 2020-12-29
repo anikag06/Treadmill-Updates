@@ -101,7 +101,6 @@ declare let $: any;
     AuthService,
     LocalStorageService,
     ContactUsDataService,
-    FcmService,
     TimerService,
     SignUpService,
     CommonService,

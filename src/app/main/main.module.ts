@@ -183,6 +183,7 @@ import { ResourcesIntroComponent } from './walk-through/resources-intro/resource
 import { ReportproblemComponent } from './reportproblem/reportproblem.component';
 import { ReportproblemService } from '@/main/reportproblem/reportproblem.service';
 import { UpdateBottomSheetComponent } from '@/shared/update-bottom-sheet/update-bottom-sheet.component';
+import { FcmService } from '@/shared/fcm.service';
 
 // import { Resources2Routing } from './extra-resources/extra-resources-routing.module.ts/extra-resources-routing.module.ts.component';
 
@@ -363,6 +364,7 @@ import { UpdateBottomSheetComponent } from '@/shared/update-bottom-sheet/update-
     ReportService,
     GamesProgressBarService,
     ReportproblemService,
+    FcmService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthHeaderInterceptor,

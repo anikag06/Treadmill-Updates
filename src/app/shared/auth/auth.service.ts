@@ -14,12 +14,12 @@ import {
   IS_EXP,
   ISACTIVE,
   ISADMIN,
+  ISLOGGEDIN,
+  LOGGED_IN_PATH,
   LOGIN_PATH,
   TOKEN,
   TOKEN_REFRESH_PATH,
   USERAVATAR,
-  ISLOGGEDIN,
-  LOGGED_IN_PATH,
   USERNAME,
 } from '@/app.constants';
 import { User } from '@/shared/user.model';
@@ -66,7 +66,7 @@ export class AuthService {
       data.data.is_admin,
       data.data.is_active,
       data.data.is_exp,
-      data.data.username,
+      data.data.username
     );
   }
 
@@ -112,7 +112,7 @@ export class AuthService {
           isAdmin,
           isActive,
           isExp,
-          username,
+          username
         );
       }
     }
@@ -124,7 +124,7 @@ export class AuthService {
     isAdmin: boolean,
     isActive: boolean,
     isExp: boolean,
-    username: string,
+    username: string
   ) {
     const helper = new JwtHelperService();
     const userData = helper.decodeToken(<string>data);
@@ -134,7 +134,7 @@ export class AuthService {
       avatar,
       isAdmin,
       isActive,
-      isExp,
+      isExp
     );
     this.user = user;
     return user;
@@ -190,15 +190,16 @@ export class AuthService {
             } else {
               this.online.next(true);
             }
-          },
+          }
         );
     }
   }
 
   getToken() {
-    return (
-      window.localStorage.getItem(TOKEN) || window.sessionStorage.getItem(TOKEN)
-    );
+    const token =
+      window.localStorage.getItem(TOKEN) ||
+      window.sessionStorage.getItem(TOKEN);
+    return token !== null ? token : '';
   }
 
   updateOnline() {
@@ -213,7 +214,7 @@ export class AuthService {
   private logoutCheck() {
     window.addEventListener(
       'storage',
-      event => {
+      (event) => {
         if (event.key === ISLOGGEDIN) {
           const isLoggedIn = window.localStorage.getItem(ISLOGGEDIN);
           if (
@@ -227,7 +228,7 @@ export class AuthService {
           }
         }
       },
-      false,
+      false
     );
   }
 
