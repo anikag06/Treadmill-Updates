@@ -1,5 +1,5 @@
 <div *ngIf = "readingType === 'readingMaterial'">
-    <mat-card class="reading-card" >
+    <mat-card class="reading-card" matRipple [matRippleColor]="'#00000010'">
 
       <div class = "preview-img-div" [ngStyle]="{visibility: showLoading ? 'hidden' : 'visible'}">
 
@@ -15,7 +15,7 @@
     </mat-card>
 </div>
 <div *ngIf = "readingType === 'usefulList'">
-  <mat-card class="reading-card" >
+  <mat-card class="reading-card" matRipple [matRippleColor]="'#00000010'">
 
     <div class = "preview-img-div" [ngStyle]="{visibility: showLoading ? 'hidden' : 'visible'}">
 

@@ -1,4 +1,4 @@
-<mat-card class="mat-card" (click)="onGameClick(game)">
+<mat-card class="mat-card" (click)="onGameClick(game)" matRipple [matRippleColor]="'#00000010'">
   <div class="cover-img" [style.background-color]="getBackgroundColor(game.slug)">
     <img class="mx-auto" [src]="game.thumbnail" (load)="removeLoading()" [ngStyle]="{display: showLoading ? 'none' : 'inline'}" [alt]="game.name" style="height:130px">
    <p class="loading-text" *ngIf="showLoading"> Loading... </p>

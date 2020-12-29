@@ -10,6 +10,9 @@ margin-top: 25px;
   max-width: 350px;
   min-height:228px;
   background-color: #F6FCFC;
+ &:hover {
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.16) !important;
+  }
 }
 .form-name {
   //height: 73px;

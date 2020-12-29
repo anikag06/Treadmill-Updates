@@ -1,6 +1,6 @@
 
 <div *ngIf = "videoType === 'mindfulnessVideo'">
-<mat-card class="card">
+<mat-card class="card" matRipple [matRippleColor]="'#00000010'">
         <div class = "preview-img-div" [ngStyle]="{visibility: showLoading ? 'hidden' : 'visible'}">
         <img class = "preview-img" [src]="mindfulnessVideoItem.resource_video.preview_img" (load)="removeLoading()" >
         <img class = "youtube-button" src = "assets/icons/youtube.png">
@@ -13,7 +13,7 @@
 </div>
 
 <div *ngIf = "videoType === 'video'" >
-  <mat-card class="card">
+  <mat-card class="card" matRipple [matRippleColor]="'#00000010'">
             <div class = "preview-img-div" [ngStyle]="{visibility: showLoading ? 'hidden' : 'visible'}">
             <img class = "preview-img" [src]="videoItem.preview_img" (load)="removeLoading()" >
             <img class = "youtube-button" src = "assets/icons/youtube.png">
@@ -26,7 +26,7 @@
 </div>
 
 <div *ngIf = "videoType === 'videoCovid19'" >
-  <mat-card class="card">
+  <mat-card class="card" matRipple [matRippleColor]="'#00000010'">
     <div class = "preview-img-div" [ngStyle]="{visibility: showLoading ? 'hidden' : 'visible'}">
       <img class = "preview-img" [src]="videoCovid19Item.preview_img" (load)="removeLoading()" >
       <img class = "youtube-button" src = "assets/icons/youtube.png">

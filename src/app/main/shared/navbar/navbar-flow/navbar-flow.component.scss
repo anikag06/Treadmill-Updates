@@ -25,6 +25,11 @@
     .close-icon {
       float: right;
       outline: none;
+      &:hover,
+      &:active {
+        cursor: pointer;
+        background-color: #00000020;
+      }
     }
   }
 }
