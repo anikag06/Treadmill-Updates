@@ -17,23 +17,23 @@ export class FcmService {
   constructor(
     private afMessaging: AngularFireMessaging,
     private http: HttpClient,
-    private errorService: GeneralErrorService
+    private errorService: GeneralErrorService,
   ) {}
 
   requestPermission() {
     this.afMessaging.requestPermission
       .pipe(mergeMapTo(this.afMessaging.tokenChanges))
       .subscribe(
-        (token) => {
+        token => {
           if (token) {
-            this.updateToken(token).subscribe((data) => {
+            this.updateToken(token).subscribe(data => {
               this.listenForNewMessage();
             });
           }
         },
-        (error) => {
+        error => {
           this.errorService.openErrorDialog(error);
-        }
+        },
       );
   }
 
@@ -53,7 +53,7 @@ export class FcmService {
     // };
     return this.http.post(
       environment.API_ENDPOINT + '/api/v1/notifications/device-registration/',
-      { registration_id: token }
+      { registration_id: token },
     );
   }
 
@@ -61,20 +61,20 @@ export class FcmService {
     this.afMessaging.requestPermission
       .pipe(mergeMapTo(this.afMessaging.tokenChanges))
       .subscribe(
-        (token) => {
+        token => {
           if (token) {
             console.log('Permission granted! Save to the server!', token);
             console.log('participant id: ', part_id);
-            this.participantUpdateToken(part_id, token).subscribe((data) => {
+            this.participantUpdateToken(part_id, token).subscribe(data => {
               console.log('Token Updated');
               this.permit.next(true);
             });
           }
         },
-        (error) => {
+        error => {
           this.errorService.openErrorDialog(error);
           this.permit.next(false);
-        }
+        },
       );
   }
   participantUpdateToken(part_id: number, token: string) {
@@ -82,12 +82,12 @@ export class FcmService {
     return this.http.post(
       environment.API_ENDPOINT +
         '/api/v1/notifications/store-device-registration/',
-      { participant_id: part_id, registration_id: token }
+      { participant_id: part_id, registration_id: token },
     );
   }
 
   listenForNewMessage() {
-    this.afMessaging.messages.subscribe((message) => {
+    this.afMessaging.messages.subscribe(message => {
       // emit signal for notification message
       this.newNotification.next(message);
     });
