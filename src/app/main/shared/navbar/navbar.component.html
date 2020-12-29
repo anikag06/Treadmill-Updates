@@ -7,7 +7,7 @@
             }">
       <div class="all-icons ">
         <button
-          mat-flat-button
+          mat-icon-button
           class="back-button"
           *ngIf="!isDashboard"
           (click)="backClick()"
@@ -34,7 +34,7 @@
           <div
             class="icon-items" *ngIf="!isDashboard">
           <button
-            mat-flat-button
+            mat-icon-button
             class="back-button"
             (click)="backClick()"
           >
@@ -53,7 +53,7 @@
             class="hamburger-button icon-items"
             type="button"
             aria-label="Toggle sidenav"
-            mat-flat-button
+            mat-icon-button
             (click)="hamburgerClicked()"
           >
             <img
@@ -67,7 +67,9 @@
           class="icon-items">
             <div
               class="navbar-title"
-              [style.width]="convMode ? '80%' : '100%'"
+              [style.width]="convMode ? '80%' : ''"
+              [style.marginLeft]="isDashboard ? '0' : '46px'"
+
               [matTooltip]="navbarTitle"
               matTooltipPosition="above"
             >
@@ -89,18 +91,18 @@
           'd-none': hideCards
         }"
       >
-        <div class="icon-items" *ngIf="!isDashboard" (click)="homeClick()">
+        <button class="icon-items" *ngIf="!isDashboard"  mat-icon-button (click)="homeClick()">
           <img src="assets/shared/home web.png" height=" 32px" alt="Home" />
-        </div>
+        </button>
         <div *ngIf="user.is_exp" >
-          <div
+          <button
             class="icon-items"
             style="margin-left: 20px;"
             (menuClosed)="notificationClick()"
             (menuOpened)="notificationClick()"
             [matMenuTriggerFor]="appNavBarNotify"
             style="position: relative"
-          >
+            mat-icon-button >
             <img
               src="assets/shared/notification web.png"
               height=" 32px"
@@ -113,11 +115,10 @@
               unreadCount
               }}</span>
           </div>
-        </div>
+        </button>
         </div>
         <div
           id="goto_desktop"
-          class="icon-items"
           (click)="flowClick()"
           style="margin-left: 20px;"
         >
@@ -153,12 +154,13 @@
             />
           </div>
           <div *ngIf="user.is_exp">
-            <div
+            <button
               class="icon-items"
               (menuClosed)="notificationClick()"
               (menuOpened)="notificationClick()"
               [matMenuTriggerFor]="appNavBarNotify"
               style="position: relative"
+              mat-icon-button
             >
               <img
                 src="assets/shared/Notification mobile.png"
@@ -178,15 +180,15 @@
                 unreadCount
                 }}</span>
             </div>
+          </button>
           </div>
-          </div>
-          <div class="icon-items" *ngIf="!isDashboard" (click)="homeClick()">
+          <button class="icon-items" *ngIf="!isDashboard" (click)="homeClick()" mat-icon-button >
             <img
               src="assets/shared/Home mobile.png"
               height=" 24px"
               alt="Home"
             />
-          </div>
+          </button>
         </div>
       </div>
     </div>

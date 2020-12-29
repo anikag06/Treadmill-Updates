@@ -119,6 +119,7 @@ import { Conclusion6Component } from './conclusion/conclusion6/conclusion6.compo
 import { ExtraResourcesModule } from '@/shared/extra-resources.module';
 import { StepCompletedComponent } from './shared/step-completed/step-completed.component';
 import { ProsConsInfoComponent } from './forms/problem-solving-worksheets/pros-cons-container/pros-cons/pros-cons-info/pros-cons-info.component';
+import {MatRippleModule} from "@angular/material/core";
 
 @NgModule({
   declarations: [
@@ -210,6 +211,7 @@ import { ProsConsInfoComponent } from './forms/problem-solving-worksheets/pros-c
     MatExpansionModule,
     MatRadioModule,
     MatSnackBarModule,
+    MatRippleModule,
     SharedModule,
     ExtraResourcesModule,
   ],

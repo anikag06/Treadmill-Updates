@@ -8,28 +8,40 @@
       id="common-pause-clicked-div">
       <div class="common-pause-clicked">
         <div class="col paused-game-btns">
+          <button mat-icon-button class="common-game-btn">
           <img id="common-home-btn" class="home-btn mx-auto img-btn" (click)="onHomeClick()"
             src="../../../../assets/games/home.svg">
+          </button>
         </div>
         <div class="col paused-game-btns">
+          <button mat-icon-button class="common-game-btn">
           <img id="common-help-btn" class="help-btn mx-auto img-btn" (click)="onHelpClick()"
             src="../../../../../assets/games/help.svg">
+          </button>
         </div>
         <div class="col paused-game-btns">
+          <button mat-icon-button class="common-game-btn">
           <img id="common-resume-btn" class="resume-btn mx-auto img-btn" (click)="onResumeClick()"
             src="../../../../../assets/games/play.svg">
+          </button>
         </div>
         <div class="col paused-game-btns">
+          <button mat-icon-button class="common-game-btn">
           <img id="common-replay-btn" class="replay-btn mx-auto img-btn" (click)="onRestartClick()"
-            src="../../../../../assets/games/replay.svg">
+               src="../../../../../assets/games/replay.svg">
+          </button>
         </div>
         <div class="col paused-game-btns">
-          <img id="common-sound-on-btn" class="sound mx-auto img-btn" (click)="onSoundClick()" *ngIf="isSoundOn"
+          <button mat-icon-button class="common-game-btn" *ngIf="isSoundOn">
+          <img id="common-sound-on-btn" class="sound mx-auto img-btn" (click)="onSoundClick()"
             src="../../../../../assets/games/sound.svg">
+          </button>
         </div>
         <div class="col paused-game-btns">
-          <img id="common-sound-off-btn" class="sound mx-auto img-btn" (click)="onSoundClick()" *ngIf="!isSoundOn"
+          <button mat-icon-button class="common-game-btn" *ngIf="!isSoundOn">
+          <img id="common-sound-off-btn" class="sound mx-auto img-btn" (click)="onSoundClick()"
             src="../../../../../assets/games/mute.svg">
+          </button>
         </div>
       </div>
     </div>
@@ -54,10 +66,14 @@
         </div>
 
         <div class="col-auto ml-auto px-0">
-          <img id="common-sound-on-fp" class="common-sound-btn mx-2 img-btn" (click)="onSoundClick()" *ngIf="isSoundOn"
+          <button mat-icon-button class="mx-2 common-game-btn" *ngIf="isSoundOn">
+          <img id="common-sound-on-fp" class="common-sound-btn img-btn float-right" (click)="onSoundClick()"
             src="../../../../../assets/games/sound.svg">
-          <img id="common-sound-off-fp" class="common-sound-btn img-btn float-right mx-2" (click)="onSoundClick()"
-            *ngIf="!isSoundOn" src="../../../../../assets/games/mute.svg">
+          </button>
+          <button mat-icon-button class="mx-2 common-game-btn" *ngIf="!isSoundOn">
+            <img id="common-sound-off-fp" class="common-sound-btn img-btn float-right" (click)="onSoundClick()"
+            src="../../../../../assets/games/mute.svg">
+          </button>
         </div>
       </div>
       <!-- <img
@@ -68,8 +84,10 @@
     </div>
     <div class="row justify-content-center align-items-center play-game-btn" #start_game_btns *ngIf="!loading">
       <div class="col-auto mx-auto justify-content-center">
+        <button mat-icon-button style="height: 60px;width: 60px">
         <img id="common-start-btn" class="common-play-game mx-auto" (click)="onPlayClick()"
           src="../../../../../assets/games/play.svg">
+        </button>
       </div>
       <div class="col-12 text-center">
         <div class="small-font"> Tap to start </div>
@@ -81,11 +99,17 @@
             'center-postion': portraitGame ===true ,
             'end-position' : portraitGame === false
           }" #pause_common_div>
-      <img id="common-pause" class="mx-2 img-btn" (click)="onPauseClick()" src="../../../../../assets/games/pause.svg">
-      <img id="common-sound-on" class="mx-2 img-btn common-sound float-right" (click)="onSoundClick()" *ngIf="isSoundOn"
+      <button mat-icon-button class="mx-2 common-game-btn" (click)="onPauseClick()">
+      <img id="common-pause" class="img-btn" src="../../../../../assets/games/pause.svg">
+      </button>
+      <button mat-icon-button class="mx-2 common-game-btn" *ngIf="isSoundOn">
+      <img id="common-sound-on" class="img-btn common-sound float-right" (click)="onSoundClick()"
         src="../../../../../assets/games/sound.svg">
-      <img id="common-sound-off" class="mx-2 img-btn common-sound float-right" (click)="onSoundClick()"
-        *ngIf="!isSoundOn" src="../../../../../assets/games/mute.svg">
+      </button>
+      <button mat-icon-button class="mx-2 common-game-btn" *ngIf="!isSoundOn" >
+      <img id="common-sound-off" class="img-btn common-sound float-right" (click)="onSoundClick()"
+        src="../../../../../assets/games/mute.svg">
+      </button>
       <!-- <div class="hint-btn-div">
 
         </div> -->

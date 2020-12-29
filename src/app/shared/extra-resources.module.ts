@@ -15,19 +15,21 @@ import {
   MatDialogRef,
 } from '@angular/material';
 import { SharedModule } from '@/shared/shared.module';
+import {MatRippleModule} from "@angular/material/core";
 //import {YouTubePlayerModule} from '@angular/youtube-player';
 //import { TrimStringPipe} from '@/main/shared/trim-string.pipe';
 
 @NgModule({
-  imports: [
-    ExtraResourcesRoutingModule,
-    CommonModule,
-    // MaterialModule,
-    SharedModule,
-    MatCardModule,
-    MatDialogModule,
-    //  YouTubePlayerModule
-  ],
+    imports: [
+        ExtraResourcesRoutingModule,
+        CommonModule,
+        // MaterialModule,
+        SharedModule,
+        MatCardModule,
+        MatDialogModule,
+        MatRippleModule,
+        //  YouTubePlayerModule
+    ],
   declarations: [
     ExtraResourcesComponent,
     VideosComponent,

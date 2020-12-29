@@ -63,10 +63,16 @@
       margin-left: 12px;
     }
     .close-icon {
-      margin-top: 7px;
+      margin-top: 3px;
       margin-left: 12px;
       outline: none;
       float: right;
+      &:hover,
+      &:active {
+        cursor: pointer;
+        background-color: #00000010;
+      }
+
     }
   }
   .chat-frame-container {
