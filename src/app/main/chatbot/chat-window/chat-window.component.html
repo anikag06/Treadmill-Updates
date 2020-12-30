@@ -70,7 +70,7 @@
             <button
               (click)="onMoodSelect()"
               *ngIf="widget === moodWidget && showMoodWidgetBtn"
-              class="mood-btn btn px-0 py-0 btn-outline-light"
+              class="mood-btn btn px-0 py-0 btn-outline-light mt-2"
             >
               <img
                 [ngStyle]="{ width: '184px', height: '50px' }"
@@ -88,7 +88,7 @@
               ></app-mood-tracker>
             </div>
             <button
-              class="btn px-0 py-0 btn-outline-light date-time-btn"
+              class="btn px-0 py-0 btn-outline-light date-time-btn mt-2"
               (click)="onDateTimeSelect()"
               *ngIf="widget === dateTimeWidget && showDateTimeWidgetBtn"
             >
