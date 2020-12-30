@@ -43,6 +43,7 @@ import { isNotNullOrUndefined } from 'codelyzer/util/isNotNullOrUndefined';
 import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
 import { ReportproblemComponent } from './reportproblem/reportproblem.component';
 import { MatDialog } from '@angular/material/dialog';
+import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.service';
 
 declare var twemoji: any;
 
@@ -84,7 +85,7 @@ export class MainComponent
 
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe([Breakpoints.Handset, Breakpoints.Small])
-    .pipe(map(result => result.matches));
+    .pipe(map((result) => result.matches));
   isExpanded = true;
 
   @ViewChild(ToastNotificationDirective, { static: true })
@@ -117,6 +118,7 @@ export class MainComponent
     private introService: IntroService,
     private introDialogService: IntroDialogService,
     public dialog: MatDialog,
+    private flowStepService: FlowStepNavigationService
   ) {
     this.getScreenSize();
   }
@@ -149,7 +151,7 @@ export class MainComponent
     //     this.introService.showPointsNotification(this.pointsNotification);
     //   }
     // });
-    this.commonService.checkTimeUpStatus().subscribe((data: any) => {
+    this.flowStepService.checkTimeUpStatus().subscribe((data: any) => {
       console.log('TIME UP', data);
       this.commonService.userTimeUp = data.is_ninety_days_over;
       if (data.data.to_follow_up) {
@@ -158,13 +160,13 @@ export class MainComponent
       }
     });
 
-    this.fcmService.newNotification.subscribe(message => {
+    this.fcmService.newNotification.subscribe((message) => {
       const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
-        ToastNotificationComponent,
+        ToastNotificationComponent
       );
 
       const toastComponentRef = this.toastNotification.viewContainerRef.createComponent(
-        componentFactory,
+        componentFactory
       );
 
       toastComponentRef.instance.title = message.notification.title;
@@ -200,20 +202,20 @@ export class MainComponent
       console.log('OVERLAY OPEN', this.overlayService.overlayOpen);
     });
 
-    this.commonService.isOnline$().subscribe(isOnline => {
+    this.commonService.isOnline$().subscribe((isOnline) => {
       this.connectionNotification.clear();
       const statusMessage = isOnline
         ? this.onlineStatusMessages[
             Math.floor(
-              Math.random() * Math.floor(this.onlineStatusMessages.length),
+              Math.random() * Math.floor(this.onlineStatusMessages.length)
             )
           ]
         : "You're offline. Changes won't be saved &#128577;";
       const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
-        InternetConnectionComponent,
+        InternetConnectionComponent
       );
       const connectionComponentRef = this.connectionNotification.createComponent(
-        componentFactory,
+        componentFactory
       );
       connectionComponentRef.instance.onlineStatus = isOnline;
       connectionComponentRef.instance.statusMessage = statusMessage;
@@ -224,16 +226,16 @@ export class MainComponent
             connectionComponentRef.destroy();
             this.firstLoad = false;
           },
-          this.firstLoad ? 0 : 3000,
+          this.firstLoad ? 0 : 3000
         );
       }
     });
 
     if (window.innerWidth < MOBILE_WIDTH) {
       this.introSubscription = this.introService.overlayBehaviour.subscribe(
-        showOverlay => {
+        (showOverlay) => {
           this.showOverlay = showOverlay;
-        },
+        }
       );
     }
 
@@ -243,13 +245,13 @@ export class MainComponent
         if (data && flag !== undefined && !flag) {
           this.introDialogService.openIntroDialog();
         }
-      },
+      }
     );
 
     this.fixParentSubscription = this.introService.fixParentBehaviour.subscribe(
       (data: boolean) => {
         this.fixParent = data;
-      },
+      }
     );
     this.flowService.sideNavIntro.subscribe((value: boolean) => {
       this.introAnimation = value;
@@ -285,7 +287,7 @@ export class MainComponent
     }
     if (!this.routing) {
       this.router.events
-        .pipe(filter(e => e instanceof NavigationStart))
+        .pipe(filter((e) => e instanceof NavigationStart))
         .subscribe((e: any) => {
           this.goToQuestionnaire(e);
         });

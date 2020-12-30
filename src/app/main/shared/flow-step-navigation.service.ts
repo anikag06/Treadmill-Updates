@@ -19,7 +19,7 @@ import {
 } from '@/app.constants';
 import { Observable } from 'rxjs';
 import { environment } from 'environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { StepGroup } from '@/main/flow/step-group/step-group.model';
 
 @Injectable({
@@ -64,7 +64,7 @@ export class FlowStepNavigationService {
 
   getNextStepData(stepId: number): Observable<any> {
     return this.http.get(
-      environment.API_ENDPOINT + '/api/v1/flow/steps/' + stepId + '/',
+      environment.API_ENDPOINT + '/api/v1/flow/steps/' + stepId + '/'
     );
   }
 
@@ -73,7 +73,7 @@ export class FlowStepNavigationService {
       environment.API_ENDPOINT +
         '/api/v1/flow/next-step-group-status/' +
         stepId +
-        '/',
+        '/'
     );
   }
 
@@ -90,5 +90,11 @@ export class FlowStepNavigationService {
       step_id: stepId,
       time_spent: timeSpent,
     });
+  }
+
+  checkTimeUpStatus() {
+    return this.http.get(
+      environment.API_ENDPOINT + '/api/v1/user/time-up-status/'
+    );
   }
 }
