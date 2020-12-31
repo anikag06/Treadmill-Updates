@@ -207,7 +207,7 @@ export class CommentComponent
           data.body,
           0,
           this.user,
-          -1,
+          0,
           new Date().toISOString(),
         );
         const updatedNestedComment = new UserNestedComment(

@@ -87,6 +87,9 @@ a.toggler:hover {
   button.btn {
     cursor: pointer;
     box-shadow: none;
+    &:hover {
+      background-color: #00000020;
+    }
     //outline: none;
   }
 
@@ -95,6 +98,7 @@ a.toggler:hover {
   }
 
   .comment-btn {
+    margin-top: 5px;
     width: 100px;
     color: white;
     background-color: #2A3B3D;

@@ -184,6 +184,10 @@ export class PostListComponent implements OnInit, OnDestroy {
     }
     if (this.searchTerm !== '') {
       this.clearSearch = true;
+    } else {
+      console.log('no search');
+      this.getPosts();
+      this.clearSearch = false;
     }
   }
 

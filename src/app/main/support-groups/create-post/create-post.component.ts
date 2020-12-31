@@ -141,7 +141,7 @@ export class CreatePostComponent implements OnInit {
           0,
           new Date().toISOString(),
           0,
-          -1,
+          0,
         );
         const updatedsgItem = new SupportGroupItem(
           sgItem.id,
