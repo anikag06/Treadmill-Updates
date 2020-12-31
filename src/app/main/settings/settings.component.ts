@@ -108,7 +108,11 @@ export class SettingsComponent implements OnInit {
       this.notificationHeadingIsClicked = false;
       this.goToService.settingsPageTitle.emit('Settings');
     });
-
+    if (!this.usernameHeadingClicked &&
+    !this.passwordHeadingClicked &&
+    !this.notificationHeadingIsClicked) {
+    this.goToService.settingsPageTitle.emit('Settings');
+    }
     this.settingsService.updatedNotificationsState().subscribe(
       (data: any) => {
         this.supportGroupEmailToggle = data.data.support_group_email;

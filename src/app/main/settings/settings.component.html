@@ -2,9 +2,9 @@
 <!--<link rel="stylesheet" href="../main.component.scss">-->
 <div [ngClass] = "this.usernameHeadingClicked === true || this.passwordHeadingClicked === true? 'flex-style-short' : 'flex-style'">
 <div class = "row settings-row mx-0">
-  <div class = "col background-col">
+  <div class = "col background-col px-0">
     <div class = "below-col-container" >
-    <div class = "each-div" *ngIf = "(!this.passwordHeadingClicked && !this.notificationHeadingIsClicked )" >
+    <div class = "each-div" *ngIf = "(!this.passwordHeadingClicked && !this.notificationHeadingIsClicked )" [ngClass] = "this.usernameHeadingClicked === false ? 'showHover' : ''">
     <a class = "heading" style = "display: block" (click) = "changeUsernameHeadingClicked()" *ngIf = "!this.usernameHeadingClicked"><img src = "assets/shared/change.svg" class = "settings-icon">Change username<img src = "assets/shared/right_arrow.png" class = "right-arrow-icon"></a>
     <div class = "row" *ngIf = " this.usernameHeadingClicked">
 
@@ -92,7 +92,7 @@
     </div>
 
 
-      <div class = "each-div" *ngIf = "!this.usernameHeadingClicked && !this.notificationHeadingIsClicked">
+      <div class = "each-div" *ngIf = "!this.usernameHeadingClicked && !this.notificationHeadingIsClicked" [ngClass] = "this.passwordHeadingClicked === false ? 'showHover' : ''">
       <a class = "heading"  style = "display: block"(click) = "changePasswordHeadingClicked()" *ngIf = "!this.passwordHeadingClicked"><img src = "assets/shared/change.svg" class = "settings-icon">Change password <img src = "assets/shared/right_arrow.png" class = "right-arrow-icon"></a>
         <div class = "row" *ngIf = "this.passwordHeadingClicked">
 
@@ -173,9 +173,10 @@
 
 
 
-      <div class = "each-div" *ngIf = "this.user.is_exp && !this.usernameHeadingClicked && !this.passwordHeadingClicked">
+      <div class = "each-div " *ngIf = "this.user.is_exp && !this.usernameHeadingClicked && !this.passwordHeadingClicked"[ngClass] = "this.notificationHeadingIsClicked === false ? 'showHover' : ''">
 
-      <a class = "heading" style = "display: block" (click) = "notificationHeadingClicked()" *ngIf = "!this.notificationHeadingIsClicked"><img src = "assets/shared/notification%20settings.svg" class = "settings-icon">Notification Settings<img src = "assets/shared/right_arrow.png" class = "right-arrow-icon"></a>
+      <a class = "heading" style = "display: block" (click) = "notificationHeadingClicked()" *ngIf = "!this.notificationHeadingIsClicked">
+        <img src = "assets/shared/notification%20settings.svg" class = "settings-icon">Notification Settings<img src = "assets/shared/right_arrow.png" class = "right-arrow-icon"></a>
       <div *ngIf = "this.notificationHeadingIsClicked">
       <p class = "notification-subheading">Support Group</p>
         <p class = "push-email-notification">
@@ -299,7 +300,7 @@
         </p>
       </div>
       </div>
-      <div class = "each-div" *ngIf = "!this.usernameHeadingClicked && !this.passwordHeadingClicked && !this.notificationHeadingIsClicked">
+      <div class = "each-div showHover" *ngIf = "!this.usernameHeadingClicked && !this.passwordHeadingClicked && !this.notificationHeadingIsClicked">
         <img src = "assets/shared/logout.png" class = "settings-icon">
         <a class = "heading" style="color: #BF494E; font-weight: bold; text-decoration: none;" routerLink="/main/logout" >Log Out</a>
       </div>
