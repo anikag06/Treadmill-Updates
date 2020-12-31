@@ -226,7 +226,7 @@ export class PostItemComponent
               0,
               0,
               new Date().toISOString(),
-              -1,
+              0,
             );
             const updatedComment = new UserComment(
               persistedComment.id,
