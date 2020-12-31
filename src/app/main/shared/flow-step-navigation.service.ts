@@ -64,7 +64,7 @@ export class FlowStepNavigationService {
 
   getNextStepData(stepId: number): Observable<any> {
     return this.http.get(
-      environment.API_ENDPOINT + '/api/v1/flow/steps/' + stepId + '/'
+      environment.API_ENDPOINT + '/api/v1/flow/steps/' + stepId + '/',
     );
   }
 
@@ -73,7 +73,7 @@ export class FlowStepNavigationService {
       environment.API_ENDPOINT +
         '/api/v1/flow/next-step-group-status/' +
         stepId +
-        '/'
+        '/',
     );
   }
 
@@ -94,7 +94,7 @@ export class FlowStepNavigationService {
 
   checkTimeUpStatus() {
     return this.http.get(
-      environment.API_ENDPOINT + '/api/v1/user/time-up-status/'
+      environment.API_ENDPOINT + '/api/v1/user/time-up-status/',
     );
   }
 }
