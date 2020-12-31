@@ -1,6 +1,6 @@
 <div class="row-fluid">
   <div class="cover-container" #widgetsContent>
-    <button class="left-arrow" (click)="scrollLeft()" *ngIf="profileLoaded">
+    <button mat-icon-button class="left-arrow" (click)="scrollLeft()" *ngIf="profileLoaded">
       <mat-icon>keyboard_arrow_left</mat-icon>
     </button>
     <div
@@ -76,7 +76,7 @@
       <!--        till here-->
     </div>
 
-    <button class="right-arrow" (click)="scrollRight()" *ngIf="profileLoaded">
+    <button mat-icon-button class="right-arrow" (click)="scrollRight()" *ngIf="profileLoaded">
       <mat-icon>keyboard_arrow_right</mat-icon>
     </button>
   </div>
