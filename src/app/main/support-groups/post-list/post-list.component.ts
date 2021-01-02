@@ -181,7 +181,6 @@ export class PostListComponent implements OnInit, OnDestroy {
       this.searchToTags();
       setTimeout(() => {
         this.navigateSearch();
-        // this.getSearchResultMessage();
       }, 200);
     }
     if (this.searchTerm !== '') {

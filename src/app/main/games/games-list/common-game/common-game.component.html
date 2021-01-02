@@ -61,8 +61,10 @@
       <div class="w-100 row " [ngClass]="{'center-postion': portraitGame ===true ,
             'end-position' : portraitGame === false}">
         <div class="col-auto mr-auto px-0">
-          <img id="common-science-btn" (click)="onScienceBehind()" class="common-science-btn mx-2 img-btn"
+          <button mat-icon-button class="mx-2 common-game-btn" >
+          <img id="common-science-btn" (click)="onScienceBehind()" class="common-science-btn img-btn"
             src="../../../../../assets/games/science_behind_game.svg">
+          </button>
         </div>
 
         <div class="col-auto ml-auto px-0">
