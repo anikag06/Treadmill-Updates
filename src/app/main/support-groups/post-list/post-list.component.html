@@ -58,7 +58,7 @@
       </div>
     </div>
     <div class="post-content">
-      <div class="row no-gutters" *ngIf="getSearchResultMessage()">
+      <div class="row no-gutters" *ngIf="!fetching && getSearchResultMessage()">
         <div class="col-12">
           <p class="message" [innerHTML]="getSearchResultMessage()"></p>
         </div>

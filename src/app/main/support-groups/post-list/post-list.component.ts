@@ -176,10 +176,12 @@ export class PostListComponent implements OnInit, OnDestroy {
       this.page = 1;
       this.morePosts = true;
       this.posts = [];
+      this.fetching = true;
       this.searchTerm = this.search.replace(/ *\[[^\]]*]/g, '');
       this.searchToTags();
       setTimeout(() => {
         this.navigateSearch();
+        // this.getSearchResultMessage();
       }, 200);
     }
     if (this.searchTerm !== '') {
