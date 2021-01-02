@@ -1,11 +1,13 @@
 <ng-template appNavbarFlow></ng-template>
-<div class="app-navbar d-flex flex-row ">
+<div class="app-navbar d-flex flex-row">
   <div class="d-flex w-100 flex-row mx-0">
-    <div [ngClass]="{
-              'col-8 px-0': user.is_exp === false,
-              'col-7': user.is_exp === true
-            }">
-      <div class="all-icons ">
+    <div
+      [ngClass]="{
+        'col-8 px-0': user.is_exp === false,
+        'col-7': user.is_exp === true
+      }"
+    >
+      <div class="all-icons">
         <button
           mat-icon-button
           class="back-button"
@@ -30,60 +32,54 @@
       </div>
 
       <div class="all-icons-mobile">
-        <div class=" d-flex flex-row mx-0">
-          <div
-            class="icon-items" *ngIf="!isDashboard">
-          <button
-            mat-icon-button
-            class="back-button"
-            (click)="backClick()"
-          >
-            <img
-              src="assets/shared/Back%20mobile.png"
-              width="24px"
-              height="24px"
-              alt="back"
-            />
-          </button>
+        <div class="d-flex flex-row mx-0">
+          <div class="icon-items" *ngIf="!isDashboard">
+            <button mat-icon-button class="back-button" (click)="backClick()">
+              <img
+                src="assets/shared/Back%20mobile.png"
+                width="24px"
+                height="24px"
+                alt="back"
+              />
+            </button>
           </div>
-          <div
-            class="icon-items" *ngIf="isDashboard && isHandset$">
-          <button
-            id="hamburger"
-            class="hamburger-button icon-items"
-            type="button"
-            aria-label="Toggle sidenav"
-            mat-icon-button
-            (click)="hamburgerClicked()"
-          >
-            <img
-              width="24px"
-              height="24px"
-              src="assets/shared/Hamburger mobile.png"
-            />
-          </button>
+          <div class="icon-items" *ngIf="isDashboard && isHandset$">
+            <button
+              id="hamburger"
+              class="hamburger-button icon-items"
+              type="button"
+              aria-label="Toggle sidenav"
+              mat-icon-button
+              (click)="hamburgerClicked()"
+            >
+              <img
+                width="24px"
+                height="24px"
+                src="assets/shared/Hamburger mobile.png"
+              />
+            </button>
           </div>
-          <div
-          class="icon-items">
+          <div class="icon-items">
             <div
               class="navbar-title"
               [style.width]="convMode ? '80%' : ''"
               [style.marginLeft]="isDashboard ? '0' : '46px'"
-
               [matTooltip]="navbarTitle"
               matTooltipPosition="above"
             >
-            {{ navbarTitle }}
+              {{ navbarTitle }}
+            </div>
           </div>
-        </div>
         </div>
       </div>
     </div>
 
-      <div [ngClass]="{
-              'col-4': user.is_exp === false,
-              'col-5': user.is_exp === true
-            }">
+    <div
+      [ngClass]="{
+        'col-4': user.is_exp === false,
+        'col-5': user.is_exp === true
+      }"
+    >
       <div
         class="all-icons ml-auto"
         style="float: right;"
@@ -91,44 +87,42 @@
           'd-none': hideCards
         }"
       >
-        <button class="icon-items" *ngIf="!isDashboard"  mat-icon-button (click)="homeClick()">
+        <button
+          class="icon-items"
+          *ngIf="!isDashboard"
+          mat-icon-button
+          (click)="homeClick()"
+        >
           <img src="assets/shared/home web.png" height=" 32px" alt="Home" />
         </button>
-        <div *ngIf="user.is_exp" >
+        <div *ngIf="user.is_exp">
           <button
             class="icon-items"
-            style="margin-left: 20px;"
             (menuClosed)="notificationClick()"
             (menuOpened)="notificationClick()"
             [matMenuTriggerFor]="appNavBarNotify"
-            style="position: relative"
-            mat-icon-button >
+            [ngStyle]="{
+              marginLeft: '20px',
+              position: 'relative'
+            }"
+            mat-icon-button
+          >
             <img
-              src="assets/shared/notification web.png"
+              [src]="unreadCount > 0 ? notificationIndicatorWeb : 'assets/shared/notification_web.png' "
               height=" 32px"
               width="32px"
               alt="Flow"
             />
-
-          <div class="unread-count" *ngIf="unreadCount > 0" >
-            <span *ngIf="unreadCount < 100; else manyMore">{{
-              unreadCount
-              }}</span>
-          </div>
-        </button>
+          </button>
         </div>
-        <div
-          id="goto_desktop"
-          (click)="flowClick()"
-          style="margin-left: 20px;"
-        >
+        <div id="goto_desktop" (click)="flowClick()" style="margin-left: 20px;">
           <img src="assets/shared/go to web.png" height=" 36px" alt="GoTo" />
         </div>
       </div>
 
       <div class="all-icons-mobile">
         <div class="d-flex flex-row-reverse">
-          <div class="" >
+          <div class="">
             <button
               mat-icon-button
               id="showFullConversation"
@@ -155,34 +149,29 @@
           </div>
           <div *ngIf="user.is_exp">
             <button
-              class="icon-items"
+              class="icon-items mr-2"
               (menuClosed)="notificationClick()"
               (menuOpened)="notificationClick()"
               [matMenuTriggerFor]="appNavBarNotify"
-              style="position: relative"
+              [ngStyle]="{
+              position: 'relative'
+            }"
               mat-icon-button
             >
               <img
-                src="assets/shared/Notification mobile.png"
+                [src]="unreadCount > 0 ? notificationIndicatorMobile : 'assets/shared/notification_mobile.png' "
                 height=" 24px"
                 width="24px"
                 alt="Flow"
               />
-
-            <div
-              [ngClass]="{
-                'd-none': hideCards
-              }"
-              class="unread-count"
-              *ngIf="unreadCount > 0"
-            >
-              <span *ngIf="unreadCount < 100; else manyMore">{{
-                unreadCount
-                }}</span>
-            </div>
-          </button>
+            </button>
           </div>
-          <button class="icon-items" *ngIf="!isDashboard" (click)="homeClick()" mat-icon-button >
+          <button
+            class="icon-items"
+            *ngIf="!isDashboard"
+            (click)="homeClick()"
+            mat-icon-button
+          >
             <img
               src="assets/shared/Home mobile.png"
               height=" 24px"
@@ -193,32 +182,33 @@
       </div>
     </div>
 
-  <mat-menu #showFullConversation="matMenu" xPosition="before">
-    <button mat-menu-item (click)="onshowFullConversation()" class="">
-      <span>Show full conversation</span>
-    </button>
-  </mat-menu>
+    <mat-menu #showFullConversation="matMenu" xPosition="before">
+      <button mat-menu-item (click)="onshowFullConversation()" class="">
+        <span>Show full conversation</span>
+      </button>
+    </mat-menu>
 
-  <!--  <mat-menu #appNavBarFlow="matMenu" xPosition="before" yPosition="below" class="navBarPanelClass">-->
-  <!--    <div class="row w-100 h-100 px-0 mx-0 " (click)="$event.stopPropagation()">-->
-  <!--      <div appNavbarFlow></div>-->
-  <!--    </div>-->
-  <!--  </mat-menu>-->
+    <!--  <mat-menu #appNavBarFlow="matMenu" xPosition="before" yPosition="below" class="navBarPanelClass">-->
+    <!--    <div class="row w-100 h-100 px-0 mx-0 " (click)="$event.stopPropagation()">-->
+    <!--      <div appNavbarFlow></div>-->
+    <!--    </div>-->
+    <!--  </mat-menu>-->
 
-  <mat-menu
-    #appNavBarNotify="matMenu"
-    class="navBarPanelClass"
-    xPosition="before"
-    yPosition="below"
-  >
-    <div class="row w-100 h-100 px-0 mx-0 py-0" (click)="$event.stopPropagation()">
-      <div appNavbarNotification></div>
-    </div>
-  </mat-menu>
-  <!-- <div appNavbarFlow></div> -->
-  <!-- <div appNavbarNotifications></div> -->
+    <mat-menu
+      #appNavBarNotify="matMenu"
+      class="navBarPanelClass"
+      xPosition="before"
+      yPosition="below"
+    >
+      <div
+        class="row w-100 h-100 px-0 mx-0 py-0"
+        (click)="$event.stopPropagation()"
+      >
+        <div appNavbarNotification></div>
+      </div>
+    </mat-menu>
+    <!-- <div appNavbarFlow></div> -->
+    <!-- <div appNavbarNotifications></div> -->
+  </div>
 </div>
-</div>
-<ng-template #manyMore>
-  <span>99+</span>
-</ng-template>
+

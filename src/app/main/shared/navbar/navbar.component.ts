@@ -1,44 +1,37 @@
 import {
   Component,
-  OnInit,
-  ViewChild,
   ComponentFactoryResolver,
-  OnDestroy,
-  Input,
-  ElementRef,
-  Output,
   EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild,
 } from '@angular/core';
 import { Location } from '@angular/common';
 import { NavbarFlowDirective } from './navbar-flow.directive';
 import { interval, Subscription } from 'rxjs';
-import { NavbarFlowComponent } from './navbar-flow/navbar-flow.component';
 import { NavbarNotificationDirective } from './navbar-notification.directive';
 import { NavbarNotificationsComponent } from './navbar-notifications/navbar-notifications.component';
 import { NavbarNotificationsService } from './navbar-notifications.service';
 import { User } from '@/shared/user.model';
 import {
   ActivatedRoute,
-  Router,
   Event,
-  NavigationStart,
   NavigationEnd,
   NavigationError,
+  NavigationStart,
+  Router,
 } from '@angular/router';
 import { AuthService } from '@/shared/auth/auth.service';
 import { GamePlayService } from '@/main/games/shared/game-play.service';
 import { FlowService } from '@/main/flow/flow.service';
 import { ConversationsService } from '@/main/resources/conversation-group/conversations.service';
-import { MatMenuTrigger } from '@angular/material';
-import { FlowComponent } from '@/main/flow/flow.component';
-import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
-import { SlidesVideoComponent } from '@/main/resources/slides/slides-video/slides-video.component';
-import { DialogPosition, MatDialog } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { CustomOverlayComponent } from '@/main/shared/custom-overlay/custom-overlay.component';
 import { CustomOverlayService } from '@/main/shared/custom-overlay/custom-overlay.service';
 import { FormService } from '@/main/resources/forms/form.service';
 import { StepsDataService } from '@/main/resources/shared/steps-data.service';
-import { map, switchMap, take } from 'rxjs/operators';
 import { LOGGED_IN_PATH, TREADWILL } from '@/app.constants';
 import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
 import { IntroService } from '@/main/walk-through/intro.service';
@@ -82,6 +75,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
   fromIntro = false;
   gotoSubscription!: Subscription;
   introExit = false;
+  notificationIndicatorWeb = 'assets/shared/notification_indicator_web.svg';
+  notificationIndicatorMobile =
+    'assets/shared/notification_indicator_mobile.svg';
 
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
@@ -99,7 +95,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private stepDataService: StepsDataService,
     private goToService: NavbarGoToService,
     private introService: IntroService,
-    private titleService: Title,
+    private titleService: Title
   ) {
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationStart) {
@@ -163,19 +159,19 @@ export class NavbarComponent implements OnInit, OnDestroy {
       }
     });
     this.hideSubscription = this.introService.hideBehaviour.subscribe(
-      hideCards => {
+      (hideCards) => {
         this.hideCards = hideCards;
-      },
+      }
     );
     this.gotoSubscription = this.introService.gotoBehaviour.subscribe(
       (value: boolean) => {
         this.introExit = value;
-      },
+      }
     );
   }
 
   ngOnInit() {
-    this.notificationService.closeSubject.subscribe(data => {
+    this.notificationService.closeSubject.subscribe((data) => {
       if (data) {
         this.notificationClick();
       }
@@ -194,9 +190,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
       this.flowClick();
     });
     this.sideBarSubsciprtion = this.introService.sideBarBehaviour.subscribe(
-      fromIntro => {
+      (fromIntro) => {
         this.fromIntro = fromIntro;
-      },
+      }
     );
   }
 
@@ -206,7 +202,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     viewContainerRef.clear();
     if (this.showNotifications) {
       const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
-        NavbarNotificationsComponent,
+        NavbarNotificationsComponent
       );
       viewContainerRef.createComponent(componentFactory);
     }
@@ -214,7 +210,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     const notifications = this.notificationService
       .putUserNotifications()
       .toPromise();
-    notifications.then(data => console.log(data));
+    notifications.then((data) => console.log(data));
   }
 
   flowClick() {
@@ -226,7 +222,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.overlayService.showFlow = true;
     console.log('flow host', this.flowHost);
     const navbarFLowComponentFactory = this.componentFactoryResolver.resolveComponentFactory(
-      CustomOverlayComponent,
+      CustomOverlayComponent
     );
     const hostViewContainerRef = this.flowHost.viewContainerRef;
     hostViewContainerRef.clear();
@@ -279,7 +275,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
       .toPromise();
     notificationCountPromise
       .then((data: any) => (this.unreadCount = data.data))
-      .catch(error => console.log(error));
+      .catch((error) => console.log(error));
   }
 
   onshowFullConversation() {
