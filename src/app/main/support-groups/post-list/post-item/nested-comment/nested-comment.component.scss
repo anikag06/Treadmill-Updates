@@ -46,14 +46,19 @@
   }
 
   .context-button {
-    // height: 100%;
     text-align: right;
     color: #848484 !important;
+    position: absolute;
+    right: -4px;
+    top:4px;
 
     .mat-icon-button {
       width: 36px;
       height: 36px;
       line-height: 24px;
+      &:hover{
+        background-color: #00000020;
+      }
     }
   }
 

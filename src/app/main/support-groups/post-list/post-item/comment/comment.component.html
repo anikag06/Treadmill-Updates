@@ -125,7 +125,7 @@
     </div>
   </div>
   <div class="col-12">
-    <div class="replyForm" *ngIf="toggleReply">
+    <div class="replyForm" *ngIf="toggleReply" style="margin-top:10px;">
       <form class="form" (ngSubmit)="submitReply()" #replyForm="ngForm">
         <div class="form-group">
           <textarea #replyText type="text" name="body" class="form-control" ngModel

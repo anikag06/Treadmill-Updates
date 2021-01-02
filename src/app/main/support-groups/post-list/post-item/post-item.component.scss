@@ -62,6 +62,9 @@ a.toggler:hover {
       width: 36px;
       height: 36px;
       line-height: 32px;
+      &:hover{
+        background-color: #00000020;
+      }
     }
   }
 
@@ -73,14 +76,20 @@ a.toggler:hover {
   .tags {
     margin-bottom: 10px;
 
-    span>a {
+    button {
       text-decoration: none;
       padding: 4px 10px;
+      height:24px;
+      line-height: 12px;
       font-size: 12px;
       color: #7a7a7a;
       border: #919191 solid 1px;
       border-radius: 20px;
+      font-weight: 400;
       cursor: pointer;
+      &:hover{
+        background-color: #00000010;
+      }
     }
   }
 
