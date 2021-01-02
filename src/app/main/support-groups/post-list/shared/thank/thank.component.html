@@ -9,7 +9,7 @@
     <p *ngIf="status">{{message}}</p>
 
     <div class="btn-div" >
-  <button class="close-btn" *ngIf="!status" mat-flat-button (click)="close()"
+  <button class="close-btn" *ngIf="!status" mat-stroked-button (click)="close()"
   >Cancel</button>
 
   <button class="report-btn ml-3" mat-flat-button  *ngIf="!showLoading && !status" (click)="thank()" >Thank</button>

@@ -78,7 +78,7 @@
 
 
 <!--//second div-->
-    <div class = "mx-0 flex-row">
+    <div class = "mx-0 flex-row" style="width:90%;">
       <div class='flex-row mx-0 body' [innerHTML]="commentBody | safeHtml" [ngClass]="{'body-inline': partialBody}"
         [ngStyle]="{'word-break': 'break-word'}"></div>
      <div class="d-flex flex-column mx-0">
@@ -88,14 +88,14 @@
 <!--      </div>-->
       <div class=" row no-gutters">
         <div class="col-12 ">
-          <button class="btn btn-sm thumbs-up pl-0" (click)="onThumbsUp()" ><img [src]="thumbsUp" width="18"
+          <button class="btn btn-sm thumbs-up pl-0" (click)="onThumbsUp()" matRipple [matRippleColor]="'#00000020'"><img [src]="thumbsUp" width="18"
               height="18">{{comment.up_votes}}</button>
-          <button class="btn btn-sm thumbs-down" (click)="onThumbsDown()"><img [src]="thumbsDown" width="18"
+          <button class="btn btn-sm thumbs-down" (click)="onThumbsDown()" matRipple [matRippleColor]="'#00000020'"><img [src]="thumbsDown" width="18"
               height="18"></button>
-          <button class="btn btn-sm thumbs-down" (click)="onThankYou()" *ngIf="!ownComment() && !comment.is_thanked">Thank</button>
+          <button class="btn btn-sm thumbs-down" (click)="onThankYou()" *ngIf="!ownComment() && !comment.is_thanked" matRipple [matRippleColor]="'#00000020'">Thank</button>
           <span *ngIf="!ownComment() && comment.is_thanked" style="font-size:13px; padding: 4px 8px;"> <img src="../../../../../assets/support-group/Thanked icon.svg" style="width:20px!important;height:20px!important;">&nbsp;Thanked</span>
 
-          <button class="btn btn-sm comment-reply" (click)="onReplyClick()"  *ngIf="!ownComment()">Reply</button>
+          <button class="btn btn-sm comment-reply" (click)="onReplyClick()"  *ngIf="!ownComment()" matRipple [matRippleColor]="'#00000020'">Reply</button>
 
           <!-- <span *ngIf="comment.user.username == user.username || user.is_admin ">
             <button class="btn btn-sm comment-edit" (click)="onEdit()">Edit</button>
