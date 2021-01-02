@@ -84,19 +84,6 @@ a.toggler:hover {
     }
   }
 
-  button.btn {
-    cursor: pointer;
-    box-shadow: none;
-    &:hover {
-      background-color: #00000020;
-    }
-    //outline: none;
-  }
-
-  button {
-    //outline: none;
-  }
-
   .comment-btn {
     margin-top: 5px;
     width: 100px;
@@ -107,6 +94,14 @@ a.toggler:hover {
   .comments-row {
     margin-top: 15px;
   }
+}
+button.btn {
+  cursor: pointer;
+  box-shadow: none;
+  &:hover {
+    background-color: #00000020;
+  }
+  //outline: none;
 }
 
 

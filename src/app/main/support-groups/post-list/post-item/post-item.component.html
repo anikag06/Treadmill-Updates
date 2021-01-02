@@ -85,10 +85,10 @@
 
   <div class="row no-gutters mt-1">
     <div class="col-12">
-      <button class="btn btn-sm thumbs-up" (click)="onThumbsUp()" ><img [src]="thumbsUp" width="20">
+      <button  class="btn btn-sm thumbs-up" (click)="onThumbsUp()" matRipple [matRippleColor]="'#00000020'"><img [src]="thumbsUp" width="20" >
         {{supportGroupItem.up_votes}}</button>
-      <button class="btn btn-sm thumbs-down" (click)="onThumbsDown()"><img [src]="thumbsDown" width="20"></button>
-      <button class="btn btn-sm thumbs-down" (click)="onThankYou()" *ngIf="!ownPost() && !supportGroupItem.is_thanked">Thank</button>
+      <button  class="btn btn-sm thumbs-down" (click)="onThumbsDown()" matRipple [matRippleColor]="'#00000020'"><img [src]="thumbsDown" width="20" ></button>
+      <button  class="btn btn-sm thumbs-down" (click)="onThankYou()" *ngIf="!ownPost() && !supportGroupItem.is_thanked" matRipple [matRippleColor]="'#00000020'">Thank</button>
       <span *ngIf="!ownPost() && supportGroupItem.is_thanked"  style="font-size:14px;"> <img src="../../../../../assets/support-group/Thanked icon.svg" style="width:24px!important;height:24px!important;">&nbsp;Thanked</span>
 
     </div>
