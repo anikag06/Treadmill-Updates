@@ -95,7 +95,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private stepDataService: StepsDataService,
     private goToService: NavbarGoToService,
     private introService: IntroService,
-    private titleService: Title
+    private titleService: Title,
   ) {
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationStart) {
@@ -159,19 +159,19 @@ export class NavbarComponent implements OnInit, OnDestroy {
       }
     });
     this.hideSubscription = this.introService.hideBehaviour.subscribe(
-      (hideCards) => {
+      hideCards => {
         this.hideCards = hideCards;
-      }
+      },
     );
     this.gotoSubscription = this.introService.gotoBehaviour.subscribe(
       (value: boolean) => {
         this.introExit = value;
-      }
+      },
     );
   }
 
   ngOnInit() {
-    this.notificationService.closeSubject.subscribe((data) => {
+    this.notificationService.closeSubject.subscribe(data => {
       if (data) {
         this.notificationClick();
       }
@@ -190,9 +190,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
       this.flowClick();
     });
     this.sideBarSubsciprtion = this.introService.sideBarBehaviour.subscribe(
-      (fromIntro) => {
+      fromIntro => {
         this.fromIntro = fromIntro;
-      }
+      },
     );
   }
 
@@ -202,7 +202,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     viewContainerRef.clear();
     if (this.showNotifications) {
       const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
-        NavbarNotificationsComponent
+        NavbarNotificationsComponent,
       );
       viewContainerRef.createComponent(componentFactory);
     }
@@ -210,7 +210,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     const notifications = this.notificationService
       .putUserNotifications()
       .toPromise();
-    notifications.then((data) => console.log(data));
+    notifications.then(data => console.log(data));
   }
 
   flowClick() {
@@ -222,7 +222,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.overlayService.showFlow = true;
     console.log('flow host', this.flowHost);
     const navbarFLowComponentFactory = this.componentFactoryResolver.resolveComponentFactory(
-      CustomOverlayComponent
+      CustomOverlayComponent,
     );
     const hostViewContainerRef = this.flowHost.viewContainerRef;
     hostViewContainerRef.clear();
@@ -275,7 +275,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
       .toPromise();
     notificationCountPromise
       .then((data: any) => (this.unreadCount = data.data))
-      .catch((error) => console.log(error));
+      .catch(error => console.log(error));
   }
 
   onshowFullConversation() {
