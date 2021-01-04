@@ -76,6 +76,7 @@ declare let $: any;
     HttpClientModule,
     ServiceWorkerModule.register('sw-master.js', {
       enabled: environment.production,
+      registrationStrategy: 'registerImmediately',
     }),
     AppRoutingModule,
     QuestionnaireModule,

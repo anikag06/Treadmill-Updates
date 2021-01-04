@@ -652,3 +652,9 @@ textarea{
   min-width: 400px !important;
   width: 400px !important;
 }
+
+.fix-parent{
+  .introjs-fixParent {
+    z-index: 1 !important;
+  }
+}

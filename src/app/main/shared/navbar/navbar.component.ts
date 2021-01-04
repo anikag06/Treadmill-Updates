@@ -267,6 +267,12 @@ export class NavbarComponent implements OnInit, OnDestroy {
     if (isNotNullOrUndefined(this.gotoSubscription)) {
       this.gotoSubscription.unsubscribe();
     }
+    if (isNotNullOrUndefined(this.hideSubscription)) {
+      this.hideSubscription.unsubscribe();
+    }
+    if (isNotNullOrUndefined(this.sideBarSubsciprtion)) {
+      this.sideBarSubsciprtion.unsubscribe();
+    }
   }
 
   getNotificationsCount() {
