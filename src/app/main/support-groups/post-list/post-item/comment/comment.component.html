@@ -85,7 +85,9 @@
       <span><a class='toggler' (click)='toggleToFullBody()' *ngIf="partialBody">show more</a></span>
 
       <span class="date">{{ comment.created_at |  date: 'medium' | timeAgo }}</span>
-<!--      </div>-->
+      </div>
+    </div>
+
       <div class=" row no-gutters">
         <div class="col-12 ">
           <button class="btn btn-sm thumbs-up pl-0" (click)="onThumbsUp()" matRipple [matRippleColor]="'#00000020'"><img [src]="thumbsUp" width="18"
@@ -96,17 +98,9 @@
           <span *ngIf="!ownComment() && comment.is_thanked" style="font-size:13px; padding: 4px 8px;"> <img src="../../../../../assets/support-group/Thanked icon.svg" style="width:20px!important;height:20px!important;">&nbsp;Thanked</span>
 
           <button class="btn btn-sm comment-reply" (click)="onReplyClick()"  *ngIf="!ownComment()" matRipple [matRippleColor]="'#00000020'">Reply</button>
-
-          <!-- <span *ngIf="comment.user.username == user.username || user.is_admin ">
-            <button class="btn btn-sm comment-edit" (click)="onEdit()">Edit</button>
-            <button class="btn btn-sm comment-delete" (click)="onDelete()">Delete</button>
-          </span> -->
-
         </div>
       </div>
-    </div>
 
-    </div>
 
   </div>
   </div>
