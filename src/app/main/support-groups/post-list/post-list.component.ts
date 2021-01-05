@@ -173,22 +173,20 @@ export class PostListComponent implements OnInit, OnDestroy {
 
   onSearchSubmit() {
     if (this.fetching === false) {
+      this.searchTerm = this.search.replace(/ *\[[^\]]*]/g, '');
+      if (this.searchTerm === '') {
+        this.clearSearch = false;
+      } else {
       this.page = 1;
       this.morePosts = true;
       this.posts = [];
       this.fetching = true;
-      this.searchTerm = this.search.replace(/ *\[[^\]]*]/g, '');
-      this.searchToTags();
-      setTimeout(() => {
-        this.navigateSearch();
-      }, 200);
-    }
-    if (this.searchTerm !== '') {
-      this.clearSearch = true;
-    } else {
-      console.log('no search');
-      this.getPosts();
-      this.clearSearch = false;
+        this.clearSearch = true;
+        this.searchToTags();
+        setTimeout(() => {
+          this.navigateSearch();
+        }, 200);
+      }
     }
   }
 

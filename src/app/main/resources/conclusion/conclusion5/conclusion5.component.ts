@@ -58,7 +58,8 @@ export class Conclusion5Component implements OnInit, OnDestroy {
   moodEvaluate!: boolean;
   showLoading = false;
 
-  @ViewChild('target', { static: false }) target!: ElementRef;
+  @ViewChild('target1', { static: false }) target1!: ElementRef;
+  @ViewChild('target2', { static: false }) target2!: ElementRef;
 
   constructor(
     private conclusionService: ConclusionService,
@@ -129,6 +130,7 @@ export class Conclusion5Component implements OnInit, OnDestroy {
             }
           });
       });
+    this.scrollup();
     this.quizService.questionnaire_active.subscribe((value: boolean) => {
       console.log('EVENT EMITTED', value);
       if (!value) {
@@ -191,7 +193,12 @@ export class Conclusion5Component implements OnInit, OnDestroy {
   }
   scrollDown() {
     setTimeout(() => {
-      this.target.nativeElement.scrollIntoView({ behavior: 'smooth' });
+      this.target2.nativeElement.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
+  }
+  scrollup() {
+    setTimeout(() => {
+      this.target1.nativeElement.scrollIntoView({ behavior: 'smooth' });
     }, 100);
   }
 }
