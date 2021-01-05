@@ -177,10 +177,10 @@ export class PostListComponent implements OnInit, OnDestroy {
       if (this.searchTerm === '') {
         this.clearSearch = false;
       } else {
-      this.page = 1;
-      this.morePosts = true;
-      this.posts = [];
-      this.fetching = true;
+        this.page = 1;
+        this.morePosts = true;
+        this.posts = [];
+        this.fetching = true;
         this.clearSearch = true;
         this.searchToTags();
         setTimeout(() => {

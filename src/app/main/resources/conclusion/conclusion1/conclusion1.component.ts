@@ -71,7 +71,6 @@ export class Conclusion1Component implements OnInit, OnDestroy {
   @ViewChild('target1', { static: false }) target1!: ElementRef;
   @ViewChild('target2', { static: false }) target2!: ElementRef;
 
-
   constructor(
     private conclusionService: ConclusionService,
     private activatedRoute: ActivatedRoute,

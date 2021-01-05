@@ -45,7 +45,8 @@ export class SignUpComponent implements OnInit {
   passwordMatchError!: string;
   errorStatus = false;
   errorMessage!: string;
-  signupFailMessage = 'Oops! Sign up failed. Please contact us at treadwill@treadwill.org ';
+  signupFailMessage =
+    'Oops! Sign up failed. Please contact us at treadwill@treadwill.org ';
   updatingPermissions = false;
   addingToHomescreen = false;
   data!: SignUpData;
@@ -239,14 +240,14 @@ export class SignUpComponent implements OnInit {
         deferredPrompt.userChoice.then((choiceResult: any) => {
           if (choiceResult.outcome === 'accepted') {
             this.allowedToHomeScreen = 1;
-              this.dialogRef = this.dialog.open(CommonDialogComponent, {
-                data: {
-                  loading: true,
-                },
-                disableClose: true,
-                minWidth: '90vw',
-                autoFocus: false,
-              });
+            this.dialogRef = this.dialog.open(CommonDialogComponent, {
+              data: {
+                loading: true,
+              },
+              disableClose: true,
+              minWidth: '90vw',
+              autoFocus: false,
+            });
             this.onSignUpSubmit();
             // no matter the outcome, the prompt cannot be reused ON MOBILE
             // for 3 months or until browser cache is cleared?
