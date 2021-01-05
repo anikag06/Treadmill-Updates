@@ -14,9 +14,9 @@ export class ThumbsService {
   thumbsUpSrc(object: any) {
     if (object.is_voted === 1) {
       this.isClicked = true;
-      return 'assets/support-group/thumbs-up-black.svg';
+      return 'assets/support-group/thumbsup-filled.svg';
     }
-    return 'assets/support-group/thumbs-up-white.svg';
+    return 'assets/support-group/thumbsup-outlined.svg';
   }
 
   /**
@@ -24,9 +24,9 @@ export class ThumbsService {
    */
   thumbsDownSrc(object: any) {
     if (object.is_voted === -1) {
-      return 'assets/support-group/thumbs-down-black.svg';
+      return 'assets/support-group/thumbsdown-filled.svg';
     }
-    return 'assets/support-group/thumbs-down-white.svg';
+    return 'assets/support-group/thumbsdown-outlined.svg';
   }
 
   openSnackBar(message: string, action: string) {
