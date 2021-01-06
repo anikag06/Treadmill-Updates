@@ -174,7 +174,8 @@ export class PostListComponent implements OnInit, OnDestroy {
   onSearchSubmit() {
     if (this.fetching === false) {
       this.searchTerm = this.search.replace(/ *\[[^\]]*]/g, '');
-      if (this.searchTerm === '') {
+      if (this.searchTerm.trim() === '') {
+        console.log('SEARCH TERM', this.searchTerm);
         this.clearSearch = false;
       } else {
         this.page = 1;
@@ -322,7 +323,7 @@ export class PostListComponent implements OnInit, OnDestroy {
         return (
           'Oops! we could not find any results for <i>' + this.search + '</i>'
         );
-      } else if (this.search && this.searchTerm && this.posts.length > 0) {
+      } else if (this.search && !(this.searchTerm.trim() === '') && this.posts.length > 0) {
         return (
           'We found ' +
           this.searchResultCount +
