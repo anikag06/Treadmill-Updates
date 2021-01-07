@@ -7,7 +7,7 @@
         <div *ngIf="!isDashboard">
           <button mat-icon-button class="icon-items back-button" (click)="backClick()">
             <img
-              src="assets/shared/Back%20mobile.png"
+              src="assets/shared/Back%20mobile.svg"
               width="24px"
               height="24px"
               alt="back"
@@ -26,7 +26,7 @@
             <img
               width="24px"
               height="24px"
-              src="assets/shared/Hamburger mobile.png"
+              src="assets/shared/Hamburger mobile.svg"
             />
           </button>
         </div>
@@ -66,7 +66,7 @@
         (click)="flowClick()"
       >
         <img
-          src="assets/shared/Go to mobile.png"
+          src="assets/shared/Go to mobile.svg"
           height=" 32px"
           alt="GoTO"
           id="goto_mobile"
@@ -84,7 +84,7 @@
           mat-icon-button
         >
           <img
-            [src]="unreadCount > 0 ? notificationIndicatorMobile : 'assets/shared/notification_mobile.png' "
+            [src]="unreadCount > 0 ? notificationIndicatorMobile : 'assets/shared/notification_mobile.svg' "
             height=" 24px"
             width="24px"
             alt="Flow"
@@ -101,7 +101,7 @@
         mat-icon-button
       >
         <img
-          src="assets/shared/Home mobile.png"
+          src="assets/shared/Home mobile.svg"
           height=" 24px"
           alt="Home"
         />
@@ -122,7 +122,7 @@
           (click)="backClick()"
         >
           <img
-            src="assets/shared/back web.png"
+            src="assets/shared/back web.svg"
             width="32px"
             height="32px"
             alt="back"
@@ -157,7 +157,7 @@
           mat-icon-button
           (click)="homeClick()"
         >
-          <img src="assets/shared/home web.png" height=" 32px" alt="Home" />
+          <img src="assets/shared/home web.svg" height=" 32px" alt="Home" />
         </button>
         <div *ngIf="user.is_exp">
           <button
@@ -172,7 +172,7 @@
             mat-icon-button
           >
             <img
-              [src]="unreadCount > 0 ? notificationIndicatorWeb : 'assets/shared/notification_web.png' "
+              [src]="unreadCount > 0 ? notificationIndicatorWeb : 'assets/shared/notification_web.svg' "
               height=" 32px"
               width="32px"
               alt="Flow"
@@ -180,7 +180,7 @@
           </button>
         </div>
         <div id="goto_desktop" (click)="flowClick()" style="margin-left: 20px;">
-          <img src="assets/shared/go to web.png" height=" 36px" alt="GoTo" />
+          <img src="assets/shared/go to web.svg" height=" 36px" alt="GoTo" />
         </div>
       </div>
 
