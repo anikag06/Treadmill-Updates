@@ -9,7 +9,14 @@ import {
 } from '@angular/core';
 import { FlowService } from '@/main/flow/flow.service';
 import { map, switchMap } from 'rxjs/operators';
-import {ActivatedRoute, Event, NavigationEnd, NavigationError, NavigationStart, Router} from '@angular/router';
+import {
+  ActivatedRoute,
+  Event,
+  NavigationEnd,
+  NavigationError,
+  NavigationStart,
+  Router,
+} from '@angular/router';
 import { StepsDataService } from '@/main/resources/shared/steps-data.service';
 import { LoadFilesService } from '@/main/games/shared/load-files.service';
 import { ControlContentService } from '@/main/resources/control-content/control-content.service';
@@ -62,20 +69,20 @@ export class ControlContentComponent implements OnInit {
     private goToService: NavbarGoToService,
     private quizService: QuizService,
   ) {
-      this.router.events.subscribe((event: Event) => {
-        if (event instanceof NavigationStart) {
-          // Show loading indicator
-        }
+    this.router.events.subscribe((event: Event) => {
+      if (event instanceof NavigationStart) {
+        // Show loading indicator
+      }
 
-        if (event instanceof NavigationEnd) {
-          this.nextDataLoaded = false;
-        }
-        if (event instanceof NavigationError) {
-          // Hide loading indicator
-          // Present error to user
-          console.log(event.error);
-        }
-      });
+      if (event instanceof NavigationEnd) {
+        this.nextDataLoaded = false;
+      }
+      if (event instanceof NavigationError) {
+        // Hide loading indicator
+        // Present error to user
+        console.log(event.error);
+      }
+    });
   }
   nextBtnShow = false;
 

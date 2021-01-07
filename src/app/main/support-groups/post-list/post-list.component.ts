@@ -323,7 +323,11 @@ export class PostListComponent implements OnInit, OnDestroy {
         return (
           'Oops! we could not find any results for <i>' + this.search + '</i>'
         );
-      } else if (this.search && !(this.searchTerm.trim() === '') && this.posts.length > 0) {
+      } else if (
+        this.search &&
+        !(this.searchTerm.trim() === '') &&
+        this.posts.length > 0
+      ) {
         return (
           'We found ' +
           this.searchResultCount +
