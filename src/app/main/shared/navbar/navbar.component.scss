@@ -6,8 +6,10 @@
   .back-button{
     background-color: inherit;
     outline: none;
-    position: absolute;
-    left: 12px;
+    padding-left: 2%;
+
+    //position: absolute;
+    //left: 12px;
     &:hover,
     &:active {
       cursor: pointer;
@@ -16,7 +18,6 @@
 }
 
   .navbar-title {
-    padding-left:8%;
     color: #343434;
     font-size: 24px;
     font-family: roboto;
@@ -38,7 +39,7 @@
     display: flex;
     align-items: center;
     min-height: 84px;
-    padding-right: 10%;
+    padding-right: 4.4vw;
     .icon-items {
       margin-left: 20px;
       background: transparent;
@@ -74,7 +75,7 @@
       padding-right: 7%;
     }
     .navbar-title {
-      padding-left: 4%;
+      padding-left: 0;
     }
   }
 }
@@ -110,7 +111,9 @@
 .app-navbar {
   height: 3vh;
   .all-icons-mobile {
-    top: -45px !important;
+    //top: -45px !important;
+    top: 16px !important;
+
   }
 }
 }
@@ -131,7 +134,7 @@
 
     .navbar-title {
       padding-left: 0px;
-      margin-left:46px;
+      //margin-left:46px;
       top: 3px;
       color: white;
       font-size: 20px;
@@ -142,16 +145,19 @@
       line-height: 0;
       min-width:24px;
       padding-right: 0;
-      bottom: -5px;
-      position: absolute;
+      padding-left: 0px;
+
+      //bottom: -5px;
+      //position: absolute;
     }
 
     .all-icons-mobile {
       display: block;
       position: absolute;
-      top: -42px;
-      //top: 15px;
-      right: 15px;
+      height:32px;
+      //top: -42px;
+      top: 14px;
+      //right: 15px;
       width:100%;
 
       .icon-items {
@@ -163,14 +169,14 @@
         padding: 0;
         line-height: 0;
         min-width: 24px;
-        margin-left:16px;
+        //margin-left:16px;
       }
 
       #showFullConversation {
         color: white !important;
         line-height: 0;
-        height: 24px;
-        width:24px;
+        height: 32px;
+        width:32px;
         padding-right: 0;
       }
     }
