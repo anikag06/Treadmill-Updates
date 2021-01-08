@@ -74,7 +74,7 @@ export class AppPage {
       .click()
       .then(() => {
         element(
-          by.cssContainingText('mat-option', 'College or university student'),
+          by.cssContainingText('mat-option', 'Coaching after college'),
         ).click();
       });
     browser.sleep(1000);
@@ -87,6 +87,14 @@ export class AppPage {
       });
     // browser.sleep(4000);
     // element(by.css('mat-select[formControlName=timezone]')).sendKeys('Asia/Kolkata');
+    browser.sleep(1000);
+    element(by.css('mat-select[formControlName=browser]'))
+      .click()
+      .then(() => {
+        browser.sleep(1000);
+        element(by.cssContainingText('mat-option', 'Google chrome')).click();
+        browser.sleep(1000);
+      });
     browser.sleep(1000);
     element(by.id('btn1')).click();
     browser.sleep(2000);
