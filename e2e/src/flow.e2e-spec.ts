@@ -27,7 +27,7 @@ describe('treadwill Flow Experimental Group', () => {
     page.clickLoginLink();
     browser.sleep(2500);
     // username is hardcoded here
-    page.fillLoginForm('user01', 'test0123');
+    page.fillLoginForm('user01', 'test123');
     expect(fp.onDashboard()).toBeTruthy('url does not contains dashboard');
     loginTime = page.getTime();
     console.log('login time', loginTime);
@@ -67,10 +67,10 @@ describe('treadwill Flow Experimental Group', () => {
       fp.navigateToDashboard();
       expect(fp.findProgressGroupElement('Being self-aware')).toBeTruthy();
       browser.sleep(2000);
-      fp.waitForStepUnlock('Getting started'); // introduction
+      fp.waitForStepUnlock('Introduction'); // introduction
       fp.goToNextStep('Next step');
       fp.findProgressElement('How you think is how you feel'); // slide
-      fp.selectVideo();
+      // fp.selectVideo(); // meditation step removed
       fp.goToNextStep('Next step');
       fp.findProgressElement('SupportGroup'); // support group - virtual step
       browser.sleep(2000);

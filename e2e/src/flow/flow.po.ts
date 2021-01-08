@@ -104,10 +104,11 @@ export class FlowPage {
   goToNextStep(btn: string) {
     browser.sleep(2000);
     // content is used to identify in control group
+    // change content to button (this.EC.visibilityOf(content)) here for experimental testing
     const content = element(by.css('.fix-content-body'));
     const button = element(by.css('button.completed-btn'));
     browser
-      .wait(this.EC.visibilityOf(content))
+      .wait(this.EC.visibilityOf(button))
       .then(() => {
         console.log('clickOnButton  Completed');
         button.click().then(() => {
@@ -145,20 +146,20 @@ export class FlowPage {
       .then(() => {
         console.log('clickOnButton  Completed');
         button.click().then(() => {
-          // uncomment for experimanetal group congrats-div
-          // const dashboardBtn = element(by.css('.congrats-div')).element(
+          // uncomment for experimental group congrats-div
+          const dashboardBtn = element(by.css('.congrats-div')).element(
 
-          //   by.cssContainingText('button', 'Go to dashboard'),
-          // );
-
-          // uncomment for control group
-          const dashboardBtn = element(
             by.cssContainingText('button', 'Go to dashboard'),
           );
-          browser.wait(this.EC.visibilityOf(dashboardBtn)).then(() => {
-            dashboardBtn.click();
-            console.log(btn, 'click');
-          });
+
+          // uncomment for control group
+          // const dashboardBtn = element(
+          //   by.cssContainingText('button', 'Go to dashboard'),
+          // );
+          // browser.wait(this.EC.visibilityOf(dashboardBtn)).then(() => {
+          //   dashboardBtn.click();
+          //   console.log(btn, 'click');
+          // });
         });
       })
       .catch(() => {
