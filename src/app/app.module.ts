@@ -74,7 +74,7 @@ declare let $: any;
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    ServiceWorkerModule.register('sw-master.js', {
+    ServiceWorkerModule.register('/ngsw-worker.js', {
       enabled: environment.production,
       registrationStrategy: 'registerImmediately',
     }),

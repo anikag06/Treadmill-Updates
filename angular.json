@@ -33,7 +33,6 @@
               "src/favicon.ico",
               "src/assets",
               "src/manifest.webmanifest",
-              "src/sw-master.js",
               "src/firebase-messaging-sw.js",
               "src/.htaccess",
               {
