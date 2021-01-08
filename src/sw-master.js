@@ -1,1 +1,0 @@
-importScripts('./ngsw-worker.js');
