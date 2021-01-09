@@ -39,6 +39,7 @@ export class IdcOptionsComponent implements OnInit {
   time!: any;
   userAnswerData = new ICDGameUserAnswerData(0, 0, 0);
   errorBarWidth!: number;
+  showBar = false;
 
   @ViewChild('checkElement', { static: false }) element!: ElementRef;
   @Input() blurred!: boolean;
@@ -53,6 +54,7 @@ export class IdcOptionsComponent implements OnInit {
     this.optionsCall();
 
     this.gameService.levelInitialise.subscribe(() => {
+      this.showBar = true;
       this.optionStatus = this.gameService.optionStatus;
       this.optionStatusCount = this.gameService.optionStatusCount;
       this.errorBarWidth = Math.floor(200 / this.correct.length);
@@ -122,6 +124,7 @@ export class IdcOptionsComponent implements OnInit {
       this.gameService.stopTimer.next();
       // this.gameService.levelOrder += 1;
       this.gameService.last_completed_order += 1;
+      this.showBar = false;
     }
     this.openCustomDialog();
     this.correctOptionFound = -1;
