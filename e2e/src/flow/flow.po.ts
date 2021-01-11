@@ -148,7 +148,6 @@ export class FlowPage {
         button.click().then(() => {
           // uncomment for experimental group congrats-div
           const dashboardBtn = element(by.css('.congrats-div')).element(
-
             by.cssContainingText('button', 'Go to dashboard'),
           );
 

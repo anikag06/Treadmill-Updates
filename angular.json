@@ -24,7 +24,7 @@
                 "externals": "prepend"
               }
             },
-            "outputPath": "dist/treadwill-v2-fe",
+            "outputPath": "../public",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
