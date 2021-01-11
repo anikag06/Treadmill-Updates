@@ -152,6 +152,7 @@ export class ControlContentComponent implements OnInit {
           this.stepName;
         console.log('STEP DETAIL:', this.navbarTitle);
         this.flowService.stepDetail.emit(this.navbarTitle);
+        this.flowService.navbarTitle = this.navbarTitle;
       });
     this.quizService.questionnaire_active.subscribe((value: boolean) => {
       console.log('EVENT EMITTED', value);
