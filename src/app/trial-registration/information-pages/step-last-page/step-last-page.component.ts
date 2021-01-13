@@ -9,11 +9,10 @@ import { RegistrationDataService } from '@/trial-registration/shared/registratio
   styleUrls: ['./step-last-page.component.scss'],
 })
 export class StepLastPageComponent implements OnInit {
-  signup_link!: string;
   constructor(private registrationDataService: RegistrationDataService) {}
+  participationID!: number;
 
   ngOnInit() {
-    this.signup_link = this.registrationDataService.signup_link;
-    console.log('sign up link', this.signup_link);
+    this.participationID = this.registrationDataService.participationID;
   }
 }

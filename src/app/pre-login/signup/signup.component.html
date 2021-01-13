@@ -138,50 +138,24 @@
               </mat-checkbox>
             </div>
 
-            <div class="col-12 my-1 checkbox-common">
-              <div class="d-flex flex-row mx-0">
-                <mat-checkbox
-                  *ngIf="!updatingPermissions"
-                  [(ngModel)]="notificationsAllowed"
-                  required
-                  name="notificationsInfo"
-                  (change)="notificationsPermission()"
-                >
-                  <div class="terms-text">
-                    {{this.notificationCheckboxText}}
-                  </div>
-                </mat-checkbox>
-              </div>
-
-              <div class="d-flex flex-row mx-0" *ngIf="updatingPermissions">
-                <div style="width: 16px; margin-right: 12px;">
-                  <span class="spinner-border spinner-border-sm"></span>
-                </div>
-                <span class="terms-text mb-2" style="line-height: 24px;">
-                   {{this.notificationCheckboxText}}
-                </span>
-              </div>
-            </div>
-
-            <div class="d-flex col-12 my-1 checkbox-common">
-              <mat-checkbox
-                *ngIf="!addingToHomescreen"
-                [(ngModel)]="allowedToHomeScreen"
-                required
-                name="homeScreenInfo"
-                [disabled]="!allowSubmit"
-                (change)="homeScreenPermission()"
+            <div class="w-100 my-3 float-right">
+              <button
+                type="submit"
+                class="signup-btn float-right"
+                *ngIf="!showLoading"
+                mat-raised-button
+                (click)="onSignUpSubmit()"
               >
-                <span class="terms-text" [innerHTML]="this.a2hsCheckboxText">
-                </span>
-              </mat-checkbox>
-              <div class="d-flex flex-row mx-0" *ngIf="addingToHomescreen">
-                <div style="width: 16px; margin-right: 12px;">
-                  <span class="spinner-border spinner-border-sm"></span>
-                </div>
-                <span class="terms-text mb-2" style="line-height: 24px;" [innerHTML]="this.a2hsCheckboxText">
-                </span>
-              </div>
+                Submit
+              </button>
+              <button
+                class="float-right signup-btn"
+                *ngIf="showLoading"
+                type="button"
+                mat-raised-button
+              >
+                <span class="spinner-border spinner-border-sm"></span>
+              </button>
             </div>
           </div>
         </form>
