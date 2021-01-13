@@ -44,6 +44,14 @@ body {
   padding-top: 80px;
   font-size: 14px;
 }
+.mat-icon-button {
+  width: 36px !important;
+  height: 36px !important;
+  line-height: 24px !important;
+  &:hover{
+    background-color: #00000020;
+  }
+}
 @media screen and (max-width: 992px) {
   #form-container {
     width: 70%;
@@ -177,8 +185,9 @@ strong {
 
 .saved-forms-btn {
   float: right;
-  margin: 2%;
+  //margin: 2%;
   outline: none;
+  margin-right: 16px !important;
 }
 
 .form-div {
@@ -281,5 +290,6 @@ strong {
 }
 .iconsDiv {
   position: absolute;
-  right: 45px;
+  right: 15px !important;
+  top:10px;
 }

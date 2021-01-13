@@ -13,7 +13,7 @@
         <div *ngIf="showFollowUp && !t.menuOpen" class="red-circle"></div>
         <button
           class="saved-forms-btn"
-          mat-button
+          mat-icon-button
           [matMenuTriggerFor]="problemSolvingForms"
           #t="matMenuTrigger"
         >
@@ -51,13 +51,15 @@
     <div class="col-12 col-lg" [ngStyle]="{visibility: showLoading ? 'hidden' : 'visible'}">
       <div class="row mb-4">
         <div class="col-12">
-          <div class="card-full-width">
+          <div class="card-full-width" style=" position: relative">
             <div class="card-header">
               Problem statement
-              <div class="float-right d-inline-block">
+              <div class="float-right d-inline-block position-absolute" style="right: 16px; top: 6px;">
+                <button mat-icon-button >
                 <mat-icon class="edit_icon" (click)="onEditProblemClick()">
                   edit
                 </mat-icon>
+                </button>
               </div>
             </div>
 
