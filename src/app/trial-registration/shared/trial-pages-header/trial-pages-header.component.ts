@@ -23,6 +23,8 @@ export class TrialPagesHeaderComponent implements OnInit {
     console.log('step number', this.stepNumber);
     if (this.stepNumber === 1) {
       this.stepOne = true;
+    } else if (this.stepNumber === null) {
+      this.stepOne = false;
     } else if (this.stepNumber === 2) {
       this.stepTwo = true;
     } else if (this.stepNumber === 3) {

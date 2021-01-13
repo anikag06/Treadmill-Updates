@@ -26,6 +26,7 @@ import { WaitlistService } from './waitlist/waitlist.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthHeaderInterceptor } from '@/main/auth-header.interceptor';
 import { TrialsAuthHeaderInterceptor } from '@/trial-registration/shared/trials-auth-header-interceptor';
+import { RegistrationStepOneNextComponent } from './registration-step-one-next/registration-step-one-next.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { TrialsAuthHeaderInterceptor } from '@/trial-registration/shared/trials-
     StepLastPageComponent,
     ReregistrationComponent,
     WaitlistComponent,
+    RegistrationStepOneNextComponent,
   ],
   imports: [
     FormsModule,
