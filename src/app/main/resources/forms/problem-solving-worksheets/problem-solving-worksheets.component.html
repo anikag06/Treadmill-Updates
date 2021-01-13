@@ -263,21 +263,23 @@
             <div class="card-body">
               <div class="list-group">
                 <div
-                  *ngFor="let solution of solutions"
                   [ngStyle]="{ wordBreak: 'break-word' }"
                 >
+                  <mat-radio-group class="radio-group">
                   <mat-radio-button
                     color="primary"
-                    [name]="solution.id"
+                    *ngFor="let solution of solutions"
+                    [value]="solution.id"
                     [checked]="
                       problem.bestsolution &&
                       solution.id === problem.bestsolution
                     "
-                    (change)="onCheckBoxChange(solution, $event)"
+                    (change)="onCheckBoxChange(solution)"
                     [id]="solution.id"
                   >
                     {{ solution.solution }}
                   </mat-radio-button>
+                  </mat-radio-group>
                 </div>
               </div>
               <div class="text-right">
