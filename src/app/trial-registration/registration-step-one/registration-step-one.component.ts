@@ -30,6 +30,9 @@ export class RegistrationStepOneComponent implements OnInit {
   userEligible = false;
   showLoading = false;
   showErrorMessage = false;
+  emailServiceErrorMessage = false;
+  emailServices = ['gmail.com', 'outlook.com', 'yahoo.com', 'aol.com', 'hotmail.com', 'rediffmail.com' ];
+  emailServicePresent = false;
 
   emailForm = new FormGroup({
     email: new FormControl(''),
@@ -63,6 +66,8 @@ export class RegistrationStepOneComponent implements OnInit {
       // required for e2e testing
       this.registrationDataService.trial_email = this.emailForm.value.email;
       // till here
+      // check if modern email service provider
+      if (this.checkEmailService(this.emailForm.value.email)) {
       this.registrationDataService
         .storeEmailID(this.emailForm.value.email)
         .subscribe(
@@ -97,6 +102,10 @@ export class RegistrationStepOneComponent implements OnInit {
             }
           },
         );
+      } else {
+        this.showLoading = false;
+        this.emailServiceErrorMessage = true;
+      }
     } else {
       this.showErrorMessage = true;
     }
@@ -112,5 +121,16 @@ export class RegistrationStepOneComponent implements OnInit {
       block: 'end',
       inline: 'nearest',
     });
+  }
+  // check if modern email service provider
+  checkEmailService(email: string) {
+    for (let i = 0; i < this.emailServices.length; i++) {
+      if ( email.includes( this.emailServices[i])) {
+        this.emailServicePresent = true;
+        break;
+      }
+      console.log('email service', this.emailServices[i]);
+    }
+    return this.emailServicePresent;
   }
 }
