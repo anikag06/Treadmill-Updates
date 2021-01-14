@@ -43,6 +43,10 @@ export class SignUpService {
     return this.http.post(environment.API_ENDPOINT + GET_SIGNUP_MAIL, sendData);
   }
 
+  resendSignupLink(id: number): Observable<any> {
+    return this.http.get(environment.API_ENDPOINT + GET_SIGNUP_MAIL + id + '/');
+  }
+
   usernameAvailabilityCheck(username: string) {
     return this.http.get(
       environment.API_ENDPOINT + USERNAME_AVAILABLE + username,
