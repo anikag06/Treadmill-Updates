@@ -14,12 +14,18 @@ import { IneligibleTrialPageComponent } from './information-pages/ineligible-tri
 import { StepLastPageComponent } from './information-pages/step-last-page/step-last-page.component';
 import { ReregistrationComponent } from '@/trial-registration/reregistration/reregistration.component';
 import { WaitlistComponent } from '@/trial-registration/waitlist/waitlist.component';
+import {RegistrationStepOneNextComponent} from '@/trial-registration/registration-step-one-next/registration-step-one-next.component';
 
 const routes: Routes = [
   {
     path: 'trial-registration',
     component: RegistrationStepOneComponent,
     canActivate: [TrialRegistrationAuthGuard],
+  },
+  {
+    path: 'trial-registration/step-1',
+    component: RegistrationStepOneNextComponent,
+    canActivate: [TrialActivateGuard],
   },
 
   {

@@ -104,6 +104,10 @@
                   <p class="text-footer mt-2 error-text" *ngIf="showErrorMessage">
                     Please give us your valid email id. We won't spam you. Promise 🤞!
                   </p>
+                  <p class="text-footer mt-2 error-text" style="color: #E82626" *ngIf="emailServiceErrorMessage">
+                    We only support modern email service providers that support HTML emails.
+                    If you think that we have missed yours, please <a (click)= "contactUsClicked()" > <b>let us know</b>.</a>
+                  </p>
                 </form>
             </div>
         </div>
