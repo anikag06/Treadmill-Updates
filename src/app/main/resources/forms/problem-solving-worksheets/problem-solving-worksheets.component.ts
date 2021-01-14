@@ -101,12 +101,12 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private stepDataService: StepsDataService,
     private commonService: CommonService,
-    private userProfileService: UserProfileService,
+    private userProfileService: UserProfileService
   ) {}
 
   ngOnInit() {
     this.user = <User>this.authService.isLoggedIn();
-    this.activatedRoute.params.subscribe(v => {
+    this.activatedRoute.params.subscribe((v) => {
       this.step_id = v.step_id;
       console.log('step id', this.step_id);
     });
@@ -132,13 +132,6 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
       this.formService.formName = this.formName;
       this.formService.formTitle.emit();
     }
-    // this.subscriptions[
-    //   this.subscriptions.length
-    // ] = this.problemService.problemBehaviour.subscribe((problem: any) => {
-    //   if (Object.entries(problem).length > 0) {
-    //     this.problemSelected(problem);
-    //   }
-    // }, this.errorService.errorResponse('Something went wrong'));
     const user = this.authService.isLoggedIn();
     if (user && user.is_active) {
       this.user = <User>user;
@@ -166,7 +159,7 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscriptions.forEach(sub => {
+    this.subscriptions.forEach((sub) => {
       sub.unsubscribe();
     });
   }
@@ -181,7 +174,6 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
     this.prosconsSaved = false;
     this.solutionsSaved = false;
     this.problemEditMode = false;
-    // delete this.task;
     this.showTask = false;
     this.showResult = false;
     this.fetchSolutions();
@@ -200,14 +192,14 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
         this.problem.bestsolution = resp.solution_id;
         if (this.problem.bestsolution) {
           const bestSolution = this.solutions.find(
-            sol => sol.id === this.problem.bestsolution.solution_id,
+            (sol) => sol.id === this.problem.bestsolution.solution_id
           );
         }
       });
   }
 
   getBestSolutionText(solution_id: number) {
-    const bestSolution = this.solutions.find(sol => sol.id === solution_id);
+    const bestSolution = this.solutions.find((sol) => sol.id === solution_id);
     if (bestSolution) {
       return bestSolution.solution;
     }
@@ -233,20 +225,10 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   fetchSolutions() {
     this.problemService.getSolutions(this.problem.id).subscribe((resp: any) => {
       this.solutions = resp.body.data.solutions;
-      // console.log(this.solutions);
       if (this.solutions.length > 0) {
         this.solutionsSaved = true;
         this.fetchBestSolution();
       }
-      // if (this.problem.bestsolution) {
-      //   const bestSolution = this.solutions.find(
-      //     sol => sol.id === this.problem.bestsolution.solution_id,
-      //   );
-      //   if (bestSolution) {
-      //     this.bestSolution = bestSolution;
-      //     this.prosconsSaved = true;
-      //   }
-      // }
     }, this.errorService.errorResponse('Something went wrong'));
   }
 
@@ -260,32 +242,19 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
     this.prosconsSaved = false;
   }
 
-  onCheckBoxChange(solution: Solution, event: Event) {
-    // delete this.bestSolution;
-    // this.solutions.map(sol => {
-    //   if (sol.id === solution.id) {
-    //     sol.best_solution = true;
-    //     this.problem.bestsolution = solution.id;
-    //   } else {
-    //     sol.best_solution = false;
-    //   }
-    // });
+  onCheckBoxChange(solution: Solution) {
     if (this.problem.bestsolution) {
-      this.problem.bestsolution = solution.id;
-      // if (this.bestSolution) {
       this.problemService
         .putBestSolution(this.problem.bestsolution, this.problem.id)
         .subscribe(() => {},
         this.errorService.errorResponse('Cannot select the best solution'));
     } else {
+      this.problem.bestsolution = solution.id;
       this.problemService
         .postBestSolution(solution.id, this.problem.id)
-        .subscribe(() => {
-          this.problem.bestsolution = solution.id;
-        }, this.errorService.errorResponse('Cannot select the best solution'));
+        .subscribe(() => {},
+        this.errorService.errorResponse('Cannot select the best solution'));
     }
-
-    // }
   }
 
   selectBestSolution() {
@@ -308,7 +277,7 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
             this.problem.id,
             resp.data.solutions[lastIndex].solution,
             false,
-            0,
+            0
           );
           this.solutions.push(solution);
           this.showSolutionsForm = false;
@@ -350,7 +319,7 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
 
   onSolutionRemove(solution: Solution) {
     this.problemService.deleteSolution(solution.id).subscribe((data: any) => {
-      this.solutions = this.solutions.filter(solu => solu !== solution);
+      this.solutions = this.solutions.filter((solu) => solu !== solution);
       if (this.solutions.length === 0) {
         this.solutionsSaved = false;
       }
@@ -372,9 +341,6 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   onShowSolutionContinue() {
     this.showSolutionContBtn = true;
   }
-  // onShowBestSolution(value: boolean) {
-  //   this.showProConBtn = value;
-  // }
   showSolutionForm() {
     setTimeout(() => {
       this.showSolutionsForm = !this.showSolutionsForm;
@@ -390,14 +356,8 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   }
 
   deleteBestSolution() {
-    // delete this.bestSolution;
     this.showTask = false;
   }
-
-  // getBestSolution(solution_id: number) {
-  //   this.solutions.find();
-  // }
-
   onProblemClick() {
     if (this.problem) {
       this.problemEditMode = true;
@@ -418,12 +378,9 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
     this.showResult = !!task;
     console.log(task);
     this.task = task;
-    // console.log(this.task);
   }
 
   renderResult(): Boolean {
-    // this.showMessage = true;
-    // this.onShowMessage();
     return (
       this.solutions.length > 0 &&
       this.showTask &&
