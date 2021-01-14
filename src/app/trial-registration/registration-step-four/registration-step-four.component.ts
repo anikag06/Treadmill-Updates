@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { RegistrationStepFourForm } from './step-four-consent.model';
 import { RegistrationDataService } from '../shared/registration-data.service';
@@ -67,6 +67,7 @@ export class RegistrationStepFourComponent implements OnInit {
     private fcmService: FcmService,
     private a2hsService: A2HSService,
     private dialog: MatDialog,
+    private changeDetector: ChangeDetectorRef,
   ) {}
 
   ngOnInit() {
@@ -79,6 +80,7 @@ export class RegistrationStepFourComponent implements OnInit {
     this.starting_time = dateTime.replace('Z', '').replace('T', ' ');
     this.participationID = this.registrationDataService.participationID;
     this.fcmService.permit.subscribe(permit => {
+      console.log('inside subscription');
       this.notificationsAllowed = permit ? 1 : 0;
       this.updatingPermissions = false;
       this.activateSubmitButton();
@@ -178,7 +180,6 @@ export class RegistrationStepFourComponent implements OnInit {
   }
 
   activateSubmitButton() {
-    console.log('calling activate submit button');
     if (
       this.consentForm.value.readInfo &&
       this.consentForm.value.voluntaryInfo &&
@@ -187,10 +188,12 @@ export class RegistrationStepFourComponent implements OnInit {
       this.consentForm.value.informationLeakage &&
       this.notificationsAllowed
     ) {
+      console.log('calling activate submit button');
       this.allowSubmit = true;
       this.consentForm.controls['homeScreenInfo'].enable();
     } else {
       this.consentForm.controls['homeScreenInfo'].disable();
     }
+    this.changeDetector.detectChanges();
   }
 }
