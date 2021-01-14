@@ -21,14 +21,14 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(
     private auth: AuthService,
     private titleService: Title,
-    private a2HSService: A2HSService
+    private a2HSService: A2HSService,
   ) {
     this.titleService.setTitle(TREADWILL);
     this.a2HSService.setDeferredPrompt();
   }
 
   ngOnInit() {
-    this.subscription = interval(this.REFRESH_INTERVAL).subscribe((val) => {
+    this.subscription = interval(this.REFRESH_INTERVAL).subscribe(val => {
       this.auth.refresh();
     });
   }
