@@ -122,7 +122,7 @@
               <mat-checkbox
                 ngModel
                 required
-                name="terms_conditions"
+                name="terms_and_conditions"
                 (change)="termsConditionClicked()"
               >
                 <span class="terms-text">
@@ -138,13 +138,14 @@
               </mat-checkbox>
             </div>
 
-            <div class="w-100 my-3 float-right">
+            <div class="w-100 my-3 float-right" style="padding-right: 15px;">
               <button
                 type="submit"
                 class="signup-btn float-right"
                 *ngIf="!showLoading"
                 mat-raised-button
                 (click)="onSignUpSubmit()"
+                [disabled]="!this.allowSubmit"
               >
                 Submit
               </button>

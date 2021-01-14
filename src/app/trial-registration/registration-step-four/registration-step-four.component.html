@@ -98,28 +98,21 @@
                 </mat-radio-group>
             </div>
 
-            <!--
-            <div class="col-12 my-1">
-                <label class="my-3 lesser-opacity">I agree to participate in the study.</label>
-                <br>
-                <mat-radio-group (change)="activateSubmitButton()" formControlName="agreementInfo" color="primary" required>
-                    <mat-radio-button [value]="1" class="mr-5"
-                        #btn11 [ngClass]="{ 'checkedBtn': btn11.checked , 'unChecked': !btn11.checked}">
-                        Accept</mat-radio-button>
-                    <mat-radio-button [value]="0" class="ml-4"
-                        #btn12 [ngClass]="{ 'checkedBtn': btn12.checked , 'unChecked': !btn12.checked}">
-                        Decline</mat-radio-button>
-                </mat-radio-group>
-            </div>
-            -->
-
             <div class="col-12 my-1">
               <label class="my-3 lesser-opacity">Notifications are an essential part of this program. Please accept to allow notifications.</label>
               <br>
               <mat-radio-group (change)="notificationsPermission()" formControlName="notificationsInfo" color="primary" required>
+                <ng-container *ngIf="!updatingPermissions; else loading">
                 <mat-radio-button [value]="1" class="mr-5"
                                   #btn13 [ngClass]="{ 'checkedBtn': btn13.checked , 'unChecked': !btn13.checked}">
                   Accept</mat-radio-button>
+                </ng-container>
+                <ng-template #loading>
+                  <div class="mr-5 d-inline-block loading">
+                  <span class="spinner-border spinner-border-custom"></span>
+                  Accept
+                  </div>
+                </ng-template>
                 <mat-radio-button [value]="0" class="ml-4"
                                   #btn14 [ngClass]="{ 'checkedBtn': btn14.checked , 'unChecked': !btn14.checked}">
                   Decline</mat-radio-button>
@@ -141,74 +134,6 @@
               <mat-hint class="hint">To activate this Accept button, you'll need to accept the other conditions first.</mat-hint>
             </div>
         </div>
-        <!--
-        <div class="row mt-2">
-            <div class="col-12 my-3 ">
-                <button
-                  type="button"
-                  class="w-100 form-elements"
-                  mat-raised-button
-                  [disabled]="!allowSubmit"
-                  matTooltip="Accept all the conditions to activate"
-                  [matTooltipDisabled]="allowSubmit"
-                  color="primary"
-                  (click)="step4DataSubmit()"
-                  *ngIf="!showLoading"
-                > Submit
-                </button>
-              <button class="w-100 form-elements" color="primary" *ngIf="showLoading" type="button" mat-raised-button >
-                <span class="spinner-border spinner-border-sm"></span>
-                &nbsp; Loading..
-              </button>
-            </div>
-        </div>
-
-      <div class="col-12 my-1 checkbox-common">
-        <div class="d-flex flex-row mx-0">
-          <mat-checkbox
-            *ngIf="!updatingPermissions"
-            [(ngModel)]="notificationsAllowed"
-            required
-            name="notificationsInfo"
-            (change)="notificationsPermission()"
-          >
-            <div class="terms-text">
-              {{this.notificationCheckboxText}}
-            </div>
-          </mat-checkbox>
-        </div>
-
-        <div class="d-flex flex-row mx-0" *ngIf="updatingPermissions">
-          <div style="width: 16px; margin-right: 12px;">
-            <span class="spinner-border spinner-border-sm"></span>
-          </div>
-          <span class="terms-text mb-2" style="line-height: 24px;">
-        {{this.notificationCheckboxText}}
-      </span>
-        </div>
-      </div>
-
-      <div class="d-flex col-12 my-1 checkbox-common">
-        <mat-checkbox
-          *ngIf="!addingToHomescreen"
-          [(ngModel)]="allowedToHomeScreen"
-          required
-          name="homeScreenInfo"
-          [disabled]="!allowSubmit"
-          (change)="homeScreenPermission()"
-        >
-      <span class="terms-text" [innerHTML]="this.a2hsCheckboxText">
-      </span>
-        </mat-checkbox>
-        <div class="d-flex flex-row mx-0" *ngIf="addingToHomescreen">
-          <div style="width: 16px; margin-right: 12px;">
-            <span class="spinner-border spinner-border-sm"></span>
-          </div>
-          <span class="terms-text mb-2" style="line-height: 24px;" [innerHTML]="this.a2hsCheckboxText">
-      </span>
-        </div>
-      </div>
-            -->
     </form>
 </div>
 
