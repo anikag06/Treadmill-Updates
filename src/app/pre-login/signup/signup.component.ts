@@ -1,4 +1,10 @@
-import { Component, OnInit, Output, ViewChild } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SignUpService } from './sign-up.service';
 import { FormControl, FormGroup, NgForm } from '@angular/forms';
@@ -57,6 +63,7 @@ export class SignUpComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private signUpService: SignUpService,
+    private changeDetector: ChangeDetectorRef,
   ) {}
 
   ngOnInit() {
@@ -134,16 +141,12 @@ export class SignUpComponent implements OnInit {
       password: 'test',
       email: 'test',
       terms_and_conditions: 'test',
-      add_to_home_screen_consent: 'test',
-      notifications_consent: 'test',
     };
     this.data.username = this.signupForm.value.username;
     this.data.password = this.signupForm.value.password;
     this.data.email = this.encrypted_email;
     this.data.terms_and_conditions = '1';
-    this.data.add_to_home_screen_consent = '1';
-    this.data.notifications_consent = '1';
-    this.termsConditionChecked = this.signupForm.value.terms_conditions;
+    this.termsConditionChecked = this.signupForm.value.terms_and_conditions;
   }
 
   matchPasswords() {
@@ -169,7 +172,7 @@ export class SignUpComponent implements OnInit {
   }
 
   termsConditionClicked() {
-    this.termsConditionChecked = this.signupForm.value.terms_conditions;
+    this.termsConditionChecked = this.signupForm.value.terms_and_conditions;
     this.activateSubmitButton();
   }
   onTermsConClick() {
@@ -190,12 +193,12 @@ export class SignUpComponent implements OnInit {
 
   activateSubmitButton() {
     console.log('getting called');
-    this.allowSubmit = !!(
+    this.allowSubmit =
       this.signupForm.value.username &&
       this.isUsernameAvailable &&
       this.passwordMatch &&
-      this.signupForm.value.terms_conditions
-    );
+      this.signupForm.value.terms_and_conditions;
+    this.changeDetector.detectChanges();
   }
 
   checkUsernameAvailability() {
