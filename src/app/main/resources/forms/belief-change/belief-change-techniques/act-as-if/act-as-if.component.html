@@ -5,7 +5,7 @@
   (afterCollapse)="panelCollapse()"
 >
   <mat-expansion-panel-header
-    [ngStyle]="{ background: '#EBEDFF', paddingLeft: '1rem' }"
+    [ngStyle]="{ background: '#EBEDFF', paddingLeft: '1rem', position: 'relative' }"
   >
     <mat-panel-title
       [ngStyle]="{
@@ -18,10 +18,14 @@
 
     <mat-panel-description>
       <div class="iconsDiv" *ngIf="panel.expanded">
+        <button mat-icon-button>
         <mat-icon>close</mat-icon>
+        </button>
       </div>
-      <div class="iconsDiv" *ngIf="!panel.expanded && summary">
+      <div class="iconsDiv" style = "top: 5px" *ngIf="!panel.expanded && summary">
+        <button mat-icon-button>
         <img src="assets/forms/edit_errors.png" width="24px" />
+        </button>
       </div>
     </mat-panel-description>
   </mat-expansion-panel-header>
@@ -105,7 +109,9 @@
                 (click)="markForDeletion(advantage, i)"
                 *ngIf="showTrashIcon[i]"
               >
+                <button mat-icon-button>
                 <mat-icon>delete</mat-icon>
+                </button>
               </div>
             </div>
           </div>

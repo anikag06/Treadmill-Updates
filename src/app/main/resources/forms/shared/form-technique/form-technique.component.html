@@ -16,13 +16,15 @@
       {{ techniqueName }}
     </mat-panel-title>
     <mat-panel-description>
-      <div class="iconsDiv" *ngIf="panel.expanded">
+      <div class="iconsDiv" *ngIf="panel.expanded" >
         <button mat-icon-button>
         <mat-icon>close</mat-icon>
         </button>
       </div>
-      <div class="iconsDiv" *ngIf="!panel.expanded && this.summary.length > 0">
+      <div class="iconsDiv" *ngIf="!panel.expanded && this.summary.length > 0" style="top:5px">
+        <button mat-icon-button>
         <img src="assets/forms/edit_errors.png" width="24px" />
+        </button>
       </div>
     </mat-panel-description>
   </mat-expansion-panel-header>
