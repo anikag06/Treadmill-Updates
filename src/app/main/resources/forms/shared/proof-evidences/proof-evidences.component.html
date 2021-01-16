@@ -21,8 +21,10 @@
         <mat-icon>close</mat-icon>
         </button>
       </div>
-      <div class="iconsDiv" *ngIf="!panel.expanded && summary">
+      <div class="iconsDiv" *ngIf="!panel.expanded && summary" style="top:5px">
+        <button mat-icon-button>
         <img src="assets/forms/edit_errors.png" width="24px" />
+          </button>
       </div>
     </mat-panel-description>
   </mat-expansion-panel-header>
