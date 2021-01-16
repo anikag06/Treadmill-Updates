@@ -8,7 +8,7 @@
 
       <div class="class h-100 d-inline-block ml-auto">
         <div *ngIf="showFollowUp && !t.menuOpen" class="red-circle"></div>
-        <button class="h-100 saved-forms-btn" mat-button [matMenuTriggerFor]="experimentToTestBeliefForms"
+        <button class="h-100 saved-forms-btn" mat-icon-button [matMenuTriggerFor]="experimentToTestBeliefForms"
           #t="matMenuTrigger">
           <mat-icon>
             more_horiz
@@ -38,10 +38,13 @@
                 Write the negative belief that you would like to test.
               </div>
 
-              <div class="float-right d-inline-block position-absolute" [ngStyle]="{ right: '20px' }">
-                <mat-icon class="edit_icon" (click)="onEditBeliefClick()">
-                  edit
-                </mat-icon>
+              <div class="float-right d-inline-block position-absolute" [ngStyle]="{ right: '15px', top: '5px' }">
+                <button mat-icon-button style="opacity:0.54">
+<!--                  <mat-icon  class="edit_icon" (click)="onEditBeliefClick()">-->
+<!--                  edit-->
+<!--                </mat-icon>-->
+                  <img src="assets/forms/svg/edit%202.svg" (click)="onEditBeliefClick()">
+                </button>
               </div>
             </div>
             <!-- <div class="card-body" *ngIf="belief && !beliefEditMode" (click)="onBeliefClick()">

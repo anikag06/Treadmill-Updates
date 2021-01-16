@@ -1,13 +1,15 @@
-<div class="card-header d-flex">
+<div class="card-header d-flex" style="position: relative; padding-right:30px">
   <div [ngStyle]="{ width: '98%' }">
     If your belief is true, what will be the outcome of your experiment?
   </div>
   <div
     class="float-right d-inline-block position-absolute"
-    [ngStyle]="{ right: '20px' }"
+    [ngStyle]="{ right: '0px', top: '5px' }"
     (click)="editExpectedOutcomeText()"
-  >
-    <mat-icon class="edit_icon"> edit </mat-icon>
+  ><button mat-icon-button class="edit_icon">
+<!--  <mat-icon class="edit_icon"> edit </mat-icon>-->
+    <img src="assets/forms/svg/edit%201.svg" >
+  </button>
   </div>
 </div>
 
@@ -46,7 +48,7 @@
 </div>
 
 <div *ngIf="showOutcome">
-  <div class="card-header d-flex">
+  <div class="card-header d-flex" style="position: relative; padding-right:30px">
     What was the outcome of your experiment?
     <div
       class="circle"
@@ -55,9 +57,11 @@
     <div
       class="float-right d-inline-block position-absolute"
       (click)="editOutcomeText()"
-      [ngStyle]="{ right: '20px' }"
-    >
-      <mat-icon class="edit_icon"> edit </mat-icon>
+      [ngStyle]="{ right: '0px', top: '5px'}"
+    ><button mat-icon-button class="edit_icon">
+      <img src="assets/forms/svg/edit%201.svg" >
+<!--    <mat-icon class="edit_icon"> edit </mat-icon>-->
+    </button>
     </div>
   </div>
   <div *ngIf="disableEmergency" class="hideResult col-12 my-2">Disabled</div>
@@ -98,10 +102,14 @@
         </div>
       </div>
 
-      <div class="card-header" *ngIf="showLearning">
+      <div class="card-header" *ngIf="showLearning" style="position: relative; padding-right:30px">
         What did you learn from the outcome?
-        <div class="float-right d-inline-block" (click)="editLearnigOutcome()">
-          <mat-icon class="edit_icon"> edit </mat-icon>
+        <div class="float-right d-inline-block position-absolute"
+             [ngStyle]="{ right: '0px', top: '5px' }" (click)="editLearnigOutcome()">
+          <button mat-icon-button class="edit_icon">
+<!--          <mat-icon class="edit_icon"> edit </mat-icon>-->
+            <img src="assets/forms/svg/edit%201.svg" >
+          </button>
         </div>
       </div>
       <div class="card-body" *ngIf="showLearning">
