@@ -19,7 +19,7 @@ export class StepLastPageComponent implements OnInit {
     private snackBar: MatSnackBar,
   ) {}
   participationID!: number;
-  msgReceived = 'We have received your message';
+  msgReceived = 'Email sent.';
   action = 'Ok';
 
   ngOnInit() {
@@ -32,7 +32,6 @@ export class StepLastPageComponent implements OnInit {
     this.signUpService
       .resendSignupLink(this.participationID)
       .subscribe(response => {
-        console.log('RESPONSE', response);
         this.snackBar.open(this.msgReceived, this.action, {
           duration: 4000,
         });
