@@ -4,17 +4,19 @@
   (afterExpand)="techniqueExpanded.emit()"
   (afterCollapse)="panelCollapse()"
 >
-  <mat-expansion-panel-header style="background: #FEC1C1;">
+  <mat-expansion-panel-header style="background: #FEC1C1; position: relative">
     <mat-panel-description>
       <strong> Face my worst fear </strong>
       <div class="circle" *ngIf="worry.show_follow_up_dot"></div>
     </mat-panel-description>
-    <mat-icon *ngIf="panel2.expanded" svgIcon="Close"></mat-icon>
-    <mat-icon
-      *ngIf="!panel2.expanded && summaryText"
-      svgIcon="EditErrors"
-      class="iconsDiv"
-    ></mat-icon>
+    <button class="iconsDiv" mat-icon-button *ngIf="panel2.expanded" >
+    <mat-icon svgIcon="Close"></mat-icon></button>
+    <button  class="edit_icon iconsDiv" mat-icon-button *ngIf="!panel2.expanded && summaryText" style="top:6px">
+<!--    <mat-icon-->
+<!--      svgIcon="EditErrors"-->
+<!--    ></mat-icon>-->
+      <img src="assets/forms/svg/edit%201.svg" >
+    </button>
   </mat-expansion-panel-header>
   <ng-template matExpansionPanelContent>
     <div class="card-body" style="padding: 15px 2px 16px;">
@@ -122,7 +124,7 @@
               Continue
             </button>
           </p>
-          <div class="text-right" *ngIf="doneShowSummary">
+          <div class="text-right mb-2" *ngIf="doneShowSummary">
             <button
               type="button"
               (click)="onSummary()"

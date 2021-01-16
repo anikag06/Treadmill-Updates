@@ -33,17 +33,17 @@
       <div class="row mb-5">
         <div class="col-12">
           <div class="card-full-width">
-            <div class="card-header d-flex">
+            <div class="card-header d-flex" style="padding-right:30px">
               <div>
                 Write the negative belief that you would like to test.
               </div>
 
               <div class="float-right d-inline-block position-absolute" [ngStyle]="{ right: '15px', top: '5px' }">
-                <button mat-icon-button style="opacity:0.54">
+                <button mat-icon-button class="edit_icon"(click)="onEditBeliefClick()">
 <!--                  <mat-icon  class="edit_icon" (click)="onEditBeliefClick()">-->
 <!--                  edit-->
 <!--                </mat-icon>-->
-                  <img src="assets/forms/svg/edit%202.svg" (click)="onEditBeliefClick()">
+                  <img src="assets/forms/svg/edit%201.svg" >
                 </button>
               </div>
             </div>

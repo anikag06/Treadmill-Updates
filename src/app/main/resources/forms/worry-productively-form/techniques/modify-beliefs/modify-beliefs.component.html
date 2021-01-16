@@ -4,16 +4,19 @@
   (afterExpand)="techniqueExpanded.emit()"
   (afterCollapse)="panelCollapse()"
 >
-  <mat-expansion-panel-header style="background: #E2E5FF;">
+  <mat-expansion-panel-header style="background: #E2E5FF; position: relative">
     <mat-panel-description>
       <strong> Modify beliefs </strong>
     </mat-panel-description>
-    <mat-icon *ngIf="panel3.expanded" svgIcon="Close"></mat-icon>
-    <mat-icon
-      *ngIf="!panel3.expanded && summaryText"
-      svgIcon="EditErrors"
-      class="iconsDiv"
-    ></mat-icon>
+    <button mat-icon-button class="iconsDiv" *ngIf="panel3.expanded" >
+    <mat-icon svgIcon="Close"></mat-icon>
+    </button>
+    <button class="edit_icon iconsDiv" mat-icon-button *ngIf="!panel3.expanded && summaryText" style="top:6px" >
+<!--    <mat-icon-->
+<!--      svgIcon="EditErrors"-->
+<!--    ></mat-icon>-->
+      <img src="assets/forms/svg/edit%201.svg" >
+    </button>
   </mat-expansion-panel-header>
   <ng-template matExpansionPanelContent>
     <div class="card-body" style="padding: 15px 2px 16px;">
