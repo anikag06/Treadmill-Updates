@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Thought } from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
@@ -24,27 +24,22 @@ export class ThoughtRecordService {
   constructor(private http: HttpClient) {}
 
   getThoughts() {
-    if (this.nextPage) {
-      this.http
-        .get<Thought[]>(environment.API_ENDPOINT + THOUGHT_RECORD_SITUATION_API)
-        .subscribe((data: any) => {
-          // if (this.page === 1) {
-          //   this.thoughts = [];
-          // }
-
-          this.thoughts.push(...data.results);
-          this.thoughtsBehaviour.next(this.thoughts);
-          if (data.next) {
-            this.page += 1;
-            this.nextPage = true;
-            setTimeout(() => {
-              this.getThoughts();
-            }, 10);
-          } else {
-            this.nextPage = false;
-          }
-        });
-    }
+    const params = new HttpParams().set('page', this.page.toString());
+    this.http
+      .get<Thought[]>(environment.API_ENDPOINT + THOUGHT_RECORD_SITUATION_API, {
+        params: params,
+      })
+      .subscribe((data: any) => {
+        this.thoughts.push(...data.results);
+        this.thoughtsBehaviour.next(this.thoughts);
+        if (data.next) {
+          this.page += 1;
+          this.nextPage = true;
+          this.getThoughts();
+        } else {
+          this.nextPage = false;
+        }
+      });
   }
 
   addSituation(thought: Thought) {
@@ -73,7 +68,7 @@ export class ThoughtRecordService {
       data,
       {
         observe: 'response',
-      },
+      }
     );
   }
 
@@ -83,7 +78,7 @@ export class ThoughtRecordService {
       data,
       {
         observe: 'response',
-      },
+      }
     );
   }
 
@@ -92,7 +87,7 @@ export class ThoughtRecordService {
       environment.API_ENDPOINT + THOUGHT_RECORD_SITUATION_API + id + '/',
       {
         observe: 'response',
-      },
+      }
     );
   }
 
@@ -102,7 +97,7 @@ export class ThoughtRecordService {
       data,
       {
         observe: 'response',
-      },
+      }
     );
   }
 
@@ -115,7 +110,7 @@ export class ThoughtRecordService {
       environment.API_ENDPOINT + THOUGHT_RECORD_API + id + '/',
       {
         observe: 'response',
-      },
+      }
     );
   }
 
@@ -125,7 +120,7 @@ export class ThoughtRecordService {
       data,
       {
         observe: 'response',
-      },
+      }
     );
   }
 
@@ -135,7 +130,7 @@ export class ThoughtRecordService {
       data,
       {
         observe: 'response',
-      },
+      }
     );
   }
 
@@ -145,7 +140,7 @@ export class ThoughtRecordService {
       data,
       {
         observe: 'response',
-      },
+      }
     );
   }
 
@@ -154,7 +149,7 @@ export class ThoughtRecordService {
       environment.API_ENDPOINT + THOUGHT_RECORD_BEHAVIOR_API + id + '/',
       {
         observe: 'response',
-      },
+      }
     );
   }
 
@@ -163,7 +158,7 @@ export class ThoughtRecordService {
       environment.API_ENDPOINT + THOUGHT_RECORD_FEELING_API + id + '/',
       {
         observe: 'response',
-      },
+      }
     );
   }
 
@@ -174,7 +169,7 @@ export class ThoughtRecordService {
       data,
       {
         observe: 'response',
-      },
+      }
     );
   }
 }

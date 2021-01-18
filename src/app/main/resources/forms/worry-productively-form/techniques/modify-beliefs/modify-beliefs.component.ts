@@ -30,7 +30,7 @@ export class ModifyBeliefsComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private worryService: WorryProductivelyService,
+    private worryService: WorryProductivelyService
   ) {}
 
   ngOnInit() {}
@@ -42,10 +42,11 @@ export class ModifyBeliefsComponent implements OnInit {
         .subscribe((resp: any) => {
           if (resp.body.length !== 0) {
             this.beliefForm.controls['beliefStatement'].setValue(
-              resp.body.belief,
+              resp.body.belief
             );
             this.modifyBeliefs.push(resp);
             this.summaryText = resp.body.belief;
+            this.responseData = resp.body.belief;
             this.panelCollapse();
             // this.summaryModifyEvent.emit(this.summaryText);
           }
@@ -67,7 +68,6 @@ export class ModifyBeliefsComponent implements OnInit {
       this.worryService.postModifyBeliefs(object).subscribe((resp: any) => {
         const status = resp.ok;
         if (status) {
-          console.log('The request has been submited');
           this.summaryText = this.beliefForm.value['beliefStatement'];
           this.panel3.expanded = false;
           this.panelCollapse();

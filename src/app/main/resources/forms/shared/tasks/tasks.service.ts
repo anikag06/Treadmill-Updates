@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { environment } from 'environments/environment';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { UserTask } from '@/main/resources/forms/shared/tasks/user-task.model';
@@ -21,15 +21,16 @@ export class TasksService {
   constructor(
     private http: HttpClient,
     public snackBar: MatSnackBar,
-    private errorService: GeneralErrorService,
+    private errorService: GeneralErrorService
   ) {}
 
   getTasks() {
+    const params = new HttpParams().set('page', this.page.toString());
     if (this.nextPage) {
       this.http
-        .get(
-          environment.API_ENDPOINT + '/api/v1/tasks/listing/?page=' + this.page,
-        )
+        .get(environment.API_ENDPOINT + '/api/v1/tasks/listing/', {
+          params: params,
+        })
         .subscribe((data: any) => {
           if (this.page === 1) {
             this.tasks = [];
@@ -100,7 +101,7 @@ export class TasksService {
       environment.API_ENDPOINT + TASK_API + task_id + SUBTASK_PATH + subtask_id,
       {
         observe: 'response',
-      },
+      }
     );
   }
 
@@ -109,7 +110,7 @@ export class TasksService {
       environment.API_ENDPOINT + TASK_API + task_id + '/',
       {
         observe: 'response',
-      },
+      }
     );
   }
 

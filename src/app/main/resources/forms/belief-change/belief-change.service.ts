@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { BehaviorSubject } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment';
 import { Belief } from '@/main/resources/forms/belief-change/belief.model';
 import { BELIEF_FORM_API } from '@/app.constants';
@@ -21,26 +21,20 @@ export class BeliefChangeService {
 
   constructor(private http: HttpClient) {}
 
-  getBeliefBehavior() {
-    return this.beliefBehaviour.asObservable();
-  }
   getBeliefs() {
+    const params = new HttpParams().set('page', this.page.toString());
     if (this.nextPage) {
       this.http
-        .get<Belief[]>(environment.API_ENDPOINT + BELIEF_FORM_API)
+        .get<Belief[]>(environment.API_ENDPOINT + BELIEF_FORM_API, {
+          params: params,
+        })
         .subscribe((data: any) => {
-          // if (this.page === 1) {
-          //   this.beliefs = [];
-          // }
-
           this.beliefs.push(...data.results);
           this.beliefsBehaviour.next(this.beliefs);
           if (data.next) {
             this.page += 1;
             this.nextPage = true;
-            // setTimeout(() => {
-            //   this.getBeliefs();
-            // }, 10);
+            this.getBeliefs();
           } else {
             this.nextPage = false;
           }
@@ -53,7 +47,7 @@ export class BeliefChangeService {
       environment.API_ENDPOINT + BELIEF_FORM_API + id + '/',
       {
         observe: 'response',
-      },
+      }
     );
   }
   addBelief(belief: Belief) {
@@ -82,7 +76,7 @@ export class BeliefChangeService {
       data,
       {
         observe: 'response',
-      },
+      }
     );
   }
 
@@ -92,7 +86,7 @@ export class BeliefChangeService {
       data,
       {
         observe: 'response',
-      },
+      }
     );
   }
 }
