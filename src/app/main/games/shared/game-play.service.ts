@@ -266,6 +266,9 @@ export class GamePlayService {
       this.ecGameBadgeConstants,
     );
     this.ecGameStarted = true;
+    // for scrolling game screen
+    const ECGScroll = new CustomEvent('ecgScrollEvent', { bubbles: true });
+    window.dispatchEvent(ECGScroll);
   }
 
   helpExecControlGame(isSoundOn: any, gamePauseDiv: any) {
