@@ -65,7 +65,7 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
     private ettbfBeliefService: ExperimentToTestBeliefService,
     private route: ActivatedRoute,
     private element: ElementRef,
-    public dialog: MatDialog,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -84,13 +84,13 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
     }
 
     this.route.queryParams.subscribe(
-      params => (this.object_id = parseInt(params.form_id, 10)),
+      (params) => (this.object_id = parseInt(params.form_id, 10))
     );
   }
 
   ngAfterViewInit() {
     const panel_body = this.element.nativeElement.querySelectorAll(
-      '.mat-expansion-panel-body',
+      '.mat-expansion-panel-body'
     );
     panel_body[0].setAttribute('style', 'padding:0px;padding-left:16px;');
   }
@@ -106,65 +106,59 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
   }
 
   getProblems() {
-    this.subscriptions[
-      this.subscriptions.length
-    ] = this.problemService.getProblems();
+    this.problemService.getProblems();
     this.subscriptions[
       this.subscriptions.length
     ] = this.problemService.problemsBehaviour.subscribe(
       (problems: Problem[]) => {
         this.objects = problems;
         this.show_dot = this.objects.some(
-          obj => obj.show_follow_up_dot === true,
+          (obj) => obj.show_follow_up_dot === true
         );
         this.showDot.emit(this.show_dot);
         this.selectObject();
       },
       (error: HttpErrorResponse) => {
         console.error(error);
-      },
+      }
     );
   }
 
   getWorries() {
-    this.subscriptions[
-      this.subscriptions.length
-    ] = this.worryService.getWorries();
+    this.worryService.getWorries();
     this.subscriptions[
       this.subscriptions.length
     ] = this.worryService.worrysBehaviour.subscribe(
       (worries: Worry[]) => {
         this.objects = worries;
         this.show_dot = this.objects.some(
-          obj => obj.show_follow_up_dot === true,
+          (obj) => obj.show_follow_up_dot === true
         );
         this.showDot.emit(this.show_dot);
         this.selectObject();
       },
       (error: HttpErrorResponse) => {
         console.error(error);
-      },
+      }
     );
   }
 
   getTestBelief() {
-    this.subscriptions[
-      this.subscriptions.length
-    ] = this.ettbfBeliefService.getBelief();
+    this.ettbfBeliefService.getBelief();
     this.subscriptions[
       this.subscriptions.length
     ] = this.ettbfBeliefService.beliefbehaviours.subscribe(
       (beliefs: Belief[]) => {
         this.objects = beliefs;
         this.show_dot = this.objects.some(
-          obj => obj.show_follow_up_dot === true,
+          (obj) => obj.show_follow_up_dot === true
         );
         this.showDot.emit(this.show_dot);
         this.selectObject();
       },
       (error: HttpErrorResponse) => {
         console.error(error);
-      },
+      }
     );
   }
   getTasks() {
@@ -178,7 +172,7 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
       },
       (error: HttpErrorResponse) => {
         console.error(error);
-      },
+      }
     );
   }
 
@@ -193,7 +187,7 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
       },
       (error: HttpErrorResponse) => {
         console.error(error);
-      },
+      }
     );
   }
 
@@ -208,7 +202,7 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
       },
       (error: HttpErrorResponse) => {
         console.error(error);
-      },
+      }
     );
   }
 
@@ -241,7 +235,7 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
   }
 
   deleteThoughtRecordForm(object: any) {
-    this.thoughtRecordService.deleteSituation(object.id).subscribe(resp => {
+    this.thoughtRecordService.deleteSituation(object.id).subscribe((resp) => {
       const status = resp.ok;
       if (status) {
         this.onAddNewForm();
@@ -252,7 +246,7 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
 
   selectObject() {
     if (this.objects.length > 0 && this.object_id > 0) {
-      const form = this.objects.find(object => object.id === this.object_id);
+      const form = this.objects.find((object) => object.id === this.object_id);
       if (form) {
         this.problemClicked(form);
       }
@@ -260,7 +254,7 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
   }
 
   deleteBeliefForm(object: any) {
-    this.beliefChangeService.deleteBelief(this.object.id).subscribe(resp => {
+    this.beliefChangeService.deleteBelief(this.object.id).subscribe((resp) => {
       if (resp.ok) {
         this.onAddNewForm();
         this.beliefChangeService.removeBelief(object);
@@ -269,7 +263,7 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
   }
 
   deleteTaskForm(task: any) {
-    this.tasksService.deleteTask(task.id).subscribe(resp => {
+    this.tasksService.deleteTask(task.id).subscribe((resp) => {
       const status = resp.body.status;
       if (status) {
         this.tasksService.openSnackBar('Task Deleted Successfully', 'OK');
@@ -283,7 +277,7 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
   }
 
   deleteWorryForm(worry: any) {
-    this.worryService.deleteWorry(worry.id).subscribe(resp => {
+    this.worryService.deleteWorry(worry.id).subscribe((resp) => {
       const status = resp.ok;
       if (status) {
         this.onAddNewForm();
@@ -296,7 +290,7 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
   }
 
   deleteProblem(problem: any) {
-    this.problemService.deleteProblem(problem.id).subscribe(resp => {
+    this.problemService.deleteProblem(problem.id).subscribe((resp) => {
       if (resp.ok) {
         this.onAddNewForm();
         this.problemService.removeProblem(problem);
@@ -304,7 +298,7 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
     });
   }
   deleteTestBeliefForm(belief: any) {
-    this.ettbfBeliefService.deleteBelief(belief.id).subscribe(resp => {
+    this.ettbfBeliefService.deleteBelief(belief.id).subscribe((resp) => {
       const status = resp.ok;
       if (status) {
         this.onAddNewForm();

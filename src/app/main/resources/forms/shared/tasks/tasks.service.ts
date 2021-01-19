@@ -25,8 +25,8 @@ export class TasksService {
   ) {}
 
   getTasks() {
-    const params = new HttpParams().set('page', this.page.toString());
     if (this.nextPage) {
+      const params = new HttpParams().set('page', this.page.toString());
       this.http
         .get(environment.API_ENDPOINT + '/api/v1/tasks/listing/', {
           params: params,

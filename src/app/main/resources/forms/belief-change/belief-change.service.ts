@@ -22,8 +22,8 @@ export class BeliefChangeService {
   constructor(private http: HttpClient) {}
 
   getBeliefs() {
-    const params = new HttpParams().set('page', this.page.toString());
     if (this.nextPage) {
+      const params = new HttpParams().set('page', this.page.toString());
       this.http
         .get<Belief[]>(environment.API_ENDPOINT + BELIEF_FORM_API, {
           params: params,

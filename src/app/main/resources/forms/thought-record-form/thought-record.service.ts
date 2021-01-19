@@ -24,22 +24,27 @@ export class ThoughtRecordService {
   constructor(private http: HttpClient) {}
 
   getThoughts() {
-    const params = new HttpParams().set('page', this.page.toString());
-    this.http
-      .get<Thought[]>(environment.API_ENDPOINT + THOUGHT_RECORD_SITUATION_API, {
-        params: params,
-      })
-      .subscribe((data: any) => {
-        this.thoughts.push(...data.results);
-        this.thoughtsBehaviour.next(this.thoughts);
-        if (data.next) {
-          this.page += 1;
-          this.nextPage = true;
-          this.getThoughts();
-        } else {
-          this.nextPage = false;
-        }
-      });
+    if (this.nextPage) {
+      const params = new HttpParams().set('page', this.page.toString());
+      this.http
+        .get<Thought[]>(
+          environment.API_ENDPOINT + THOUGHT_RECORD_SITUATION_API,
+          {
+            params: params,
+          }
+        )
+        .subscribe((data: any) => {
+          this.thoughts.push(...data.results);
+          this.thoughtsBehaviour.next(this.thoughts);
+          if (data.next) {
+            this.page += 1;
+            this.nextPage = true;
+            this.getThoughts();
+          } else {
+            this.nextPage = false;
+          }
+        });
+    }
   }
 
   addSituation(thought: Thought) {

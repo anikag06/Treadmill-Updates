@@ -33,35 +33,37 @@ export class ProblemSolvingWorksheetsService {
   constructor(
     private http: HttpClient,
     private sanitizer: SanitizationService,
-    private errorService: GeneralErrorService,
+    private errorService: GeneralErrorService
   ) {}
 
   getProblems() {
-    const params = new HttpParams().set('page', this.page.toString());
-    return this.http
-      .get<Problem[]>(environment.API_ENDPOINT + PSF_PROBLEM_URL, {
-        params: params,
-      })
-      .subscribe(
-        (data: any) => {
-          const problems = <Problem[]>data.results;
-          if (this.page === 1) {
-            this.problems = [];
+    if (this.moreProblems) {
+      const params = new HttpParams().set('page', this.page.toString());
+      return this.http
+        .get<Problem[]>(environment.API_ENDPOINT + PSF_PROBLEM_URL, {
+          params: params,
+        })
+        .subscribe(
+          (data: any) => {
+            const problems = <Problem[]>data.results;
+            if (this.page === 1) {
+              this.problems = [];
+            }
+            this.problems.push(...problems);
+            this.problemsBehaviour.next(this.problems);
+            if (data.next) {
+              this.moreProblems = true;
+              this.page += 1;
+              this.getProblems();
+            } else {
+              this.moreProblems = false;
+            }
+          },
+          (error: HttpErrorResponse) => {
+            console.error(error);
           }
-          this.problems.push(...problems);
-          this.problemsBehaviour.next(this.problems);
-          if (data.next) {
-            this.moreProblems = true;
-            this.page += 1;
-            this.getProblems();
-          } else {
-            this.moreProblems = false;
-          }
-        },
-        (error: HttpErrorResponse) => {
-          console.error(error);
-        },
-      );
+        );
+    }
   }
 
   deleteProblem(problem_id: number) {
@@ -69,7 +71,7 @@ export class ProblemSolvingWorksheetsService {
       environment.API_ENDPOINT + PSF_PROBLEM_URL + problem_id + '/',
       {
         observe: 'response',
-      },
+      }
     );
   }
 
@@ -79,7 +81,7 @@ export class ProblemSolvingWorksheetsService {
       { problem: problem },
       {
         observe: 'response',
-      },
+      }
     );
     // .pipe(
     //   // map((data: any) => {
@@ -100,7 +102,7 @@ export class ProblemSolvingWorksheetsService {
       },
       {
         observe: 'response',
-      },
+      }
     );
     // .pipe(
     //   map((data: any) => {
@@ -135,11 +137,7 @@ export class ProblemSolvingWorksheetsService {
 
   deleteSolution(solutionId: number) {
     return this.http.delete(
-      environment.API_ENDPOINT +
-        PSF_SOLUTION_URL +
-        'delete/' +
-        solutionId +
-        '/',
+      environment.API_ENDPOINT + PSF_SOLUTION_URL + 'delete/' + solutionId + '/'
     );
   }
 
@@ -176,7 +174,7 @@ export class ProblemSolvingWorksheetsService {
         {
           solution_id: solutionId,
           problem_id: problemId,
-        },
+        }
       )
       .pipe(catchError(this.errorService.handleError));
   }
@@ -187,7 +185,7 @@ export class ProblemSolvingWorksheetsService {
         environment.API_ENDPOINT + PSF_SOLUTION_URL + problem + '/',
         {
           observe: 'response',
-        },
+        }
       )
       .pipe(catchError(this.errorService.handleError));
   }
@@ -198,7 +196,7 @@ export class ProblemSolvingWorksheetsService {
       environment.API_ENDPOINT + PSF_SOLUTION_URL + problemId + '/',
       {
         solution: solution,
-      },
+      }
     );
   }
 
@@ -216,13 +214,13 @@ export class ProblemSolvingWorksheetsService {
         body: proCon.body,
         is_pros: proCon.is_pros,
       },
-      {},
+      {}
     );
   }
 
   deleteProsCons(proConId: number) {
     return this.http.delete(
-      environment.API_ENDPOINT + PSF_PRO_CON_URL + 'delete/' + proConId + '/',
+      environment.API_ENDPOINT + PSF_PRO_CON_URL + 'delete/' + proConId + '/'
     );
   }
 
@@ -240,21 +238,21 @@ export class ProblemSolvingWorksheetsService {
 
   getResult(solution_id: number) {
     return this.http.get(
-      environment.API_ENDPOINT + PSF_RESULT_URL + solution_id + '/',
+      environment.API_ENDPOINT + PSF_RESULT_URL + solution_id + '/'
     );
   }
 
   postResult(solution_id: number, resultObject: any) {
     return this.http.post(
       environment.API_ENDPOINT + PSF_RESULT_URL,
-      resultObject,
+      resultObject
     );
   }
 
   putResult(solution_id: number, resultObject: any) {
     return this.http.put(
       environment.API_ENDPOINT + PSF_RESULT_URL + solution_id + '/',
-      resultObject,
+      resultObject
     );
   }
 

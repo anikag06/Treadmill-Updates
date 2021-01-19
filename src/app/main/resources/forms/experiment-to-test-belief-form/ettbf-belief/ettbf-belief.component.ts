@@ -53,7 +53,7 @@ export class EttbfBeliefComponent implements OnInit {
     private ettbfBeliefService: ExperimentToTestBeliefService,
     private commonService: CommonService,
     private userProfileService: UserProfileService,
-    private authService: AuthService,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -107,9 +107,9 @@ export class EttbfBeliefComponent implements OnInit {
               }
             }
           },
-          error => {
+          (error) => {
             console.error(error);
-          },
+          }
         );
     } else {
       if (
@@ -123,11 +123,11 @@ export class EttbfBeliefComponent implements OnInit {
             if (this.user.is_exp) {
               this.commonService.updateScore(FORM_START_SCORE);
             }
-            // this.beliefClicked.emit(this.beliefContinue);
+            this.beliefClicked.emit(this.beliefContinue);
           },
-          error => {
+          (error) => {
             console.error(error);
-          },
+          }
         );
       }
     }

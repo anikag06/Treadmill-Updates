@@ -38,28 +38,30 @@ export class WorryProductivelyService {
   worryId!: number;
   constructor(private http: HttpClient) {}
   getWorries() {
-    const params = new HttpParams().set('page', this.page.toString());
-    return this.http
-      .get<Worry[]>(environment.API_ENDPOINT + WPF_WORRY_URL, {
-        params: params,
-      })
-      .subscribe(
-        (data: any) => {
-          const worries = <Worry[]>data.results;
-          this.worries.push(...worries);
-          this.worrysBehaviour.next(this.worries);
-          if (data.next) {
-            this.moreWorries = true;
-            this.page += 1;
-            this.getWorries();
-          } else {
-            this.moreWorries = false;
+    if (this.moreWorries) {
+      const params = new HttpParams().set('page', this.page.toString());
+      return this.http
+        .get<Worry[]>(environment.API_ENDPOINT + WPF_WORRY_URL, {
+          params: params,
+        })
+        .subscribe(
+          (data: any) => {
+            const worries = <Worry[]>data.results;
+            this.worries.push(...worries);
+            this.worrysBehaviour.next(this.worries);
+            if (data.next) {
+              this.moreWorries = true;
+              this.page += 1;
+              this.getWorries();
+            } else {
+              this.moreWorries = false;
+            }
+          },
+          (error: HttpErrorResponse) => {
+            console.error(error);
           }
-        },
-        (error: HttpErrorResponse) => {
-          console.error(error);
-        }
-      );
+        );
+    }
   }
   postWorry(worry: string) {
     return this.http

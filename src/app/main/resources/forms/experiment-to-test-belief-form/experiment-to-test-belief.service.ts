@@ -34,29 +34,30 @@ export class ExperimentToTestBeliefService {
   ) {}
 
   getBelief() {
-    const params = new HttpParams().set('page', this.page.toString());
-    return this.http
-      .get<Belief[]>(environment.API_ENDPOINT + ETTBF_BELIEF_URL, {
-        params: params,
-      })
-      .subscribe(
-        (data: any) => {
-          console.log('ETTBF data: ', data);
-          const beliefs = <Belief[]>data.results;
-          this.beliefs.push(...beliefs);
-          this.beliefbehaviours.next(this.beliefs);
-          if (data.next) {
-            this.morebeliefs = true;
-            this.page += 1;
-            this.getBelief();
-          } else {
-            this.morebeliefs = false;
+    if (this.morebeliefs) {
+      const params = new HttpParams().set('page', this.page.toString());
+      return this.http
+        .get<Belief[]>(environment.API_ENDPOINT + ETTBF_BELIEF_URL, {
+          params: params,
+        })
+        .subscribe(
+          (data: any) => {
+            const beliefs = <Belief[]>data.results;
+            this.beliefs.push(...beliefs);
+            this.beliefbehaviours.next(this.beliefs);
+            if (data.next) {
+              this.morebeliefs = true;
+              this.page += 1;
+              this.getBelief();
+            } else {
+              this.morebeliefs = false;
+            }
+          },
+          (error: HttpErrorResponse) => {
+            console.error(error);
           }
-        },
-        (error: HttpErrorResponse) => {
-          console.error(error);
-        }
-      );
+        );
+    }
   }
 
   postBelief(belief: string) {
