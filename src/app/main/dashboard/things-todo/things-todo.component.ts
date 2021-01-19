@@ -29,15 +29,15 @@ export class ThingsTodoComponent implements OnInit {
       data.data.final_list.forEach((element: any) => {
         console.log('element: ', element);
         if (element[0].indexOf('FORM') !== -1) {
-          this.iconList.push('../../../../assets/modules/icon-form-wb.png');
+          this.iconList.push('../../../../assets/flow/Form.svg');
           // @ts-ignore
           this.todoList.push(EXPLORE_MAP.get(element[0]));
         } else if (element[0].indexOf('GAME') !== -1) {
-          this.iconList.push('../../../../assets/modules/icon-game-wb.png');
+          this.iconList.push('../../../../assets/flow/Game.svg');
           // @ts-ignore
           this.todoList.push(EXPLORE_MAP.get(element[0]));
         } else {
-          this.iconList.push('../../../../assets/modules/icon-video-wb.png');
+          this.iconList.push('../../../../assets/flow/Video.svg');
           if (this.is_mindfulness) {
             const obj = EXPLORE_MAP.get(element[0]);
             // @ts-ignore
