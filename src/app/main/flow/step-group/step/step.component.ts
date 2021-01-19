@@ -300,31 +300,31 @@ export class StepComponent implements OnInit, AfterViewInit {
 
   getStepIcon(step: Step) {
     if (step.data_type === SLIDE) {
-      return 'assets/flow/icon-slide-wb.png';
+      return 'assets/flow/Slide.svg';
     } else if (step.data_type === CONVERSATION_GROUP) {
-      return 'assets/flow/icon-conversation-wb.png';
+      return 'assets/flow/Conversation.svg';
     } else if (step.data_type === GAME) {
-      return 'assets/flow/icon-game-wb.png';
+      return 'assets/flow/Game.svg';
     } else if (step.data_type === FORM) {
-      return 'assets/flow/icon-form-wb.png';
+      return 'assets/flow/Form.svg';
     } else if (step.data_type === SUPPORT_GROUP) {
-      return 'assets/flow/icon-Support Group-wb.png';
+      return 'assets/flow/Support Group.svg';
     } else if (step.data_type === INTRODUCTION_PAGE) {
-      return 'assets/flow/icon-htmlpage-wb.png';
+      return 'assets/flow/htmlpage.svg';
     } else if (step.data_type === CONCLUSION_PAGE) {
-      return 'assets/flow/icon-htmlpage-wb.png';
+      return 'assets/flow/htmlpage.svg';
     } else if (step.data_type === RESOURCES_PAGE) {
-      return 'assets/flow/Resource.png';
+      return 'assets/flow/Resource.svg';
     } else if (step.data_type === TESTIMONIALS_PAGE) {
-      return 'assets/flow/Resource.png';
+      return 'assets/flow/Resource.svg';
     } else if (step.data_type === SURVEY) {
-      return 'assets/flow/icon-survey-wb.png';
+      return 'assets/flow/Survey.svg';
     } else if (step.data_type === VIDEO) {
-      return 'assets/flow/icon-video-wb.png';
+      return 'assets/flow/Video.svg';
     } else if (step.data_type === INTRODUCTORY_ANIMATION) {
-      return 'assets/flow/Animation-onboarding.png';
+      return 'assets/flow/Animation-onboarding.svg';
     } else if (step.data_type === CONTROL_PAGE) {
-      return 'assets/flow/icon-htmlpage-wb.png';
+      return 'assets/flow/htmlpage.svg';
     }
   }
 
