@@ -19,13 +19,13 @@ export class FormFinalRatingComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     @Inject('IFinalRatingServices')
-    private providerService: IFinalRatingServices[],
+    private providerService: IFinalRatingServices[]
   ) {}
 
   @Input() header!: string;
   minRating = 'Not at all';
   maxRating = 'Very Strongly';
-  finalRating!: number;
+  finalRating = 1;
   @Input() realisticQuestion!: string;
   @Input() original_title!: string;
   @Input() initialRating!: number;
@@ -65,7 +65,7 @@ export class FormFinalRatingComponent implements OnInit {
                 .subscribe((data: any) => {
                   if (data.realistic) {
                     this.finalRatingForm.controls['realistic'].setValue(
-                      data.realistic,
+                      data.realistic
                     );
                     this.showRealistic = false;
                     this.editRealistic = true;

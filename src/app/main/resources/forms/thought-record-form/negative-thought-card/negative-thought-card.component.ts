@@ -29,7 +29,7 @@ export class NegativeThoughtCardComponent implements OnInit {
   submitted = false;
   minRating = 'Not At All';
   maxRating = 'Very Strongly';
-  negativeMoodRating!: number;
+  negativeMoodRating = 1;
   @Input() thought!: Thought;
   @ViewChild('thoughtTextArea', { static: false }) element!: ElementRef;
   @Output() onShowSelectMood = new EventEmitter();
@@ -50,7 +50,7 @@ export class NegativeThoughtCardComponent implements OnInit {
     private fb: FormBuilder,
     private thoughtRecordService: ThoughtRecordService,
     private commonService: CommonService,
-    private authService: AuthService,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -87,6 +87,7 @@ export class NegativeThoughtCardComponent implements OnInit {
   initializeThought(resp: any) {
     this.thoughtRecordForm.controls['thought'].setValue(resp.body.thought);
     this.showSlider = true;
+    this.editMode = true;
     if (resp.body.thought_rating_initial) {
       this.negativeMoodRating = resp.body.thought_rating_initial;
       // this.showSliderButton = true;
@@ -100,7 +101,7 @@ export class NegativeThoughtCardComponent implements OnInit {
       situation_id: this.thought.id,
       thought: this.thoughtRecordForm.value['thought'],
     };
-    if (this.negativeMoodRating > 0) {
+    if (this.editMode) {
       this.onThoughtRatingSubmit();
     } else {
       this.showLoading = true;
@@ -138,6 +139,7 @@ export class NegativeThoughtCardComponent implements OnInit {
           this.showContinueButton = false;
           this.showSliderButton = false;
           this.showRatingSpinner = false;
+          this.editMode = true;
           this.initialRatingChange.emit(this.negativeMoodRating);
           if (!this.scoreUpdate) {
             this.scoreUpdate = true;

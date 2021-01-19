@@ -27,7 +27,7 @@ export class NegativeBeliefComponent implements OnInit {
     private dialog: MatDialog,
     private beliefChangeService: BeliefChangeService,
     private commonService: CommonService,
-    private authService: AuthService,
+    private authService: AuthService
   ) {}
   scoreUpdate = false;
   user!: User;
@@ -36,12 +36,12 @@ export class NegativeBeliefComponent implements OnInit {
   showBeliefLink = false;
   @Input() belief!: Belief;
   @Output() updateBelief = new EventEmitter();
-  showContiue = false;
+  showContinue = false;
   // sliderHeader = 'On a scale of 1-10, how strongly do you belief this?';
   minRating = 'Not at all';
   maxRating = 'Very Strongly';
   scaleBelief = 'On a scale of 1-10, how strongly do you belief this?';
-  beliefRatingInitial!: number;
+  beliefRatingInitial = 1;
   showSliderButton = false;
   editMode = false;
   @Output() onShowTechniques = new EventEmitter();
@@ -83,10 +83,10 @@ export class NegativeBeliefComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result && result.data) {
         this.negativeBeliefForm.controls['belief'].setValue(
-          result.data.selectedBelief,
+          result.data.selectedBelief
         );
         this.showBeliefLink = true;
-        this.showContiue = true;
+        this.showContinue = true;
         // this.showSlider = true;
       }
     });
@@ -95,27 +95,25 @@ export class NegativeBeliefComponent implements OnInit {
   initializeBelief() {
     this.negativeBeliefForm.controls['belief'].setValue(this.belief.belief);
     this.showSlider = true;
-    this.showContiue = false;
+    this.showContinue = false;
     this.showBeliefLink = true;
     this.editMode = true;
     if (this.belief.belief_rating_initial) {
       this.beliefRatingInitial = this.belief.belief_rating_initial;
       this.onShowTechniques.emit();
       this.initialRatingChange.emit(this.beliefRatingInitial);
-    } else {
-      delete this.beliefRatingInitial;
     }
   }
 
   onShowContinue() {
-    this.showContiue = true;
+    this.showContinue = true;
   }
 
   resetBelief() {
     this.negativeBeliefForm = this.formBuilder.group({
       belief: new FormControl('', [Validators.required]),
     });
-    delete this.beliefRatingInitial;
+    this.beliefRatingInitial = 1;
     this.showSlider = false;
     this.showBeliefLink = false;
     delete this.editMode;
@@ -131,7 +129,7 @@ export class NegativeBeliefComponent implements OnInit {
         if (resp.ok) {
           this.showSpinner = false;
           this.showSlider = true;
-          this.showContiue = false;
+          this.showContinue = false;
           this.showBeliefLink = true;
           this.beliefHandler(resp.body, 'create');
         }
@@ -163,7 +161,7 @@ export class NegativeBeliefComponent implements OnInit {
             this.onShowTechniques.emit();
             this.updateBelief.emit(resp.body);
             this.showRatingSpinner = false;
-            this.showContiue = false;
+            this.showContinue = false;
             this.initialRatingChange.emit(this.beliefRatingInitial);
             this.beliefHandler(resp.body, '');
             if (!this.scoreUpdate) {
@@ -182,7 +180,7 @@ export class NegativeBeliefComponent implements OnInit {
       this.belief = new Belief(
         data.id,
         data.belief,
-        data.belief_rating_initial,
+        data.belief_rating_initial
       );
       this.beliefChangeService.addBelief(this.belief);
 
@@ -190,7 +188,7 @@ export class NegativeBeliefComponent implements OnInit {
       // this.hideNextStep = true;
     } else {
       const belief = this.beliefChangeService.beliefs.find(
-        (t: Belief) => t.id === +data.id,
+        (t: Belief) => t.id === +data.id
       );
       if (belief) {
         this.belief = <Belief>data;
