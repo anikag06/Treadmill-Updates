@@ -148,12 +148,13 @@
           }"
           (click)="chatButtonPressed(button)"
         >
-          <object type="image/svg+xml"
-            data="{{button.image_url}}"
+          <img
+            [src]="button.image_url"
+            [alt]="button.emojified_payload"
             width="150px"
             height="80px"
-            *ngIf="button.type === clickAble; else btnText">
-          </object>
+            *ngIf="button.type === clickAble; else btnText"
+          />
           <ng-template #btnText>
             <span
               class="btn-text"
