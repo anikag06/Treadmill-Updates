@@ -42,12 +42,13 @@ export class TechniquesComponent implements OnInit {
         '../../../../../../assets/forms/Info.svg',
       ),
     );
-    this.matIconRegistry.addSvgIcon(
-      'EditErrors',
-      this.domSanitizer.bypassSecurityTrustResourceUrl(
-        '../../../../../../assets/forms/EditErrors.svg',
-      ),
-    );
+    // edit icon is added in img tag
+    // this.matIconRegistry.addSvgIcon(
+    //   'EditErrors',
+    //   this.domSanitizer.bypassSecurityTrustResourceUrl(
+    //     '../../../../../../assets/forms/EditErrors.svg',
+    //   ),
+    // );
     this.matIconRegistry.addSvgIcon(
       'Close',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
