@@ -5,7 +5,7 @@
   <div class="chat-header">
     <img
       class="chatbot-screen-img"
-      src="assets/chatbot/on_chat_screen.png"
+      src="assets/chatbot/on_chat_screen.svg"
       alt=""
     />
     <h3>WillBot</h3>
@@ -148,13 +148,12 @@
           }"
           (click)="chatButtonPressed(button)"
         >
-          <img
-            [src]="button.image_url"
-            [alt]="button.emojified_payload"
+          <object type="image/svg+xml"
+            data="{{button.image_url}}"
             width="150px"
             height="80px"
-            *ngIf="button.type === clickAble; else btnText"
-          />
+            *ngIf="button.type === clickAble; else btnText">
+          </object>
           <ng-template #btnText>
             <span
               class="btn-text"
@@ -176,7 +175,7 @@
       <div class="clearfix chatbot-error-card" *ngIf="!isOnline">
         <!--        {{ isOnline }}-->
         <img
-          src="assets/chatbot/Internet_disconnected.png"
+          src="assets/chatbot/Internet_disconnected.svg"
           width="135px"
           [ngStyle]="{ marginLeft: '10%' }"
         />
@@ -191,7 +190,7 @@
       </div>
       <div class="clearfix chatbot-error-card" *ngIf="showMaintenance">
         <img
-          src="assets/chatbot/chatbot_maintenance.png"
+          src="assets/chatbot/chatbot_maintenance.svg"
           width="135px"
           [ngStyle]="{ marginLeft: '10%' }"
         />
