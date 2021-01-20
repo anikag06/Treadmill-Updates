@@ -278,8 +278,8 @@ export const WORRY_FINAL_SLIDER =
 export const FACE_WORST_FEAR =
   '/api/v1/worksheets/worry-productively/face-worst-fear/';
 export const GET_TASKS = '/api/v1/tasks/task/';
-export const THINKING_IMG = 'assets/forms/thinking.png';
-export const WELL_DONE_IMG = 'assets/forms/well_done.png';
+export const THINKING_IMG = 'assets/forms/Thinking.svg';
+export const WELL_DONE_IMG = 'assets/forms/Well_done.svg';
 
 // Problem solving form
 export const PSF_PROBLEM_SOLVING = 'problem-solving';
