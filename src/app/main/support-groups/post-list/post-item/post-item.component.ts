@@ -82,7 +82,6 @@ export class PostItemComponent
   commentNos = 1;
   showProfile = false;
   userProfile = new UserProfile('Name', '', 0, 0, 0, 0, [], [], []);
-  // thankYouIcon = '../../../assets/support-group/Group 11055.png';
   thanked = false;
   userProfileData = new UserProfile('Name', '', 0, 0, 0, 0);
 
