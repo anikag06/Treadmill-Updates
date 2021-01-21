@@ -18,18 +18,18 @@
   position: absolute;
   border-left: 3px solid #f5bb56;
   width: 0;
-  margin-left:10px;
-  top:36px;
-  height: calc(100% - 23px);
+  margin-left:17px;
+  top:40px;
+  height: calc(100% - 28px);
   content: '';
 }
 .status-img.disabled:before {
   position: absolute;
   border-left: 3px solid #FFEDD5;
   width: 0;
-  margin-left:10px;
-  top:36px;
-  height: calc(100% - 23px);
+  margin-left:17px;
+  top:38px;
+  height: calc(100% - 28px);
   content: '';
 
 }
@@ -37,9 +37,9 @@
   position: absolute;
   border-left: 3px solid #FFEDD5;
   width: 0;
-  margin-left:12px;
-  top:35px;
-  height: calc(100% - 22px);
+  margin-left:21px;
+  top:44px;
+  height: calc(100% - 34px);
   content: '';
 }
 
@@ -47,27 +47,27 @@
   position: absolute;
   border-left: 3px dashed #f5bb56;
   width: 0;
-  margin-left: -14px;
+  margin-left: -19px;
   top:-25px;
-  height: 39px;
+  height: 36px;
   content: '';
 }
 .status-img.isFirstStep:after{
   position: absolute;
   border-left: 3px solid #f5bb56;
   width: 0;
-  margin-left:-14px;
+  margin-left:-19px;
   top:-25px;
-  height: 38px;
+  height: 36px;
   content: '';
 }
 .status-img.isFirstStepActive:after{
   position: absolute;
   border-left: 3px solid #f5bb56;
   width: 0;
-  margin-left:-16px;
+  margin-left:-23px;
   top:-25px;
-  height: 38px;
+  height: 36px;
   content: '';
 }
 .status-img.isLastDashed:before {
