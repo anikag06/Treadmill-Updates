@@ -13,8 +13,8 @@
         'isFirstStep': first===true && (firstStepOfModule === true || showLessSteps ===false),
         'isLastDashed': last===true && lastStepOfModule ===false && showLessSteps===true,
         'isLastStep': last===true && (lastStepOfModule === true || showLessSteps === false)}">
-    <img [src]="getStatusImage(step)" style="z-index: 1" [style.width]="step.status==='ACTIVE' ? 28 +'px' : 24 + 'px' "
-         [style.padding-top]="step.status==='ACTIVE' ? 10 +'px' : 12 + 'px' "
+    <img [src]="getStatusImage(step)" style="z-index: 1" [style.width]="step.status==='ACTIVE' ? 44 +'px' : 36 + 'px' "
+         [style.padding-top]="step.status==='ACTIVE' ? 6 +'px' : 8 + 'px' "
         [alt]="step.status"/>
   </div>
 </div>

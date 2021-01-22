@@ -3,6 +3,6 @@ if (document.images) {
   img2 = new Image();
 
 
-  img1.src = "assets/forms/thinking.png";
-  img2.src = "assets/forms/well_done.png";
+  img1.src = "assets/forms/Thinking.svg";
+  img2.src = "assets/forms/Well_done.svg";
 }

@@ -65,7 +65,12 @@ export class ExecutiveControlGameComponent
   onOrientationChange() {
     window.location.reload();
   }
-
+  @HostListener('window:ecgScrollEvent')
+  scrollDown() {
+    setTimeout(() => {
+      this.scroll.nativeElement.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
+  }
   ngOnInit() {
     console.log('game name', this.playGameService.gameName);
     this.gameName = this.playGameService.gameName;
@@ -197,7 +202,6 @@ export class ExecutiveControlGameComponent
   }
 
   ngAfterViewInit() {
-    this.scrollDown();
   }
 
   @HostListener('window:CallAngularStoreTaskDataFun')
@@ -235,9 +239,9 @@ export class ExecutiveControlGameComponent
       this.showPlayButtons.emit();
     }, 100);
   }
-  scrollDown() {
-    setTimeout(() => {
-      this.scroll.nativeElement.scrollIntoView({ behavior: 'smooth' });
-    }, 100);
-  }
+  // scrollDown() {
+  //   setTimeout(() => {
+  //     this.scroll.nativeElement.scrollIntoView({ behavior: 'smooth' });
+  //   }, 100);
+  // }
 }

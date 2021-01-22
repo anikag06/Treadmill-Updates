@@ -45,7 +45,7 @@ export class ActAsIfComponent implements OnInit {
 
   editMode = false;
   yes =
-    '<img src="assets/forms/well_done.png" height="16px" > Great! Then act "As if" you don\'t have the negative belief.';
+    '<img src="assets/forms/Well_done.svg" height="16px" > Great! Then act "As if" you don\'t have the negative belief.';
   no = '&#129300; Okay.';
   summaryHeading = SUMMARY;
   showSpinner = false;

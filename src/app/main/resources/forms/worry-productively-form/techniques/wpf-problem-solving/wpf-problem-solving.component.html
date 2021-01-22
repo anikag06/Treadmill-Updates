@@ -4,16 +4,16 @@
   (afterExpand)="techniqueExpanded.emit()"
   (afterCollapse)="panelCollapse()"
 >
-  <mat-expansion-panel-header style="background: #FEDEFF;">
+  <mat-expansion-panel-header style="background: #FEDEFF; position: relative">
     <mat-panel-description>
       <strong>Can I do anything about it? </strong>
     </mat-panel-description>
-    <mat-icon *ngIf="panel4.expanded" svgIcon="Close"></mat-icon>
-    <mat-icon
-      *ngIf="!panel4.expanded && summaryText"
-      svgIcon="EditErrors"
-      class="iconsDiv"
-    ></mat-icon>
+    <button class="iconsDiv" mat-icon-button  *ngIf="panel4.expanded">
+    <mat-icon svgIcon="Close"></mat-icon>
+    </button>
+    <button class="iconsDiv edit_icon" mat-icon-button *ngIf="!panel4.expanded && summaryText" style="top:6px" >
+      <img src="assets/forms/svg/edit%201.svg" >
+    </button>
   </mat-expansion-panel-header>
   <ng-template matExpansionPanelContent>
     <div
@@ -77,7 +77,7 @@
         <div *ngIf="imageDisplay" class="finalText">
           <br />
           <br />
-                    <img src="assets/forms/well_done.png" class="imageSummary" />
+                    <img src="assets/forms/Well_done.svg" class="imageSummary" />
           Well Done! use the problem solving form to
           tackle that<br />
           <br />

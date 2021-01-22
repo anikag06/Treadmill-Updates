@@ -280,7 +280,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     // console.log('CONV ID', this.current_id, this.conversation_id);
     // this.passdata.IsConversationOn(true);
     // this.run();
-    this.send_image = '../../../../assets/conversations/Send.png';
+    this.send_image = '../../../../assets/conversations/Send.svg';
     this.timerservice.visibility();
     this.timerservice.unload();
     this.timerservice.internet_check();

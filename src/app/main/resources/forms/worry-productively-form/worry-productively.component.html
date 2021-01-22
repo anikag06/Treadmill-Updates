@@ -11,8 +11,8 @@
         <div class="h-100 d-inline-block ml-auto">
           <div *ngIf="showFollowUp && !t.menuOpen" class="red-circle"></div>
           <button
-            class="h-100 saved-forms-btn"
-            mat-button
+            class="saved-forms-btn"
+            mat-icon-button
             [matMenuTriggerFor]="worryProductivelyForms"
             #t="matMenuTrigger"
           >
@@ -56,10 +56,13 @@
             <div class="card-full-width">
               <div class="card-header">
                 <strong>What are you worried about?</strong>
-                <div class="float-right d-inline-block">
-                  <mat-icon class="edit_icon" (click)="onEditWorryClick()">
-                    edit
-                  </mat-icon>
+                <div class="float-right d-inline-block position-absolute" [ngStyle]="{ right: '20px', top: '6px' }">
+                  <button mat-icon-button class="edit_icon" (click)="onEditWorryClick()">
+<!--                  <mat-icon class="edit_icon" (click)="onEditWorryClick()">-->
+<!--                    edit-->
+<!--                  </mat-icon>-->
+                    <img src="assets/forms/svg/edit%201.svg" >
+                  </button>
                 </div>
               </div>
               <div class="card-body" (click)="onWorryClick()">

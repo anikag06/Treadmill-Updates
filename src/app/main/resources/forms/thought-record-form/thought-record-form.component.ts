@@ -64,7 +64,7 @@ export class ThoughtRecordFormComponent implements OnInit {
   recommend =
     'I recommend that you fill the rest of the form after you reach "Evaluating Thoughts" module.';
   showRecommend!: boolean;
-  imgSrc = 'assets/forms/therapist.png';
+  imgSrc = 'assets/forms/Therapist.svg';
   navbarTitle!: string;
   stepGroupSequence!: number;
   stepSequence!: number;

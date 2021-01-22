@@ -79,7 +79,9 @@
                 (click)="markForDeletion(subtask.value, i)"
                 *ngIf="showTrashIcon[i]"
               >
+                <button mat-icon-button>
                 <mat-icon>delete</mat-icon>
+                </button>
               </div>
             </div>
           </div>
@@ -116,15 +118,15 @@
             </div>
             <div class="my-2" *ngIf="dateTimeMessage">
               <div class="task-info">
-                <img src="assets/forms/calendar.png" class="task-info-icon" />
+                <img src="assets/forms/calender.svg" class="task-info-icon" />
                 <div class="task-data">{{ dateRange }}</div>
               </div>
               <div class="task-info">
-                <img src="assets/forms/clock.png" class="task-info-icon" />
+                <img src="assets/forms/clock.svg" class="task-info-icon" />
                 <div class="task-data">{{ endTime }}</div>
               </div>
               <div class="task-info">
-                <img src="assets/forms/repeat.png" class="task-info-icon" />
+                <img src="assets/forms/repeat.svg" class="task-info-icon" />
                 <div class="task-data">{{ repeatedDays }}</div>
               </div>
             </div>

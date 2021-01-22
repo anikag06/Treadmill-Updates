@@ -10,9 +10,9 @@ import { UNLOCKED } from '@/app.constants';
 })
 export class StepsIndicatorComponent implements OnInit {
   imageMap = new Map([
-    ['locked', 'assets/flow/not completed.png'],
+    ['locked', 'assets/flow/not completed.svg'],
     ['active', 'assets/flow/unlocked.gif'],
-    ['completed', 'assets/flow/Completed.png'],
+    ['completed', 'assets/flow/Completed.svg'],
   ]);
 
   @Input() step!: Step;

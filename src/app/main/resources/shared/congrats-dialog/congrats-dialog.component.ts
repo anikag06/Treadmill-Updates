@@ -14,7 +14,7 @@ export class CongratsDialogComponent implements OnInit {
   nextStepData!: any;
   unLockTime!: any;
   badge_img_src = '../../../../../assets/shared/thumb.svg';
-  img_src = '../../../../../assets/modules/sparkle_background.png';
+  img_src = '../../../../../assets/modules/sparkle_background.svg';
   showBadge = false;
   badgeName!: string;
   badgeInfo!: string;
