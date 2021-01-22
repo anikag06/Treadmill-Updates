@@ -181,7 +181,7 @@
 }
 .buttons {
   text-align: center;
-  min-width: 33%;
+  min-width: 100%;
   max-width: 80%;
   margin: 0 auto;
   justify-content: center;
@@ -458,8 +458,8 @@ $x3: -$leftPos + $dotSpacing;
 }
 
 .display_cell{
-  display: table-cell;
-  position: relative;
+  //display: table-cell;
+  //position: relative;
 }
 
 .display_block{
