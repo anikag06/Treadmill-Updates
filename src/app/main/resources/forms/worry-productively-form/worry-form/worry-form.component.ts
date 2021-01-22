@@ -111,7 +111,6 @@ export class WorryFormComponent implements OnInit {
     ) {
       this.worryService.postWorry(this.worryStatement).subscribe(
         (data: any) => {
-          console.log(data);
           const worry = new Worry(
             data.id,
             data.worry,

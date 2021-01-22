@@ -70,9 +70,7 @@ export class WorryProductivelyService {
         map((data: any) => {
           this.worryId = data.id;
           this.worries.push(<Worry>data);
-          console.log(this.worryId);
           this.worryBehaviour.next(<Worry>data);
-          console.log(this.worryBehaviour);
           return data;
         }),
       );

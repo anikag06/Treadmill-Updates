@@ -13,7 +13,6 @@ export class GamesFeedbackService {
   constructor(private http: HttpClient) {}
 
   sendFeedback(data: any) {
-    console.log('feedback data', data);
     return this.http.post(environment.API_ENDPOINT + GAMES_FEEDBACK_DATA, data);
   }
 }

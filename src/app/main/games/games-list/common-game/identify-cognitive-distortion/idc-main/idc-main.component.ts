@@ -25,7 +25,6 @@ export class IdcMainComponent implements OnInit {
     // this.gameService.initUserData();
     this.feedbackSub = this.gamesFeedbackService.idcfeedback.subscribe(() => {
       this.openFeedback();
-      console.log('GAME FEEDBACK');
     });
   }
   openFeedback() {

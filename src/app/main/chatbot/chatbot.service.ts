@@ -23,7 +23,6 @@ export class ChatbotService {
 
   loadPreviousChat(page: number, currentDateTime: any) {
     const dateTime = moment.utc(currentDateTime).format('DD/MM/YY+HH:mm:ss');
-    console.log('page no ' + page);
     return this.http.post(
       environment.CHATBOT_API +
         '/api/v1/chat/resume-chat/' +

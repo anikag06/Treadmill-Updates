@@ -23,13 +23,10 @@ export class TagService implements OnInit, OnDestroy {
     this.tagSubscription = this.http
       .get(environment.API_ENDPOINT + SUPPORT_GROUP_TAGS_LIST)
       .subscribe(data => {
-        console.log(data);
         const response = <ApiResponse>data;
         this.tagsGroup = <TagGroup[]>response.results;
-        console.log(this.tagsGroup);
         let i = 0;
         while (i < this.tagsGroup.length) {
-          console.log(this.tagsGroup[i].tags_list);
           let j = 0;
           while (j < this.tagsGroup[i].tags_list.length) {
             this.tags.push(this.tagsGroup[i].tags_list[j]);

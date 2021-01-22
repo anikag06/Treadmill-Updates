@@ -84,7 +84,6 @@ $(document).ready(function(){
 		fifteen = false;
 		// show play next pop up
 		lhg_show_instructions = false;
-		console.log('grid game 1',lhg_show_instructions);
 
 		playNextGamePopup();
 		$("#grid-puzzle-row").addClass("d-none");
@@ -93,7 +92,6 @@ $(document).ready(function(){
 		resetGridPuzzleGame();
 		gridPuzzleGameReInit();
 		unsolvable_game_counter=2;
-		console.log("call init 1", success);
 		colorReverseInit();
 	});
 

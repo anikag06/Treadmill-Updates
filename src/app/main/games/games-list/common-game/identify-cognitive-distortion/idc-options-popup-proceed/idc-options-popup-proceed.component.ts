@@ -35,11 +35,6 @@ export class IdcOptionsPopupProceedComponent implements OnInit {
       this.gameService.extraTimeTaken = false;
       this.gameService.updateUserData();
       // level order reset
-      console.log(
-        'game level and total situations ',
-        this.gameService.totalSituations,
-        this.gameService.levelOrder,
-      );
       if (this.gameService.levelOrder === this.gameService.totalSituations) {
         this.gameService.questionId = 0;
         this.gameService.getGameData();
@@ -47,11 +42,6 @@ export class IdcOptionsPopupProceedComponent implements OnInit {
       } else {
         this.gameService.questionId++;
       }
-      console.log(
-        'question id',
-        this.gameService.questionId,
-        this.gameService.levelOrder,
-      );
       this.openWinPopup();
     } else {
       this.gameService.resumeGame.emit();

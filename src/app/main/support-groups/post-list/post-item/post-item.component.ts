@@ -170,7 +170,6 @@ export class PostItemComponent
         this.changeDetector.detectChanges();
       } catch (ViewDestroyedError) {}
     });
-    console.log('item', this.srcWidth);
   }
 
   /**
@@ -215,7 +214,6 @@ export class PostItemComponent
         .postComment(comment)
         .subscribe(
           (commentResponse: any) => {
-            console.log(this.user);
             const persistedComment = new UserComment(
               commentResponse.data.comment_id,
               {
@@ -383,7 +381,6 @@ export class PostItemComponent
    */
   onFocusOut(event: FocusEvent) {
     const el = <Element>event.relatedTarget;
-    console.log(el);
     if (el == null) {
       this.editorConfig.showToolbar = false;
     } else if (el.matches('button.comment-btn.mat-raised-button')) {
@@ -393,7 +390,6 @@ export class PostItemComponent
       el.innerHTML !== 'Comment' &&
       !el.matches('button.angular-editor-button')
     ) {
-      console.log('el.matches');
     }
   }
 
@@ -438,15 +434,12 @@ export class PostItemComponent
         })
         .subscribe(
           () => {
-            console.log('first upvote state', this.upVoteFirstClick);
-            console.log('first down vote status', this.downVoteFirstClick);
             if (
               !this.upVoteFirstClick &&
               !this.downVoteFirstClick &&
               this.supportGroupItem.is_voted !== -1
             ) {
               this.upVoteFirstClick = true;
-              console.log('first upvote state', this.upVoteFirstClick);
               this.commonService.updateScore(SUPPORT_GROUP_UP_DOWN_VOTE_SCORE);
               this.commonService.postScoreForOther(
                 SUPPORT_GROUP_GETTING_UP_VOTE_SCORE,
@@ -490,7 +483,6 @@ export class PostItemComponent
             this.supportGroupItem.is_voted !== -1
           ) {
             this.downVoteFirstClick = true;
-            console.log('first down vote status', this.downVoteFirstClick);
             this.commonService.updateScore(SUPPORT_GROUP_UP_DOWN_VOTE_SCORE);
           }
         }, this.errorService.errorResponse('Cannot downvote'));

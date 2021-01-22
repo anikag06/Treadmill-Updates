@@ -29,7 +29,6 @@ export class FfgNextgameComponent implements OnInit {
     playnextsong();
     this.sendScoreAfterLevel2 += 1;
     this.ffgHelpService.sendScoreFfg += 1;
-    console.log('send', this.ffgHelpService.sendScoreFfg);
     if (this.ffgHelpService.sendScoreFfg === 2) {
       this.commonService.updateScore(PLAYING_GAMES_SCORE);
     }

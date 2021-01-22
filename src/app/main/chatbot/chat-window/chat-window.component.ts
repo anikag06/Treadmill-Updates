@@ -200,9 +200,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
           });
         }
       },
-      (error: HttpErrorResponse) => {
-        console.log(error);
-      },
+      (error: HttpErrorResponse) => {},
     );
     if (this.introService.getChatbotIntro()) {
       this.introService.startChatbotCloseIntro();
@@ -355,7 +353,6 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       const data = JSON.parse(message.data);
       if (data.is_new_form) {
         this.commonService.updateScore(FORM_START_VIA_CHAT_BOT_SCORE);
-        console.log('new form works');
       }
       this.currentModule = data.module_name;
       if (data.error === true) {
@@ -407,7 +404,6 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
 
   pushChat(m: any) {
     this.buttonsBuffer = [];
-    console.log(m);
     this.pushImages(m);
     m.buttons.forEach((button: any) => {
       if (!button.hasOwnProperty('emojified_payload')) {

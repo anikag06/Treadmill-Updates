@@ -123,7 +123,6 @@ export class SurveyComponent implements OnInit, OnDestroy {
   loadQuestions(event: any) {
     this.first_click = true;
     this.showLoading = true;
-    console.log('start btn', this.startBtn);
     // this.startBtn.nativeElement.childNodes[0].classList.remove(
     //   'disabled-button',
     // );
@@ -183,17 +182,14 @@ export class SurveyComponent implements OnInit, OnDestroy {
 
   onselect(event: any, id: number, name: string) {
     if (event.target.nodeName === 'BUTTON') {
-      console.log('Button');
       event.target.classList.remove('disabled-button');
       event.target.classList.add('active-button');
     } else if (event.target.nodeName === 'SPAN') {
-      console.log('Span');
       event.target.parentElement.parentElement.classList.remove(
         'disabled-button',
       );
       event.target.parentElement.parentElement.classList.add('active-button');
     }
-    console.log('event', event);
     this.updateTimeTaken();
     this.first_click = false;
     this.currQues = {
@@ -213,11 +209,9 @@ export class SurveyComponent implements OnInit, OnDestroy {
       setTimeout(() => {
         if (!this.backCount) {
           if (event.target.nodeName === 'BUTTON') {
-            console.log('Button');
             event.target.classList.remove('active-button');
             event.target.classList.add('disabled-button');
           } else if (event.target.nodeName === 'SPAN') {
-            console.log('Span');
             event.target.parentElement.parentElement.classList.remove(
               'active-button',
             );
@@ -243,7 +237,6 @@ export class SurveyComponent implements OnInit, OnDestroy {
       this.quesCount += 1;
       this.pager.index = this.quesCount + 1;
     }
-    console.log('user response', this.userResponseArray, this.userResponse);
   }
 
   onSubmit(event: any) {
@@ -255,7 +248,6 @@ export class SurveyComponent implements OnInit, OnDestroy {
         survey_responses: this.userResponseArray,
       })
       .subscribe(data => {
-        console.log('survey response', data);
         this.submitting = false;
         if (this.user.is_exp) {
           this.commonService.updateScore(SURVEY_COMPLETE_SCORE);

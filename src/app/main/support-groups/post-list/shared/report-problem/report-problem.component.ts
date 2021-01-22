@@ -32,7 +32,6 @@ export class ReportProblemComponent implements OnInit {
     this.dialogRef.close();
   }
   report() {
-    console.log('reason', this.reason);
     this.problemSubmit = true;
     if (this.type === 'post') {
       if (this.is_suicidal) {
@@ -41,15 +40,11 @@ export class ReportProblemComponent implements OnInit {
             post_id: this.id,
             is_suicidal: this.is_suicidal,
           })
-          .subscribe(() => {
-            console.log('reported');
-          });
+          .subscribe(() => {});
       } else {
         this.reportService
           .post_complaint({ post_id: this.id, reason: this.reason })
-          .subscribe(() => {
-            console.log('reported');
-          });
+          .subscribe(() => {});
       }
     } else if (this.type === 'comment') {
       if (this.is_suicidal) {
@@ -58,15 +53,11 @@ export class ReportProblemComponent implements OnInit {
             comment_id: this.id,
             is_suicidal: this.is_suicidal,
           })
-          .subscribe(() => {
-            console.log('reported');
-          });
+          .subscribe(() => {});
       } else {
         this.reportService
           .comment_complaint({ comment_id: this.id, reason: this.reason })
-          .subscribe(() => {
-            console.log('reported');
-          });
+          .subscribe(() => {});
       }
     } else if (this.type === 'nestedcomment') {
       if (this.is_suicidal) {

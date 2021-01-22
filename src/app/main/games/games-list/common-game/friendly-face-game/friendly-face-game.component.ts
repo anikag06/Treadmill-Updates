@@ -154,7 +154,6 @@ export class FriendlyFaceGameComponent implements OnInit, OnDestroy {
   @HostListener('window:diffBarUpdate')
   diffBarUpdate() {
     this.difficultyBarValue = ffgDifficultyValue;
-    console.log('barwidth set in angular');
   }
 
   ngOnInit() {
@@ -165,7 +164,6 @@ export class FriendlyFaceGameComponent implements OnInit, OnDestroy {
       )
       .subscribe((res: any) => {
         const step = res.data;
-        console.log('RESPONSE', res.data, step.status);
         // for navbar title
         this.stepGroupSequence = step.step_group_sequence + 1;
         this.stepSequence = step.sequence + 1;
@@ -176,7 +174,6 @@ export class FriendlyFaceGameComponent implements OnInit, OnDestroy {
           this.stepSequence.toString() +
           ' ' +
           this.stepName;
-        console.log('STEP DETAIL:', this.navbarTitle);
         this.flowService.stepDetail.emit(this.navbarTitle);
       });
     this.loadFileService
@@ -185,7 +182,6 @@ export class FriendlyFaceGameComponent implements OnInit, OnDestroy {
       )
       .then(() => {
         this.imagesPreloaded = true;
-        console.log('IMAGES LOADED');
       })
       .catch(() => {});
     this.loadFileService
@@ -204,7 +200,6 @@ export class FriendlyFaceGameComponent implements OnInit, OnDestroy {
 
     this.ffgHelpService.updateBadges.subscribe(() => {
       this.updateBadgesValue();
-      console.log('updating badges');
     });
     this.gamesFeedbackService.feedback.subscribe(() => {
       this.openPlayNextPopup();
@@ -262,7 +257,6 @@ export class FriendlyFaceGameComponent implements OnInit, OnDestroy {
   }
   ffGameGetGameData() {
     this.gamesAuthService.ffGameGetUserInfo().subscribe(user_data => {
-      console.log('user data', user_data);
       this.no_correct_responses = user_data.total_positive_images;
       this.ffGameMusicOrder = user_data.last_order;
       ffg_coins = user_data.score; // user score
@@ -318,12 +312,6 @@ export class FriendlyFaceGameComponent implements OnInit, OnDestroy {
         ffg_music_note_rate_array.push(music_data.note_rate);
         ffg_music_name_array.push(music_data.name);
         ffg_current_song_order = music_data.order;
-        console.log(
-          'music_data, CURRENT SONG ORDER',
-          ffg_current_song_order,
-          this.last_completed_order,
-          music_data,
-        );
       });
   }
 
@@ -364,20 +352,10 @@ export class FriendlyFaceGameComponent implements OnInit, OnDestroy {
         .ffGameUpdatePerformance(this.ffgUserPerformance)
         .subscribe();
       ffg_perf_update = false;
-      console.log(
-        'Post performance order',
-        this.ffgUserPerformance.order,
-        this.ffgUserPerformance.completed,
-      );
     } else {
       this.gamesAuthService
         .ffGameStorePerformance(this.ffgUserPerformance)
         .subscribe();
-      console.log(
-        'update performance order',
-        this.ffgUserPerformance.order,
-        this.ffgUserPerformance,
-      );
     }
   }
 
@@ -426,7 +404,6 @@ export class FriendlyFaceGameComponent implements OnInit, OnDestroy {
   removeLoading() {
     const tid = setInterval(() => {
       if (!this.imagesPreloaded) {
-        console.log('waiting for preload to complete', this.imagesPreloaded);
         return;
       }
       clearInterval(tid);

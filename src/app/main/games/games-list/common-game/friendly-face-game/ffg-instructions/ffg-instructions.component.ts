@@ -31,12 +31,10 @@ export class FfgInstructionsComponent implements OnInit {
           ffg_loaded_hostile_images.length === 0 ||
           ffGameSongCounter !== 0
         ) {
-          console.log('checking if statement', ffg_music_notes_array.length);
           return;
         }
         clearInterval(tid);
         // function to be called when document is ready
-        console.log('calling ffgame start');
         ffGameStart();
       }, 1000);
       this.ffghelpService.showLoadingBar();

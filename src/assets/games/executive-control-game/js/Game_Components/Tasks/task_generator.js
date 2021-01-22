@@ -89,7 +89,6 @@ function task_generator()
 	{
 		reachedCrossing=true;
 		bgm_sound.pause();
-		console.log('in call func');
 
 		if(countdown_handler==null&&task_dialog_done==false)
 		{
@@ -157,7 +156,6 @@ function task_generator()
          //Move task buttons to the required posiiton
 	    if(isTouchDevice==true)
 	     {
-			 console.log('bring task buttons');
 		    if(left_button.x!=LEFT_X)
 		    {
 	     		// left_button.x+=BUTTON_SPEED;
@@ -326,7 +324,6 @@ function red_pressed()
 			{
 				number_of_correct_response++;
 			}
-			console.log('in ec game', number_of_correct_response);
 		}
 		else
 		{
@@ -397,7 +394,6 @@ function green_pressed()
 			{
 				number_of_correct_response++;
 			}
-			console.log('in ec game green pressed', number_of_correct_response);
 		}
 
 		if(SHOW_TUTORIAL==true&&task_tutorial_shown==false)

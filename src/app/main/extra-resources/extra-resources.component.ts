@@ -71,12 +71,10 @@ export class ExtraResourcesComponent implements OnInit {
     this.user = <User>this.authService.isLoggedIn();
     this.activatedRoute.params.subscribe(v => {
       this.step_id = v.id;
-      console.log('step id', this.step_id);
     });
     if (this.step_id) {
       this.stepDataService.getStepData(this.step_id).subscribe((res: any) => {
         const step = res.data;
-        console.log('RESPONSE', res.data, step.status);
         // for navbar title
         this.stepGroupSequence = step.step_group_sequence + 1;
         this.stepSequence = step.sequence + 1;
@@ -87,7 +85,6 @@ export class ExtraResourcesComponent implements OnInit {
           this.stepSequence.toString() +
           ' ' +
           this.stepName;
-        console.log('STEP DETAIL:', this.navbarTitle);
         this.flowService.stepDetail.emit(this.navbarTitle);
         if (step.data_type) {
           if (step.data_type === TESTIMONIALS_PAGE) {
@@ -98,7 +95,6 @@ export class ExtraResourcesComponent implements OnInit {
         }
       });
     } else {
-      console.log('STEP DETAIL: resources', this.navbarTitle);
       this.navbarTitle = 'Resources';
       this.flowService.stepDetail.emit(this.navbarTitle);
     }
@@ -107,11 +103,8 @@ export class ExtraResourcesComponent implements OnInit {
       .getVideoOnDepressionItem()
       .subscribe((video_data: any) => {
         video_data.results.forEach((element: any) => {
-          console.log('element: ', element);
           this.videoItems.push(<VideoItem>element);
           this.countVideoItem = this.countVideoItem + 1;
-          //console.log('Number of videoItems:', this.countVideoItem);
-          //console.log('video list: ', this.videoItems);
         });
       });
 
@@ -119,7 +112,6 @@ export class ExtraResourcesComponent implements OnInit {
       .getVideoCovid19Item()
       .subscribe((video_data: any) => {
         video_data.results.forEach((element: any) => {
-          console.log('video on covid19', element);
           this.videoCovid19Items.push(<VideoCovid19Item>element);
           this.countVideoCovid19Item = this.countVideoCovid19Item + 1;
         });
@@ -129,9 +121,7 @@ export class ExtraResourcesComponent implements OnInit {
       .getMindfulnessVideoItem()
       .subscribe((video_data: any) => {
         video_data.results.forEach((element: any) => {
-          console.log('mindful', element);
           this.mindfulnessVideoItems.push(<MindfulnessVideoItem>element);
-          console.log('mindfulness videos', this.mindfulnessVideoItems);
           this.countMindfulVideoItem = this.countMindfulVideoItem + 1;
         });
       });
@@ -159,7 +149,6 @@ export class ExtraResourcesComponent implements OnInit {
     this.router.navigate(['videoItem/', videoBeingClicked.id], {
       relativeTo: this.route,
     });
-    console.log('video loading', videoBeingClicked);
     this.videoClicked = videoBeingClicked;
     this.extraResourcesService.videoClickBehavior.next(videoBeingClicked);
   }
@@ -205,12 +194,10 @@ export class ExtraResourcesComponent implements OnInit {
 
   changeMindfulnessVideoState() {
     this.showMindfulnessVideoState = !this.showMindfulnessVideoState;
-    console.log('state to true', this.showMindfulnessVideoState);
   }
 
   changeVideoState() {
     this.showVideoState = !this.showVideoState;
-    console.log('state to true', this.showVideoState);
   }
 
   changeVideoOnCovid19State() {
@@ -219,8 +206,6 @@ export class ExtraResourcesComponent implements OnInit {
 
   changeReadingMaterialState() {
     this.showReadingMaterialState = !this.showReadingMaterialState;
-
-    console.log('state to true');
   }
 
   changeUsefulListState() {

@@ -73,7 +73,6 @@ export class FormTechniqueComponent implements OnInit {
         .subscribe((resp: any) => {
           const status = resp.ok;
           if (status) {
-            console.log('put done');
             this.setSummary(data);
           }
         });
@@ -84,7 +83,6 @@ export class FormTechniqueComponent implements OnInit {
           const status = resp.ok;
           if (status) {
             this.updateText = true;
-            console.log('post done');
 
             this.setSummary(data);
           }

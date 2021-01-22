@@ -28,7 +28,6 @@ export class ProsConsContainerComponent implements OnInit {
       // console.log(this.pros);
       this.cons = resp.data.cons;
       if (this.cons.length > 0 || this.pros.length > 0) {
-        console.log(this.pros, this.cons);
         // this.triggerContinueBtn(true);
         this.onProConSave();
       }

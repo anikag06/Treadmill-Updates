@@ -156,10 +156,8 @@ export class MainComponent
     //   }
     // });
     this.flowStepService.checkTimeUpStatus().subscribe((data: any) => {
-      console.log('TIME UP', data);
       this.commonService.userTimeUp = data.is_ninety_days_over;
       if (data.data.to_follow_up) {
-        console.log('FOLLOW UP', data);
         this.router.navigate([LOGGED_IN_PATH]);
       }
     });
@@ -203,7 +201,6 @@ export class MainComponent
     this.overlayService.overlayClose.subscribe(() => {
       //   this.flowLoaded = false;
       this.overlayOpen = false;
-      console.log('OVERLAY OPEN', this.overlayService.overlayOpen);
     });
 
     this.commonService.isOnline$().subscribe(isOnline => {
@@ -282,7 +279,6 @@ export class MainComponent
       this.enableLinks();
     });
     this.quizService.disableLinks.subscribe((data: string) => {
-      console.log('LINKS DISABLED');
       this.disableLinks(data);
     });
     this.quizService.enableLinks.subscribe(() => {
@@ -328,7 +324,6 @@ export class MainComponent
   }
 
   tooltipShow() {
-    console.log('tooltip');
     this.showToolTip.toggle();
   }
 

@@ -106,36 +106,30 @@ export class NavbarComponent implements OnInit, OnDestroy {
         this.isDashboard = false;
         this.notificationService.fromLeftNav.subscribe(() => {
           this.fromLeftNav = true;
-          console.log('from left nav', this.fromLeftNav);
         });
         if (event.url === LOGGED_IN_PATH) {
           this.isDashboard = true;
         }
         if (this.auth.navbarTitle) {
           this.navbarTitle = this.auth.navbarTitle;
-          console.log('AUTH TITLE', this.auth.navbarTitle, event);
         }
         this.gamePlayService.gameTitle.subscribe(() => {
-          console.log('FROM NAVBAR', this.gamePlayService.gameName);
           this.navbarTitle = this.gamePlayService.gameName;
           this.titleService.setTitle(this.navbarTitle + ' | ' + TREADWILL);
         });
         this.formService.formTitle.subscribe(() => {
-          console.log('FROM NAVBAR', this.formService.formName);
           this.navbarTitle = this.formService.formName;
           this.titleService.setTitle(this.navbarTitle + ' | ' + TREADWILL);
         });
         this.flowService.stepDetail.subscribe((value: any) => {
           if (!this.auth.navbarTitle) {
             this.navbarTitle = value;
-            console.log('FROM NAVBAR', value);
           } else {
             this.navbarTitle = this.auth.navbarTitle;
           }
           this.titleService.setTitle(this.navbarTitle + ' | ' + TREADWILL);
         });
         this.goToService.settingsPageTitle.subscribe((value: any) => {
-          console.log('SETTINGS TITLE', value);
           this.navbarTitle = value;
           setTimeout(() => {
             this.titleService.setTitle(value + ' | ' + TREADWILL);
@@ -153,9 +147,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
       if (event instanceof NavigationError) {
         // Hide loading indicator
-
         // Present error to user
-        console.log(event.error);
       }
     });
     this.hideSubscription = this.introService.hideBehaviour.subscribe(
@@ -181,11 +173,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
       this.getNotificationsCount();
     });
     this.notificationService.closeNavFlow.subscribe(() => {
-      console.log('close menu');
       // this.flowTrigger.closeMenu();
     });
-    console.log('is HANDSET', this.isHandset$);
-    console.log('from left nav', this.fromLeftNav);
     this.goToService.clickFlow.subscribe(() => {
       this.flowClick();
     });
@@ -210,7 +199,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     const notifications = this.notificationService
       .putUserNotifications()
       .toPromise();
-    notifications.then(data => console.log(data));
+    notifications.then(data => console.log('success'));
   }
 
   flowClick() {
@@ -220,7 +209,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
     }
     this.notificationService.openNavFlow.emit();
     this.overlayService.showFlow = true;
-    console.log('flow host', this.flowHost);
     const navbarFLowComponentFactory = this.componentFactoryResolver.resolveComponentFactory(
       CustomOverlayComponent,
     );

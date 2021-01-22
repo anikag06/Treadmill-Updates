@@ -21,7 +21,6 @@ export class LhgInstructionsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log('game counter', lhcolorReverseGame, unsolvable_game_counter);
     if (lhcolorReverseGame) {
       this.colorReverseGame = true;
     } else if (unsolvable_game_counter === 1) {

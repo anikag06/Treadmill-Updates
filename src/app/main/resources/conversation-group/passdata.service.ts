@@ -29,16 +29,13 @@ export class PassDataService {
     speedrun: boolean,
   ) {
     this.conversation_id = value;
-    console.log(this.conversation_id);
     this.iscontinue = continu;
     this.isreset = reset;
     this.isspeedrun = speedrun;
     this.array = [this.isreset, this.iscontinue, this.isspeedrun];
-    console.log(this.conversation_id);
   }
 
   getid() {
-    console.log(this.conversation_id);
     return this.conversation_id;
   }
 

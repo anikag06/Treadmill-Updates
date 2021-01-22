@@ -115,8 +115,6 @@ export class IdcGameService implements OnInit {
   ngOnInit() {}
 
   serviceCall() {
-    console.log('question id', this.questionId);
-
     this.time = new Date();
     this.situation_displayed_at = this.time.toJSON();
     // this.level.next(this.game.results[this.questionId - 1].order);
@@ -156,8 +154,6 @@ export class IdcGameService implements OnInit {
       .get(environment.API_ENDPOINT + IDC_SITUATION_DATA)
       .subscribe(data => {
         this.game = data;
-        console.log('Game Data', this.game);
-        console.log('last_completed_order', this.last_completed_order);
         this.totalSituations = this.game.length;
         if (this.last_completed_order === this.totalSituations) {
           this.questionId = 0;
@@ -192,11 +188,6 @@ export class IdcGameService implements OnInit {
 
   initUserData() {
     this.fetchUserData().subscribe((data: any) => {
-      console.log(
-        'user data, last_completed_order',
-        data,
-        data.last_completed_order,
-      );
       this.score = data.points;
       this.numCorrectAnswers = data.no_of_correct_answers;
       this.BRONZE_CONSTANT = data.BRONZE_CONSTANT;
@@ -219,14 +210,12 @@ export class IdcGameService implements OnInit {
 
   getUserData() {
     this.fetchUserData().subscribe((data: any) => {
-      console.log('user data', data);
       this.score = data.points;
       this.timeLeft = data.time;
       this.timeAlloted = data.time;
       // this.last_completed_order = data.last_completed_order;    //removed as order is set in frontend
       if (!this.nextCall) {
         this.levelInitialise.next();
-        console.log('level initialise called');
       }
       this.nextCall = false;
     });
@@ -271,7 +260,6 @@ export class IdcGameService implements OnInit {
     this.userData.last_completed_order = this.levelOrder;
     this.userData.points = this.score;
     this.userData.time = this.timeAlloted;
-    console.log('Update user data', this.userData);
     this.saveUserData(this.userData).subscribe();
   }
 

@@ -29,8 +29,6 @@ export class AuthGuard implements CanActivate, CanActivateChild {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    console.log('can activate', this.auth.isLoggedIn(), this.eligible);
-
     this.eligible = !this.auth.isUserExcluded;
     if (!this.auth.isLoggedIn() && !this.eligible) {
       // console.log('navigate to:', INELIGIBLE_FOR_TRIAL);
@@ -55,11 +53,9 @@ export class AuthGuard implements CanActivate, CanActivateChild {
     this.auth.navbarTitle = next.data.title;
     this.eligible = !this.auth.isUserExcluded;
     if (!this.auth.isLoggedIn() && !this.eligible) {
-      console.log('navigate to:', INELIGIBLE_FOR_TRIAL);
       this.router.navigate([INELIGIBLE_FOR_TRIAL]);
       return false;
     } else if (!this.auth.isLoggedIn() && this.eligible) {
-      console.log('navigate to:', DEFAULT_PATH);
       this.router.navigate([DEFAULT_PATH]);
       return false;
     }

@@ -72,7 +72,6 @@ export class ExtraResourcesService {
     return this.http.get<VideoItem[]>(
       environment.API_ENDPOINT + DEPRESSION_VIDEO_LIST,
     );
-    console.log('getting a video');
   }
 
   getVideoCovid19Item() {
@@ -130,7 +129,6 @@ export class ExtraResourcesService {
   }
 
   markVideoWatched(videoId: number, watched: boolean) {
-    console.log('marking', videoId, watched);
     return this.http.post(environment.API_ENDPOINT + WATCHED_VIDEO, {
       resource_video_id: videoId,
       watched: watched,

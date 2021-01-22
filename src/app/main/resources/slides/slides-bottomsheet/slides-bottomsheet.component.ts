@@ -40,7 +40,6 @@ export class SlidesBottomsheetComponent implements OnInit {
 
   ngOnInit() {
     this._bottomSheetRef.afterDismissed().subscribe(() => {
-      console.log('Bottom sheet has been dismissed.');
       if (!this.noClicked) {
         this.onClickNo();
       }
@@ -88,7 +87,6 @@ export class SlidesBottomsheetComponent implements OnInit {
   onClickNo() {
     this.videoOpted = { opted: false };
     this.noClicked = true;
-    console.log('no clicked');
     this.slideService.storeVideoOption(this.videoOpted).subscribe();
   }
 
@@ -97,7 +95,6 @@ export class SlidesBottomsheetComponent implements OnInit {
     this.videoShowAgain = {
       dont_ask_again: this.dont_ask_again,
     };
-    console.log('event', this.dont_ask_again);
     this.slideService.storeVideoShowStatus(this.videoShowAgain).subscribe();
   }
 

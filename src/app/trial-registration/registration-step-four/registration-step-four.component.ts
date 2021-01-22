@@ -80,7 +80,6 @@ export class RegistrationStepFourComponent implements OnInit {
     this.starting_time = dateTime.replace('Z', '').replace('T', ' ');
     this.participationID = this.registrationDataService.participationID;
     this.fcmService.permit.subscribe(permit => {
-      console.log('inside subscription');
       this.notificationsAllowed = permit ? 1 : 0;
       this.updatingPermissions = false;
       this.changeDetector.detectChanges();
@@ -89,7 +88,6 @@ export class RegistrationStepFourComponent implements OnInit {
   }
 
   step4DataSubmit() {
-    console.log(this.consentForm.value);
     // used for e2e testing
     this.registrationDataService
       .getSignupLinkForTesting(this.registrationDataService.trial_email)
@@ -102,7 +100,6 @@ export class RegistrationStepFourComponent implements OnInit {
       const dateNow = new Date();
       const dateTime = dateNow.toJSON();
       this.completion_time = dateTime.replace('Z', '').replace('T', ' ');
-      console.log(this.completion_time);
 
       this.stepFourFormData.participant_id = this.registrationDataService.participationID;
       this.stepFourFormData.read_information_consent = this.consentForm.value.readInfo;
@@ -151,7 +148,6 @@ export class RegistrationStepFourComponent implements OnInit {
       this.a2hsService.getDeferredPrompt().subscribe(deferredPrompt => {
         this.addingToHomescreen = false;
         if (!deferredPrompt) {
-          console.log('deferredPrompt null');
           return;
         }
         deferredPrompt.prompt();
@@ -189,7 +185,6 @@ export class RegistrationStepFourComponent implements OnInit {
       this.consentForm.value.informationLeakage &&
       this.notificationsAllowed
     ) {
-      console.log('calling activate submit button');
       this.allowSubmit = true;
       this.consentForm.controls['homeScreenInfo'].enable();
     } else {

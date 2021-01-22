@@ -24,7 +24,6 @@ export class EvaluateMoodComponent implements OnInit {
   ngOnInit() {
     this.quizService.questionnaire_active.subscribe((value: boolean) => {
       if (!value) {
-        console.log('QUIZ SERVICE');
         this.moodEvaluate = false;
         this.showQuestionnaire = false;
       }

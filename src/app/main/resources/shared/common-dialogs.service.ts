@@ -36,7 +36,6 @@ export class CommonDialogsService {
     this.isLocked = false;
     if (isLastStep) {
       this.flowNavService.isNextModuleLocked(curr_id).subscribe(data => {
-        console.log('Next module locked', data, curr_id);
         this.nextStepData = data.data;
         this.isLocked = !data.data.next_step_group_unlocked;
         this.openDialog(true, isLastModule);
@@ -81,7 +80,6 @@ export class CommonDialogsService {
   }
 
   updateBadgeInfo(badgeData: any) {
-    console.log(badgeData);
     this.badgeData = badgeData[0];
   }
 }

@@ -8,7 +8,7 @@ function game_restore()
     //Generate reward if response good
     if(performance_reward==null&&number_of_correct_response>0)
     {
-    	
+
     	//life reward only if the entire set's response was correct
     	if(number_of_lives!=MAX_NUMBER_OF_LIVES&&allowLifeReward==true)
     	{
@@ -48,7 +48,7 @@ function game_restore()
     //Clear all variables and move the game controls,score display and various and display to the scene
     if(countdown==0)
     {
-		
+
 		if(tutorial_box){
 			tutorial_box.destroy();
 			task_tutorial_text.setText("");
@@ -61,7 +61,6 @@ function game_restore()
 		bgm_sound.resume();
 		countdown_text.setText();
 		total_correct_responses = total_correct_responses + number_of_correct_response;
-		console.log('correct response', number_of_correct_response, 'total', total_correct_responses);
 		updateBadgesInfo();
 		task_background_removed=true;
 		task_dialog_done = false;
@@ -82,9 +81,9 @@ function game_restore()
 	// 	$('#pause-common-div').addClass('d-none');
 	// 	resume=false;
 	// }
-	
+
     if(left_button!=null&&isTouchDevice==true)
-    {	
+    {
 	if(left_button.x>=-left_button.width/2)
     {
      	left_button.x-=BUTTON_SPEED;
@@ -103,19 +102,19 @@ function game_restore()
     // 		mystery_egg_icon.y+=GAME_ELEMENTS_SPEED;
     // 		resume=false;
     // 	}
-    	
+
 
     // }
     // if(mystery_egg_collected_text.y<stat_text_display_y)
     // {
     // 	mystery_egg_collected_text.y+=GAME_ELEMENTS_SPEED;
     // 	resume=false;
-	// } 
+	// }
     // if(isTouchDevice==true&&jump_button.y>JUMP_BUTTON_Y)
     // {
     // 	jump_button.y-=GAME_ELEMENTS_SPEED;
     // 	resume=false;
-    	
+
     // }
     // if(double_jump_button.y>DOUBLE_JUMP_BUTTON_Y)
     // {
@@ -145,7 +144,7 @@ function game_restore()
     //  	used=true;
     //  	resume=false;
     // }
-	 
+
 	// if(scoreText.y<stat_text_display_y)
 	// {
 	//  	scoreText.y+=GAME_ELEMENTS_SPEED;
@@ -164,13 +163,13 @@ function game_restore()
 	//  	used=true;
 	//  	resume=false;
 	// }
-    
-    
+
+
     //Move the scene till it is covered with brick
 	if(brick1.x>=screen_width/2+BRICK_SPEED/2&&resume==true)
 	{
-	 	
-	 	 
+
+
 	 	bgm_sound.resume();
 	 	reachedCrossing=false;
 	 	brick1.x-=BRICK_SPEED;
@@ -189,7 +188,7 @@ function game_restore()
 		}
 	 	used=true;
 	}
-	
+
 	if(used==false&&resume==true)
 	{
 	 	brick=brick1;
@@ -203,28 +202,28 @@ function game_restore()
 		}
 	 	restore_game=false;
 
-	 	
+
 	 	flanker_task_response_time=0;
 		flanker_task_response_type=NO_REPSONSE;
 		flanker_task_start_time=0;
 		flanker_task_end_time=0;
-		
+
 		discrimination_task_response_type=NO_REPSONSE;
 		discrimination_task_response_time=0;
 		discrimination_task_start_time=0;
 		discrimination_task_end_time=0;
-		
+
 		task_image_type=-1;
-	 	
+
 
 	 	left_button=null;
-	 	
+
 
 	 	free_to_choose_high=true;
 	 	free_to_choose=true;
 	 	start_tasks=false;
 	 	if(clear_to_start<0)
-	 	{	
+	 	{
 	 		clear_to_start=0;
 	 	}
 
@@ -242,7 +241,7 @@ function game_restore()
 	 	allowLifeReward=true;
 	 	generate_tasks_variable=setTimeout(generate_tasks,TASK_INTERVAL);
 
-	 	
+
 	}
 }
 
@@ -280,5 +279,5 @@ function updateBadgesInfo() {
 
 function getPercent(constant, correctResponses){
 	const progressValue = correctResponses % constant ;
-    return (progressValue / constant) * 100; 
+    return (progressValue / constant) * 100;
 }

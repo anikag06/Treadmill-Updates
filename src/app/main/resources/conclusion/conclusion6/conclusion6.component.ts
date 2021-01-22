@@ -78,7 +78,6 @@ export class Conclusion6Component implements OnInit, OnDestroy {
       this.stepDataService
         .getBadgeInfo(this.stepGroupSequence)
         .subscribe((badge_data: any) => {
-          console.log(badge_data);
           this.commonDialogService.updateBadgeInfo(badge_data.results);
         });
     });
@@ -86,7 +85,6 @@ export class Conclusion6Component implements OnInit, OnDestroy {
     this.conclusionDataSubscription = this.conclusionService
       .getConclusionData(this.stepGroupSequence)
       .subscribe(data => {
-        console.log('CONCLUSION DATA', data);
         if (data.user_step_status !== LOCKED) {
           this.moduleName = data.module_name;
           this.nextModuleName = data.next_module_name;
@@ -102,7 +100,6 @@ export class Conclusion6Component implements OnInit, OnDestroy {
         this.stepDataService
           .getStepData(this.currentStepId)
           .subscribe((step_data: any) => {
-            console.log('step data is:', step_data);
             // for navbar title
             this.stepGroupSequence = step_data.data.step_group_sequence + 1;
             this.stepSequence = step_data.data.sequence + 1;
@@ -113,7 +110,6 @@ export class Conclusion6Component implements OnInit, OnDestroy {
               this.stepSequence.toString() +
               ' ' +
               this.stepName;
-            console.log('STEP DETAIL:', this.navbarTitle);
             this.flowService.stepDetail.emit(this.navbarTitle);
             this.flowService.navbarTitle = this.navbarTitle;
 
@@ -129,13 +125,6 @@ export class Conclusion6Component implements OnInit, OnDestroy {
       });
     this.scrollup();
     this.quizService.questionnaire_active.subscribe((value: boolean) => {
-      console.log(
-        'EVENT EMITTED',
-        value,
-        this.navbarTitle,
-        'Title',
-        this.flowService.navbarTitle,
-      );
       if (!value) {
         // this.quizService.questionnaireActive = false;
         this.moodEvaluate = false;
@@ -152,7 +141,6 @@ export class Conclusion6Component implements OnInit, OnDestroy {
     this.flowService.showDashboardButton.subscribe(() => {
       this.stepCompleted = true;
       this.showLoading = false;
-      console.log('show dashboard');
     });
   }
 
@@ -169,7 +157,6 @@ export class Conclusion6Component implements OnInit, OnDestroy {
       .storeCompletionData(this.completionData)
       .subscribe(data => {
         this.commonService.updateScore(CONCLUSION_SCORE);
-        console.log(data);
       });
     this.commonDialogService.openCongratsDialog(
       this.currentStepId,
@@ -179,7 +166,6 @@ export class Conclusion6Component implements OnInit, OnDestroy {
   }
 
   onNextStep() {
-    console.log('Next step clicked');
     this.goToService.clickFlow.emit();
   }
   scrollDown() {

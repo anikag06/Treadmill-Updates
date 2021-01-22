@@ -11,9 +11,7 @@ function flanker_task_generator()
 	{
 		//EVEN NUMBER-congruent; ODD NUMBER-incongruent
 		flanker_choice=Math.floor(Math.random()*TOTAL_NUMBER_OF_FLANKER_TASK);
-    console.log("flanker_choice: ", flanker_choice);
 		flanker_task_congruency=(flanker_choice%2==0)?1:-1;
-    console.log("flanker_task_congruency: ", flanker_task_congruency);
 		flanker_task_image=curr_game.add.image(FLANKER_X_CORDINATE,-FLANKER_Y_CORDINATE,'flanker_'+flanker_choice).setScale(FLANKER_TASK_IMAGE_SCALE);
 		flanker_task_image.depth = 12;
 
@@ -117,7 +115,6 @@ function flanker_task_complete()
 
 	//Choose the image-even number-neutral;odd-number-negative image(add more images accordingly)
 	image_choice=showImage(flanker_choice);
-	console.log("image_choice: ", image_choice);
 	if(image_choice%TYPE_CHANGE_INTERVAL==0)
 	{
 		task_image_type=NEUTRAL_IMAGE;

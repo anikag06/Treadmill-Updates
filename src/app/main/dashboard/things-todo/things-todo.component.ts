@@ -22,12 +22,9 @@ export class ThingsTodoComponent implements OnInit {
 
   ngOnInit() {
     this.thingsTodoService.getThingsTodo().subscribe((data: any) => {
-      console.log('data: ', data.data);
       this.is_mindfulness = data.data.is_mindfulness_video;
       this.is_covid_video = data.data.is_covid_video;
-      console.log('mindfulness video is', this.is_mindfulness);
       data.data.final_list.forEach((element: any) => {
-        console.log('element: ', element);
         if (element[0].indexOf('FORM') !== -1) {
           this.iconList.push('../../../../assets/flow/Form.svg');
           // @ts-ignore
@@ -42,7 +39,6 @@ export class ThingsTodoComponent implements OnInit {
             const obj = EXPLORE_MAP.get(element[0]);
             // @ts-ignore
             const link = obj[2];
-            console.log('link for 2', link);
             // @ts-ignore
             const title = obj[1];
             this.todoList.push([
@@ -53,7 +49,6 @@ export class ThingsTodoComponent implements OnInit {
             const obj = EXPLORE_MAP.get(element[0]);
             // @ts-ignore
             const link = obj[3];
-            console.log('link for 3', link);
             // @ts-ignore
             const title = obj[1];
             this.todoList.push([

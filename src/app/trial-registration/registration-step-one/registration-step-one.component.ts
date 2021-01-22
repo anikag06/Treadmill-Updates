@@ -80,7 +80,6 @@ export class RegistrationStepOneComponent implements OnInit {
           .subscribe(
             (res_data: any) => {
               this.showLoading = false;
-              console.log(res_data);
               this.registrationDataService.participationID =
                 res_data.data.participant_id;
               this.userEligible = !res_data.data.excluded;
@@ -103,7 +102,6 @@ export class RegistrationStepOneComponent implements OnInit {
               }
             },
             err => {
-              console.log(err);
               this.showLoading = false;
               if (err.error.message === 'Invalid email-id') {
                 this.showErrorMessage = true;
@@ -137,7 +135,6 @@ export class RegistrationStepOneComponent implements OnInit {
         this.emailServicePresent = true;
         break;
       }
-      console.log('email service', this.emailServices[i]);
     }
     return this.emailServicePresent;
   }

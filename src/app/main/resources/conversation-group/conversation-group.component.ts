@@ -74,12 +74,10 @@ export class ConversationGroupComponent implements OnInit {
             this.stepSequence.toString() +
             ' ' +
             this.stepName;
-          console.log('STEP DETAIL:', this.navbarTitle);
           this.flowService.stepDetail.emit(this.navbarTitle);
           if ([COMPLETED, ACTIVE, UNLOCKED].includes(step.status)) {
             this.step = step;
             this.current_id = res.data.id;
-            console.log('CONV GROUP ID', this.current_id);
             this.islast = res.is_last_step;
             this.nextstep = res.next_step_id;
             this.passdata.setid(this.current_id, this.islast, this.nextstep);
@@ -106,7 +104,6 @@ export class ConversationGroupComponent implements OnInit {
     //currentId = this.current_id;
     this.conversation_id = this.conversationGroups[i].id;
     this.passdata.setOption(this.conversation_id, false, true, false);
-    console.log('event emitted');
     this.router.navigate([
       'main/resources/conversations/' + this.conversation_id,
     ]);

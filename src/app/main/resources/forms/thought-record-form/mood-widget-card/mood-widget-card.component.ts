@@ -94,8 +94,6 @@ export class MoodWidgetCardComponent implements OnInit {
         }, emotions);
         this.userFeelings = filtered;
 
-        console.log(this.userFeelings);
-
         emotions.forEach((feeling: string) => {
           let isFound = false;
           // @ts-ignore

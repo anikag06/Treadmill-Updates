@@ -54,7 +54,6 @@ export class ResultComponent implements OnInit, OnChanges {
       this.onDisableResult();
     }
     if (changes.solution_id && this.solution_id) {
-      console.log(this.solution_id);
       this.problemService.getResult(this.solution_id).subscribe(
         (data: any) => {
           if (data) {
@@ -67,9 +66,7 @@ export class ResultComponent implements OnInit, OnChanges {
             this.resultBody = '';
           }
         },
-        (error: HttpErrorResponse) => {
-          console.log(error);
-        },
+        (error: HttpErrorResponse) => {},
       );
     }
   }

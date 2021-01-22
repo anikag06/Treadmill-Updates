@@ -80,7 +80,6 @@ export class ControlContentComponent implements OnInit {
       if (event instanceof NavigationError) {
         // Hide loading indicator
         // Present error to user
-        console.log(event.error);
       }
     });
   }
@@ -108,7 +107,6 @@ export class ControlContentComponent implements OnInit {
         switchMap(id => this.stepDataService.getStepData(parseInt(id, 10))),
       )
       .subscribe((control_data: any) => {
-        console.log('control data: ', control_data);
         this.displayHtml = control_data.data.step_data.data.html_content;
         this.displayHtmlHeader = control_data.data.step_data.data.title;
         this.next_step_id = control_data.data.next_step_id;
@@ -117,7 +115,6 @@ export class ControlContentComponent implements OnInit {
         this.completedStatus = control_data.data.status;
         // this.showNextContentLoading = false;
         this.onScrollToTop();
-        console.log('data status', this.completedStatus);
 
         this.dataloaded = true;
         this.nextDataLoaded = true;
@@ -136,7 +133,6 @@ export class ControlContentComponent implements OnInit {
           this.quizService.questionnaire_name =
             control_data.data.next_questionnaire;
           this.moodEvaluate = true;
-          console.log('check mood', this.quizService.questionnaire_name);
         } else {
           this.moodEvaluate = false;
         }
@@ -150,12 +146,10 @@ export class ControlContentComponent implements OnInit {
           this.stepSequence.toString() +
           ' ' +
           this.stepName;
-        console.log('STEP DETAIL:', this.navbarTitle);
         this.flowService.stepDetail.emit(this.navbarTitle);
         this.flowService.navbarTitle = this.navbarTitle;
       });
     this.quizService.questionnaire_active.subscribe((value: boolean) => {
-      console.log('EVENT EMITTED', value);
       if (!value) {
         this.showQuestionnaire = false;
         this.moodEvaluate = false;
@@ -163,7 +157,6 @@ export class ControlContentComponent implements OnInit {
         this.flowService.stepDetail.emit(this.navbarTitle);
         this.scrollDown();
       } else {
-        console.log('EVENT EMITTED', 'show questionnaire', value);
         this.showQuestionnaire = true;
         this.navbarTitle = 'Mood test';
         this.flowService.stepDetail.emit(this.navbarTitle);
@@ -195,15 +188,9 @@ export class ControlContentComponent implements OnInit {
     this.showLoading = true;
     this.completionData.step_id = this.current_step_id;
     this.completionData.time_spent = 100;
-    console.log(
-      'step id',
-      this.completionData.step_id,
-      this.completionData.time_spent,
-    );
     this.stepDataService
       .storeCompletionData(this.completionData)
       .subscribe((data: any) => {
-        console.log('completion data after complete click', data);
         this.showLoading = false;
         if (!this.isLastStep) {
           this.nextBtnShow = true;

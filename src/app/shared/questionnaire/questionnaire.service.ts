@@ -22,17 +22,14 @@ export class QuizService {
   }
 
   post_phq(response: QuesUserResponseArray) {
-    console.log('phq data sent', response);
     return this.http.post(environment.API_ENDPOINT + USER_PHQ_DATA, response);
   }
 
   post_gad(response: QuesUserResponseArray) {
-    console.log('send gad data', response);
     return this.http.post(environment.API_ENDPOINT + USER_GAD_DATA, response);
   }
 
   post_siq(response: QuesUserResponseArray) {
-    console.log('post siq', response);
     return this.http.post(environment.API_ENDPOINT + USER_SIQ_DATA, response);
   }
 }

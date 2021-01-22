@@ -16,6 +16,5 @@ export class NeedToTalkComponent implements OnInit {
   ngOnInit() {}
   changeNumberVisibilty() {
     this.showHelplineNumbers = !this.showHelplineNumbers;
-    console.log('clicked');
   }
 }

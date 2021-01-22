@@ -11,9 +11,9 @@ function pit_placer() {
   }
 
    //Generate new pit if flags allow it
-  if (pit == false && stop_pit_generation == false && start_tasks==false) 
+  if (pit == false && stop_pit_generation == false && start_tasks==false)
   {
-      
+
     pit=true;
 
     //Add new brick platform with gap
@@ -24,25 +24,24 @@ function pit_placer() {
     brick1.body.allowGravity=false;
     brick1.body.immovable=true;
     curr_game.physics.add.collider(brick1,player);
-    
+
     //Game Elements Generator
     free_to_choose_high=false;
     free_to_start_choose=true;
     clear_to_start++;
 
-    console.log("pit");
   }
 
 
   //Move the pit till out of screen
-  if (pit == true && brick1.x >=screen_width/2+PIT_SPEED/2) 
+  if (pit == true && brick1.x >=screen_width/2+PIT_SPEED/2)
   {
-     
+
     brick.x-=BRICK_SPEED;
     brick1.x-=BRICK_SPEED;
     brick_speed=0;
-    
-  } 
+
+  }
   else if(pit == true)
   {
     //Change the brick1 to brick
@@ -54,7 +53,7 @@ function pit_placer() {
     free_to_start_choose=true;
     second_choice_high=-1;
     clear_to_start--;
-   
+
     pit=false;
   }
 }

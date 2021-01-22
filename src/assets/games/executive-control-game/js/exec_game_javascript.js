@@ -685,7 +685,6 @@ function double_jump_tutorial_animation(){
 
 //Load the elements
 function preload(){
-	console.log('in preload fun');
 	//loading bar
 	var progressBar = this.add.graphics();
 	var progressBox = this.add.graphics();
@@ -1084,7 +1083,6 @@ function create(){
 		}
 		// jump_button.height = 50;
 		jump_button.on('pointerdown', function() {
-			console.log('jump button clicked');
 			jump();
 			this.alpha = 1;
 		}, this);
@@ -1634,7 +1632,6 @@ function update(){
 				game_restore();
 				if (task_background_removed) {
           if(showFeedBack === 2) {
-            console.log('true treu trei')
             if (ECGFeedBack) {
               gameFeedbackPop();
             }

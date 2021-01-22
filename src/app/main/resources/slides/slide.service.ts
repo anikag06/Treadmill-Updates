@@ -25,7 +25,6 @@ export class SlideService {
   constructor(private http: HttpClient) {}
 
   getFeedBackInfo(slideId: number): Observable<any> {
-    console.log(slideId);
     return this.http.get(
       environment.API_ENDPOINT + SLIDES_FEEDBACK + slideId + '/',
     );

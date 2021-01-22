@@ -110,15 +110,12 @@ export class EvidencesComponent implements OnInit {
   }
 
   markForDeletion(evidence: any, index: number) {
-    console.log(evidence.value.id);
-
     if (evidence.value.id) {
       this.providerService[this.service]
         .deleteEvidence(evidence.value.id, this.type)
         .subscribe((resp: any) => {
           const status = resp.ok;
           if (status) {
-            console.log('deleted');
           }
         });
     }

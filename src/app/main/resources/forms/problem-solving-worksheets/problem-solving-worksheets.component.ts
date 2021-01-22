@@ -108,12 +108,10 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
     this.user = <User>this.authService.isLoggedIn();
     this.activatedRoute.params.subscribe(v => {
       this.step_id = v.step_id;
-      console.log('step id', this.step_id);
     });
     if (this.step_id !== null) {
       this.stepDataService.getStepData(this.step_id).subscribe((res: any) => {
         const step = res.data;
-        console.log('RESPONSE', res.data, step.status);
         // for navbar title
         this.stepGroupSequence = step.step_group_sequence + 1;
         this.stepSequence = step.sequence + 1;
@@ -124,7 +122,6 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
           this.stepSequence.toString() +
           ' ' +
           this.stepName;
-        console.log('STEP DETAIL:', this.navbarTitle);
         this.flowService.stepDetail.emit(this.navbarTitle);
       });
     }
@@ -375,9 +372,7 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   }
 
   onTaskLoad(task: UserTask) {
-    console.log('task loaded');
     this.showResult = !!task;
-    console.log(task);
     this.task = task;
   }
 

@@ -37,7 +37,6 @@ export class FlowComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    console.log(this.navBar);
     this.dataloaded = false;
     this.flowService.loadBehaviour.subscribe(data => this.loadData());
     this.loadData();
@@ -55,7 +54,6 @@ export class FlowComponent implements OnInit, OnDestroy {
     );
     setTimeout(() => {
       this.showDelayMessge = true;
-      console.log('SHOW DELAY', this.showDelayMessge);
     }, 5000);
   }
 
@@ -79,7 +77,6 @@ export class FlowComponent implements OnInit, OnDestroy {
       .getFlow()
       .subscribe((data: any) => {
         this.showDelayMessge = false;
-        console.log('response', data);
         if (data.step_groups) {
           this.stepGroups = data.step_groups;
           this.flowService.setFirstStepCompleted(
@@ -103,7 +100,6 @@ export class FlowComponent implements OnInit, OnDestroy {
             // show survey
             this.router.navigate(['main/survey']);
             this.flowService.showFollowUpSurvey = true;
-            console.log('SHOW FOLLOW-UP');
           } else {
             this.router.navigate(['main/dashboard']);
           }

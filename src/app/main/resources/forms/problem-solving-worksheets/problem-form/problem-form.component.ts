@@ -69,7 +69,6 @@ export class ProblemFormComponent implements OnInit {
       this.showLoading = true;
       this.problemService.postProblem(this.problemStatement).subscribe(
         (resp: any) => {
-          console.log(resp);
           this.problemHandler(resp.body, 'create');
           this.addProblem.emit(resp.body);
           this.showLoading = false;

@@ -166,7 +166,6 @@ export class StepComponent implements OnInit, AfterViewInit {
     event.preventDefault();
     //
     this.userTimeUp = this.commonService.userTimeUp;
-    console.log('USER DETAILS', this.userTimeUp);
     this.showTooltipFun();
     window.localStorage.setItem(CURRENT_STEP_ID, this.step.id.toString());
     window.localStorage.setItem(CURRENT_ACTION, this.step.action[0]);
@@ -361,7 +360,6 @@ export class StepComponent implements OnInit, AfterViewInit {
       }
     } else {
       if (this.step.status === LOCKED) {
-        console.log('LOCKED STEP');
         this.flowService.getModuleUnlockTime(this.stepGroup.id, true);
         this.flowService.unlockModuleTime.pipe(take(1)).subscribe(data => {
           if (data === false) {

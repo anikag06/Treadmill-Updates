@@ -72,15 +72,12 @@ export class ConversationsService {
             conversation_id,
           f,
         )
-        .subscribe(responseData => {
-          console.log(responseData);
-        });
+        .subscribe(responseData => {});
     } else {
       const f = {
         time_taken_to_complete_in_seconds,
         speed_run,
       };
-      console.log(time_taken_to_complete_in_seconds);
       this.http
         .put(
           environment.API_ENDPOINT +
@@ -90,9 +87,7 @@ export class ConversationsService {
             conversation_id,
           f,
         )
-        .subscribe(responseData => {
-          console.log(responseData);
-        });
+        .subscribe(responseData => {});
     }
   }
 

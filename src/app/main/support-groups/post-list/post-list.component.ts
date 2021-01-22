@@ -54,7 +54,6 @@ export class PostListComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.queryParamsSubscription = this.route.queryParams.subscribe(data => {
       if (data.id) {
-        console.log('Data id', data.id);
         this.posts = [];
         this.id = data.id;
         this.suggPost = true;
@@ -110,12 +109,10 @@ export class PostListComponent implements OnInit, OnDestroy {
 
   getPost() {
     this.sgService.getPost(this.id).subscribe((data: any) => {
-      console.log('get id DATA', data);
       const fetchedPosts = <SupportGroupItem>data;
       this.clearSearch = true;
       // this.posts = this.arrayUnique([...this.posts, ...fetchedPosts]);
       this.posts.push(fetchedPosts);
-      console.log('fetched post', fetchedPosts);
       this.fetching = false;
       this.search = fetchedPosts.title;
     }, this.errorService.errorResponse('Cannot fetch posts'));
@@ -127,8 +124,6 @@ export class PostListComponent implements OnInit, OnDestroy {
       this.sgServiceSubscription = this.sgService
         .getPosts(this.page, this.tags, this.searchTerm)
         .subscribe((data: any) => {
-          console.log('DATA', data);
-
           const response = <ApiResponse>data;
           this.searchResultCount = response.count;
           if (response.next == null) {
@@ -138,7 +133,6 @@ export class PostListComponent implements OnInit, OnDestroy {
             this.page += 1;
           }
           const fetchedPosts = <SupportGroupItem[]>response.results;
-          console.log('posts', fetchedPosts);
           this.posts = this.arrayUnique([...this.posts, ...fetchedPosts]);
           this.fetching = false;
         }, this.errorService.errorResponse('Cannot fetch posts'));
@@ -175,7 +169,6 @@ export class PostListComponent implements OnInit, OnDestroy {
     if (this.fetching === false) {
       this.searchTerm = this.search.replace(/ *\[[^\]]*]/g, '');
       if (this.searchTerm.trim() === '') {
-        console.log('SEARCH TERM', this.searchTerm);
         this.clearSearch = false;
       } else {
         this.page = 1;

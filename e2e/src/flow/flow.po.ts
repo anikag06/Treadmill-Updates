@@ -53,7 +53,6 @@ export class FlowPage {
 
   clickOnButton(btn: string) {
     browser.wait(this.EC.presenceOf(element(by.buttonText(btn)))).then(() => {
-      console.log(btn, 'clicked');
       return element(by.buttonText(btn)).click();
     });
   }
@@ -95,7 +94,6 @@ export class FlowPage {
           .element(by.cssContainingText('.step-name', txt))
           .click()
           .then(() => {
-            console.log('STEP :', txt, 'clicked');
             browser.sleep(2000);
           });
       });
@@ -110,7 +108,6 @@ export class FlowPage {
     browser
       .wait(this.EC.visibilityOf(button))
       .then(() => {
-        console.log('clickOnButton  Completed');
         button.click().then(() => {
           browser.sleep(4000);
           const nextStepBtn = element(
@@ -118,7 +115,6 @@ export class FlowPage {
           );
           browser.wait(this.EC.visibilityOf(nextStepBtn)).then(() => {
             nextStepBtn.click();
-            console.log(btn, 'click');
           });
           // if (btn === 'Go to dashboard') {
           //   browser.sleep(6000);
@@ -132,9 +128,7 @@ export class FlowPage {
           // }
         });
       })
-      .catch(() => {
-        console.log('waiting to click Completed button ');
-      });
+      .catch(() => {});
     browser.sleep(1000);
   }
 
@@ -144,7 +138,6 @@ export class FlowPage {
     browser
       .wait(this.EC.visibilityOf(button))
       .then(() => {
-        console.log('clickOnButton  Completed');
         button.click().then(() => {
           // uncomment for experimental group congrats-div
           const dashboardBtn = element(by.css('.congrats-div')).element(
@@ -161,9 +154,7 @@ export class FlowPage {
           // });
         });
       })
-      .catch(() => {
-        console.log('waiting to click Completed button ');
-      });
+      .catch(() => {});
     browser.sleep(1000);
   }
 
@@ -180,18 +171,15 @@ export class FlowPage {
       .first();
     browser.wait(this.EC.visibilityOf(StartBtn)).then(() => {
       StartBtn.click();
-      console.log('Start conversations');
       const el = element(by.css('.msg_container1'));
       browser.wait(this.EC.presenceOf(el)).then(() => {
         const showConvBtn = element(by.css('#showFullConversation'));
         browser.wait(this.EC.visibilityOf(showConvBtn)).then(() => {
           browser.sleep(2000);
           showConvBtn.click();
-          console.log('showConvBtn clicked');
           const menuBtn = element(by.css('.mat-menu-item'));
           browser.wait(this.EC.visibilityOf(menuBtn)).then(() => {
             menuBtn.click();
-            console.log('menuBtn clicked');
           });
         });
       });
@@ -222,11 +210,9 @@ export class FlowPage {
     const gotoBtn = element(by.css('#goto_mobile'));
     browser.wait(this.EC.visibilityOf(gotoBtn)).then(() => {
       gotoBtn.click();
-      console.log('goto clicked');
     });
   }
   waitForStepUnlock(txt: string) {
-    console.log('waiting for step', txt, 'unlock');
     const nextStep = element(by.css('.flow-scroll-inner')).element(
       by.cssContainingText('.step-content.active', txt),
     );
@@ -234,12 +220,10 @@ export class FlowPage {
       .wait(this.EC.visibilityOf(nextStep), 5 * 60 * 1000)
       .then(() => {
         this.findProgressElement(txt);
-        console.log(txt, 'VISIBLE');
         // return true;
       })
       .catch(() => {
         this.navigateToDashboard();
-        console.log(txt, 'NOT FOUND CHECK AGAIN');
         this.waitForStepUnlock(txt);
       });
   }
@@ -254,21 +238,8 @@ export class FlowPage {
     if (currentTime < userTimeUp) {
       // wait browser
       // this.callWaitBrowser();
-      console.log(
-        'current time',
-        today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds(),
-      );
-      console.log(
-        'userTimeUp',
-        userTimeUp,
-        'currentTime',
-        currentTime,
-        'loginTime',
-        loginTime,
-      );
       this.logout();
     } else {
-      console.log('check further steps');
       return;
     }
   }
@@ -299,10 +270,8 @@ export class FlowPage {
       )
       .then(() => {
         // see follow up
-        console.log('START Questionnaire');
       })
       .catch(() => {
-        console.log('browser wait');
         this.checkForDropout(this.firstLoginTime);
       });
   }
@@ -312,14 +281,11 @@ export class FlowPage {
         this.EC.presenceOf(element(by.css('h6.progress-heading-mobile'))),
         5 * 60 * 1000,
       )
-      .then(() => {
-        console.log(' URL DASHBOARD');
-      });
+      .then(() => {});
   }
   evaluateMood() {
     const moodBtn = element(by.css('button.mood-btn'));
     browser.wait(this.EC.visibilityOf(moodBtn)).then(() => {
-      console.log('mood btn clicked');
       moodBtn.click();
     });
   }

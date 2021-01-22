@@ -108,7 +108,6 @@ export class EttbfOutcomeComponent implements OnInit {
           }
         });
     }
-    console.log(this.outcome);
     if (this.outcome) {
       this.outcomeStatement = this.outcome.outcome;
       if (this.outcome.learning !== '') {
@@ -167,10 +166,6 @@ export class EttbfOutcomeComponent implements OnInit {
   onOutcomeSubmit() {
     this.showFinalSpinner = true;
     this.outcomeSubmit += 1;
-    // this.commonService.postScore(this.followUpOldScore + FOLLOW_UP_FORM_COMPLETE_SCORE)
-    //   .subscribe(() => {
-    console.log('score');
-    // });
     if (this.outcome && Object.entries(this.outcome).length > 0) {
       this.outcome.belief_id = this.outcome_belief_id;
       this.outcome.outcome = this.outcomeStatement;
@@ -193,7 +188,6 @@ export class EttbfOutcomeComponent implements OnInit {
             this.outcomeResponse = data.body;
             this.showFinalSpinner = false;
             this.showSliderContinue = false;
-            console.log('The put request has been submitted');
             if (this.outcomeSubmit === 1) {
               this.commonService.updateScore(FOLLOW_UP_FORM_COMPLETE_SCORE);
             }
@@ -213,7 +207,6 @@ export class EttbfOutcomeComponent implements OnInit {
             (data: any) => {
               this.outcome = data;
               this.outcomeResponse = data.outcome;
-              console.log('The post request has been submitted');
               if (this.outcomeSubmit === 1) {
                 this.commonService.updateScore(FOLLOW_UP_FORM_COMPLETE_SCORE);
               }

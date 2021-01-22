@@ -106,7 +106,6 @@ $(document).ready(function(){
 		ev.stopImmediatePropagation();
 		lhg_show_instructions = true;
 		lhcolorReverseGame = false;
-		console.log('lhGameLevelCounter',lhGameLevelCounter);
 		if(lhGameLevelCounter == 1){
 			$("#btn-color-reverse-game-give-up").addClass("d-none");
 		}
@@ -120,7 +119,6 @@ $(document).ready(function(){
 			$("#color-reverse-game").addClass("d-none");
 			$("#explanation-row").removeClass("d-none");
 			lhg_game_completed = true;
-			console.log('GAME COMPLETED');
 			gameCompleted();
 
 		}else if(unsolvable_game_counter == 3){
@@ -221,7 +219,6 @@ function squareClicked($square, grid_array){
 	var id = $square.attr("id");
 	var rowNumber = parseInt(id.split("-")[0]);
 	var columnNumber = parseInt(id.split("-")[1]);
-	console.log('square clicked');
 	// current element
 	if($square.hasClass("circle")){
 		$square.removeClass("circle");
@@ -310,8 +307,6 @@ function detectSuccess(grid_array){
 			} else {
 			lhGameLevelCounter++;
 			lhGameArrayIndex++;
-			console.log('Array Index', lhGameArrayIndex);
-			console.log('Array length', lhGameLevelStrings.length);
 			}
 			clearTimeout(different_game_timeout);
 			$("#color-reverse-game-success-message").addClass("d-none");
@@ -324,7 +319,6 @@ function detectSuccess(grid_array){
 }
 
 function colorReverseInit(){
-	console.log('color reverse initialised');
 	grid_string = lhGameLevelStrings[lhGameArrayIndex];
 	length = lhGameLengths[lhGameArrayIndex];
 	height = lhGameHeights[lhGameArrayIndex];
@@ -415,7 +409,6 @@ lhgOverallData = function() {
 
 function gameCompleted() {
 	lhg_end_time = new Date().toJSON();
-	console.log(lhg_end_time);
 
 	lhgOverallData();
 	gameCompleteEvent = document.createEvent('CustomEvent');

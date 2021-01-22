@@ -85,7 +85,6 @@ export class Conclusion3Component implements OnInit, OnDestroy {
       this.stepDataService
         .getBadgeInfo(this.stepGroupSequence)
         .subscribe((badge_data: any) => {
-          console.log(badge_data);
           this.commonDialogService.updateBadgeInfo(badge_data.results);
         });
     });
@@ -112,7 +111,6 @@ export class Conclusion3Component implements OnInit, OnDestroy {
         this.stepDataService
           .getStepData(this.currentStepId)
           .subscribe((step_data: any) => {
-            console.log('step data is:', step_data);
             // for navbar title
             this.stepGroupSequence = step_data.data.step_group_sequence + 1;
             this.stepSequence = step_data.data.sequence + 1;
@@ -123,7 +121,6 @@ export class Conclusion3Component implements OnInit, OnDestroy {
               this.stepSequence.toString() +
               ' ' +
               this.stepName;
-            console.log('STEP DETAIL:', this.navbarTitle);
             this.flowService.stepDetail.emit(this.navbarTitle);
             this.flowService.navbarTitle = this.navbarTitle;
             this.dataLoaded = true;
@@ -138,7 +135,6 @@ export class Conclusion3Component implements OnInit, OnDestroy {
       });
     this.scrollup();
     this.quizService.questionnaire_active.subscribe((value: boolean) => {
-      console.log('EVENT EMITTED', value);
       if (!value) {
         this.moodEvaluate = false;
         this.showQuestionnaire = false;
@@ -154,7 +150,6 @@ export class Conclusion3Component implements OnInit, OnDestroy {
     this.flowService.showDashboardButton.subscribe(() => {
       this.stepCompleted = true;
       this.showLoading = false;
-      console.log('show dashboard');
     });
   }
 
@@ -167,9 +162,7 @@ export class Conclusion3Component implements OnInit, OnDestroy {
     };
     this.conclusionService
       .storeConclusionData(this.stepGroupSequence, data)
-      .subscribe(_data => {
-        console.log('data saved');
-      });
+      .subscribe(_data => {});
   }
 
   ngOnDestroy() {
@@ -192,7 +185,6 @@ export class Conclusion3Component implements OnInit, OnDestroy {
       .storeCompletionData(this.completionData)
       .subscribe(data => {
         this.commonService.updateScore(CONCLUSION_SCORE);
-        console.log(data);
       });
   }
 

@@ -70,7 +70,6 @@ export class TechniquesComponent implements OnInit {
     this.reset();
     if (changes.worry && this.worry) {
       this.worryService.getFinalSlider(this.worry.id).subscribe((resp: any) => {
-        console.log(resp);
         if (resp.ok) {
           this.isCompleted = true;
           this.showContinue = false;

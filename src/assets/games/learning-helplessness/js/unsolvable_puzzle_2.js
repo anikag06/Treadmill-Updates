@@ -67,7 +67,6 @@ $(document).ready(function(){
 			unsolvable_game_counter=3;
 			resetFrogGame();
 			frogGameInit();
-			console.log("call init 2", success);
 			colorReverseInit();
 		}else{
 			first = false;
@@ -81,7 +80,6 @@ $(document).ready(function(){
     ]
   });
   frogGridSwipe.on("swipe", function(ev) {
-    console.log("ev: ", ev);
     frogGridMoveRouter(ev.direction);
   });
 

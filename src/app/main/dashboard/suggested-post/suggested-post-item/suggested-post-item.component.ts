@@ -35,7 +35,6 @@ export class SuggestedPostItemComponent implements OnInit {
    */
 
   navigateSearch() {
-    console.log(this.id);
     let queryParams = {};
     if (this.id) {
       queryParams = { id: this.id };

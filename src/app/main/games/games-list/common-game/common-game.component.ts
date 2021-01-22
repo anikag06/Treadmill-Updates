@@ -107,10 +107,8 @@ export class CommonGameComponent implements OnInit {
         game => {
           this.game = <Game>game;
           this.gameName = this.game.name;
-          console.log(this.gameName);
           this.gamePlayService.gameName = this.gameName;
           this.gamePlayService.gameSlug = this.game.slug;
-          console.log(this.gamePlayService.gameName);
           this.gamePlayService.gameTitle.emit();
           this.isExecutiveControl = false;
           this.isInterpretationBias = false;
@@ -136,7 +134,6 @@ export class CommonGameComponent implements OnInit {
             this.isMentalImagery = true;
             this.portraitGame = true;
           } else if (this.gameName === IDENTIFY_COGNITIVE_DISTORTION_GAME) {
-            console.log('cognitive distortion');
             this.isIdentifyCognitiveDistortion = true;
             this.portraitGame = true;
           }
@@ -169,7 +166,6 @@ export class CommonGameComponent implements OnInit {
       this.gameStarted &&
       this.pauseBtnElement.nativeElement.classList.contains('d-none')
     ) {
-      console.log('resume game');
       this.onResumeClick();
     }
   }
@@ -333,7 +329,6 @@ export class CommonGameComponent implements OnInit {
   onSoundClick() {
     this.isSoundOn = !this.isSoundOn;
     if (this.gameName === EXECUTIVE_CONTROL_GAME) {
-      console.log('sound', this.isSoundOn);
       this.gamePlayService.soundExecControlGame(this.isSoundOn);
     }
     if (this.gameName === FRIENDLY_FACE_GAME) {

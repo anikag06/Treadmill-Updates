@@ -42,11 +42,9 @@ export class WaitlistComponent implements OnInit {
     }
     this.activatedRoute.params.subscribe(params => {
       this.encrypted_email = params['unique-code'];
-      console.log('email', this.encrypted_email, params);
 
       this.waitlistService.getLinkData(this.encrypted_email).subscribe(
         (res_data: any) => {
-          console.log('success', res_data);
           this.loading = false;
           this.registrationDataService.participationID =
             res_data.participant_id;
@@ -71,7 +69,6 @@ export class WaitlistComponent implements OnInit {
           }
         },
         err => {
-          console.log('error', err);
           this.loading = false;
           this.router.navigate(['/']);
         },

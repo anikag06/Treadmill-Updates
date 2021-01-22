@@ -58,7 +58,6 @@ export class IdentifyCognitiveDistortionComponent implements OnInit {
       )
       .then(() => {
         this.imagesPreloaded = true;
-        console.log('IMAGES LOADED');
       })
       .catch(() => {});
     this.gameName = this.playGameService.gameName;
@@ -69,7 +68,6 @@ export class IdentifyCognitiveDistortionComponent implements OnInit {
       )
       .subscribe((res: any) => {
         const step = res.data;
-        console.log('RESPONSE', res.data, step.status);
         // for navbar title
         this.stepGroupSequence = step.step_group_sequence + 1;
         this.stepSequence = step.sequence + 1;
@@ -80,7 +78,6 @@ export class IdentifyCognitiveDistortionComponent implements OnInit {
           this.stepSequence.toString() +
           ' ' +
           this.stepName;
-        console.log('STEP DETAIL:', this.navbarTitle);
         this.flowService.stepDetail.emit(this.navbarTitle);
       });
 
@@ -143,7 +140,6 @@ export class IdentifyCognitiveDistortionComponent implements OnInit {
   removeLoading() {
     const tid = setInterval(() => {
       if (!this.imagesPreloaded) {
-        console.log('waiting for preload to complete', this.imagesPreloaded);
         return;
       }
       clearInterval(tid);

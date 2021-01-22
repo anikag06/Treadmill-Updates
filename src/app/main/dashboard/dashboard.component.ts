@@ -74,7 +74,6 @@ export class DashboardComponent implements OnInit {
     );
     this.quizService.showFollowUp.subscribe(() => {
       this.showQuestionnaire = true;
-      console.log('show questionnaire');
       this.quizService.followupActive = true;
     });
   }

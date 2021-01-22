@@ -189,7 +189,6 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
       )
       .subscribe((res: any) => {
         const step = res.data;
-        console.log('RESPONSE', res.data, step.status);
         // for navbar title
         this.stepGroupSequence = step.step_group_sequence + 1;
         this.stepSequence = step.sequence + 1;
@@ -200,7 +199,6 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
           this.stepSequence.toString() +
           ' ' +
           this.stepName;
-        console.log('STEP DETAIL:', this.navbarTitle);
         this.flowService.stepDetail.emit(this.navbarTitle);
       });
     this.loadFileService
@@ -209,7 +207,6 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
       )
       .then(() => {
         this.imagesPreloaded = true;
-        console.log('IMAGES LOADED');
       })
       .catch(() => {});
     this.loadFileService
@@ -287,7 +284,6 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
             sentence_word_valence.push(data.results[i].word.valence);
             sentence_trick.push(data.results[i].trick_sentence);
             sentence_order_array.push(data.results[i].order);
-            console.log('sentence array', sentence_array);
             if (this.firstSentence) {
               this.currentSentencesWordsNumber(0);
             }
@@ -528,7 +524,6 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
   removeLoading() {
     const tid = setInterval(() => {
       if (!this.imagesPreloaded) {
-        console.log('waiting for preload to complete', this.imagesPreloaded);
         return;
       }
       clearInterval(tid);

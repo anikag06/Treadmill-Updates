@@ -112,12 +112,10 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.activatedRoute.params.subscribe(v => {
       this.step_id = v.step_id;
-      console.log('step id', this.step_id, this.fromSlide);
     });
     if (this.step_id !== null) {
       this.stepDataService.getStepData(this.step_id).subscribe((res: any) => {
         const step = res.data;
-        console.log('RESPONSE', res.data, step.status);
         // for navbar title
         this.stepGroupSequence = step.step_group_sequence + 1;
         this.stepSequence = step.sequence + 1;
@@ -128,7 +126,6 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
           this.stepSequence.toString() +
           ' ' +
           this.stepName;
-        console.log('STEP DETAIL:', this.navbarTitle);
         this.flowService.stepDetail.emit(this.navbarTitle);
       });
     }
@@ -185,7 +182,6 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
   worrySelected(worry: Worry) {
     this.resetForm();
     // this.onAddNewForm()
-    console.log(worry.worry + 'value ' + worry.worry_rating_initial);
     this.initialRating = parseInt(worry.worry_rating_initial);
     this.worry = worry;
     this.worryEditMode = false;
@@ -235,7 +231,6 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
   }
   onEditWorryClick() {
     this.onWorryClick();
-    console.log(this.worryEditMode);
     if (this.worryStatementForm) {
       this.worryStatementForm.editWorryText();
     }
@@ -313,7 +308,6 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
           this.checkBoxContinue = false;
           this.characteristicCheck = true;
           if (status) {
-            console.log('The request has been submited');
           }
         });
     }

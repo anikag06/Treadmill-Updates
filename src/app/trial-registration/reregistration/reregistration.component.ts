@@ -37,7 +37,6 @@ export class ReregistrationComponent implements OnInit {
         .storeEncryptedEmailID(this.encrypted_email)
         .subscribe(
           (res_data: any) => {
-            console.log('sucess', res_data);
             this.registrationDataService.participationID =
               res_data.data.participant_id;
             this.userEligible = !res_data.data.excluded;
@@ -59,7 +58,6 @@ export class ReregistrationComponent implements OnInit {
             }
           },
           err => {
-            console.log(err);
             this.router.navigate(['/trial/trial-registration']);
           },
         );

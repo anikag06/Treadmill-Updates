@@ -172,7 +172,6 @@ export class NestedCommentComponent
               this.userNestedComment.is_voted !== -1
             ) {
               this.upVoteFirstClick = true;
-              console.log('first upvote state', this.upVoteFirstClick);
               this.commonService.updateScore(SUPPORT_GROUP_UP_DOWN_VOTE_SCORE);
               this.commonService.postScoreForOther(
                 SUPPORT_GROUP_GETTING_UP_VOTE_SCORE,
@@ -217,7 +216,6 @@ export class NestedCommentComponent
               this.userNestedComment.is_voted !== -1
             ) {
               this.downVoteFirstClick = true;
-              console.log('first down vote status', this.downVoteFirstClick);
               this.commonService.updateScore(SUPPORT_GROUP_UP_DOWN_VOTE_SCORE);
             }
           },

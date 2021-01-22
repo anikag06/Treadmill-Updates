@@ -175,11 +175,7 @@ export class SignUpComponent implements OnInit {
     this.termsConditionChecked = this.signupForm.value.terms_and_conditions;
     this.activateSubmitButton();
   }
-  onTermsConClick() {
-    console.log(
-      `Open terms and conditions in a new tab but don't take the user there.`,
-    );
-  }
+  onTermsConClick() {}
 
   onSignUpDone() {
     this.errorStatus = false;
@@ -192,7 +188,6 @@ export class SignUpComponent implements OnInit {
   }
 
   activateSubmitButton() {
-    console.log('getting called');
     this.allowSubmit =
       this.signupForm.value.username &&
       this.isUsernameAvailable &&
@@ -202,11 +197,9 @@ export class SignUpComponent implements OnInit {
   }
 
   checkUsernameAvailability() {
-    console.log('username: ', this.signupForm.value.username);
     this.signUpService
       .usernameAvailabilityCheck(this.signupForm.value.username)
       .subscribe((data: any) => {
-        console.log('data: ', data);
         this.usernameAvailableMessage = data.message;
         this.isUsernameAvailable = data.data;
         if (!this.isUsernameAvailable) {

@@ -39,7 +39,6 @@ export class SignUpService {
 
   getSignupMail(email: string): Observable<any> {
     const sendData = { email_id: email };
-    console.log('sign up email', sendData);
     return this.http.post(environment.API_ENDPOINT + GET_SIGNUP_MAIL, sendData);
   }
 

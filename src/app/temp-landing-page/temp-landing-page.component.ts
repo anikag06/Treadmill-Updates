@@ -33,14 +33,12 @@ export class TempLandingPageComponent implements OnInit {
       this.showLoading = true;
       this.tempDataService.storeEmailID(this.emailForm.value.email).subscribe(
         (res_data: any) => {
-          console.log('RESPONSE', res_data);
           if (res_data.id >= 0) {
             this.showSucessMessage = true;
             this.showLoading = false;
           }
         },
         err => {
-          console.log(err);
           this.showErrorMessage = true;
           this.showLoading = false;
         },

@@ -86,7 +86,6 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
   }
 
   setUserFeelings() {
-    console.log(this.data);
     this.data.emotionsData.forEach((userFeeling: UserFeeling) => {
       let isNegative = false;
       let isNeutral = false;
@@ -164,7 +163,6 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
 
   setStep(index: number) {
     this.step = index;
-    console.log(this.step + 'step');
   }
 
   getNegativeEmotions() {

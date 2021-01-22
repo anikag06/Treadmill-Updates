@@ -84,7 +84,6 @@ export class Introduction1Component implements OnInit, OnDestroy {
     this.introductionDataSubscription = this.introductionService
       .getIntroductionData(this.stepGroupSequence)
       .subscribe(data => {
-        console.log('DATA', data);
         if (data.user_step_status !== LOCKED) {
           this.situation = data.data.situation;
           this.feeling = data.data.feeling;
@@ -102,9 +101,7 @@ export class Introduction1Component implements OnInit, OnDestroy {
         this.stepDataService
           .getStepData(this.currentStepId)
           .subscribe((step_data: any) => {
-            console.log('step data is:', step_data);
             this.next_step_id = step_data.data.next_step_id;
-            console.log('next step', this.next_step_id);
             // for navbar title
             this.step_stepGroupSequence =
               step_data.data.step_group_sequence + 1;
@@ -116,7 +113,6 @@ export class Introduction1Component implements OnInit, OnDestroy {
               this.stepSequence.toString() +
               ' ' +
               this.stepName;
-            console.log('STEP DETAIL:', this.navbarTitle);
             this.flowService.stepDetail.emit(this.navbarTitle);
           });
       });
@@ -140,7 +136,6 @@ export class Introduction1Component implements OnInit, OnDestroy {
       });
   }
   onNextStep() {
-    console.log('Next step clicked');
     this.goToService.clickFlow.emit();
   }
   onthoughtSave() {
@@ -160,7 +155,6 @@ export class Introduction1Component implements OnInit, OnDestroy {
     this.introductionService
       .storeIntroductionData(this.stepGroupSequence, this.data)
       .subscribe(data => {
-        console.log(data, this.data, 'success');
         this.thoughtSave = false;
       });
   }
@@ -169,7 +163,6 @@ export class Introduction1Component implements OnInit, OnDestroy {
     this.introductionService
       .storeIntroductionData(this.stepGroupSequence, this.data)
       .subscribe(data => {
-        console.log(data, this.data, 'success');
         this.feelingSave = false;
       });
   }
@@ -178,7 +171,6 @@ export class Introduction1Component implements OnInit, OnDestroy {
     this.introductionService
       .storeIntroductionData(this.stepGroupSequence, this.data)
       .subscribe(data => {
-        console.log(data, this.data, 'success');
         this.situationSave = false;
       });
   }
@@ -187,7 +179,6 @@ export class Introduction1Component implements OnInit, OnDestroy {
     this.introductionService
       .storeIntroductionData(this.stepGroupSequence, this.data)
       .subscribe(data => {
-        console.log(data, this.data, 'success');
         this.behaviorSave = false;
       });
   }

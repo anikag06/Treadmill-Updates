@@ -10,11 +10,9 @@ export class TrialAuthService {
 
   activateChild(nextPage: boolean) {
     this.canNavigateNextPage = nextPage;
-    console.log('activate func', this.canNavigateNextPage);
   }
 
   getCanNavigate() {
-    console.log(this.canNavigateNextPage);
     return this.canNavigateNextPage;
   }
 }

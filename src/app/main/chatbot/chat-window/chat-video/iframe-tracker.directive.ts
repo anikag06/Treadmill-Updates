@@ -56,7 +56,6 @@ export class IframeTrackerDirective implements OnInit {
 
   private log(message: string) {
     if (this.debug) {
-      console.log(message);
     }
   }
 }

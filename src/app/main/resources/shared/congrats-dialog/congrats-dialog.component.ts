@@ -37,7 +37,6 @@ export class CongratsDialogComponent implements OnInit {
     if (this.data.isLastStep) {
       this.navigate_to = 'Go to dashboard';
       this.badge_img_src = this.data.badgeData.image;
-      console.log('badge details', this.data);
       this.showBadge = true;
       this.badgeName = this.data.badgeData.name;
       this.badgeInfo = this.data.badgeData.description;
@@ -45,12 +44,10 @@ export class CongratsDialogComponent implements OnInit {
         this.unLockTime = this.nextStepData.next_step_group_unlock_time;
         const convertedDateString = this.unLockTime.toLocaleString();
         this.unLockTime = new Date(convertedDateString);
-        console.log('UNLOCK TIME', this.nextStepData);
       }
     } else if (this.data.isLastModule) {
       this.navigate_to = 'Next step';
       this.badge_img_src = this.data.badgeData.image;
-      console.log('badge details', this.data);
       this.showBadge = true;
       this.badgeName = this.data.badgeData.name;
       this.badgeInfo = this.data.badgeData.description;

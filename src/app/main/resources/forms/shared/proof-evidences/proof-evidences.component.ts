@@ -150,7 +150,6 @@ export class ProofEvidencesComponent implements OnInit {
       .subscribe((resp: any) => {
         const status = resp.ok;
         if (status) {
-          console.log('post done');
         }
       });
   }

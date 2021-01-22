@@ -74,7 +74,6 @@ export class LearnedHelplessnessGameComponent implements OnInit, OnDestroy {
 
   @HostListener('window:CallPlayNext')
   openPlayNextPopup() {
-    console.log('open play next popup');
     this.dialogBoxService.setDialogChild(LhgPlaynextgameComponent);
     const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
     this.element.nativeElement.dispatchEvent(domEvent);
@@ -102,7 +101,6 @@ export class LearnedHelplessnessGameComponent implements OnInit, OnDestroy {
       )
       .subscribe((res: any) => {
         const step = res.data;
-        console.log('RESPONSE', res.data, step.status);
         // for navbar title
         this.stepGroupSequence = step.step_group_sequence + 1;
         this.stepSequence = step.sequence + 1;
@@ -113,7 +111,6 @@ export class LearnedHelplessnessGameComponent implements OnInit, OnDestroy {
           this.stepSequence.toString() +
           ' ' +
           this.stepName;
-        console.log('STEP DETAIL:', this.navbarTitle);
         this.flowService.stepDetail.emit(this.navbarTitle);
       });
     this.loadFileService
@@ -122,7 +119,6 @@ export class LearnedHelplessnessGameComponent implements OnInit, OnDestroy {
       )
       .then(() => {
         this.imagesPreloaded = true;
-        console.log('IMAGES LOADED');
       })
       .catch(() => {});
     if (!this.gamePlayService.lhgameScriptLoaded) {
@@ -183,7 +179,6 @@ export class LearnedHelplessnessGameComponent implements OnInit, OnDestroy {
       this.gamePlayService.lhgameScriptLoaded = true;
     }
     this.gamesAuthService.lhGameGetOverallData().subscribe(overall_data => {
-      console.log('overall data', overall_data);
       this.gamePlayService.lhgShowSummary = overall_data.show_summary_button;
       this.ask_feedback = overall_data.ask_for_feedback;
     });
@@ -194,7 +189,6 @@ export class LearnedHelplessnessGameComponent implements OnInit, OnDestroy {
       if (this.goHome) {
         this.onGoToHome();
       }
-      console.log('STATUS', this.playAgain, this.goHome);
     });
     lhcolorReverseGame = true;
   }
@@ -262,7 +256,6 @@ export class LearnedHelplessnessGameComponent implements OnInit, OnDestroy {
   removeLoading() {
     const tid = setInterval(() => {
       if (!this.imagesPreloaded) {
-        console.log('waiting for preload to complete', this.imagesPreloaded);
         return;
       }
       clearInterval(tid);

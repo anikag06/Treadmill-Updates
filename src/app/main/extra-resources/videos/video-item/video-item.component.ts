@@ -93,17 +93,14 @@ export class VideoItemComponent implements OnInit, AfterViewInit, OnDestroy {
     this.init();
 
     if (this.router.url.includes('/mindfulnessVideo/')) {
-      console.log('id at end');
       this.eachVideoType = 'mindfulnessVideo';
       if (this.mindfulnessVideo == null) {
         this.activatedRoute.params.subscribe(data => {
           this.videoIdToSend = data.id;
-          console.log('reload id:', data.id);
         });
         this.extraResourcesService
           .getAMindfulnessVideo(this.videoIdToSend)
           .subscribe((data: any) => {
-            console.log('data', data.resource_video.url);
             this.mindfulnessVideo = <MindfulnessVideoItem>data;
             this.isLoaded = true;
           });
@@ -112,24 +109,20 @@ export class VideoItemComponent implements OnInit, AfterViewInit, OnDestroy {
           data => {
             this.mindfulnessVideo = <MindfulnessVideoItem>data;
             this.isLoaded = true;
-            console.log('mindfulness video', data);
           },
         );
       }
     }
 
     if (this.router.url.includes('/videoCovid19/')) {
-      console.log('id at end');
       this.eachVideoType = 'videoCovid19';
       if (this.videoCovid19 == null) {
         this.activatedRoute.params.subscribe(data => {
           this.videoIdToSend = data.id;
-          console.log('reload id:', data.id);
         });
         this.extraResourcesService
           .getAVideoCovid19(this.videoIdToSend)
           .subscribe((data: any) => {
-            console.log('data', data.url);
             this.videoCovid19 = <VideoCovid19Item>data;
             this.isLoaded = true;
           });
@@ -137,23 +130,19 @@ export class VideoItemComponent implements OnInit, AfterViewInit, OnDestroy {
         this.extraResourcesService.videoCovid19ClickedEvent.subscribe(data => {
           this.videoCovid19 = <VideoCovid19Item>data;
           this.isLoaded = true;
-          console.log('covid19 video', data);
         });
       }
     }
 
     if (this.router.url.includes('/videoItem/')) {
-      console.log('id at end');
       this.eachVideoType = 'video';
       if (this.video == null) {
         this.activatedRoute.params.subscribe(data => {
           this.videoIdToSend = data.id;
-          console.log('reload id:', data.id);
         });
         this.extraResourcesService
           .getAVideoOnDepression(this.videoIdToSend)
           .subscribe(data => {
-            console.log('data', data);
             this.video = <VideoItem>data;
             this.isLoaded = true;
           });
@@ -166,8 +155,6 @@ export class VideoItemComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
   createPlayer() {
-    console.log('you tube iframe');
-    console.log('player is:', this.player);
     setTimeout(() => {
       this.player = new (<any>window).YT.Player('player', {
         events: {
@@ -189,46 +176,30 @@ export class VideoItemComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onPlayerReady(event: any) {
-    console.log('player ready');
-    console.log('video time', this.player.getDuration());
     this.videoInt = setInterval(() => {
-      console.log('current time', this.player.getCurrentTime());
       if (
         this.player.getCurrentTime() >=
         this.player.getDuration() - this.videoTimeLeft // || (this.id !==  this.videoIdToSend)
       ) {
         clearInterval(this.videoInt);
-        console.log(
-          'new url',
-          '/extra-resources/videoItem/' + this.videoIdToSend,
-        );
         this.watched = true;
-        console.log('watched');
         this.extraResourcesService
           .markVideoWatched(this.videoIdToSend, this.watched)
-          .subscribe((data: any) => {
-            console.log('marked video data', data);
-          });
+          .subscribe((data: any) => {});
       }
     }, 1000);
   }
   onPlayerStateChange(event: any) {
-    console.log('player state');
     if (event.data === 0) {
-      console.log('event data', event.data);
     }
   }
 
   playPauseToggle(event: any) {
-    console.log('play pause toggle');
-    console.log('event', this.eventDataForPlayPause);
     if (this.eventDataForPlayPause === 1) {
       this.player.pauseVideo();
-      console.log('paused');
     } else {
       if (this.eventDataForPlayPause === 2) {
         this.player.playVideo();
-        console.log('played');
       }
     }
     // }
@@ -238,8 +209,6 @@ export class VideoItemComponent implements OnInit, AfterViewInit, OnDestroy {
     (<any>window).onYouTubeIframeAPIReady = null;
     if (this.player) {
       clearInterval(this.videoInt);
-      console.log('destroyed');
-      console.log('player after destroying', this.player);
     }
   }
 }

@@ -141,7 +141,6 @@ export class AuthService {
   }
 
   async logout(showDefaultPage: boolean) {
-    console.log('log out', showDefaultPage);
     delete this.user;
     localStorage.setItem(ISLOGGEDIN, 'false');
     localStorage.clear();

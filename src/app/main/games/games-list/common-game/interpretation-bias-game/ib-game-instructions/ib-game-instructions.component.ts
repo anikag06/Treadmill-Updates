@@ -23,7 +23,6 @@ export class IbGameInstructionsComponent implements OnInit {
   ngOnInit() {}
 
   onPlayClicked() {
-    console.log('ib tutorial', ibGameShowTutorial);
     const domEvent = new CustomEvent('removeOverlayEvent', { bubbles: true });
     this.elementRef.nativeElement.dispatchEvent(domEvent);
     if (ibGameShowTutorial) {

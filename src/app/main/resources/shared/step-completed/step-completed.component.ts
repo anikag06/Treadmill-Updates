@@ -17,9 +17,7 @@ export class StepCompletedComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {
-    console.log('last step', this.lastStepCompleted);
-  }
+  ngOnInit() {}
 
   onCompleted() {
     this.completedEvent.emit();

@@ -26,7 +26,6 @@ export class TrialRegistrationAuthGuard
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    console.log('user logged in', this.auth.isLoggedIn(), LOGGED_IN_PATH);
     if (this.auth.isLoggedIn()) {
       this.router.navigate([LOGGED_IN_PATH]);
       return false;
@@ -41,7 +40,6 @@ export class TrialRegistrationAuthGuard
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    console.log('child user logged in', this.auth.isLoggedIn(), LOGGED_IN_PATH);
     if (this.auth.isLoggedIn()) {
       this.router.navigate([LOGGED_IN_PATH]);
       return false;

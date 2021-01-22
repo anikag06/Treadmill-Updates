@@ -62,7 +62,6 @@ export class SupportGroupsComponent implements OnInit {
       )
       .subscribe((res: any) => {
         const step = res.data;
-        console.log('RESPONSE', res.data, step.status);
         // for navbar title
         this.stepGroupSequence = step.step_group_sequence + 1;
         this.stepSequence = step.sequence + 1;
@@ -73,7 +72,6 @@ export class SupportGroupsComponent implements OnInit {
           this.stepSequence.toString() +
           ' ' +
           this.stepName;
-        console.log('STEP DETAIL:', this.navbarTitle);
         this.flowService.stepDetail.emit(this.navbarTitle);
       });
     this.tagService.getTags();
@@ -89,7 +87,6 @@ export class SupportGroupsComponent implements OnInit {
           profile.no_of_silver_badges,
           profile.no_of_gold_badges,
         );
-        console.log('user profila data', this.userProfileData);
         this.sgService.userProfileData = this.userProfileData;
       });
 

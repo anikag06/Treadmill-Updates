@@ -43,7 +43,6 @@ export class AppPage {
     // this.newUsername = 'root' + this.numberInUsername +
     //                    Math.random().toString(36).substring(2, 5) + Math.random().toString(36).substring(2, 5);
     this.newEmaiId = 'l.goyal18' + '+' + this.numberInUsername + '@gmail.com';
-    console.log('email id', this.newEmaiId);
   }
   getTrialUserName() {
     this.newUsername =
@@ -118,7 +117,6 @@ export class AppPage {
     this.getTrialEmailId();
     element(by.css('.input-box')).sendKeys(this.newEmaiId);
     element(by.css('button.mat-raised-button')).click();
-    console.log('JOINED THE STUDY');
   }
   getChatBotText() {
     return element(by.css('.chatbot-text')).getText() as Promise<string>;
@@ -218,7 +216,6 @@ export class AppPage {
     const el = element(by.id('signup_link'));
     browser.wait(this.EC.presenceOf(el)).then(() => {
       el.getAttribute('value').then(function(value) {
-        console.log('LINK', value);
         browser.get(value);
       });
     });
@@ -226,7 +223,6 @@ export class AppPage {
   }
   fillSignupForm() {
     this.getTrialUserName();
-    console.log('USERNAME', this.newUsername);
     element(by.name('username')).sendKeys(this.newUsername);
     browser.sleep(1000);
     element(by.name('password')).sendKeys('test123');

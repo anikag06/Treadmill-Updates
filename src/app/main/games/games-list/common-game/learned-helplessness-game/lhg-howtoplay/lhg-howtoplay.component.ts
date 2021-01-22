@@ -19,7 +19,6 @@ export class LhgHowtoplayComponent implements OnInit {
 
   ngOnInit() {
     this.viewSummary = this.gamePlayService.lhgShowSummary;
-    console.log(this.viewSummary, this.gamePlayService.lhgShowSummary);
   }
 
   onStart() {
@@ -30,8 +29,6 @@ export class LhgHowtoplayComponent implements OnInit {
   }
 
   openInstructionsPopup() {
-    console.log('event emitted from loading component');
-
     this.dialogBoxService.setDialogChild(LhgInstructionsComponent);
     const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
     this.elementRef.nativeElement.dispatchEvent(domEvent);

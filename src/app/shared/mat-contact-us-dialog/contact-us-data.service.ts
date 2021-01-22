@@ -11,7 +11,6 @@ export class ContactUsDataService {
   constructor(private http: HttpClient) {}
 
   saveContactUsData(contactUsData: ContactUsData) {
-    console.log('data saved is', contactUsData);
     return this.http.post(
       environment.API_ENDPOINT + CONTACT_US_DATA,
       contactUsData,

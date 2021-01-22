@@ -72,7 +72,6 @@ export class ExecutiveControlGameComponent
     }, 100);
   }
   ngOnInit() {
-    console.log('game name', this.playGameService.gameName);
     this.gameName = this.playGameService.gameName;
     this.activatedRoute.params
       .pipe(
@@ -81,7 +80,6 @@ export class ExecutiveControlGameComponent
       )
       .subscribe((res: any) => {
         const step = res.data;
-        console.log('RESPONSE', res.data, step.status);
         // for navbar title
         this.stepGroupSequence = step.step_group_sequence + 1;
         this.stepSequence = step.sequence + 1;
@@ -92,7 +90,6 @@ export class ExecutiveControlGameComponent
           this.stepSequence.toString() +
           ' ' +
           this.stepName;
-        console.log('STEP DETAIL:', this.navbarTitle);
         this.flowService.stepDetail.emit(this.navbarTitle);
       });
     // this.scrollDown();
@@ -223,13 +220,11 @@ export class ExecutiveControlGameComponent
   }
 
   ngOnDestroy() {
-    console.log('exec- ng on destroy');
     this.playGameService.closeExecControlGame();
   }
   removeLoading() {
     const tid = setInterval(() => {
       if (!this.imagesPreloaded) {
-        console.log('waiting for preload to complete', this.imagesPreloaded);
         return;
       }
       clearInterval(tid);

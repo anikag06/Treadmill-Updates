@@ -59,12 +59,10 @@ export class SlidesVideoComponent implements OnInit, AfterViewInit {
   }
   ngOnInit() {
     (<any>window).onYouTubeIframeAPIReady = () => {
-      console.log('you tube iframe');
       setTimeout(() => {
         this.player = new (<any>window).YT.Player('player', {
           events: {
             onReady: (event: any) => {
-              console.log('player is ready event');
               this.onPlayerReady(event);
             },
             onStateChange: (event: any) => {
@@ -101,11 +99,6 @@ export class SlidesVideoComponent implements OnInit, AfterViewInit {
     event.target.playVideo();
 
     const videoInt = setInterval(() => {
-      console.log('current time', this.player.getCurrentTime());
-      console.log(
-        'duration left',
-        this.player.getDuration() - this.videoTimeLeft,
-      );
       if (
         this.player.getCurrentTime() >=
         this.player.getDuration() - this.videoTimeLeft
@@ -114,12 +107,9 @@ export class SlidesVideoComponent implements OnInit, AfterViewInit {
         clearInterval(videoInt);
       }
     }, 1000);
-    console.log('back btn', this.backBtn.nativeElement);
   }
 
-  onPlayerStateChange(event: any) {
-    console.log('player state');
-  }
+  onPlayerStateChange(event: any) {}
 
   onBack() {
     this.dialogRef.close();

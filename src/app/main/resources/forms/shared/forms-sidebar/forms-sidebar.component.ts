@@ -269,7 +269,6 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
         this.tasksService.openSnackBar('Task Deleted Successfully', 'OK');
         this.onAddNewForm();
         this.tasksService.removeTask(task);
-        console.log(this.objects);
       } else {
         this.tasksService.openSnackBar('Error Occured', 'Retry');
       }
@@ -302,7 +301,6 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
       const status = resp.ok;
       if (status) {
         this.onAddNewForm();
-        console.log('Form Deleted');
         this.ettbfBeliefService.removeSituation(belief);
       }
     });

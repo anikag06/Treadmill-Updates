@@ -97,7 +97,6 @@ export class RecordOutcomeComponent implements OnInit, AfterViewInit {
         .subscribe((resp: any) => {
           const status = resp.ok;
           if (status) {
-            console.log('put done');
             this.setSummary();
           }
         });

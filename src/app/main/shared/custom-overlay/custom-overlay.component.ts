@@ -54,7 +54,6 @@ export class CustomOverlayComponent implements OnInit {
       $event.target.classList.contains('backdrop') &&
       !this.overlayService.showChatbot
     ) {
-      console.log('nav not click', $event);
       // $event.bubbles = false;
       this.notificationService.closeNavFlow.emit();
     }

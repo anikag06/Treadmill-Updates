@@ -14,6 +14,5 @@ export class ControlContentService {
   }
   moveToTop() {
     this.targetOnNavbar.nativeElement.scrollIntoView();
-    console.log('hello');
   }
 }

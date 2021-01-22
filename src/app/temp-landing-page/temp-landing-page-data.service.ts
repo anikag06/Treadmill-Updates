@@ -10,7 +10,6 @@ export class TempLandingPageDataService {
   constructor(private http: HttpClient) {}
 
   storeEmailID(emailID: any) {
-    console.log('sending email', emailID);
     const sendData = { email: emailID };
     return this.http.post(
       environment.API_ENDPOINT + '/api/v1/trial-iitk/subscribe/',

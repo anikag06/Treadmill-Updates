@@ -6,6 +6,7 @@ import {
   SimpleChanges,
   Output,
   EventEmitter,
+  OnChanges,
 } from '@angular/core';
 import { FormControl, FormBuilder, Validators } from '@angular/forms';
 import { WorryProductivelyService } from '../../worry-productively.service';
@@ -22,7 +23,7 @@ import { AuthService } from '@/shared/auth/auth.service';
   templateUrl: './face-my-worst-fear.component.html',
   styleUrls: ['./face-my-worst-fear.component.scss'],
 })
-export class FaceMyWorstFearComponent implements OnInit {
+export class FaceMyWorstFearComponent implements OnInit, OnChanges {
   @Input() worry!: Worry;
   @ViewChild('panel2', { static: false }) panel2!: any;
   @Input() task!: UserTask;
@@ -60,7 +61,6 @@ export class FaceMyWorstFearComponent implements OnInit {
       this.onDisableEmergency();
       this.taskLoaded;
     }
-    console.log(this.disableEmergency + 'log');
     this.user = <User>this.authService.isLoggedIn();
   }
   ngOnChanges(changes: SimpleChanges) {
@@ -153,11 +153,9 @@ export class FaceMyWorstFearComponent implements OnInit {
         .putWorstFear(object, this.worry.id)
         .subscribe((resp: any) => {
           if (resp.body) {
-            console.log('The request has been submitted');
             this.responseData = resp.body;
             if (this.worrySubmit === 2) {
               this.commonService.updateScore(FOLLOW_UP_FORM_COMPLETE_SCORE);
-              console.log('score 2');
             }
           }
         });

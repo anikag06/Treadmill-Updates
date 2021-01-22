@@ -27,7 +27,6 @@ export class RegistrationDataService {
   constructor(private http: HttpClient) {}
 
   storeEmailID(emailID: any) {
-    console.log('sending email', emailID);
     const sendData = { email: emailID };
     return this.http.post(
       environment.API_ENDPOINT + EMAIL_REGISTRATION,
@@ -36,7 +35,6 @@ export class RegistrationDataService {
   }
 
   storeEncryptedEmailID(encrypted_email: any) {
-    console.log('sending email', encrypted_email);
     const sendData = { encrypted_email: encrypted_email };
     return this.http.post(
       environment.API_ENDPOINT + EMAIL_REGISTRATION,
@@ -45,7 +43,6 @@ export class RegistrationDataService {
   }
 
   saveStepTwoForm(stepTwoData: RegistrationStepTwoForm) {
-    console.log('store 2', stepTwoData);
     return this.http.put(
       environment.API_ENDPOINT + REGISTRATION_STEP_TWO,
       stepTwoData,
@@ -53,7 +50,6 @@ export class RegistrationDataService {
   }
 
   savePHQData(phqResponse: RegistrationQuestionnaireScore) {
-    console.log(phqResponse);
     return this.http.post(
       environment.API_ENDPOINT + REGISTRATION_PHQ_RESPONSE,
       phqResponse,
@@ -61,7 +57,6 @@ export class RegistrationDataService {
   }
 
   saveSIQData(siqResponse: RegistrationQuestionnaireScore) {
-    console.log(siqResponse);
     return this.http.post(
       environment.API_ENDPOINT + REGISTRATION_SIQ_RESPONSE,
       siqResponse,
@@ -69,7 +64,6 @@ export class RegistrationDataService {
   }
 
   saveGADData(gadResponse: RegistrationQuestionnaireScore) {
-    console.log(gadResponse);
     return this.http.post(
       environment.API_ENDPOINT + REGISTRATION_GAD_RESPONSE,
       gadResponse,
@@ -77,7 +71,6 @@ export class RegistrationDataService {
   }
 
   saveConsentData(consentFormData: RegistrationStepFourForm) {
-    console.log(consentFormData);
     return this.http.put(
       environment.API_ENDPOINT + REGISTRATION_CONSENT,
       consentFormData,

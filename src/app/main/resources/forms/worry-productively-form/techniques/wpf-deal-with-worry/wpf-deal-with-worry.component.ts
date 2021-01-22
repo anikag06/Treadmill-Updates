@@ -74,9 +74,7 @@ export class WpfDealWithWorryComponent implements OnInit {
       this.worryService.postDealWithWorry(object).subscribe((resp: any) => {
         const status = resp.ok;
         if (status) {
-          console.log('The request has been submited');
         }
-        console.log(resp.body);
         this.responseData = resp.body.distract;
       });
     } else if (this.responseData.length > 0 || this.dealWithWorry.length != 0) {
@@ -89,7 +87,6 @@ export class WpfDealWithWorryComponent implements OnInit {
         .subscribe((resp: any) => {
           const status = resp.ok;
           if (status) {
-            console.log('The request has been submited');
           }
         });
     }

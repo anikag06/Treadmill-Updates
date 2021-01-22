@@ -37,24 +37,20 @@ export class ReadingItemComponent implements OnInit {
       .then(() => {})
       .catch(() => {});
     if (this.router.url.includes('/extra-resources/readingItem/')) {
-      console.log('id at end');
       this.eachReadingType = 'reading';
       if (this.readingItem == null) {
         this.activateRoutes.params.subscribe(data => {
           this.readingIdToSend = data.id;
-          console.log('reading data:', data);
         });
         this.extraResourcesService
           .getAReadingItem(this.readingIdToSend)
           .subscribe(data => {
             this.readingItem = <ReadingItem>data;
-            console.log('each reading item data:', data);
             this.isLoaded = true;
             this.onScrollToTop(this.reading);
           });
       } else {
         this.extraResourcesService.readingItemClickedEvent.subscribe(data => {
-          console.log('data:', data);
           this.readingItem = <ReadingItem>data;
           this.isLoaded = true;
           this.onScrollToTop(this.reading);
@@ -62,25 +58,21 @@ export class ReadingItemComponent implements OnInit {
       }
     }
     if (this.router.url.includes('/extra-resources/usefulList/')) {
-      console.log('id at end');
       this.eachReadingType = 'usefulList';
       if (this.usefulListItem == null) {
         this.activateRoutes.params.subscribe(data => {
           this.readingIdToSend = data.id;
-          console.log('reading data:', data);
         });
         this.extraResourcesService
           .getAUsefulListItem(this.readingIdToSend)
           .subscribe(data => {
             this.usefulListItem = <UsefulListItem>data;
-            console.log('each reading item data:', data);
             this.isLoaded = true;
             this.onScrollToTop(this.usefulList);
           });
       } else {
         this.extraResourcesService.usefulListItemClickedEvent.subscribe(
           data => {
-            console.log('data:', data);
             this.usefulListItem = <UsefulListItem>data;
             this.isLoaded = true;
             this.onScrollToTop(this.usefulList);

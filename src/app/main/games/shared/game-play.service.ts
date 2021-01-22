@@ -192,12 +192,10 @@ export class GamePlayService {
 
       const tid = setInterval(() => {
         if (document.readyState !== 'complete' || sentence_array.length === 0) {
-          console.log('checking if statement', sentence_array.length);
           return;
         }
         clearInterval(tid);
         // function to be called when document is ready
-        console.log('calling IB game');
         startIBGame();
       }, 1000);
     }
@@ -373,7 +371,6 @@ export class GamePlayService {
     this.lhGameSub = this.gamesAuthService
       .lhGameGetUserLevel()
       .subscribe(level_data => {
-        console.log('level data', level_data);
         lhGameLevelCounter = level_data.level;
         this.lhGameStarted = true;
         this.lhGameDataColorReverse(this.lhGameStarted);
@@ -387,7 +384,6 @@ export class GamePlayService {
     this.gamesAuthService
       .lhGameGetColorReverseData()
       .subscribe((game_data: any) => {
-        console.log('game data', game_data);
         if (game_data.next === null) {
           this.lhGameIslastData = true;
         }
@@ -412,7 +408,6 @@ export class GamePlayService {
             }
             clearInterval(tid);
             // function to be called when document is ready
-            console.log('calling LH game');
             lhGameStart();
           }, 1000);
           // till here
@@ -562,7 +557,6 @@ export class GamePlayService {
     this.gamesAuthService
       .lhGameUpdateTask1Data(task1performance, isFirstLevel)
       .subscribe(() => {});
-    console.log('task1 data', task1performance);
   }
   lhGameStoreTask2Data() {
     let storeTask2Data;
@@ -609,7 +603,6 @@ export class GamePlayService {
   }
 
   ffGamePlay(device_type: string, gameDivElement: any) {
-    console.log('Show Tutorial', this.ffg_show_tutorial, device_type);
     ffg_device_type = device_type;
     if (this.ffghelpService.show_tutorial) {
       const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
@@ -627,12 +620,10 @@ export class GamePlayService {
         ffg_loaded_hostile_images.length === 0 ||
         ffGameSongCounter !== 0
       ) {
-        console.log('checking if statement', ffg_music_notes_array.length);
         return;
       }
       clearInterval(tid);
       // function to be called when document is ready
-      console.log('calling ffgame start, show device type', device_type);
       ffGameStart(device_type);
     }, 1000);
   }
@@ -647,7 +638,6 @@ export class GamePlayService {
   }
   soundFaceGame(isSoundOn: any) {
     // if (this.ecGameStarted) {
-    console.log('sound on', isSoundOn);
     musicFFGame(!isSoundOn);
     // }
   }

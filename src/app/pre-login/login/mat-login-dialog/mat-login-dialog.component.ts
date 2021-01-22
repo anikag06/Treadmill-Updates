@@ -124,20 +124,15 @@ export class MatLoginDialogComponent implements OnInit {
 
   recoverUsernameEmailSubmit() {
     this.showUsernameLoading = true;
-    console.log(this.email.nativeElement.value);
     this.matLoginDialogService
       .forgotUsernameRequest(this.email.nativeElement.value)
       .subscribe(
         (data: any) => {
           this.recoverUsernameMsgShow = true;
-          console.log('recover username', data);
-
-          console.log('message', this.recoverUsernameMsgShow);
           this.showUsernameLoading = false;
         },
         error => {
           this.usernameErrorMsg = error.error.message;
-          console.log(this.usernameErrorMsg);
           this.showUsernameLoading = false;
           this.recoverUsernameStatus = false;
           this.usernameErrorMsgShow = true;
@@ -161,8 +156,6 @@ export class MatLoginDialogComponent implements OnInit {
         },
         error => {
           this.passwordErrorMsg = error.error.email;
-          console.log(this.passwordErrorMsg);
-          console.log(this.passwordErrorMsg);
           this.showPasswordLoading = false;
           this.passwordErrorMsgShow = true;
           this.recoverPasswordStatus = false;

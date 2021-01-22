@@ -80,7 +80,6 @@ export class MICurrentStateService {
 
   setInitialOrder() {
     this.fetchUserData().subscribe((data: any) => {
-      console.log(data);
       this.user.level = data.last_completed_order;
       this.user.points = [data.total_score];
       this.numCorrectAnswers = data.no_of_correct_answers;
@@ -137,12 +136,6 @@ export class MICurrentStateService {
   convertScenario(scenario1: any, scenario2: any) {
     this.time = new Date();
     this.startTime = this.time.toJSON();
-    console.log(
-      'possible_incorrect_answers: ',
-      scenario1.possible_incorrect_answers,
-      'possible_Correct_answers: ',
-      scenario1.possible_correct_answers,
-    );
     return new Scenario(
       scenario1.text_before_dash,
       scenario1.text_after_dash,

@@ -16,7 +16,6 @@ export class SuggestedPostComponent implements OnInit {
   ngOnInit() {
     this.sgService.getSuggestedPosts().subscribe((data: any) => {
       this.posts = data.results;
-      console.log('sugg posts', this.posts);
     });
   }
   removeLoading() {

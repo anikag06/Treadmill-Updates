@@ -40,9 +40,7 @@ export class UserFeedbackComponent implements OnInit {
   ngOnInit() {
     this.loadFileService
       .loadExternalScript('assets/slides/slides-assets.js')
-      .then(() => {
-        console.log('IMAGES LOADED');
-      })
+      .then(() => {})
       .catch(() => {});
   }
 

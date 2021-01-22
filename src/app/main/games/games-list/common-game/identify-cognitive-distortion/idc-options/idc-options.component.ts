@@ -50,7 +50,6 @@ export class IdcOptionsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log('blurred status', this.blurred);
     this.optionsCall();
 
     this.gameService.levelInitialise.subscribe(() => {

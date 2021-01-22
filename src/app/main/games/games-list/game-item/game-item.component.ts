@@ -60,7 +60,6 @@ export class GameItemComponent implements OnInit {
     this.gamesProgressBarService
       .getGamesProgressInfo()
       .subscribe((object: any) => {
-        console.log('progress bar data', object);
         if (this.game.name === FRIENDLY_FACE_GAME) {
           this.allCalculations(object.ff_game);
           this.coinColor = '#E8C70F';
@@ -152,7 +151,6 @@ export class GameItemComponent implements OnInit {
 
   calculateSilver(SILVER: number, GOLD: number) {
     this.silverRatio = Math.floor((SILVER / GOLD) * 100) * 0.98;
-    console.log('silver: ', this.silverRatio);
     if (this.progressInGame >= this.silverRatio) {
       this.silverCoinShow = false;
     } else {
@@ -163,7 +161,6 @@ export class GameItemComponent implements OnInit {
 
   calculateBronze(BRONZE: number, GOLD: number) {
     this.bronzeRatio = Math.floor((BRONZE / GOLD) * 100) * 0.98;
-    console.log('bronze: ', this.bronzeRatio);
     if (this.progressInGame >= this.bronzeRatio) {
       this.bronzeCoinShow = false;
     } else {
@@ -174,7 +171,6 @@ export class GameItemComponent implements OnInit {
 
   calculateProgress(correctAnswers: number, GOLD: number) {
     this.progressInGame = Math.floor((correctAnswers / GOLD) * 100);
-    console.log('progressbar: ', this.progressInGame);
     return this.progressInGame;
   }
 

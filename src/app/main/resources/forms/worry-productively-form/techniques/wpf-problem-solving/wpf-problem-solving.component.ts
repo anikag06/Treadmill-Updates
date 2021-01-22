@@ -100,9 +100,7 @@ export class WpfProblemSolvingComponent implements OnInit {
       this.worryService.postProblemSolving(object).subscribe((resp: any) => {
         const status = resp.ok;
         if (status) {
-          console.log('The request has been submited');
         }
-        console.log(resp.body);
         this.responseData = resp.body.problem_statement;
       });
     } else if (
@@ -119,7 +117,6 @@ export class WpfProblemSolvingComponent implements OnInit {
         .subscribe((resp: any) => {
           const status = resp.ok;
           if (status) {
-            console.log('The request has been submited');
           }
         });
     }

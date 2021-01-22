@@ -49,7 +49,6 @@ export class ChatbotComponent implements OnInit {
     });
     this.notificationService.closeNavFlow.subscribe(() => {
       this.overlayService.showFlow = false;
-      console.log('show flow1', this.overlayService.showFlow);
       this.removingChat();
     });
   }

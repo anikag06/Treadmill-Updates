@@ -20,7 +20,6 @@ export class TrialPagesHeaderComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit() {
-    console.log('step number', this.stepNumber);
     if (this.stepNumber === 1) {
       this.stepOne = true;
     } else if (this.stepNumber === null) {

@@ -1,5 +1,5 @@
 function obstacle_placer() {
-    
+
     if(stop_obstacle_generation==true)
     {
         free_to_choose_high=true;
@@ -7,7 +7,7 @@ function obstacle_placer() {
         second_choice_high=-1;
         return;
     }
-        
+
     //Generate Obstacle if it is allowed
     if (obstacle == null && stop_obstacle_generation == false&&start_tasks==false) {
 
@@ -30,7 +30,7 @@ function obstacle_placer() {
                 obstacle_type.curr_choice=2;
             }
         }
-        
+
 
         //Add obstacles as per the choice
         /*1.two obstacle(double jump must)
@@ -64,7 +64,7 @@ function obstacle_placer() {
             obstacle.body.allowGravity = false;
             obstacle.depth=2;
             curr_game.physics.add.overlap(obstacle, player,function(obj1,obj2){hit_obstacle(obj1);}, null, curr_game);
-         
+
         }
         //Game elements generator
         free_to_choose_high=false;
@@ -74,13 +74,13 @@ function obstacle_placer() {
 
 
 
-    }  
-    
+    }
+
     //Move the obstacle till out of screen
-    if (obstacle != null && obstacle.x >=-obstacle.width/2) 
+    if (obstacle != null && obstacle.x >=-obstacle.width/2)
     {
-         
-        
+
+
         if(obstacle_type.curr_choice==0)
         {
             obstacle.x-=OBSTACLE_SPEED;
@@ -90,7 +90,6 @@ function obstacle_placer() {
 
                 if(isTouchDevice==false)
                 {
-                    console.log('create the tutorial',  tutorial_text.text);
                     if (tutorial_text.text === "") {
                         tutorial_box = curr_game.add.tileSprite(screen_width*0.5,screen_height*0.37,screen_width*0.42,screen_height*0.5,"tutorial_box").setTileScale(0.8,1.145);
                         tutorial_box.depth = 4;
@@ -168,7 +167,7 @@ function obstacle_placer() {
                 {
                     touch_button_animation=setInterval(double_jump_tutorial_animation,200);
                 }
-            
+
                 game_paused=true;
             }
             if(obstacle.y<jump_height*1.2&&obstacle_movement==TOP)
@@ -184,35 +183,35 @@ function obstacle_placer() {
             //Do this for the case when player dies and new player is added
             curr_game.physics.add.overlap(obstacle, player,function(obj1,obj2){hit_obstacle(obj1);}, null, curr_game);
         }
-        
+
     }
 
     else if(obstacle !=null)
     {
-       
+
         obstacle = null;
         // top_obstacle=null;
         obstacleGenerating=false;
-    
+
         //Restore game elements generator
         free_to_choose_high=true;
         free_to_start_choose=true;
         second_choice_high=-1;
         clear_to_start--;
 
-       
-        
+
+
     }
 }
 
 
 function hit_obstacle(obs) {
-    
+
     obs.disableBody(true, true);
     curr_game.sound.add('hit_obstacle_sound').play();
 
     if(player_counter==0)
-    {   
+    {
         player_blinking_animation=setInterval(blinking_animation,PLAYER_ANIMATION_TIMING);
         stop_player_animation=false;
     }

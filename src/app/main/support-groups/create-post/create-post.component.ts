@@ -94,7 +94,6 @@ export class CreatePostComponent implements OnInit {
 
       this.formTags = this.data.tags.map(tag => tag.id);
     }
-    console.log('tags data', this.tagsGroup);
     this.buildTags();
   }
 
@@ -198,15 +197,12 @@ export class CreatePostComponent implements OnInit {
   }
 
   onTagButtonClick(tagId: number, event: any) {
-    console.log('tag clicked', event, tagId);
     if (event) {
       if (this.formTags.includes(tagId)) {
         if (event.target.nodeName === 'BUTTON') {
-          console.log('Button');
           event.target.classList.remove('toggleButton');
           event.target.children[0].children[0].classList.add('d-none');
         } else if (event.target.nodeName === 'SPAN') {
-          console.log('Span');
           event.target.parentElement.classList.remove('toggleButton');
           event.target.children[0].classList.add('d-none');
         } else {
@@ -215,21 +211,17 @@ export class CreatePostComponent implements OnInit {
           );
           event.target.classList.add('d-none');
         }
-        console.log(' event.target.innerHTML', event);
         this.formTags = this.formTags.filter(i => tagId !== i);
       } else {
         this.formTags.push(tagId);
         if (event.target.nodeName === 'BUTTON') {
-          console.log('Button');
           event.target.classList.add('toggleButton');
           event.target.children[0].children[0].classList.remove('d-none');
         } else if (event.target.nodeName === 'SPAN') {
-          console.log('Span');
           event.target.parentElement.classList.add('toggleButton');
           event.target.children[0].classList.remove('d-none');
         }
 
-        console.log('event', event);
         // event.target.children[0].classList.remove('d-none');
       }
     }

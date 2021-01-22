@@ -587,5 +587,4 @@ function init_game_variables(){
 
 	game_object;
 	game_over_update=false;
-	console.log("from init ", game_paused);
 }

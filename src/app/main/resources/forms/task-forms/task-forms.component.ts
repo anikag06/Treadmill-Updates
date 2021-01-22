@@ -46,12 +46,10 @@ export class TaskFormsComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.params.subscribe(v => {
       this.step_id = v.step_id;
-      console.log('step id', this.step_id);
     });
     if (this.step_id !== null) {
       this.stepDataService.getStepData(this.step_id).subscribe((res: any) => {
         const step = res.data;
-        console.log('RESPONSE', res.data, step.status);
         // for navbar title
         this.stepGroupSequence = step.step_group_sequence + 1;
         this.stepSequence = step.sequence + 1;
@@ -62,7 +60,6 @@ export class TaskFormsComponent implements OnInit {
           this.stepSequence.toString() +
           ' ' +
           this.stepName;
-        console.log('STEP DETAIL:', this.navbarTitle);
         this.flowService.stepDetail.emit(this.navbarTitle);
       });
     }

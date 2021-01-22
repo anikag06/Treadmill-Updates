@@ -90,7 +90,6 @@ export class Conclusion1Component implements OnInit, OnDestroy {
       this.stepDataService
         .getBadgeInfo(this.stepGroupSequence)
         .subscribe((badge_data: any) => {
-          console.log(badge_data);
           this.commonDialogService.updateBadgeInfo(badge_data.results);
         });
     });
@@ -98,7 +97,6 @@ export class Conclusion1Component implements OnInit, OnDestroy {
       .getConclusionData(this.stepGroupSequence)
       .subscribe(data => {
         if (data.user_step_status !== LOCKED) {
-          console.log('data', data);
           this.moduleName = data.module_name;
           this.nextModuleName = data.next_module_name;
           this.currentStepId = data.current_step_id;
@@ -114,7 +112,6 @@ export class Conclusion1Component implements OnInit, OnDestroy {
         this.stepDataService
           .getStepData(this.currentStepId)
           .subscribe((step_data: any) => {
-            console.log('step data is:', step_data);
             // for navbar title
             this.stepGroupSequence = step_data.data.step_group_sequence + 1;
             this.stepSequence = step_data.data.sequence + 1;
@@ -125,7 +122,6 @@ export class Conclusion1Component implements OnInit, OnDestroy {
               this.stepSequence.toString() +
               ' ' +
               this.stepName;
-            console.log('STEP DETAIL:', this.navbarTitle);
             this.flowService.stepDetail.emit(this.navbarTitle);
             this.flowService.navbarTitle = this.navbarTitle;
             this.dataLoaded = true;
@@ -140,7 +136,6 @@ export class Conclusion1Component implements OnInit, OnDestroy {
       });
     this.scrollup();
     this.quizService.questionnaire_active.subscribe((value: boolean) => {
-      console.log('EVENT EMITTED', value);
       if (!value) {
         this.moodEvaluate = false;
         this.showQuestionnaire = false;
@@ -156,7 +151,6 @@ export class Conclusion1Component implements OnInit, OnDestroy {
     this.flowService.showDashboardButton.subscribe(() => {
       this.stepCompleted = true;
       this.showLoading = false;
-      console.log('show dashboard');
     });
   }
 
@@ -166,9 +160,7 @@ export class Conclusion1Component implements OnInit, OnDestroy {
     };
     this.conclusionService
       .storeConclusionData(this.stepGroupSequence, data)
-      .subscribe(_data => {
-        console.log('data saved');
-      });
+      .subscribe(_data => {});
   }
 
   ngOnDestroy() {
@@ -185,7 +177,6 @@ export class Conclusion1Component implements OnInit, OnDestroy {
     this.stepDataService
       .storeCompletionData(this.completionData)
       .subscribe(data => {
-        console.log('data', data, this.currentStepId, this.nextStepId);
         this.commonService.updateScore(CONCLUSION_SCORE);
       });
     this.commonDialogService.openCongratsDialog(

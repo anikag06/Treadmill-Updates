@@ -34,14 +34,12 @@ export class GamesFeedbackComponent implements OnInit {
   ngOnInit() {
     this.game = this.gamePlayService.gameSlug;
     this.gameName = this.gamePlayService.gameName;
-    console.log(this.gameName);
     if (this.gameName === LEARNED_HELPLESSNESS_GAME) {
       // console.log('TRUE');
       this.lhGameHome = this.gamePlayService.lhGameHome;
       this.lhGamePlayAgain = this.gamePlayService.lhGamePlayAgain;
     }
     if (this.gameName === EXECUTIVE_CONTROL_GAME) {
-      console.log('EXG');
       this.gamePlayService.pauseExecControlGame();
     }
   }
@@ -99,7 +97,6 @@ export class GamesFeedbackComponent implements OnInit {
     this.gamesFeedbackService.feedback.emit();
     setTimeout(() => {
       if (this.gameName === EXECUTIVE_CONTROL_GAME) {
-        console.log('EXG');
         this.gamePlayService.resumeExecControlGame();
       }
     }, 2000);

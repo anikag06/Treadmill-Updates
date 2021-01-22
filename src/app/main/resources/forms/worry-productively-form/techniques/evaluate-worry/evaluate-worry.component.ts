@@ -80,7 +80,6 @@ export class EvaluateWorryComponent implements OnInit, AfterContentChecked {
   }
   ngOnChanges() {
     this.resetForm();
-    console.log(this.sliderRating);
     const formArray = this.getEvidence;
     if (this.data[0].value === '') {
       this.worryService.thinkingErrors().subscribe((data: any) => {
@@ -140,16 +139,12 @@ export class EvaluateWorryComponent implements OnInit, AfterContentChecked {
       });
     } else {
       formArray.push(this.createItem());
-      console.log('form array is :' + formArray);
     }
     if (this.worry) {
       this.worryService
         .getProbablityRating(this.worry.id)
         .subscribe((resp: any) => {
           if (resp) {
-            console.log(
-              'final slider data is :' + resp.body.probability_rating,
-            );
             if (resp.body.probability_rating == null) {
               this.sliderResponse = 1;
             } else {
@@ -170,7 +165,6 @@ export class EvaluateWorryComponent implements OnInit, AfterContentChecked {
     this.buttonClick = true;
     this.evidenceContinue = false;
 
-    console.log(this.buttonClick);
     const object = {
       evidences: this.evaluateForm.controls['evidences'].value,
     };
@@ -180,28 +174,23 @@ export class EvaluateWorryComponent implements OnInit, AfterContentChecked {
       .subscribe((resp: any) => {
         const status = resp.ok;
         if (status) {
-          console.log('The request has been submited');
         }
       });
     // }
   }
   CheckSubmit() {
-    console.log(' button' + this.buttonClick + 'and ' + this.checksubmitted);
     this.checkBoxContinue = false;
     this.checksubmitted = true;
-    console.log(this.data);
     this.thinkingErrors = this.thinkingError.join(',');
     const object = {
       thinking_errors: this.evaluateForm.value['thinking_errors'],
     };
-    console.log(object);
     if (this.worry) {
       this.worryService
         .postThinkingErrors(object, this.worry.id)
         .subscribe((resp: any) => {
           const status = resp.ok;
           if (status) {
-            console.log('The request has been submited');
           }
         });
     }
@@ -231,7 +220,6 @@ export class EvaluateWorryComponent implements OnInit, AfterContentChecked {
   onSliderSubmit() {
     this.sliderSubmit = true;
     this.sliderContinue = false;
-    console.log(this.sliderRating.rating);
     // if (this.sliderRating == undefined) {
     const object = {
       worry_id: this.worry.id,
@@ -242,7 +230,6 @@ export class EvaluateWorryComponent implements OnInit, AfterContentChecked {
       .subscribe((resp: any) => {
         const status = resp.ok;
         if (status) {
-          console.log('The request has been submited');
         }
       });
     // }
@@ -281,8 +268,6 @@ export class EvaluateWorryComponent implements OnInit, AfterContentChecked {
   }
 
   markForDeletion(evidence: any, index: number) {
-    console.log(evidence.value.id);
-
     const FormArray = this.getEvidence;
     if (evidence.value.id) {
       this.worryService
@@ -290,7 +275,6 @@ export class EvaluateWorryComponent implements OnInit, AfterContentChecked {
         .subscribe((resp: any) => {
           const status = resp.ok;
           if (status) {
-            console.log('deleted');
           }
         });
     }

@@ -71,7 +71,6 @@ export class FlowService {
 
   getModuleUnlockTime(stepGroupId: number, userTimeup: boolean) {
     this.getFlow().subscribe((data: any) => {
-      console.log('data in getmoduleunlocktime: ', data);
       const allStepGroups = data.step_groups;
       const initStepGroup = allStepGroups.find(
         (stepGroup: any) => stepGroup.id === stepGroupId,
@@ -86,7 +85,6 @@ export class FlowService {
               prevStepGroup.steps[prevStepGroup.steps.length - 1].id,
             )
             .subscribe(unlockTimeData => {
-              console.log('unlocktimedata: ', unlockTimeData);
               this.unlockModuleTime.next(
                 unlockTimeData.data.next_step_group_unlock_time,
               );
@@ -122,7 +120,6 @@ export class FlowService {
   }
   showSelfCareDialog() {
     if (this.srcWidth <= 767) {
-      console.log('SHOW DIALOG', this.srcWidth);
       const dialogRef = this.dialog.open(SelfCareComponent, {
         maxWidth: '328px',
         width: '328px',

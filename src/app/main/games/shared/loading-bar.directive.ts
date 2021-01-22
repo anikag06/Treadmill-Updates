@@ -19,7 +19,6 @@ export class LoadingBarDirective {
 
   @HostListener('window: loadingBarEvent', ['$event.target'])
   createOverlayFun(el: any) {
-    console.log('loading directive');
     this.showLoadingBar();
   }
 
@@ -29,7 +28,6 @@ export class LoadingBarDirective {
   }
 
   showLoadingBar() {
-    console.log(this.viewContainerRef);
     const custom_container = document.getElementById(
       'custom_loading_container',
     );

@@ -15,7 +15,5 @@ export class FormTextareaComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {
-    console.log(this.controlName);
-  }
+  ngOnInit() {}
 }

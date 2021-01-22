@@ -72,7 +72,6 @@ export class ModifyBeliefsComponent implements OnInit {
           this.panel3.expanded = false;
           this.panelCollapse();
         }
-        console.log(resp.body);
         this.responseData = resp.body.belief;
       });
     } else if (this.responseData.length > 0) {

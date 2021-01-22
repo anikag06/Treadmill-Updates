@@ -161,7 +161,6 @@ export class SlidesComponent implements OnInit, AfterContentInit, DoCheck {
           [COMPLETED, ACTIVE].includes(slide_data.data.status) &&
           slide_data.data.data_type === SLIDE
         ) {
-          console.log('slide_data', slide_data);
           this.step_type = SLIDE;
           this.slide = <Slide>slide_data.data.step_data.data;
           this.current_step_id = slide_data.data.id;
@@ -184,7 +183,6 @@ export class SlidesComponent implements OnInit, AfterContentInit, DoCheck {
             this.stepSequence.toString() +
             ' ' +
             this.stepName;
-          console.log('STEP DETAIL:', this.navbarTitle);
           this.flowService.stepDetail.emit(this.navbarTitle);
           // this.initVideoData(slide_data);    // commented for disabling the mindfulness prompt
           const slideId = slide_data.data.step_data.data.id;
@@ -232,12 +230,7 @@ export class SlidesComponent implements OnInit, AfterContentInit, DoCheck {
             this.visible = true;
           } else {
             setTimeout(() => {
-              this.slideDiv.nativeElement.classList.add('col-5'),
-                console.log(
-                  'iframe height',
-                  window.screen.height,
-                  this.slideDiv.nativeElement.offsetHeight,
-                );
+              this.slideDiv.nativeElement.classList.add('col-5');
             }, 1000);
           }
         } else {
@@ -255,7 +248,6 @@ export class SlidesComponent implements OnInit, AfterContentInit, DoCheck {
     this.slidePage.nativeElement.classList.remove('hide-loader');
     this.slidePage.nativeElement.classList.add('show-loader');
     this.iframeHeight = this.container.nativeElement.offsetHeight;
-    console.log('IFRAME height', this.iframeHeight);
     if (this.screenWidth < 768) {
       this.slideDivHeight = this.iframeHeight + 68;
     } else {
@@ -284,7 +276,6 @@ export class SlidesComponent implements OnInit, AfterContentInit, DoCheck {
       component,
     );
     const viewContainerRef = this.formHost.viewContainerRef;
-    console.log('formhost', this.formHost.viewContainerRef);
     viewContainerRef.clear();
     const componentRef = viewContainerRef.createComponent(componentFactory);
     // @ts-ignore
@@ -339,7 +330,6 @@ export class SlidesComponent implements OnInit, AfterContentInit, DoCheck {
       });
   }
   onNextStepClick() {
-    console.log('Next step clicked');
     this.goToService.clickFlow.emit();
   }
   onSubmitComment() {
@@ -348,7 +338,6 @@ export class SlidesComponent implements OnInit, AfterContentInit, DoCheck {
       .updateFeedBackInfo(this.feedbackText, this.feedbackDataId)
       .subscribe(data => {
         if (this.slideDisliked === true || this.slideLiked === true) {
-          console.log('slideDisliked', this.slideDisliked);
         }
       });
     this.scrollTop = 0;

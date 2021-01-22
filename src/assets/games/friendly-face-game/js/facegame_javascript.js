@@ -225,7 +225,6 @@ var MEDIUM_LEVEL_THRESHOLD = 2500; // if time_per_note is >= this, then show 4 i
 $(document).ready(function() {
   ffGameStart = function() {
     // device = device_type;
-    console.log(ffg_device_type);
 
     $(".ff-game-container").removeClass("d-none");
 
@@ -269,7 +268,6 @@ $(document).ready(function() {
     // });
 
     playnextsong = function() {
-      console.log("playnext song clicked");
 
       levelUp();
 
@@ -292,7 +290,6 @@ $(document).ready(function() {
 });
 
 ffGPauseGame = function() {
-  console.log("calling pause resume function");
   if (!game_paused) {
     // clearInterval(ffg_timer);
     ffg_timers.forEach(function(ffg_timer) {
@@ -307,7 +304,6 @@ ffGPauseGame = function() {
 
 ffGResumeGame = function() {
   if (game_paused) {
-    console.log("game_paused: " + game_paused);
     showPauseButton();
     $("#canvas1").removeClass("block-click");
     if (ffgExtraTime) {
@@ -339,17 +335,6 @@ function startGame(reload) {
   ffg_music_current_order = ffg_music_order_array[ffGameSongCounter];
   ffg_music_name = ffg_music_name_array[ffGameSongCounter];
   ffg_music_note_rate = ffg_music_note_rate_array[ffGameSongCounter];
-  console.log(
-    "MUSIC DETAILS",
-    ffg_music,
-    ffg_music_notes_array,
-    ffGameSongCounter,
-    ffg_music.length,
-    ffg_music_current_order,
-    ffg_music_name,
-    ffg_music_note_rate,
-    ffg_music_order_array
-  );
   initialize();
   setupTimers();
   // positioning the game elements in the middle of the screen vertically
@@ -488,7 +473,6 @@ function clickedFriendlyImage(canvas, event) {
       if (no_wrong == wrong_threshold) {
         ffGameFillGrid();
       }
-      console.log('lost 1 life,hostile image coordinates', i, hostile_image_coordinates);
 
       penalty();
       return false;
@@ -521,7 +505,6 @@ function penalty() {
 
 function ffgTimeCount() {
   ffg_timer = setInterval(function() {
-    console.log("new ffg_timer getting set");
     timeBeingShown--;
     document.getElementById("time-sec").innerHTML = timeBeingShown + "s";
     if (timeBeingShown <= 0) {
@@ -584,7 +567,6 @@ function ffGameFillGrid() {
       if (img.src.indexOf("friendly") != -1) {
         store_friendly_images_coordinates_1.push(img_coord);
         if (ffg_music_counter == 0) {
-          console.log("Toggle Image", level);
           firstImageToggle(img, img_coord);
         } //toggling the first image
       } else {
@@ -732,7 +714,6 @@ function playNote() {
     call_next_music &&
     ffg_music_counter >= Math.floor(ffg_music.length / 1.3)
   ) {
-    console.log("FFG PLAY NOTE");
     updateMusic();
     call_next_music = false;
   }
@@ -749,7 +730,6 @@ function playNote() {
     updateUser();
     //update performance
     updateStats();
-    console.log('update performance');
     songOver();
   }
 }
@@ -784,12 +764,9 @@ function playMusic(stop, song) {
 
 function songOver() {
   // show play next modal
-  console.log("song order", ffg_music_current_order);
   if (ffg_music_current_order === 4 && ffg_ask_feedback) {
-    console.log('show feedback');
     gameFeedbackPopup();
   } else {
-    console.log('show next game');
     playNextGamePopup();
   }
   // updateUser(ffg_music_current_order, ffg_coins);
@@ -801,12 +778,10 @@ function songOver() {
   ffg_next_song = next_song_name;
   ffg_music_name = next_song_name;
   game_paused = true;
-  console.log("ffg_music", ffg_music);
   showPlayButton();
 }
 
 function levelUp() {
-  console.log("level up called", level);
   // take to next level;
   updateDifficultyLevel();
 
@@ -892,8 +867,6 @@ function initialize() {
   var values = getDifficultyLevel(ffg_time_per_note);
   level = values.level;
   no_images = values.no_images;
-  console.log("INSIDE INITIALIZATION, LEVEL : ", level);
-  console.log("INSIDE INITIALIZATION, NO_IMAGES : ", no_images);
 
   gameRestart = false;
 
@@ -974,7 +947,6 @@ function initialize() {
 
   life = 5;
   total_life = 5;
-  console.log("ffg_coins", ffg_coins, ffg_time_per_note);
   ffg_score = ffg_coins;
   timeBeingShown = Math.floor((ffg_time_per_note * ffg_music.length) / 1000);
 
@@ -1046,7 +1018,6 @@ function updateDifficultyLevel() {
   } else {
     timeBeingShown = this.timeAlloted;
   }
-  console.log("time per note", ffg_time_per_note, timeAlloted);
 
   document.getElementById("time-sec").innerHTML = timeBeingShown + "s";
 }
@@ -1096,10 +1067,8 @@ ffGamePreloadImages = function(friendly, length) {
   });
   if (friendly == 1) {
     ffGame_friendly_images.splice(0, length);
-    console.log("ffg loaded friendly images: ", ffg_loaded_friendly_images);
   } else {
     ffGame_hostile_images.splice(0, length);
-    console.log("ffg loaded hostile images: ", ffg_loaded_hostile_images);
   }
 };
 
@@ -1137,7 +1106,6 @@ var updateUser = function() {
 
 getFFGUser = function() {
   ffg_coins = ffg_score;
-  console.log("time per note, user data", ffg_time_per_note, ffg_coins, ffg_music_current_order, ffg_time_per_note);
   return [ffg_coins, ffg_music_current_order, ffg_time_per_note];
 };
 

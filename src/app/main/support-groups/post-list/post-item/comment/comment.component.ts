@@ -110,7 +110,6 @@ export class CommentComponent
     this.user = <User>this.authService.isLoggedIn();
     this.reportService.commentthanked.subscribe((value: number) => {
       if (this.comment.id === value) {
-        console.log('comment id', this.comment.id, value);
         this.comment.is_thanked = 1;
       }
     });
@@ -319,7 +318,6 @@ export class CommentComponent
               this.comment.is_voted !== -1
             ) {
               this.upVoteFirstClick = true;
-              console.log('first upvote state', this.upVoteFirstClick);
               this.commonService.updateScore(SUPPORT_GROUP_UP_DOWN_VOTE_SCORE);
               this.commonService.postScoreForOther(
                 SUPPORT_GROUP_GETTING_UP_VOTE_SCORE,
@@ -363,7 +361,6 @@ export class CommentComponent
             this.comment.is_voted !== -1
           ) {
             this.downVoteFirstClick = true;
-            console.log('first down vote status', this.downVoteFirstClick);
             this.commonService.updateScore(SUPPORT_GROUP_UP_DOWN_VOTE_SCORE);
           }
         }, this.errorService.errorResponse('Cannot down vote'));

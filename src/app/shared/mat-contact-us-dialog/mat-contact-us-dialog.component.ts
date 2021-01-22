@@ -49,15 +49,12 @@ export class MatContactUsDialogComponent implements OnInit {
   }
 
   submitData() {
-    console.log(this.data, 'form group', this.contactUsForm);
     this.showLoading = true;
     if (this.contactUsForm.valid) {
       this.data.email = this.contactUsForm.value.emailid;
       this.data.message = this.contactUsForm.value.message;
-      console.log(this.data);
       this.contactUsService.saveContactUsData(this.data).subscribe(
         (data: any) => {
-          console.log(data);
           this.onCloseClick();
           this.showLoading = false;
           this.snackBar.open(this.msgReceived, this.action, {
@@ -65,7 +62,6 @@ export class MatContactUsDialogComponent implements OnInit {
           });
         },
         err => {
-          console.log('error', err);
           this.showLoading = false;
           this.contactUsForm.controls.emailid.setErrors({ invalid: true });
           this.showError = true;

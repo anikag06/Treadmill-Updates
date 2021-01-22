@@ -1047,7 +1047,6 @@ $(document).on('click', '#btn-box-up-game-give-up', function(ev) {
 		$("#color-reverse-game").removeClass("d-none");
 		unsolvable_game_counter = 1;
 		resetBoxUpGame();
-		console.log("call init 3", success);
 		colorReverseInit();
 	}else{
 		box_up_first = false;

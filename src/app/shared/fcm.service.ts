@@ -63,10 +63,7 @@ export class FcmService {
       .subscribe(
         token => {
           if (token) {
-            console.log('Permission granted! Save to the server!', token);
-            console.log('participant id: ', part_id);
             this.participantUpdateToken(part_id, token).subscribe(data => {
-              console.log('Token Updated');
               this.permit.next(true);
             });
           }
@@ -78,7 +75,6 @@ export class FcmService {
       );
   }
   participantUpdateToken(part_id: number, token: string) {
-    console.log('participant id: ', part_id);
     return this.http.post(
       environment.API_ENDPOINT +
         '/api/v1/notifications/store-device-registration/',

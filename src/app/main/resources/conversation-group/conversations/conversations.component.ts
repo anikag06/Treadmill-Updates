@@ -1014,7 +1014,6 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
       if (message_array[l] !== this.img_separator) {
         total_character_length += message_array[l].length;
       } else {
-        console.log('reaching here in image');
         total_character_length +=
           this.IMAGE_READING_TIME / this.READING_TIME_PER_CHARACTER;
       }

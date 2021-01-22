@@ -100,9 +100,7 @@ export class SettingsComponent implements OnInit {
   ngOnInit() {
     this.user = <User>this.authService.isLoggedIn();
     this.newUsername = this.user.username;
-    console.log('initial weekly', this.weeklyEmailToggle);
     this.goToService.settingsPageShowEvent.subscribe(() => {
-      console.log('username subscribe');
       this.usernameHeadingClicked = false;
       this.passwordHeadingClicked = false;
       this.notificationHeadingIsClicked = false;
@@ -163,9 +161,6 @@ export class SettingsComponent implements OnInit {
     this.settingsService
       .usernameAvailabilityCheck(this.newUsername)
       .subscribe((data: any) => {
-        console.log('username availability', this.newUsername);
-        console.log(data);
-        console.log(data.message);
         this.usernameAvailableStatus = data.data;
         this.usernameAvailableMessage = data.message;
         setTimeout(() => {
@@ -174,7 +169,6 @@ export class SettingsComponent implements OnInit {
 
         this.showLoadingUsernameChange = false;
       });
-    console.log('available');
     this.usernameAvailable = true;
     this.usernamePasswordCorrectMessage = '';
     this.usernamePasswordSubmitShow = false;
@@ -198,7 +192,6 @@ export class SettingsComponent implements OnInit {
       .sendingUsername(this.newUsername, this.realPassword)
       .subscribe(
         (data: any) => {
-          console.log(data);
           this.LoadingUsernamePasswordChange = false;
           this.usernamePasswordStatus = data.status; // password correct or not
           this.usernamePasswordCorrectMessage = data.message; // message telling whether passowrd is correct or not
@@ -241,8 +234,6 @@ export class SettingsComponent implements OnInit {
         (error: any) => {
           // console.log('password data', data.message);
           this.passwordState = error.body.status;
-          console.log('error', error);
-          console.log(error.body.message);
           this.oldPasswordMessage = error.body.message; // successful
           setTimeout(() => {
             this.oldPasswordMessage = '';
@@ -256,7 +247,6 @@ export class SettingsComponent implements OnInit {
           this.showLoadingPasswordChange = false;
           this.passwordMsgShow = true;
           // console.log(error.error.message.new_password);
-          console.log(error.error);
           this.passwordState = error.status;
 
           this.currentPasswordMessage = error.error.message; // wrong password
@@ -277,7 +267,6 @@ export class SettingsComponent implements OnInit {
     // this.confirmPasswordMessage = 'New and Confirm password does not match';
     // }
 
-    console.log('changed');
     this.passwordClick = false;
     this.currentPassword = '';
     this.newPassword = '';
@@ -294,9 +283,6 @@ export class SettingsComponent implements OnInit {
   }
 
   saveNotificationChange(field: string, toggle_on: boolean) {
-    console.log('field', field);
-    console.log(toggle_on);
-
     this.toggleOnToShowSave = true;
     this.settingsService
       .updatingNotifications(field, toggle_on)
@@ -304,12 +290,7 @@ export class SettingsComponent implements OnInit {
         this.savedNotificationMessage = data.message;
         this.notificationMessage = field;
         this.notificationStatus = data.status;
-        console.log(data.status);
-        console.log(data.message);
-        console.log(data);
       });
-    this.settingsService.updatedNotificationsState().subscribe(data => {
-      console.log(data);
-    });
+    this.settingsService.updatedNotificationsState().subscribe(data => {});
   }
 }

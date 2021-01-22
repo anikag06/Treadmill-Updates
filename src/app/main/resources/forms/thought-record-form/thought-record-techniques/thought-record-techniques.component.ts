@@ -59,7 +59,6 @@ export class ThoughtRecordTechniquesComponent implements OnInit, AfterViewInit {
         .getFinalRating(this.thought.id)
         .subscribe((data: any) => {
           if (data.final_rating) {
-            console.log(data);
             this.onShowFinalThought();
             this.isCompleted = true;
             this.showContinue = false;

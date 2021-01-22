@@ -195,7 +195,6 @@ export class TasksComponent implements OnInit, OnChanges {
           this.taskLoaded.emit(taskBody);
         },
         error => {
-          console.log(error);
           // this.taskService.openSnackBar('Error Occured', 'Retry');
           this.taskService.openSnackBar(
             error.error.non_field_errors || this.errorMessage,

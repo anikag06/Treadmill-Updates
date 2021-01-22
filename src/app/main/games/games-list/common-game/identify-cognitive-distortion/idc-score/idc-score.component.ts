@@ -56,11 +56,6 @@ export class IdcScoreComponent implements OnInit, OnDestroy {
     });
     this.gameService.resumeGame.subscribe(() => {
       this.score = this.gameService.score;
-      console.log(
-        'replay, timeAlloted',
-        this.gameService.replay,
-        this.gameService.timeAlloted,
-      );
       if (this.gameService.replay === true) {
         this.timeLeft = this.gameService.timeAlloted;
       } else {
@@ -100,7 +95,6 @@ export class IdcScoreComponent implements OnInit, OnDestroy {
   }
 
   stopTimer() {
-    console.log('TIME LEFT', this.timeLeft, this.gameService.infoOpen);
     clearInterval(this.interval);
     this.gameService.timeActualLeft = this.timeLeft;
     if (this.gameService.infoOpen) {

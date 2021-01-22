@@ -22,8 +22,6 @@ export class LhgPlaynextgameComponent implements OnInit {
     const domEvent = new CustomEvent('removeOverlayEvent', { bubbles: true });
     this.elementRef.nativeElement.dispatchEvent(domEvent);
 
-    console.log('lhg_show_instructions: ', lhg_show_instructions);
-    console.log('lhg_second_time: ', lhg_second_time);
     if (lhg_show_instructions && !lhg_second_time) {
       this.openInstructionsPopup();
     }

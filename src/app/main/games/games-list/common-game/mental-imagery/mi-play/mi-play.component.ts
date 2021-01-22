@@ -204,7 +204,6 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
 
   scenarioHandler() {
     if (this.ifPositive(this.blank) === 1) {
-      console.log('positive');
       this.invalidInputCount = 0;
       this.setUserData();
       this.numCorrectAnswers += 1;
@@ -222,7 +221,6 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
         this.addDoneBtn();
       }
     } else if (this.ifPositive(this.blank) === -1) {
-      console.log('negative');
       this.invalidInputCount = 0;
 
       this.updatePreviousText();
@@ -237,7 +235,6 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
       delete this.getCurrentStateService.currentScenario;
       delete this.currentScenario;
     } else {
-      console.log('Invalid input');
       this.getCurrentStateService.retry = true;
       this.setUserData();
       this.invalidInput = true;
@@ -261,7 +258,6 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
 
   ifPositive(input: string) {
     input = input.toLocaleLowerCase();
-    console.log('input: ', input);
     if (this.currentScenario.possibleCorrectAnswerList.indexOf(input) > -1) {
       return 1;
     } else if (

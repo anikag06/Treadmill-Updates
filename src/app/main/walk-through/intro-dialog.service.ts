@@ -54,7 +54,6 @@ export class IntroDialogService {
       disableClose: true,
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       this.introService.startIntro();
     });
   }

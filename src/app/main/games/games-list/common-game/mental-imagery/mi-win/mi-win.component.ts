@@ -35,7 +35,6 @@ export class MiWinComponent implements OnInit {
     this.miPlayService.sendScore += 1;
     if (this.miPlayService.sendScore === 2) {
       this.commonService.updateScore(PLAYING_GAMES_SCORE);
-      console.log('next');
     }
   }
 }
