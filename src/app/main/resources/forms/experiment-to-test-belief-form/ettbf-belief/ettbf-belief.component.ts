@@ -8,7 +8,7 @@ import {
   EventEmitter,
   ChangeDetectionStrategy,
 } from '@angular/core';
-
+​
 import { Belief } from './belief.model';
 import { ExperimentToTestBeliefService } from '../experiment-to-test-belief.service';
 import {
@@ -23,7 +23,7 @@ import { CommonService } from '@/shared/common.service';
 import { UserProfileService } from '@/main/shared/user-profile/user-profile.service';
 import { User } from '@/shared/user.model';
 import { AuthService } from '@/shared/auth/auth.service';
-
+​
 @Component({
   selector: 'app-ettbf-belief',
   templateUrl: './ettbf-belief.component.html',
@@ -48,14 +48,14 @@ export class EttbfBeliefComponent implements OnInit {
   minRatingText = ETTBF_MIN_RATING_TEXT;
   maxRatingText = ETTBF_MAX_RATING_TEXT;
   showSpinner = false;
-
+​
   constructor(
     private ettbfBeliefService: ExperimentToTestBeliefService,
     private commonService: CommonService,
     private userProfileService: UserProfileService,
     private authService: AuthService
   ) {}
-
+​
   ngOnInit() {
     if (this.belief) {
       this.beliefStatement = this.belief.belief;
@@ -72,6 +72,9 @@ export class EttbfBeliefComponent implements OnInit {
     if (this.value) {
       this.beliefClicked.emit(this.showSlider);
     }
+    if (this.belief.belief_rating_before) {
+      this.scoreUpdate = true;
+    }
   }
   editBeliefText() {
     this.beliefTextArea.nativeElement.focus();
@@ -79,7 +82,7 @@ export class EttbfBeliefComponent implements OnInit {
       this.value = this.belief.belief_rating_before;
     }
   }
-
+​
   onBeliefSubmit() {
     this.showSlider = true;
     if (this.belief && Object.entries(this.belief).length > 0) {
@@ -120,9 +123,6 @@ export class EttbfBeliefComponent implements OnInit {
           (data: any) => {
             this.belief = data;
             this.beliefResponse = data;
-            if (this.user.is_exp) {
-              this.commonService.updateScore(FORM_START_SCORE);
-            }
             this.beliefClicked.emit(this.beliefContinue);
           },
           (error) => {
@@ -143,6 +143,7 @@ export class EttbfBeliefComponent implements OnInit {
     this.beliefStatement = '';
     this.value = 1;
     this.showSlider = false;
+    this.scoreUpdate = false;
   }
   onFocus() {
     this.beliefContinue = true;

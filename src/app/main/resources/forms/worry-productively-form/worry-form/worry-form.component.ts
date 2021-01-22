@@ -6,6 +6,7 @@ import {
   Input,
   OnInit,
   Output,
+  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import { Worry } from '../worry.model';
@@ -15,7 +16,6 @@ import { CommonService } from '@/shared/common.service';
 import { FORM_START_SCORE } from '@/app.constants';
 import { User } from '@/shared/user.model';
 import { AuthService } from '@/shared/auth/auth.service';
-
 @Component({
   selector: 'app-worry-form',
   templateUrl: './worry-form.component.html',
@@ -50,16 +50,18 @@ export class WorryFormComponent implements OnInit {
   ngOnInit() {
     if (this.worry) {
       this.worryStatement = this.worry.worry;
-      // console.log('slider value is' + this.sliderRating.rating);
     }
     this.user = <User>this.authService.isLoggedIn();
   }
-  ngOnChanges() {
+  ngOnChanges(changes: SimpleChanges) {
     this.resetForm();
     if (this.worry) {
       this.worryStatement = this.worry.worry;
-      this.value = this.worry.worry_rating_initial;
       this.clickbutton = true;
+    }
+    if (this.worry.worry_rating_initial) {
+      this.scoreUpdate = true;
+      this.value = this.worry.worry_rating_initial;
     }
   }
   ngAfterViewInit() {
@@ -72,10 +74,6 @@ export class WorryFormComponent implements OnInit {
   editWorryText() {
     this.worryTextArea.nativeElement.focus();
     this.continueText = true;
-    // this.clickbutton = true;
-    // if (this.worry.worry_rating_initial !== null) {
-    //   this.value = this.worry.worry_rating_initial;
-    // }
   }
   resetForm() {
     this.worryStatement = '';
@@ -114,13 +112,10 @@ export class WorryFormComponent implements OnInit {
       this.worryService.postWorry(this.worryStatement).subscribe(
         (data: any) => {
           console.log(data);
-          if (this.user.is_exp) {
-            this.commonService.updateScore(FORM_START_SCORE);
-          }
           const worry = new Worry(
             data.id,
             data.worry,
-            this.value,
+            data.worry_rating_initial,
             data.taskorigin,
             data.show_follow_up_dot
           );
@@ -145,7 +140,6 @@ export class WorryFormComponent implements OnInit {
   showSliderContinue() {
     this.showSliderCont = true;
   }
-
   onFocusOut(event: any) {
     if (
       !(
