@@ -10,6 +10,8 @@ if (document.images) {
   img9 = new Image();
   img10 = new Image();
   img11 = new Image();
+  img12 = new Image();
+
 
 
   img1.src = "/assets/games/interpretation_bias_game/images/frontpage_image.png";
@@ -23,4 +25,5 @@ if (document.images) {
   img9.src = "/assets/games/replay.svg";
   img10.src = "/assets/games/time.svg";
   img11.src = "/assets/games/interpretation_bias_game/images/word jumble background.png";
+  img12.src = "/assets/games/interpretation_bias_game/images/show_sentence.svg";
 }
