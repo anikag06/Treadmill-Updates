@@ -68,6 +68,9 @@ export class NegativeBeliefComponent implements OnInit {
     if (changes.belief && this.belief === undefined) {
       this.resetBelief();
     }
+    if (this.belief.belief_rating_initial) {
+      this.scoreUpdate = true;
+    }
   }
 
   onSelectCommonBelief() {
