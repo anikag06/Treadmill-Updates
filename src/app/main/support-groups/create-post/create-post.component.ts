@@ -42,7 +42,7 @@ export class CreatePostComponent implements OnInit {
   user!: User;
   formTags: number[] = [];
   errors: any = [];
-  crossIcon = '../../assets/support-group/Close.png';
+  crossIcon = '../../assets/support-group/close_sg.svg';
 
   @ViewChild('checkboxDiv', { static: false }) checkboxDiv!: ElementRef;
 
