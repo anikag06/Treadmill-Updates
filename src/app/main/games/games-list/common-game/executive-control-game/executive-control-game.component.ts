@@ -201,8 +201,7 @@ export class ExecutiveControlGameComponent
       .catch(() => {});
   }
 
-  ngAfterViewInit() {
-  }
+  ngAfterViewInit() {}
 
   @HostListener('window:CallAngularStoreTaskDataFun')
   onStoreTaskDataECGame() {

@@ -50,7 +50,7 @@ export class NegativeThoughtCardComponent implements OnInit {
     private fb: FormBuilder,
     private thoughtRecordService: ThoughtRecordService,
     private commonService: CommonService,
-    private authService: AuthService
+    private authService: AuthService,
   ) {}
 
   ngOnInit() {

@@ -30,7 +30,7 @@ export class ExperimentToTestBeliefService {
   page = 1;
   constructor(
     private http: HttpClient,
-    private sanitizer: SanitizationService
+    private sanitizer: SanitizationService,
   ) {}
 
   getBelief() {
@@ -55,7 +55,7 @@ export class ExperimentToTestBeliefService {
           },
           (error: HttpErrorResponse) => {
             console.error(error);
-          }
+          },
         );
     }
   }
@@ -68,7 +68,7 @@ export class ExperimentToTestBeliefService {
           this.beliefs.push(<Belief>data);
           this.beliefObservable$.next(<Belief>data);
           return <Belief>data;
-        })
+        }),
       );
   }
 
@@ -81,7 +81,7 @@ export class ExperimentToTestBeliefService {
       })
       .pipe(
         map((data: any) => {
-          this.beliefs = this.beliefs.map((btest) => {
+          this.beliefs = this.beliefs.map(btest => {
             if (belief.id === btest.id) {
               return data;
             } else {
@@ -91,7 +91,7 @@ export class ExperimentToTestBeliefService {
           this.beliefbehaviours.next(this.beliefs);
           this.beliefObservable$.next(<Belief>data);
           return <Belief>data;
-        })
+        }),
       );
   }
   deleteBelief(id: number): Observable<HttpResponse<any>> {
@@ -99,7 +99,7 @@ export class ExperimentToTestBeliefService {
       environment.API_ENDPOINT + ETTBF_BELIEF_URL + id + '/',
       {
         observe: 'response',
-      }
+      },
     );
   }
   getTasks(id: number) {
@@ -116,7 +116,7 @@ export class ExperimentToTestBeliefService {
       .pipe(
         map((data: any) => {
           return <Outcome>data;
-        })
+        }),
       );
   }
 
@@ -131,12 +131,12 @@ export class ExperimentToTestBeliefService {
           learning: outcome.learning,
           belief_rating_after: outcome.belief_rating_after,
           realistic_belief: outcome.realistic_belief,
-        }
+        },
       )
       .pipe(
         map((data: any) => {
           return <Outcome>data;
-        })
+        }),
       );
   }
   getOutcome(id: number) {
@@ -144,7 +144,7 @@ export class ExperimentToTestBeliefService {
       environment.API_ENDPOINT + ETTBF_OUTCOME_URL + id + '/',
       {
         observe: 'response',
-      }
+      },
     );
   }
   addSituation(belief: Belief) {
@@ -184,7 +184,7 @@ export class ExperimentToTestBeliefService {
       },
       {
         observe: 'response',
-      }
+      },
     );
   }
 
@@ -193,7 +193,7 @@ export class ExperimentToTestBeliefService {
       environment.API_ENDPOINT + ETTBF_EXPECTED_OUTCOME + belief.id + '/',
       {
         observe: 'response',
-      }
+      },
     );
   }
 }

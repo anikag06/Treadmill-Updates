@@ -34,7 +34,7 @@ export class WorryFormComponent implements OnInit {
   constructor(
     private worryService: WorryProductivelyService,
     private commonService: CommonService,
-    private authService: AuthService
+    private authService: AuthService,
   ) {}
   worryStatement = '';
   value = 1;
@@ -101,9 +101,9 @@ export class WorryFormComponent implements OnInit {
               }
             }
           },
-          (error) => {
+          error => {
             console.error(error);
-          }
+          },
         );
     } else if (
       this.worryStatement.trim().length > 0 &&
@@ -117,15 +117,15 @@ export class WorryFormComponent implements OnInit {
             data.worry,
             data.worry_rating_initial,
             data.taskorigin,
-            data.show_follow_up_dot
+            data.show_follow_up_dot,
           );
           this.worry = worry;
           this.updateWorry.emit(worry);
           this.worryResponse = data;
         },
-        (error) => {
+        error => {
           console.error(error);
-        }
+        },
       );
     }
     this.continueText = false;

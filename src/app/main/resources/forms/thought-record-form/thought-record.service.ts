@@ -31,7 +31,7 @@ export class ThoughtRecordService {
           environment.API_ENDPOINT + THOUGHT_RECORD_SITUATION_API,
           {
             params: params,
-          }
+          },
         )
         .subscribe((data: any) => {
           this.thoughts.push(...data.results);
@@ -73,7 +73,7 @@ export class ThoughtRecordService {
       data,
       {
         observe: 'response',
-      }
+      },
     );
   }
 
@@ -83,7 +83,7 @@ export class ThoughtRecordService {
       data,
       {
         observe: 'response',
-      }
+      },
     );
   }
 
@@ -92,7 +92,7 @@ export class ThoughtRecordService {
       environment.API_ENDPOINT + THOUGHT_RECORD_SITUATION_API + id + '/',
       {
         observe: 'response',
-      }
+      },
     );
   }
 
@@ -102,7 +102,7 @@ export class ThoughtRecordService {
       data,
       {
         observe: 'response',
-      }
+      },
     );
   }
 
@@ -115,7 +115,7 @@ export class ThoughtRecordService {
       environment.API_ENDPOINT + THOUGHT_RECORD_API + id + '/',
       {
         observe: 'response',
-      }
+      },
     );
   }
 
@@ -125,7 +125,7 @@ export class ThoughtRecordService {
       data,
       {
         observe: 'response',
-      }
+      },
     );
   }
 
@@ -135,7 +135,7 @@ export class ThoughtRecordService {
       data,
       {
         observe: 'response',
-      }
+      },
     );
   }
 
@@ -145,7 +145,7 @@ export class ThoughtRecordService {
       data,
       {
         observe: 'response',
-      }
+      },
     );
   }
 
@@ -154,7 +154,7 @@ export class ThoughtRecordService {
       environment.API_ENDPOINT + THOUGHT_RECORD_BEHAVIOR_API + id + '/',
       {
         observe: 'response',
-      }
+      },
     );
   }
 
@@ -163,7 +163,7 @@ export class ThoughtRecordService {
       environment.API_ENDPOINT + THOUGHT_RECORD_FEELING_API + id + '/',
       {
         observe: 'response',
-      }
+      },
     );
   }
 
@@ -174,7 +174,7 @@ export class ThoughtRecordService {
       data,
       {
         observe: 'response',
-      }
+      },
     );
   }
 }

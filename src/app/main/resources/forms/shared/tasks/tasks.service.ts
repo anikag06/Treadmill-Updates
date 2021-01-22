@@ -21,7 +21,7 @@ export class TasksService {
   constructor(
     private http: HttpClient,
     public snackBar: MatSnackBar,
-    private errorService: GeneralErrorService
+    private errorService: GeneralErrorService,
   ) {}
 
   getTasks() {
@@ -101,7 +101,7 @@ export class TasksService {
       environment.API_ENDPOINT + TASK_API + task_id + SUBTASK_PATH + subtask_id,
       {
         observe: 'response',
-      }
+      },
     );
   }
 
@@ -110,7 +110,7 @@ export class TasksService {
       environment.API_ENDPOINT + TASK_API + task_id + '/',
       {
         observe: 'response',
-      }
+      },
     );
   }
 

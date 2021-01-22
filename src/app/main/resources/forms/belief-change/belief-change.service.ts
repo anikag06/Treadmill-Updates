@@ -47,7 +47,7 @@ export class BeliefChangeService {
       environment.API_ENDPOINT + BELIEF_FORM_API + id + '/',
       {
         observe: 'response',
-      }
+      },
     );
   }
   addBelief(belief: Belief) {
@@ -76,7 +76,7 @@ export class BeliefChangeService {
       data,
       {
         observe: 'response',
-      }
+      },
     );
   }
 
@@ -86,7 +86,7 @@ export class BeliefChangeService {
       data,
       {
         observe: 'response',
-      }
+      },
     );
   }
 }

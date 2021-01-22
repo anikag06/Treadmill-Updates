@@ -59,7 +59,7 @@ export class WorryProductivelyService {
           },
           (error: HttpErrorResponse) => {
             console.error(error);
-          }
+          },
         );
     }
   }
@@ -74,7 +74,7 @@ export class WorryProductivelyService {
           this.worryBehaviour.next(<Worry>data);
           console.log(this.worryBehaviour);
           return data;
-        })
+        }),
       );
   }
   putWorry(worry: Worry) {
@@ -86,7 +86,7 @@ export class WorryProductivelyService {
       })
       .pipe(
         map((data: any) => {
-          this.worries = this.worries.map((wprod) => {
+          this.worries = this.worries.map(wprod => {
             if (worry.id === wprod.id) {
               return data;
             } else {
@@ -96,7 +96,7 @@ export class WorryProductivelyService {
           this.worrysBehaviour.next(this.worries);
           this.worryBehaviour.next(<Worry>data);
           return data;
-        })
+        }),
       );
   }
   deleteWorry(id: number): Observable<HttpResponse<any>> {
@@ -104,7 +104,7 @@ export class WorryProductivelyService {
       environment.API_ENDPOINT + WPF_WORRY_URL + id + '/',
       {
         observe: 'response',
-      }
+      },
     );
   }
   addSituation(worry: Worry) {
@@ -134,7 +134,7 @@ export class WorryProductivelyService {
       data,
       {
         observe: 'response',
-      }
+      },
     );
   }
   getCharacteristics(id: number) {
@@ -142,7 +142,7 @@ export class WorryProductivelyService {
       environment.API_ENDPOINT + WORRY_USELESS_CHARAC + id + '/',
       {
         observe: 'response',
-      }
+      },
     );
   }
   thinkingErrors() {
@@ -154,7 +154,7 @@ export class WorryProductivelyService {
       data,
       {
         observe: 'response',
-      }
+      },
     );
   }
   getThinkingErrors(id: number) {
@@ -162,7 +162,7 @@ export class WorryProductivelyService {
       environment.API_ENDPOINT + EVALUATE_THINKING_ERROR + id + '/',
       {
         observe: 'response',
-      }
+      },
     );
   }
   getEvidences(id: number) {
@@ -170,7 +170,7 @@ export class WorryProductivelyService {
       environment.API_ENDPOINT + EVALUATE_EVIDENCES + id + '/',
       {
         observe: 'response',
-      }
+      },
     );
   }
   deleteEvidence(id: number) {
@@ -178,7 +178,7 @@ export class WorryProductivelyService {
       environment.API_ENDPOINT + EVALUATE_EVIDENCES + 'delete/' + id + '/',
       {
         observe: 'response',
-      }
+      },
     );
   }
   putEvidences(data: any, id: number) {
@@ -187,7 +187,7 @@ export class WorryProductivelyService {
       data,
       {
         observe: 'response',
-      }
+      },
     );
   }
   postEvidences(data: any, id: number) {
@@ -196,7 +196,7 @@ export class WorryProductivelyService {
       data,
       {
         observe: 'response',
-      }
+      },
     );
   }
   putProbabilityRating(data: any, id: number) {
@@ -205,7 +205,7 @@ export class WorryProductivelyService {
       data,
       {
         observe: 'response',
-      }
+      },
     );
   }
   getProbablityRating(id: number) {
@@ -213,7 +213,7 @@ export class WorryProductivelyService {
       environment.API_ENDPOINT + EVALUATE_PROBABILITY + id + '/',
       {
         observe: 'response',
-      }
+      },
     );
   }
   postWorstFear(data: any) {
@@ -227,7 +227,7 @@ export class WorryProductivelyService {
       data,
       {
         observe: 'response',
-      }
+      },
     );
   }
   getWorstFear(id: number) {
@@ -235,7 +235,7 @@ export class WorryProductivelyService {
       environment.API_ENDPOINT + FACE_WORST_FEAR + id + '/',
       {
         observe: 'response',
-      }
+      },
     );
   }
   getTasks(id: number) {
@@ -254,7 +254,7 @@ export class WorryProductivelyService {
       data,
       {
         observe: 'response',
-      }
+      },
     );
   }
   getModifyBeliefs(id: number) {
@@ -269,7 +269,7 @@ export class WorryProductivelyService {
       data,
       {
         observe: 'response',
-      }
+      },
     );
   }
   getProblemSolving(id: number) {
@@ -277,7 +277,7 @@ export class WorryProductivelyService {
       environment.API_ENDPOINT + WORRY_PROBLEM_SOLVING + id + '/',
       {
         observe: 'response',
-      }
+      },
     );
   }
   putProblemSolving(data: any, id: number) {
@@ -286,7 +286,7 @@ export class WorryProductivelyService {
       data,
       {
         observe: 'response',
-      }
+      },
     );
   }
   postDealWithWorry(data: any) {
@@ -299,7 +299,7 @@ export class WorryProductivelyService {
       environment.API_ENDPOINT + DEAL_WITH_WORRY + id + '/',
       {
         observe: 'response',
-      }
+      },
     );
   }
   putDealWithWorry(data: any, id: number) {
@@ -308,7 +308,7 @@ export class WorryProductivelyService {
       data,
       {
         observe: 'response',
-      }
+      },
     );
   }
   postFinalSlider(data: any) {
@@ -322,7 +322,7 @@ export class WorryProductivelyService {
       data,
       {
         observe: 'response',
-      }
+      },
     );
   }
   getFinalSlider(id: number) {
@@ -330,7 +330,7 @@ export class WorryProductivelyService {
       environment.API_ENDPOINT + WORRY_FINAL_SLIDER + id + '/',
       {
         observe: 'response',
-      }
+      },
     );
   }
 }
