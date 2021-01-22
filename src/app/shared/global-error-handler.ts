@@ -1,12 +1,19 @@
 import { ErrorHandler, Injectable } from '@angular/core';
 
 @Injectable()
-export class GlobalErrorHandler implements ErrorHandler {
+export class GlobalErrorHandler extends ErrorHandler {
   handleError(error: any): void {
     const chunkFailedMessage = /Loading chunk [\d]+ failed/;
 
-    if (chunkFailedMessage.test(error.message)) {
+    const syntaxErrorMessage = /Uncaught SyntaxError: Unexpected token [\d]/;
+
+    if (
+      chunkFailedMessage.test(error.message) ||
+      syntaxErrorMessage.test(error.message)
+    ) {
       window.location.reload();
+    } else {
+      super.handleError(error);
     }
   }
 }
