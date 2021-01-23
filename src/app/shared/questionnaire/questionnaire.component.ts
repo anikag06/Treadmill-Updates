@@ -694,13 +694,6 @@ export class QuestionnaireComponent implements OnInit {
           this.authService.isUserExcluded = true;
         } else if (this.quizService.followupActive) {
           this.router.navigate(['/']);
-        } else {
-          this.flowService.markDone(this.stepId, 1003).subscribe(
-            (resp: any) => {
-              console.log('success');
-            },
-            error => console.log(error),
-          );
         }
       });
     } else if (this.fromFlow === false && this.fromTrialRegistration === true) {
