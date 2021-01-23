@@ -41,7 +41,6 @@ export class PreLoginComponent implements OnInit {
       this.router.navigate([DEFAULT_PATH]);
     }
 
-    // console.log('url data', this.router.url);
     if (this.router.url === LANDING_RESET_PASSWORD_PATH) {
       this.onLoginClicked();
     }

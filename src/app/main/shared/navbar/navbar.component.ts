@@ -239,13 +239,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   backClick() {
     this.backClicked = true;
-    // if (this.router.url.includes(('/settings/change-username') )) {
-    //   this.goToService.settingsPageShowEvent.emit();
-    //   console.log('username');
-    // } else {
     this.goToService.settingsPageShowEvent.emit();
     this.location.back();
-    //}
   }
 
   ngOnDestroy(): void {
@@ -275,9 +270,4 @@ export class NavbarComponent implements OnInit, OnDestroy {
   onshowFullConversation() {
     this.notificationService.showFullConv.emit();
   }
-
-  // getRouteInfo(data: string) {
-  //   console.log(data);
-  //   this.navbarTitle = this.navbarTitleInfo[data];
-  // }
 }

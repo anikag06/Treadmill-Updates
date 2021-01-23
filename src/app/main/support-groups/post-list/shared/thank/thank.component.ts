@@ -92,7 +92,6 @@ export class ThankComponent implements OnInit {
   showSucess() {
     this.showLoading = false;
     this.status = true;
-    console.log('sucess sending thank');
     this.message =
       "We've thanked " +
       this.username +

@@ -30,7 +30,6 @@ export class FlowStepNavigationService {
   constructor(private http: HttpClient) {}
 
   goToFlowNextStep(step: any) {
-    // console.log('step outside: ', step);
     if (step.data_type === SLIDE) {
       return `main/resources/slides/${step.id}/`;
     } else if (step.data_type === CONVERSATION_GROUP) {

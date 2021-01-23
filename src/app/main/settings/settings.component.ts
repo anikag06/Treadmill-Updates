@@ -232,7 +232,6 @@ export class SettingsComponent implements OnInit {
       .sendingPasswordsForChange(this.currentPassword, this.newPassword)
       .subscribe(
         (error: any) => {
-          // console.log('password data', data.message);
           this.passwordState = error.body.status;
           this.oldPasswordMessage = error.body.message; // successful
           setTimeout(() => {
@@ -246,7 +245,6 @@ export class SettingsComponent implements OnInit {
         error => {
           this.showLoadingPasswordChange = false;
           this.passwordMsgShow = true;
-          // console.log(error.error.message.new_password);
           this.passwordState = error.status;
 
           this.currentPasswordMessage = error.error.message; // wrong password

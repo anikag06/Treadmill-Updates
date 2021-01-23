@@ -352,9 +352,7 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
         );
         this.sentenceInfo(this.sentencesPageInUrl);
       },
-      error => {
-        // console.log(error);
-      },
+      error => {},
     );
   }
 

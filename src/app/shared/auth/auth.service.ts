@@ -203,7 +203,6 @@ export class AuthService {
 
   updateOnline() {
     this.online.next(false);
-    // console.log(this.online);
   }
 
   returnOnline() {

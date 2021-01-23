@@ -39,7 +39,6 @@ export class DialogContainerComponent
     }, 10);
   }
   insertComponent() {
-    // console.log(this.dialogBox);
     this.viewContainerRef = this.dialogBox.viewContainerRef;
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
       this.childComponent,
@@ -47,7 +46,6 @@ export class DialogContainerComponent
     const componentRef = this.viewContainerRef.createComponent(
       componentFactory,
     );
-    // console.log(componentRef.location.nativeElement);
     componentRef.location.nativeElement.style.maxHeight = 'inherit';
   }
 

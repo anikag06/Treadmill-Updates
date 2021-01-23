@@ -10,9 +10,9 @@ function coins_placer() {
       }
 
     //Generate new coin if flags allow it
-    if (add_new_coin==true && stop_coin_generation == false&&start_tasks==false&&stopTunnelMovement==false) 
+    if (add_new_coin==true && stop_coin_generation == false&&start_tasks==false&&stopTunnelMovement==false)
     {
-        
+
         //Set up the cordinates;
         var y_cordinate = COIN_MAX_Y_CORDINATE - Math.floor(Math.random() * COIN_Y_CORDINATE_RANGE);
         var x_cordinate = Math.floor(Math.random()*COIN_X_CORDINATE_RANGE)+COIN_MIN_X_CORDINATE;
@@ -21,7 +21,7 @@ function coins_placer() {
         {
             y_cordinate=screen_height*0.56;
         }
-        
+
         //Add the coins and a collider for it
         NUMBER_OF_COINS=Math.floor(Math.random()*(MAXIMUM_NUMBER_OF_COINS-1))+1;
 
@@ -44,27 +44,26 @@ function coins_placer() {
         // EXTRA_LIFE_MIN_X_CORDINATE=NUMBER_OF_COINS*(coin[0].width+COIN_GAP);
         // COIN_MIN_X_CORDINATE=NUMBER_OF_COINS*(coin[0].width+COIN_GAP);
 
-      
+
         //Game Elements Generator
         free_to_choose=false;
         choice_lock_counter=0;
         lock_on_choice=Math.floor(Math.random()*NEXT_COIN_GAP_RANGE)+MINIMUM_GAP_FOR_NEXT_COIN*coin.length;
 
-       
+
     }
-    
+
     if(coin!=null)
     {
         for(var i=0;i<coin.length;i++)
-        {  
+        {
 
             //Do this for the case when player dies and new player is added
-            curr_game.physics.add.collider(coin[i], player,function(obj1,obj2){collect_coin(obj1);}, null, curr_game); 
-            // console.log('jump_tutorial_shown',jump_tutorial_shown);
+            curr_game.physics.add.collider(coin[i], player,function(obj1,obj2){collect_coin(obj1);}, null, curr_game);
             //Show tutorial if needed
             if(SHOW_TUTORIAL==true&&jump_tutorial_shown==false&&coin[i].x-player.x<=(JUMP_RANGE*0.9))
             {
-                
+
                 if(isTouchDevice == false)
                 {
                     if (tutorial_text.text === "") {
@@ -85,13 +84,13 @@ function coins_placer() {
             }
 
             //Move the Coin till out of screen
-            if (coin[i].x >= -coin[i].width/2) 
-            { 
+            if (coin[i].x >= -coin[i].width/2)
+            {
                 coin[i].x-=COIN_SPEED;
-                
+
                 //Increment the lock for the last coin
                 if(i==coin.length-1)
-                {    
+                {
                     choice_lock_counter++;
 
                     //Free the lock for next game element
@@ -100,20 +99,20 @@ function coins_placer() {
                         free_to_choose=true;
                         free_to_start_choose=true;
                         coinGeneratingInit=true;
-                      
+
                     }
                 }
-            } 
+            }
 
             //Remove the coin from the array
-            else 
+            else
             {
                 coin.splice(i,1);
                 clear_to_start--;
-                
+
                 if(coin.length==0)
                 {
-                    
+
                     coinGenerating=false;
                     free_to_choose=true;
                     free_to_start_choose=true;
@@ -126,7 +125,7 @@ function coins_placer() {
 }
 
 function collect_coin(coin_captured) {
-    
+
     coin_captured.disableBody(true,true);
     var old_count=coins_collected;
     coins_collected += COIN_SCORE;
@@ -136,6 +135,6 @@ function collect_coin(coin_captured) {
     {
         coinsCollectedText.x-=COIN_SCORE_LENGTH_ADJUSTMENT;
     }
-    
+
     coinsCollectedText.setText(coins_collected);
 }

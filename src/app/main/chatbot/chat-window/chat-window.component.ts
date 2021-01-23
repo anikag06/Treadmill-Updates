@@ -328,7 +328,6 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
 
   scrollToBottom() {
     if (this.messagesDiv) {
-      // console.log(this.scrollTop, this.messagesDiv.nativeElement.scrollHeight);
       this.scrollTop = this.messagesDiv.nativeElement.scrollHeight + 100;
       this.changRef.detectChanges();
     }
@@ -469,7 +468,6 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       m.widgets,
       this.images,
     );
-    // console.log();
     if (m.buttons && m.buttons.length > 0) {
       this.buttonType = m.buttons[0].type;
     }

@@ -48,7 +48,6 @@ export class ShowLoginSignupDialogService {
   }
 
   signupDone() {
-    // console.log('singup done');
     this.signupSuccess = true;
     this.broadcastLoginClicked(this.getLoginDialog);
   }

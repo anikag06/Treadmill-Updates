@@ -102,11 +102,7 @@ export class EvidencesComponent implements OnInit {
 
   addField() {
     this.control.push(this.createItem());
-    // console.log(this.evidenceField.length);
-
-    // this.showTrashIcon.push(false);
     this.changeDetector.detectChanges();
-    // this.evidenceField.last.nativeElement.focus();
   }
 
   markForDeletion(evidence: any, index: number) {

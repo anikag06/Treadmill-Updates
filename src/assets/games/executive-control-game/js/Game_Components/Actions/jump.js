@@ -1,8 +1,8 @@
 function jump_action(height,speed){
 
-    //If Already Jumping,Return     
+    //If Already Jumping,Return
     //Set Jumping Flag
-   
+
     if(jumpingInit == true)
     {
        jumpingInit=false;
@@ -13,14 +13,12 @@ function jump_action(height,speed){
     if(player.y>=height)
     {
         player.setVelocityY(speed);
-        //console.log("Jumping Up")
     }
     else
     {
        jumpingUp=false;
-        //console.log("Start to jump down")
     }
-    
+
     if(jumpingUp == false)
     {
       if(player.body.allowGravity==false)
@@ -34,11 +32,7 @@ function jump_action(height,speed){
       if(player.body.touching.down)
       {
         isJumping=false;
-        //console.log(brick.tilePositionX);
-        
-        //date=new Date();
-        //console.log(date.getTime());
       }
-      
+
     }
 }

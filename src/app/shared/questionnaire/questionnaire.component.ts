@@ -187,7 +187,6 @@ export class QuestionnaireComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log(this.quizService.questionnaire_name, this.stepId);
     if (this.quizService.questionnaire_name === PHQ9) {
       this.index = 0;
       this.display_phq_start = true;
@@ -207,9 +206,7 @@ export class QuestionnaireComponent implements OnInit {
 
   loadQuiz() {
     this.quizService.disableLinks.emit(this.data);
-    console.log('load quiz', this.api[this.index]);
     this.quizService.get(this.api[this.index]).subscribe((res: any) => {
-      console.log(res);
       this.quiz = new Quiz(res);
       this.pager.count = this.quiz.questions.length;
       this.total_question = this.pager.count - 1;
@@ -243,7 +240,6 @@ export class QuestionnaireComponent implements OnInit {
   }
 
   display() {
-    console.log('click on display');
     this.first_click = true;
     if (this.display_phq_start === true) {
       this.display_phq_start = false;
@@ -606,12 +602,10 @@ export class QuestionnaireComponent implements OnInit {
     this.dataService.setOption(this.routing);
     if (this.index === 0) {
       // index =0 is for phq-9
-      console.log('phq_response', phq_response);
       this.savePHQNineData(phq_response);
     }
     if (this.index === 1) {
       // index = 1 is for gad-7
-      console.log('gad');
       this.saveGADData(gad_response);
     }
     if (this.index === 2) {
@@ -630,11 +624,9 @@ export class QuestionnaireComponent implements OnInit {
       );
       phq_response.user_response.push(ques_response);
     }
-    console.log('response', phq_response);
 
     if (this.fromFlow === true) {
       this.quizService.post_phq(phq_response).subscribe((res_data: any) => {
-        console.log('phq -9 res data', res_data);
         this.phqNextStep(
           res_data.data.excluded,
           res_data.data.next_questionnaire,
@@ -651,7 +643,6 @@ export class QuestionnaireComponent implements OnInit {
       this.registrationDataService
         .savePHQData(registration_phq)
         .subscribe((res_data: any) => {
-          console.log(res_data);
           this.phqNextStep(
             res_data.data.excluded,
             res_data.data.next_questionnaire,
@@ -675,7 +666,6 @@ export class QuestionnaireComponent implements OnInit {
     } else {
       this.submitting = false;
       if (questionnaireName === SIQ) {
-        console.log('show the siq ');
         this.display_siq_start = true;
       } else if (questionnaireName === GAD7) {
         this.display_gad_start = true;
@@ -693,12 +683,10 @@ export class QuestionnaireComponent implements OnInit {
       );
       gad_response.user_response.push(ques_response);
     }
-    console.log('after updating gad', gad_response);
     this.quizService.questionnaireActive = false;
     if (this.fromFlow === true) {
       this.quizService.questionnaire_active.emit(false);
       this.quizService.post_gad(gad_response).subscribe((data: any) => {
-        console.log(data);
         this.submitting = false;
         if (data.data.excluded) {
           this.trialAuthService.activateChild(true);
@@ -709,7 +697,7 @@ export class QuestionnaireComponent implements OnInit {
         } else {
           this.flowService.markDone(this.stepId, 1003).subscribe(
             (resp: any) => {
-              console.log(data);
+              console.log('success');
             },
             error => console.log(error),
           );
@@ -726,7 +714,6 @@ export class QuestionnaireComponent implements OnInit {
         .saveGADData(registration_gad)
         .subscribe((res_data: any) => {
           this.submitting = false;
-          console.log('gad response data', res_data);
           const userEligible = !res_data.data.excluded;
           this.registrationDataService.participationID =
             res_data.data.participant_id;
@@ -751,12 +738,10 @@ export class QuestionnaireComponent implements OnInit {
         this.time[i],
       );
       siq_response.user_response.push(ques_response);
-      console.log(siq_response);
     }
 
     if (this.fromFlow === true) {
       this.quizService.post_siq(siq_response).subscribe((res_data: any) => {
-        console.log('res data of siq', res_data);
         this.siqNextStep(
           res_data.data.excluded,
           res_data.data.next_questionnaire,
@@ -773,7 +758,6 @@ export class QuestionnaireComponent implements OnInit {
       this.registrationDataService
         .saveSIQData(registration_siq)
         .subscribe((res_data: any) => {
-          console.log(res_data);
           this.siqNextStep(
             res_data.data.excluded,
             res_data.data.next_questionnaire,
@@ -788,7 +772,6 @@ export class QuestionnaireComponent implements OnInit {
       this.routing = true;
       this.dataService.setOption(this.routing);
       this.trialAuthService.activateChild(true);
-      console.log('if excluded', excluded, user);
       if (user) {
         this.authService.logout(false);
         this.authService.isUserExcluded = true;

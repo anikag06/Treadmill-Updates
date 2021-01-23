@@ -48,9 +48,7 @@ export class SolutionsComponent implements OnInit {
     }
   }
 
-  ngAfterViewInit() {
-    // this.lastSolutionDiv.forEach(div => console.log(div));
-  }
+  ngAfterViewInit() {}
 
   onEditTextClicked() {
     if (this.lastSolutionDiv) {

@@ -885,8 +885,6 @@ function create(){
 
 	// camera.scrollX = 1;
 	// camera.scrollY = 1;
-	// console.log(this.scale);
-	// console.log(camera);
 
 
 	//Create physics group for collidables
@@ -1623,12 +1621,7 @@ function update(){
 			//Restore game after tasks
 			if(restore_game==true)
 			{
-       // if(current_number_of_tasks === 2) {
-       // console.log('true treu trei')
-       //   if (ECGFeedBack) {
-       //     gameFeedbackPop();
-       //   }
-       // }
+
 				game_restore();
 				if (task_background_removed) {
           if(showFeedBack === 2) {

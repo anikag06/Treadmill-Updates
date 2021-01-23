@@ -41,13 +41,10 @@ export class MoodWidgetCardComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.thought && this.reset) {
-      // console.log(this.thought);
       this.thoughtRecordService.getFeelings(this.thought.id).subscribe(resp => {
-        // console.log(resp);
         if (resp.body.data && resp.body.data.feelings.length > 0) {
           this.moodSelected = true;
           this.userFeelings = resp.body.data.feelings;
-          // console.log(this.userFeelings);
           this.onShowRecordBehave.emit(true);
         }
       });
@@ -83,9 +80,6 @@ export class MoodWidgetCardComponent implements OnInit {
   onDialogRefClosed(dialogRef: any) {
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result.data) {
-        // this.userFeelings = [];
-        // this.rating = [];
-        // console.log(result.data);
         const emotions = result.data.emotions;
         const emotionsRating = result.data.emotionsRating;
         const filtered = this.userFeelings.filter(function(e: UserFeeling) {
@@ -125,7 +119,6 @@ export class MoodWidgetCardComponent implements OnInit {
     const object = {
       feelings: this.userFeelings,
     };
-    // console.log(this.userFeelings);
     this.showSpinner = true;
     this.thoughtRecordService
       .postFeelings(object, this.thought.id)

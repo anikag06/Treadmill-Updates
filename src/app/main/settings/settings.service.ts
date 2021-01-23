@@ -72,7 +72,6 @@ export class SettingsService {
   //   //return this.http.post(environment.API_ENDPOINT, this.username);
   //   //this.toggleon = !this.toggleon;
   //   //return this.toggleon;
-  //   console.log('return this.http.post(url,body', 'check if this is true , if true return already taken, else saved');
   //
   // }
   //
@@ -80,9 +79,5 @@ export class SettingsService {
   //   this.toggleOn = true;
   //
   //   //this.supportPushSave = true;
-  //   console.log('toggle');
-  //   console.log('by default the state of the switch can be ' +
-  //     'false, and as the swicth tiggles, that condition also toggles and that data is posted to the api');
-  //   console.log('save of others push and email left');
   // }
 }

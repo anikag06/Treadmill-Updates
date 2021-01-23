@@ -55,7 +55,6 @@ export class NegativeThoughtCardComponent implements OnInit {
 
   ngOnInit() {
     this.user = <User>this.authService.isLoggedIn();
-    // console.log(this.thought);
   }
 
   ngOnChanges(changes: SimpleChanges) {

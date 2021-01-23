@@ -30,14 +30,7 @@ export class EvaluateMoodComponent implements OnInit {
     });
   }
   ngOnChanges() {}
-  ngAfterViewInit() {
-    // this.conclusionServiceSub = this.conclusionService.evaluateMood.subscribe(
-    //   () => {
-    //     this.moodEvaluate = this.conclusionService.moodEvaluate;
-    //     console.log('mood evaluate', this.conclusionService.moodEvaluate);
-    //   },
-    // );
-  }
+  ngAfterViewInit() {}
   onEvaluateMood() {
     this.showQuestionnaire = true;
     this.quizService.questionnaire_active.emit(true);

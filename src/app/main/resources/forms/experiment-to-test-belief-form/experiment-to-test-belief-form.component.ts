@@ -142,11 +142,7 @@ export class ExperimentToTestBeliefFormComponent implements OnInit {
       this.showLoading = false;
     }, 1000);
   }
-  // ngAfterViewInit(){
-  //   console.log(this.outcomeStatementForm);
-  //   this.outcomeStatementForm.taskLoaded;
 
-  // }
   ngOnDestroy() {
     this.subscriptions.forEach(sub => {
       sub.unsubscribe();

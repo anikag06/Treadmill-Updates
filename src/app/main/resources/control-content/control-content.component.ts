@@ -90,10 +90,8 @@ export class ControlContentComponent implements OnInit {
     // this.goToService.nextControlContentLoad.subscribe(() => {
     //   this.nextDataLoaded = false;
     //   if (this.router.url === this.urlData) {
-    //     console.log('data is same');
     //     this.nextDataLoaded = true;
     //   }
-    //   console.log('NEXT DATA LOADED' , this.nextDataLoaded);
     // });
     // this.showNextContentLoading = false;
     this.loadFilesService
@@ -168,12 +166,9 @@ export class ControlContentComponent implements OnInit {
   //   this.flowStepService
   //     .getNextStepData(this.next_step_id)
   //     .subscribe(next_step => {
-  //       console.log('next_step_detail is', next_step);
-  //       console.log('next_step_data is', next_step.data);
   //       const next_step_url = this.flowStepService.goToFlowNextStep(
   //         next_step.data,
   //       );
-  //       console.log('url is', next_step_url);
   //       this.router.navigate([next_step_url]);
   //       this.onScrollToTop();
   //       // this.nextButton(next_step);
@@ -183,8 +178,6 @@ export class ControlContentComponent implements OnInit {
   // }
 
   onHtmlComplete() {
-    // this.nextBtnShow = true;
-    //  console.log('after clicking on  complete', this.completedStatus);
     this.showLoading = true;
     this.completionData.step_id = this.current_step_id;
     this.completionData.time_spent = 100;
@@ -210,8 +203,6 @@ export class ControlContentComponent implements OnInit {
 
   onHtmlNextClick() {
     this.goToService.clickFlow.emit();
-    // console.log('after clicking on next', this.completedStatus);
-    // this.showNextContentLoading = true;
   }
 
   onScrollToTop() {

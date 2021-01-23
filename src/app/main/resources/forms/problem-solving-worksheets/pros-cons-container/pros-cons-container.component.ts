@@ -23,12 +23,9 @@ export class ProsConsContainerComponent implements OnInit {
 
   ngOnInit() {
     this.problemService.getProsCons(this.solution.id).subscribe((resp: any) => {
-      // console.log(data);
       this.pros = resp.data.pros;
-      // console.log(this.pros);
       this.cons = resp.data.cons;
       if (this.cons.length > 0 || this.pros.length > 0) {
-        // this.triggerContinueBtn(true);
         this.onProConSave();
       }
     }, this.errorService.errorResponse('Cannot fetch Pros and cons'));

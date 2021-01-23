@@ -275,11 +275,6 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
 
   ngOnInit() {
     this.user = <User>this.authService.isLoggedIn();
-    // this.conversation_id = this.passdata.getid();
-    //
-    // console.log('CONV ID', this.current_id, this.conversation_id);
-    // this.passdata.IsConversationOn(true);
-    // this.run();
     this.send_image = '../../../../assets/conversations/Send.svg';
     this.timerservice.visibility();
     this.timerservice.unload();
@@ -469,7 +464,6 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
           this.dialog_options();
         }
         const formName = this.passdata.getFormName();
-        // console.log('passdata: ', this.passdata);
         if (formName === FORM_TASK) {
           setTimeout(() => this.loadForm(TaskFormsComponent), 1000);
         } else if (formName === FORM_PROBLEM_SOLVING) {
@@ -835,7 +829,6 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
       this.loopback_id = this.id;
       this.text.wrong = true;
     }
-    // console.log(this.text);
     this.completedConversation.push(this.text);
     this.post(i);
     this.last_id = this.id;

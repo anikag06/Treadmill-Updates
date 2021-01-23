@@ -87,7 +87,6 @@ export class ProblemSolvingWorksheetsService {
     //   // map((data: any) => {
     //   //   this.problems.push(<Problem>data.data);
     //   //   this.problemBehaviour.next(<Problem>data.data);
-    //   //   console.log(this.problemBehaviour);
     //   //   return data.data;
     //   ),
     // );

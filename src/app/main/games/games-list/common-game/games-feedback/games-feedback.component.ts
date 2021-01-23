@@ -35,7 +35,6 @@ export class GamesFeedbackComponent implements OnInit {
     this.game = this.gamePlayService.gameSlug;
     this.gameName = this.gamePlayService.gameName;
     if (this.gameName === LEARNED_HELPLESSNESS_GAME) {
-      // console.log('TRUE');
       this.lhGameHome = this.gamePlayService.lhGameHome;
       this.lhGamePlayAgain = this.gamePlayService.lhGamePlayAgain;
     }
@@ -45,7 +44,6 @@ export class GamesFeedbackComponent implements OnInit {
   }
   // ngOnDestroy() {
   //   if (this.gameName === EXECUTIVE_CONTROL_GAME) {
-  //     console.log('EXG');
   //     this.gamePlayService.resumeExecControlGame();
   //   }
   // }

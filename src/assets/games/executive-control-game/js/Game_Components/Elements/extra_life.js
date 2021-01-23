@@ -16,17 +16,8 @@ function extra_life_placer() {
 
         //Add a extra life and collider to it
         var option=Math.floor(Math.random()*2);
-        //console.log(option);
-        // if(option==0)
-        // {
         extra_life = extra_life_group.create(screen_width + x_cordinate, y_cordinate, 'mystery_egg');
         curr_game.physics.add.overlap(extra_life, player,collect_mystery_egg, null, curr_game);
-        // }
-        // else
-        // {
-        // extra_life = extra_life_group.create(screen_width + x_cordinate, y_cordinate, 'life').setScale(EXTRA_LIFE_SIZE_SCALE);
-        // curr_game.physics.add.overlap(extra_life, player,collect_life, null, curr_game);
-        // }
         extra_life.body.allowGravity = false;
 
 
@@ -47,7 +38,6 @@ function extra_life_placer() {
 
         //Move the Extra life till out of screen and rotate the obstacle
         extra_life.x-=EXTRA_LIFE_SPEED;
-        //console.log("moving");
 
         //Free the lock for next game element
         choice_lock_counter++;
@@ -73,7 +63,6 @@ function extra_life_placer() {
         second_choice=-1;
         free_to_choose=true;
         free_to_start_choose=true;
-        //console.log("easd");
     }
 }
 

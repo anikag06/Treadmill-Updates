@@ -352,14 +352,6 @@ $(document).ready(function(){
 		}
 	}
 	ibUsehints = function(ev){
-		console.log('USE HINTS',ibg_score, ibg_time_cost, ibg_coordinate_cost, ibg_word_cost);
-		// if(ibg_score > ibg_time_cost ) {
-		// 	if(ibg_score > ibg_word_cost) {
-		// 		if(ibg_score >  ibg_coordinate_cost) {
-
-		// 		}
-		// 	}
-		// }
 		if(hiddenWordsInfo() > 0){
 			if($('#showWord').hasClass("disabled")){
 				$('#showWord').removeClass("disabled");
@@ -459,9 +451,6 @@ $(document).ready(function(){
 			//ibCountdown();
 			ibg_score = ibg_score - ibg_time_cost;
 			document.getElementById("score").innerHTML = ibg_score;
-		// }else if(unlock == false){
-			//console.log("Need" + min_score_increaseTime + " coins to unlock this power");
-		// }
 		$('#hint-div').addClass("d-none");
 		setTimeout( function() {
 			$('#ibgame-clock-png').removeClass("d-none");
@@ -560,7 +549,6 @@ $(document).ready(function(){
 	});
 
 	$(document).on("click",".btn-other-sentence", function(ev){
-		console.log('ROW CLICKED');
 		if (ibg_score< ibg_btn_other_sentence_score) {
 			showTooltip();
 		} else {
@@ -1376,15 +1364,12 @@ function showSentence(){
 // show the sentence
 	// setTimeout( function() {
 	// 	$(".congrats-msg").addClass("d-none");
-	// 	console.log(document.getElementById('complete-sentence'));
 	// 	document.getElementById("complete-sentence").innerHTML= sentence_array[sentence_number];
 	// 	$('.complete-sentence').removeClass("d-none");
-	// 	console.log('sentence showing time', sentence_time);
 	// }, delay_show_sentence+before_sentence_time + eventTime);
 
 // //show the sentence for some seconds and ask relation after some time
 // 	setTimeout(function(){
-// 		console.log('sentence showing time', sentence_time);
 // 		$(".complete-sentence").delay(delay_show_sentence).addClass("d-none");
 // 		$("coins").delay(delay_show_sentence).addClass("d-none");
 // 		document.getElementById("sentence_word").innerHTML = sentence_word_array[sentence_number];

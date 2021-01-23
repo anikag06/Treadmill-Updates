@@ -25,7 +25,6 @@ export class SuggestedPostItemComponent implements OnInit {
   ngAfterViewInit(): void {}
 
   onPostClick(id: number) {
-    // console.log(id);
     this.id = id;
     this.navigateSearch();
   }

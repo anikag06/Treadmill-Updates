@@ -11,7 +11,6 @@ export class ResetPasswordService {
   constructor(private http: HttpClient) {}
 
   linkValidityCheck(uniqueCode: string) {
-    // console.log('unique code', uniqueCode);
     return this.http.get(
       environment.API_ENDPOINT +
         RESET_LINK_VALIDITY_SET_NEW_PASSWORD +

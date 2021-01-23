@@ -275,7 +275,6 @@ export class FriendlyFaceGameComponent implements OnInit, OnDestroy {
   // ffGameMusicData(pageNumber: number) {
   //   this.gamesAuthService.ffGameGetMusicInfo(pageNumber, this.NO_SONGS_IN_PAGE)
   //   .subscribe( (music_data) => {
-  //     console.log(music_data);
   //     this.no_of_songs = music_data.count;
   //     let i = 0;
   //     while (music_data.results[i]) {
