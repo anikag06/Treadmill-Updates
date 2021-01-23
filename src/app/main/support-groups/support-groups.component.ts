@@ -61,7 +61,6 @@ export class SupportGroupsComponent implements OnInit {
       if (this.step_id) {
       this.stepDataService.getStepData(this.step_id)
         .subscribe((res: any) => {
-          console.log('response', res);
           const step = res.data;
           // for navbar title
           this.stepGroupSequence = step.step_group_sequence + 1;
