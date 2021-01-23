@@ -157,8 +157,10 @@ export class MainComponent
     // });
     this.flowStepService.checkTimeUpStatus().subscribe((data: any) => {
       this.commonService.userTimeUp = data.is_ninety_days_over;
-      if (data.data.to_follow_up) {
-        this.router.navigate([LOGGED_IN_PATH]);
+      if (data.data) {
+        if (data.data.to_follow_up) {
+          this.router.navigate([LOGGED_IN_PATH]);
+        }
       }
     });
 
