@@ -85,5 +85,9 @@
   "resolutions": {
     "@babel/preset-env": "7.5.5"
   },
-  "postinstall": "cd ./node_modules/protractor && npm i webdriver-manager@latest"
+  "postinstall": "cd ./node_modules/protractor && npm i webdriver-manager@latest",
+
+  "prettier": {
+    "singleQuote": true
+  }
 }
