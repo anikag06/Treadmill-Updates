@@ -98,21 +98,20 @@ export class LearnedHelplessnessGameComponent implements OnInit, OnDestroy {
     this.activatedRoute.params.subscribe(v => {
       this.step_id = v.id;
       if (this.step_id) {
-        this.stepDataService.getStepData(this.step_id)
-          .subscribe((res: any) => {
-            const step = res.data;
-            // for navbar title
-            this.stepGroupSequence = step.step_group_sequence + 1;
-            this.stepSequence = step.sequence + 1;
-            this.stepName = step.name;
-            this.navbarTitle =
-              this.stepGroupSequence.toString() +
-              '.' +
-              this.stepSequence.toString() +
-              ' ' +
-              this.stepName;
-            this.flowService.stepDetail.emit(this.navbarTitle);
-          });
+        this.stepDataService.getStepData(this.step_id).subscribe((res: any) => {
+          const step = res.data;
+          // for navbar title
+          this.stepGroupSequence = step.step_group_sequence + 1;
+          this.stepSequence = step.sequence + 1;
+          this.stepName = step.name;
+          this.navbarTitle =
+            this.stepGroupSequence.toString() +
+            '.' +
+            this.stepSequence.toString() +
+            ' ' +
+            this.stepName;
+          this.flowService.stepDetail.emit(this.navbarTitle);
+        });
       }
     });
     this.loadFileService
