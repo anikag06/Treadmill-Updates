@@ -142,6 +142,7 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
   stepGroupSequence!: number;
   stepSequence!: number;
   stepName!: string;
+  step_id!: number;
   showLoading = true;
   imagesPreloaded = false;
   sendScoreAfterLevel2 = 0;
@@ -182,25 +183,26 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.activatedRoute.params
-      .pipe(
-        map(v => v.id),
-        switchMap(id => this.stepDataService.getStepData(id)),
-      )
-      .subscribe((res: any) => {
-        const step = res.data;
-        // for navbar title
-        this.stepGroupSequence = step.step_group_sequence + 1;
-        this.stepSequence = step.sequence + 1;
-        this.stepName = step.name;
-        this.navbarTitle =
-          this.stepGroupSequence.toString() +
-          '.' +
-          this.stepSequence.toString() +
-          ' ' +
-          this.stepName;
-        this.flowService.stepDetail.emit(this.navbarTitle);
-      });
+    this.activatedRoute.params.subscribe(v => {
+      this.step_id = v.id;
+      if (this.step_id) {
+        this.stepDataService.getStepData(this.step_id)
+          .subscribe((res: any) => {
+            const step = res.data;
+            // for navbar title
+            this.stepGroupSequence = step.step_group_sequence + 1;
+            this.stepSequence = step.sequence + 1;
+            this.stepName = step.name;
+            this.navbarTitle =
+              this.stepGroupSequence.toString() +
+              '.' +
+              this.stepSequence.toString() +
+              ' ' +
+              this.stepName;
+            this.flowService.stepDetail.emit(this.navbarTitle);
+          });
+      }
+    });
     this.loadFileService
       .loadExternalScript(
         'assets/games/interpretation_bias_game/images/ibg_preload_assets.js',

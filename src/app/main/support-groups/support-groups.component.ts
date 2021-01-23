@@ -46,6 +46,7 @@ export class SupportGroupsComponent implements OnInit {
   stepGroupSequence!: number;
   stepSequence!: number;
   stepName!: string;
+  step_id!: number;
   loadingSubscription!: Subscription;
   // fromFlow =false;
   loading = false;
@@ -55,25 +56,27 @@ export class SupportGroupsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.activatedRoute.params
-      .pipe(
-        map(v => v.id),
-        switchMap(id => this.stepDataService.getStepData(id)),
-      )
-      .subscribe((res: any) => {
-        const step = res.data;
-        // for navbar title
-        this.stepGroupSequence = step.step_group_sequence + 1;
-        this.stepSequence = step.sequence + 1;
-        this.stepName = step.name;
-        this.navbarTitle =
-          this.stepGroupSequence.toString() +
-          '.' +
-          this.stepSequence.toString() +
-          ' ' +
-          this.stepName;
-        this.flowService.stepDetail.emit(this.navbarTitle);
-      });
+    this.activatedRoute.params.subscribe(v => {
+      this.step_id = v.id;
+      if (this.step_id) {
+      this.stepDataService.getStepData(this.step_id)
+        .subscribe((res: any) => {
+          console.log('response', res);
+          const step = res.data;
+          // for navbar title
+          this.stepGroupSequence = step.step_group_sequence + 1;
+          this.stepSequence = step.sequence + 1;
+          this.stepName = step.name;
+          this.navbarTitle =
+            this.stepGroupSequence.toString() +
+            '.' +
+            this.stepSequence.toString() +
+            ' ' +
+            this.stepName;
+          this.flowService.stepDetail.emit(this.navbarTitle);
+        });
+      }
+    });
     this.tagService.getTags();
     this.user = <User>this.authService.isLoggedIn();
     this.userProfileService

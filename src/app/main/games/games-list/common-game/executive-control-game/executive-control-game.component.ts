@@ -38,6 +38,7 @@ export class ExecutiveControlGameComponent
   stepGroupSequence!: number;
   stepSequence!: number;
   stepName!: string;
+  step_id!: number;
   showLoading = true;
   orientKey = 'orientation';
   imagesPreloaded = false;
@@ -73,11 +74,10 @@ export class ExecutiveControlGameComponent
   }
   ngOnInit() {
     this.gameName = this.playGameService.gameName;
-    this.activatedRoute.params
-      .pipe(
-        map(v => v.id),
-        switchMap(id => this.stepDataService.getStepData(id)),
-      )
+    this.activatedRoute.params.subscribe(v => {
+      this.step_id = v.id;
+      if (this.step_id) {
+        this.stepDataService.getStepData(this.step_id)
       .subscribe((res: any) => {
         const step = res.data;
         // for navbar title
@@ -92,8 +92,9 @@ export class ExecutiveControlGameComponent
           this.stepName;
         this.flowService.stepDetail.emit(this.navbarTitle);
       });
-    // this.scrollDown();
-    // Action files
+    }
+    });
+   // Action files
     this.loadFileService
       .loadExternalScript(
         'assets/games/executive-control-game/js/Game_Components/Actions/jump.js',
@@ -233,9 +234,4 @@ export class ExecutiveControlGameComponent
       this.showPlayButtons.emit();
     }, 100);
   }
-  // scrollDown() {
-  //   setTimeout(() => {
-  //     this.scroll.nativeElement.scrollIntoView({ behavior: 'smooth' });
-  //   }, 100);
-  // }
 }
