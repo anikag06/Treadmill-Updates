@@ -52,7 +52,7 @@ export class FaceMyWorstFearComponent implements OnInit, OnChanges {
     private fb: FormBuilder,
     private worryService: WorryProductivelyService,
     private commonService: CommonService,
-    private authService: AuthService
+    private authService: AuthService,
   ) {}
   ngOnInit() {
     this.emergencyPlan = undefined;
@@ -84,10 +84,10 @@ export class FaceMyWorstFearComponent implements OnInit, OnChanges {
       this.worryService.getWorstFear(this.worry.id).subscribe((resp: any) => {
         if (resp.body) {
           this.faceYourWorstFearForm.controls['faceYourWorstFear'].setValue(
-            resp.body.worst_fear
+            resp.body.worst_fear,
           );
           this.faceYourWorstFearForm.controls['emergency_plan'].setValue(
-            resp.body.emergency_plan
+            resp.body.emergency_plan,
           );
           this.faceYourFear.push(resp.body.worst_fear);
           this.summaryText = resp.body.worst_fear;
@@ -162,7 +162,10 @@ export class FaceMyWorstFearComponent implements OnInit, OnChanges {
     const date = this.task.end_at + ' ' + this.task.time;
     this.disableEmergency =
       moment().format('YYYY-MM-DD HH:mm') <
-      moment.utc(date).local().format('YYYY-MM-DD HH:mm');
+      moment
+        .utc(date)
+        .local()
+        .format('YYYY-MM-DD HH:mm');
   }
 
   onEmergencyPlan() {

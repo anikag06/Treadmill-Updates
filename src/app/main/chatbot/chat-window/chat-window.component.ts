@@ -52,20 +52,20 @@ declare var twemoji: any;
         style({
           visibility: 'visible',
           transform: 'translateY(0%)',
-        })
+        }),
       ),
       state(
         'closed',
         style({
           visibility: 'hidden',
           transform: 'translateY(0%)',
-        })
+        }),
       ),
       state(
         'animateOpen',
         style({
           transform: 'translateY(0%)',
-        })
+        }),
       ),
       // state(
       //   'animateClosed',
@@ -96,9 +96,9 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     private elementRef: ElementRef,
     private commonService: CommonService,
     private renderer: Renderer2,
-    private introService: IntroService
+    private introService: IntroService,
   ) {
-    this.commonService.isOnline$().subscribe((isOnline) => {
+    this.commonService.isOnline$().subscribe(isOnline => {
       this.isOnline = isOnline;
       if (!this.isOnline) {
         this.chatButtons = [];
@@ -191,8 +191,8 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
                     message.datetime,
                     false,
                     [],
-                    this.images
-                  )
+                    this.images,
+                  ),
                 );
                 this.scrollToBottom();
               }
@@ -200,7 +200,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
           });
         }
       },
-      (error: HttpErrorResponse) => {}
+      (error: HttpErrorResponse) => {},
     );
     if (this.introService.getChatbotIntro()) {
       this.introService.startChatbotCloseIntro();
@@ -228,7 +228,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     this.renderer.setStyle(
       this.frameRef.nativeElement,
       'height',
-      `${height}px`
+      `${height}px`,
     );
   }
 
@@ -248,8 +248,8 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
           new Date(),
           false,
           [],
-          []
-        )
+          [],
+        ),
       );
       this.scrollToBottom();
       const message = this.message;
@@ -267,7 +267,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
               buttons: [],
               widgets: [widgetValues],
             },
-          })
+          }),
         );
       } else {
         this.webSocket.send(
@@ -278,7 +278,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
               buttons: [],
               widgets: [],
             },
-          })
+          }),
         );
       }
       delete this.widgetValues;
@@ -313,14 +313,14 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
         new Date(),
         false,
         [],
-        []
-      )
+        [],
+      ),
     );
     this.webSocket.send(
       JSON.stringify({
         action: REPLY_CURRENT,
         message: { text: '', buttons: [button] },
-      })
+      }),
     );
     this.chatButtons = [];
     this.showMore = false;
@@ -342,9 +342,9 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
 
   startChatSession(type: string) {
     this.webSocket = new WebSocket(
-      environment.CHAT_HOST + '/ws/chat/?token=' + this.authService.getToken()
+      environment.CHAT_HOST + '/ws/chat/?token=' + this.authService.getToken(),
     );
-    this.webSocket.onopen = (event) => {
+    this.webSocket.onopen = event => {
       this.webSocket.send(JSON.stringify({ action: type, module_name: '' }));
     };
     this.webSocket.onmessage = (message: any) => {
@@ -364,7 +364,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
           new Date(),
           false,
           [],
-          []
+          [],
         );
         this.messages.push(item);
         this.webSocket.close();
@@ -385,7 +385,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
         this.retries++;
         setTimeout(
           () => this.startChatSession(NEW_CHAT),
-          CHATBOT_RETRY_TIMEOUT
+          CHATBOT_RETRY_TIMEOUT,
         );
       }
     };
@@ -426,13 +426,13 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
         this.renderer.setStyle(
           this.frameRef.nativeElement,
           'height',
-          `${height}px`
+          `${height}px`,
         );
       } else if (m.widgets[0] === this.moodWidget) {
         this.showMoodWidgetBtn = true;
         setTimeout(() => {
           const moodBtn = this.elementRef.nativeElement.querySelectorAll(
-            '.mood-btn'
+            '.mood-btn',
           );
           moodBtn.forEach((btn: any, index: number) => {
             if (index !== moodBtn.length - 1) {
@@ -444,7 +444,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
         this.showDateTimeWidgetBtn = true;
         setTimeout(() => {
           const dateTimeBtn = this.elementRef.nativeElement.querySelectorAll(
-            '.date-time-btn'
+            '.date-time-btn',
           );
           dateTimeBtn.forEach((btn: any, index: number) => {
             if (index !== dateTimeBtn.length - 1) {
@@ -466,7 +466,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       m.datetime,
       false,
       m.widgets,
-      this.images
+      this.images,
     );
     if (m.buttons && m.buttons.length > 0) {
       this.buttonType = m.buttons[0].type;
@@ -635,7 +635,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
               this.showSpinner = false;
             }
             const firstMessageBox = this.messagesDiv.nativeElement.querySelectorAll(
-              '.message-text'
+              '.message-text',
             );
             data.data.messages.reverse().forEach((message: any) => {
               if (!this.isErrorMessage(message)) {
@@ -650,8 +650,8 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
                     message.datetime,
                     false,
                     [],
-                    this.images
-                  )
+                    this.images,
+                  ),
                 );
 
                 this.showSpinner = false;
@@ -698,8 +698,8 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
           new Date(),
           false,
           [],
-          []
-        )
+          [],
+        ),
       );
       this.multiLineChat.push(this.message);
       this.message = '';
@@ -711,7 +711,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
           this.submitMultiLineChat(this.multiLineChat);
           this.isMultiLineInput = false;
         },
-        this.isMultiLineInput ? 4000 : 0
+        this.isMultiLineInput ? 4000 : 0,
       );
     }
   }
@@ -725,7 +725,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
           buttons: [],
           widgets: [],
         },
-      })
+      }),
     );
     this.showTextInput = false;
     this.multiLineChat = [];
