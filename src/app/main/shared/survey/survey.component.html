@@ -42,9 +42,12 @@
                 <br>
                 <div class="row justify-content-center" *ngFor="let option of options">
                   <div class=".col-md-6 .offset-md-3" class="button-group">
-                    <button id="option1" type="button" (click)="onselect($event, option.value, option.name)"
+                    <button id="option1" type="button" (click)="visible === false || onselect($event, option.value, option.name)"
                       mat-stroked-button
-                      [ngClass]="{'active-button':option.value===selectedOptionValue,'disabled-button':option.value!==selectedOptionValue}">
+                      [ngClass]="{'active-button':option.value===selectedOptionValue,
+                      'disabled-button':option.value!==selectedOptionValue,
+                      'disabled': !visible, 'hover': !visible}"
+                           >
 
                       <span>{{option.name}}</span>
                     </button>

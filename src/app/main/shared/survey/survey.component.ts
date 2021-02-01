@@ -96,6 +96,7 @@ export class SurveyComponent implements OnInit, OnDestroy {
   navbarTitle!: string;
   followUp = false;
   showLoading = false;
+  visible = true;
   @ViewChild('submitBtn', { static: false }) submitBtn!: ElementRef;
   @ViewChild('startBtn', { static: false }) startBtn!: ElementRef;
 
@@ -179,8 +180,22 @@ export class SurveyComponent implements OnInit, OnDestroy {
       }
     }
   }
+  isDisabled() {
+    this.visible = false;
+    setTimeout(() => {
+      this.visible = true;
+    }, 1000);
+  }
+  disabled_afterclick() {
+    this.visible = false;
+    setTimeout(() => {
+      this.visible = true;
+    }, 500);
+  }
+
 
   onselect(event: any, id: number, name: string) {
+    this.disabled_afterclick();
     if (event.target.nodeName === 'BUTTON') {
       event.target.classList.remove('disabled-button');
       event.target.classList.add('active-button');
@@ -203,10 +218,11 @@ export class SurveyComponent implements OnInit, OnDestroy {
     } else {
       this.backCount -= 1;
       this.selectedOptionValue = this.userResponseArray[this.quesCount].option;
-      this.selectedOptionValue = this.userResponseArray[this.quesCount].option;
+      // this.selectedOptionValue = this.userResponseArray[this.quesCount].option;
     }
     if (this.quesCount < 13) {
       setTimeout(() => {
+        this.isDisabled();
         if (!this.backCount) {
           if (event.target.nodeName === 'BUTTON') {
             event.target.classList.remove('active-button');
