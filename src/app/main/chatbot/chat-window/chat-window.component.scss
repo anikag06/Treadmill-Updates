@@ -1,24 +1,12 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 
-@mixin fadeAnimation() {
-  animation: fadeinout 2s linear forwards;
+@mixin fadeInAnimation() {
+  animation: fadein  2s linear forwards;
 }
 
-@keyframes fadeinout {
+@keyframes fadein {
   0% {
     opacity: 0;
-  }
-  20% {
-    opacity: 0.2;
-  }
-  40% {
-    opacity: 0.4;
-  }
-  60% {
-    opacity: 0.6;
-  }
-  80% {
-    opacity: 0.8;
   }
   100% {
     opacity: 1;
@@ -87,7 +75,7 @@
     .form-div {
       position: fixed;
       width: 100%;
-      @include fadeAnimation;
+      @include fadeInAnimation;
       box-shadow: 0px -3px 0px #00000029;
       background: #ffffff 0 0 no-repeat padding-box;
     }
