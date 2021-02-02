@@ -193,7 +193,6 @@ export class SurveyComponent implements OnInit, OnDestroy {
     }, 500);
   }
 
-
   onselect(event: any, id: number, name: string) {
     this.disabled_afterclick();
     if (event.target.nodeName === 'BUTTON') {
