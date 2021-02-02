@@ -130,14 +130,14 @@
       <div
         class="buttons clearfix"
         [ngClass]="{
-            'display_cell': buttonType === clickAble,
-            'display_block': buttonType !== clickAble
-          }"
+          display_cell: buttonType === clickAble,
+          display_block: buttonType !== clickAble
+        }"
       >
-<!--        <div-->
-<!--          *ngIf="buttonType === clickAble"-->
-<!--          style="margin-left: 10%;"-->
-<!--        ></div>-->
+        <!--        <div-->
+        <!--          *ngIf="buttonType === clickAble"-->
+        <!--          style="margin-left: 10%;"-->
+        <!--        ></div>-->
         <button
           mat-stroked-button
           color="primary"
@@ -228,7 +228,6 @@
         <mat-icon class="arrow-icon">double_arrow</mat-icon>
       </button>
     </div>
-
     <div class="form-div" *ngIf="showTextInput">
       <!--  *ngIf="showTextInput"{{showButtons.length < 1}}{{!isWaiting}}-->
       <form (ngSubmit)="onChatSubmit()">
@@ -245,6 +244,7 @@
             #ti
             autocomplete="off"
             autofocus
+            (focus)="onFocusEvent($event)"
           >
           </textarea>
           <!--          (keyup.enter)="onKey($event)"-->

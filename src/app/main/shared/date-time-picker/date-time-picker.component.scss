@@ -138,6 +138,7 @@
 @media only screen and (max-device-width: 576px)  {
   :host-context(.chatbot) .modal {
    height: 100%;
+    width: 100%;
   }
   :host-context(.chatbot) .done-btn{
     bottom : 18px;
