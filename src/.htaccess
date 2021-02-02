@@ -94,7 +94,6 @@ RewriteRule ^(.*)$ /index.html [NC,L,QSA]
   ExpiresByType image/svg "access 1 year"
   ExpiresByType text/css "access 1 month"
   ExpiresByType application/pdf "access 1 month"
-  ExpiresByType text/x-javascript "access 1 month"
   ExpiresByType application/x-shockwave-flash "access 1 month"
   ExpiresByType image/x-icon "access 1 year"
 </IfModule>
@@ -109,8 +108,11 @@ RewriteRule ^(.*)$ /index.html [NC,L,QSA]
   Header set Cache-Control "max-age=86400, public"
   </filesmatch>
   <filesmatch "\.(js)$">
-  Header set Cache-Control "max-age=2678400, private"
+   Header set Cache-Control "max-age=0, no-cache, no-store, must-revalidate"
   </filesmatch>
+    <filesmatch "\.(br)$">
+     Header set Cache-Control "max-age=0, no-cache, no-store, must-revalidate"
+    </filesmatch>
 </IfModule>
 
 
