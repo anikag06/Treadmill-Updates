@@ -117,7 +117,7 @@ import { SharedModule } from '@/shared/shared.module';
 import { EvaluateMoodComponent } from './shared/evaluate-mood/evaluate-mood.component';
 import { Conclusion6Component } from './conclusion/conclusion6/conclusion6.component';
 import { ExtraResourcesModule } from '@/shared/extra-resources.module';
-import { StepCompletedComponent } from './shared/step-completed/step-completed.component';
+// import { StepCompletedComponent } from './shared/step-completed/step-completed.component';
 import { ProsConsInfoComponent } from './forms/problem-solving-worksheets/pros-cons-container/pros-cons/pros-cons-info/pros-cons-info.component';
 import { MatRippleModule } from '@angular/material/core';
 
@@ -195,7 +195,7 @@ import { MatRippleModule } from '@angular/material/core';
     EvaluateMoodComponent,
     Introduction6Component,
     Conclusion6Component,
-    StepCompletedComponent,
+    // StepCompletedComponent,
     ProsConsInfoComponent,
   ],
   imports: [
