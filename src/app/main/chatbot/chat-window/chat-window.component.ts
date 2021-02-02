@@ -412,12 +412,12 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       }
     });
 
-    if (m.buttons && m.buttons.length < 4) {
+    if (m.buttons && m.buttons.length < 5) {
       this.chatButtons = [];
       this.chatButtons = m.buttons;
     } else {
       this.buttonsBuffer = m.buttons;
-      this.chatButtons = m.buttons.slice(0, 3);
+      this.chatButtons = m.buttons.slice(0, 4);
       this.counter = 3;
       this.showMore = true;
     }
@@ -666,14 +666,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   getButtons() {
-    // for (let i = 0; i < 2; i++) {
     this.chatButtons = this.buttonsBuffer;
-    // if (this.counter === this.buttonsBuffer.length - 1) {
-    //   this.showMore = false;
-    //   break;
-    // }
-    // this.counter += 1;
-    // }
     this.showMore = false;
     this.scrollToBottom();
   }
