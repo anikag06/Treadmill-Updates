@@ -84,8 +84,8 @@
       </div>
     </div>
   </div>
-  <div class="d-inline-flex context-button ml-auto">
-    <button mat-icon-button [matMenuTriggerFor]="menu">
+  <div class="d-inline-flex ml-auto" style="position: relative" *ngIf="!editMode">
+    <button mat-icon-button class="context-button" [matMenuTriggerFor]="menu">
       <mat-icon>more_horiz</mat-icon>
     </button>
   </div>

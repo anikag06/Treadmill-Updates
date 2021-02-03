@@ -326,7 +326,6 @@ export class CommentComponent
             }
           },
           () => {
-            this.errorService.openErrorDialog('Cannot Upvote');
             this.comment.is_voted = preVote;
             this.comment.up_votes = preUpVote;
           },
