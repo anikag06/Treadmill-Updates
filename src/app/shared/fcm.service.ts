@@ -17,43 +17,30 @@ export class FcmService {
   constructor(
     private afMessaging: AngularFireMessaging,
     private http: HttpClient,
-    private errorService: GeneralErrorService,
+    private errorService: GeneralErrorService
   ) {}
 
   requestPermission() {
     this.afMessaging.requestPermission
       .pipe(mergeMapTo(this.afMessaging.tokenChanges))
       .subscribe(
-        token => {
+        (token) => {
           if (token) {
-            this.updateToken(token).subscribe(data => {
+            this.updateToken(token).subscribe((data) => {
               this.listenForNewMessage();
             });
           }
         },
-        error => {
-          this.errorService.openErrorDialog(error);
-        },
+        (error) => {
+          // this.errorService.openErrorDialog(error);
+        }
       );
   }
 
   updateToken(token: string) {
-    // having to add the header here because this is added in app.module and jwt authentication is added in main.module
-    // let jwt_token;
-    // try {
-    //   jwt_token = window.localStorage.getItem(TOKEN);
-    // } catch (e) {
-    //   jwt_token = window.sessionStorage.getItem(TOKEN);
-    // }
-    // const httpOptions = {
-    //   headers: new HttpHeaders({
-    //     'Content-Type': 'application/json',
-    //     Authorization: 'Bearer ' + jwt_token,
-    //   }),
-    // };
     return this.http.post(
       environment.API_ENDPOINT + '/api/v1/notifications/device-registration/',
-      { registration_id: token },
+      { registration_id: token }
     );
   }
 
@@ -61,29 +48,32 @@ export class FcmService {
     this.afMessaging.requestPermission
       .pipe(mergeMapTo(this.afMessaging.tokenChanges))
       .subscribe(
-        token => {
+        (token) => {
           if (token) {
-            this.participantUpdateToken(part_id, token).subscribe(data => {
+            this.participantUpdateToken(part_id, token).subscribe((data) => {
               this.permit.next(true);
             });
           }
         },
-        error => {
-          this.errorService.openErrorDialog(error);
-          this.permit.next(false);
-        },
+        (error) => {
+          if (error.code === 'messaging/token-unsubscribe-failed') {
+            this.participantRequestPermission(part_id);
+          } else {
+            this.permit.next(false);
+          }
+        }
       );
   }
   participantUpdateToken(part_id: number, token: string) {
     return this.http.post(
       environment.API_ENDPOINT +
         '/api/v1/notifications/store-device-registration/',
-      { participant_id: part_id, registration_id: token },
+      { participant_id: part_id, registration_id: token }
     );
   }
 
   listenForNewMessage() {
-    this.afMessaging.messages.subscribe(message => {
+    this.afMessaging.messages.subscribe((message) => {
       // emit signal for notification message
       this.newNotification.next(message);
     });
