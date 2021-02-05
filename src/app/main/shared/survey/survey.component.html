@@ -62,7 +62,7 @@
                 <br>
                 And here's our feedback for you: You're awesome 🤗.
               </div>
-              <div class="row justify-content-center" #submitBtn>
+              <div class="row justify-content-center" #submitBtn *ngIf="!showNextStep">
                 <button type="button" class="disabled-button" style="margin-top:60px;min-width: 140px !important;"
                   mat-stroked-button *ngIf="submit && !submitting" (click)="onSubmit($event)" >Submit
                 </button>
@@ -71,6 +71,9 @@
                   <span class="spinner-border spinner-border-sm"></span>
                   &nbsp; Loading..
                 </button>
+              </div>
+              <div class="row justify-content-center" *ngIf="showNextStep" style="margin-top:60px;">
+              <app-step-completed [showNextStep]="showNextStep" [showloading]="false" [fromSurvey]="true"  (nextStepEvent)="onNextStep()" ></app-step-completed>
               </div>
             </div>
             <div class="col-1 col-md-2 my-auto px-0">

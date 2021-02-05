@@ -258,9 +258,6 @@ export class PostItemComponent
             // }
           },
           (error: HttpErrorResponse) => {
-            this.errorService.openErrorDialog(
-              error.statusText + ' ' + 'Could not submit post',
-            );
           },
         );
     }
@@ -448,7 +445,6 @@ export class PostItemComponent
             }
           },
           () => {
-            this.errorService.openErrorDialog('Cannot upvote');
             this.supportGroupItem.is_voted = preVote;
             this.supportGroupItem.up_votes = preUpVote;
           },

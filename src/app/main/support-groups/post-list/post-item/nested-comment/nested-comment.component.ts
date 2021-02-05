@@ -120,7 +120,6 @@ export class NestedCommentComponent
             this.commonService.updateScore(SUPPORT_GROUP_COMMENT_SCORE);
           },
           (error: HttpErrorResponse) => {
-            this.errorService.openErrorDialog('Cannot add reply');
             this.submitting = false;
           },
         );
@@ -180,7 +179,6 @@ export class NestedCommentComponent
             }
           },
           () => {
-            this.errorService.openErrorDialog('Cannot Upvote');
             this.userNestedComment.is_voted = preVote;
             this.userNestedComment.up_votes = preUpVote;
           },
@@ -220,7 +218,6 @@ export class NestedCommentComponent
             }
           },
           () => {
-            this.errorService.openErrorDialog('Cannot down vote');
           },
         );
     } else {

@@ -9,9 +9,18 @@
   justify-content: center;
   //margin: 16px 0;
 }
-
+.round-btn {
+  border-radius: 24px;
+  height: 48px;
+}
 
 
 #flow-img {
   height: 32px;
+}
+@media screen and (max-width: 576px) {
+  .round-btn {
+    border-radius: 24px;
+    height: 40px;
+  }
 }

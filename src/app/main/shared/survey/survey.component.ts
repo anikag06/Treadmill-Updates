@@ -97,6 +97,7 @@ export class SurveyComponent implements OnInit, OnDestroy {
   followUp = false;
   showLoading = false;
   visible = true;
+  showNextStep = false;
   @ViewChild('submitBtn', { static: false }) submitBtn!: ElementRef;
   @ViewChild('startBtn', { static: false }) startBtn!: ElementRef;
 
@@ -264,6 +265,7 @@ export class SurveyComponent implements OnInit, OnDestroy {
       })
       .subscribe(data => {
         this.submitting = false;
+        this.showNextStep = true;
         if (this.user.is_exp) {
           this.commonService.updateScore(SURVEY_COMPLETE_SCORE);
         }
@@ -308,5 +310,8 @@ export class SurveyComponent implements OnInit, OnDestroy {
         this.first_click,
       );
     }
+  }
+  onNextStep() {
+    this.goToService.clickFlow.emit();
   }
 }
