@@ -31,9 +31,7 @@ export class FcmService {
             });
           }
         },
-        error => {
-          this.errorService.openErrorDialog(error);
-        },
+        error => {},
       );
   }
 
@@ -69,7 +67,6 @@ export class FcmService {
           }
         },
         error => {
-          this.errorService.openErrorDialog(error);
           this.permit.next(false);
         },
       );
