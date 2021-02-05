@@ -217,8 +217,7 @@ export class NestedCommentComponent
               this.commonService.updateScore(SUPPORT_GROUP_UP_DOWN_VOTE_SCORE);
             }
           },
-          () => {
-          },
+          () => {},
         );
     } else {
       this.thumbsService.openSnackBar("You can't vote on your own reply", 'Ok');

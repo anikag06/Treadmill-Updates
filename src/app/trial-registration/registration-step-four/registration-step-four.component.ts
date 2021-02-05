@@ -55,7 +55,7 @@ export class RegistrationStepFourComponent implements OnInit {
     null,
     null,
     null,
-    null
+    null,
   );
 
   participationID = 0;
@@ -85,29 +85,29 @@ export class RegistrationStepFourComponent implements OnInit {
     private a2hsService: A2HSService,
     private dialog: MatDialog,
     private changeDetector: ChangeDetectorRef,
-    private showContactUsService: MatContactUsDialogService
+    private showContactUsService: MatContactUsDialogService,
   ) {}
 
   ngOnInit() {
     this.consentForm.controls['readInfo'].setValue(
       // tslint:disable-next-line:radix
-      parseInt(<string>localStorage.getItem(READINFO))
+      parseInt(<string>localStorage.getItem(READINFO)),
     );
     this.consentForm.controls['voluntaryInfo'].setValue(
       // tslint:disable-next-line:radix
-      parseInt(<string>localStorage.getItem(VOLUNTARYINFO))
+      parseInt(<string>localStorage.getItem(VOLUNTARYINFO)),
     );
     this.consentForm.controls['confidentialInfo'].setValue(
       // tslint:disable-next-line:radix
-      parseInt(<string>localStorage.getItem(CONFIDENTIALINFO))
+      parseInt(<string>localStorage.getItem(CONFIDENTIALINFO)),
     );
     this.consentForm.controls['dataPublicationInfo'].setValue(
       // tslint:disable-next-line:radix
-      parseInt(<string>localStorage.getItem(DATAPUBLICATIONINFO))
+      parseInt(<string>localStorage.getItem(DATAPUBLICATIONINFO)),
     );
     this.consentForm.controls['informationLeakage'].setValue(
       // tslint:disable-next-line:radix
-      parseInt(<string>localStorage.getItem(INFORMATION_LEAKAGE))
+      parseInt(<string>localStorage.getItem(INFORMATION_LEAKAGE)),
     );
 
     const smallDevice = window.matchMedia('(max-width: 767px)').matches;
@@ -126,12 +126,12 @@ export class RegistrationStepFourComponent implements OnInit {
     // tslint:disable-next-line:radix
     this.participationID = parseInt(
       // tslint:disable-next-line:no-non-null-assertion
-      <string>localStorage.getItem(PARTICIPATION_ID)!
+      <string>localStorage.getItem(PARTICIPATION_ID)!,
     );
-    this.fcmService.permit.subscribe((permit) => {
+    this.fcmService.permit.subscribe(permit => {
       this.notificationsAllowed = permit ? 1 : 0;
       this.consentForm.controls['notificationsInfo'].setValue(
-        this.notificationsAllowed
+        this.notificationsAllowed,
       );
       this.updatingPermissions = false;
       this.showHelp = this.notificationsAllowed === 0;
@@ -157,7 +157,7 @@ export class RegistrationStepFourComponent implements OnInit {
       // tslint:disable-next-line:radix
       this.stepFourFormData.participant_id = parseInt(
         // tslint:disable-next-line:no-non-null-assertion
-        <string>localStorage.getItem(PARTICIPATION_ID)!
+        <string>localStorage.getItem(PARTICIPATION_ID)!,
       );
       this.stepFourFormData.read_information_consent = this.consentForm.value.readInfo;
       this.stepFourFormData.voluntary_involvement_consent = this.consentForm.value.voluntaryInfo;
@@ -204,7 +204,7 @@ export class RegistrationStepFourComponent implements OnInit {
   homeScreenPermission() {
     this.addingToHomescreen = true;
     if (this.consentForm.value.homeScreenInfo) {
-      this.a2hsService.getDeferredPrompt().subscribe((deferredPrompt) => {
+      this.a2hsService.getDeferredPrompt().subscribe(deferredPrompt => {
         this.addingToHomescreen = false;
         if (!deferredPrompt) {
           return;
@@ -240,15 +240,15 @@ export class RegistrationStepFourComponent implements OnInit {
     localStorage.setItem(VOLUNTARYINFO, this.consentForm.value.voluntaryInfo);
     localStorage.setItem(
       CONFIDENTIALINFO,
-      this.consentForm.value.confidentialInfo
+      this.consentForm.value.confidentialInfo,
     );
     localStorage.setItem(
       DATAPUBLICATIONINFO,
-      this.consentForm.value.dataPublicationInfo
+      this.consentForm.value.dataPublicationInfo,
     );
     localStorage.setItem(
       INFORMATION_LEAKAGE,
-      this.consentForm.value.informationLeakage
+      this.consentForm.value.informationLeakage,
     );
     if (
       this.consentForm.value.readInfo &&

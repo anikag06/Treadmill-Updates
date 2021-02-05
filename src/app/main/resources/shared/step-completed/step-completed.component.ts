@@ -18,7 +18,7 @@ export class StepCompletedComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   onCompleted() {
     this.completedEvent.emit();

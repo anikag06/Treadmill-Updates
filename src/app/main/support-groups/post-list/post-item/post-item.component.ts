@@ -257,8 +257,7 @@ export class PostItemComponent
             this.commonService.updateScore(SUPPORT_GROUP_COMMENT_SCORE);
             // }
           },
-          (error: HttpErrorResponse) => {
-          },
+          (error: HttpErrorResponse) => {},
         );
     }
   }
