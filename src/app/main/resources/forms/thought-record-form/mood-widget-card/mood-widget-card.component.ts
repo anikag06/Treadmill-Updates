@@ -20,7 +20,7 @@ import { Thought } from '@/main/resources/forms/thought-record-form/thoughtRecor
 export class MoodWidgetCardComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
-    public thoughtRecordService: ThoughtRecordService,
+    public thoughtRecordService: ThoughtRecordService
   ) {}
 
   showMoodWidget = false;
@@ -41,13 +41,15 @@ export class MoodWidgetCardComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.thought && this.reset) {
-      this.thoughtRecordService.getFeelings(this.thought.id).subscribe(resp => {
-        if (resp.body.data && resp.body.data.feelings.length > 0) {
-          this.moodSelected = true;
-          this.userFeelings = resp.body.data.feelings;
-          this.onShowRecordBehave.emit(true);
-        }
-      });
+      this.thoughtRecordService
+        .getFeelings(this.thought.id)
+        .subscribe((resp) => {
+          if (resp.body.data && resp.body.data.feelings.length > 0) {
+            this.moodSelected = true;
+            this.userFeelings = resp.body.data.feelings;
+            this.onShowRecordBehave.emit(true);
+          }
+        });
     }
     if (this.reset) {
       this.resetMoodForm();
@@ -82,7 +84,7 @@ export class MoodWidgetCardComponent implements OnInit {
       if (result.data) {
         const emotions = result.data.emotions;
         const emotionsRating = result.data.emotionsRating;
-        const filtered = this.userFeelings.filter(function(e: UserFeeling) {
+        const filtered = this.userFeelings.filter(function (e: UserFeeling) {
           // @ts-ignore
           return this.indexOf(e.feeling) >= 0;
         }, emotions);
@@ -91,7 +93,7 @@ export class MoodWidgetCardComponent implements OnInit {
         emotions.forEach((feeling: string) => {
           let isFound = false;
           // @ts-ignore
-          this.userFeelings.find(obj => {
+          this.userFeelings.find((obj) => {
             if (obj.feeling === feeling) {
               obj.feeling_rating = emotionsRating[emotions.indexOf(feeling)];
               isFound = true;
@@ -127,7 +129,7 @@ export class MoodWidgetCardComponent implements OnInit {
         if (status) {
           this.onShowRecordBehave.emit(true);
           this.showSaveButton = false;
-          this.showSpinner = true;
+          this.showSpinner = false;
         }
       });
   }

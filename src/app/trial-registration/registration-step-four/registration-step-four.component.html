@@ -1,145 +1,306 @@
-<div *ngIf="showPage else desktopMessage">
-
-<div class="container-fluid w-100 small-font">
+<div *ngIf="showPage; else desktopMessage">
+  <div class="container-fluid w-100 small-font">
     <app-trial-pages-header [stepNumber]="stepNo"></app-trial-pages-header>
 
     <div class="row mt-4">
-        <div class="col">
-            <p class="largest-font">  Consent </p>
-            <div class="medium-font">  Please see if these terms are acceptable to you. </div>
+      <div class="col">
+        <p class="largest-font">Consent</p>
+        <div class="medium-font">
+          Please see if these terms are acceptable to you.
         </div>
+      </div>
     </div>
 
     <form [formGroup]="consentForm">
-        <div class="row">
-            <div class="col-12 my-1">
-                <label class="my-3 lesser-opacity">I have read the information provided in the site about
-                    the study. If I had any concerns, I had contacted the research team and
-                    received satisfactory response to my concerns.
-                </label>
-                <br>
-                <mat-radio-group (change)="activateSubmitButton()" formControlName="readInfo" color="primary" required>
-                    <mat-radio-button [value]="1" class="mr-5"
-                        #btn1 [ngClass]="{ 'checkedBtn': btn1.checked , 'unChecked': !btn1.checked}">
-                        Accept</mat-radio-button>
-                    <mat-radio-button [value]="0" class="ml-4"
-                        #btn2 [ngClass]="{ 'checkedBtn': btn2.checked , 'unChecked': !btn2.checked}">
-                        Decline</mat-radio-button>
-                </mat-radio-group>
+      <div class="row">
+        <div class="col-12 my-1">
+          <label class="my-3 lesser-opacity"
+            >I have read the information provided in the site about the study.
+            If I had any concerns, I had contacted the research team and
+            received satisfactory response to my concerns.
+          </label>
+          <br />
+          <mat-radio-group
+            (change)="activateSubmitButton()"
+            formControlName="readInfo"
+            color="primary"
+            required
+          >
+            <mat-radio-button
+              [value]="1"
+              class="mr-5"
+              #btn1
+              [ngClass]="{ checkedBtn: btn1.checked, unChecked: !btn1.checked }"
+            >
+              Accept</mat-radio-button
+            >
+            <mat-radio-button
+              [value]="0"
+              class="ml-4"
+              #btn2
+              [ngClass]="{ checkedBtn: btn2.checked, unChecked: !btn2.checked }"
+            >
+              Decline</mat-radio-button
+            >
+          </mat-radio-group>
+        </div>
+
+        <div class="col-12 my-1">
+          <label class="my-3 lesser-opacity">
+            I understand that my participation is voluntary and that I am free
+            to withdraw at any time, without giving any reason, and without any
+            current or future medical care or legal rights being affected.
+          </label>
+          <br />
+          <mat-radio-group
+            (change)="activateSubmitButton()"
+            formControlName="voluntaryInfo"
+            color="primary"
+            required
+          >
+            <mat-radio-button
+              [value]="1"
+              class="mr-5"
+              #btn3
+              [ngClass]="{ checkedBtn: btn3.checked, unChecked: !btn3.checked }"
+            >
+              Accept</mat-radio-button
+            >
+            <mat-radio-button
+              [value]="0"
+              class="ml-4"
+              #btn4
+              [ngClass]="{ checkedBtn: btn4.checked, unChecked: !btn4.checked }"
+            >
+              Decline</mat-radio-button
+            >
+          </mat-radio-group>
+        </div>
+
+        <div class="col-12 my-1">
+          <label class="my-3 lesser-opacity"
+            >I understand that any information I provide while taking part in
+            the study will be kept confidential. However, if I pose harm to
+            myself, to another person, or to the community, TreadWill reserves
+            the right to take steps permitted by law to help prevent the
+            potential harm from happening. However, TreadWill or its members are
+            not to be held responsible for any harm that might occur during the
+            course of my participation in the study.
+          </label>
+          <br />
+          <mat-radio-group
+            (change)="activateSubmitButton()"
+            formControlName="confidentialInfo"
+            color="primary"
+            required
+          >
+            <mat-radio-button
+              [value]="1"
+              class="mr-5"
+              #btn5
+              [ngClass]="{ checkedBtn: btn5.checked, unChecked: !btn5.checked }"
+            >
+              Accept</mat-radio-button
+            >
+            <mat-radio-button
+              [value]="0"
+              class="ml-4"
+              #btn6
+              [ngClass]="{ checkedBtn: btn6.checked, unChecked: !btn6.checked }"
+            >
+              Decline</mat-radio-button
+            >
+          </mat-radio-group>
+        </div>
+
+        <div class="col-12 my-1">
+          <label class="my-3 lesser-opacity"
+            >I understand that relevant sections of my data collected during the
+            study may be used by the TreadWill team for research purposes. The
+            results of the study may be published so that its findings are
+            available to the scientific community and the public; however, any
+            personal identifiers will be removed from the data.
+          </label>
+          <br />
+          <mat-radio-group
+            (change)="activateSubmitButton()"
+            formControlName="dataPublicationInfo"
+            color="primary"
+            required
+          >
+            <mat-radio-button
+              [value]="1"
+              class="mr-5"
+              #btn7
+              [ngClass]="{ checkedBtn: btn7.checked, unChecked: !btn7.checked }"
+            >
+              Accept</mat-radio-button
+            >
+            <mat-radio-button
+              [value]="0"
+              class="ml-4"
+              #btn8
+              [ngClass]="{ checkedBtn: btn8.checked, unChecked: !btn8.checked }"
+            >
+              Decline</mat-radio-button
+            >
+          </mat-radio-group>
+        </div>
+
+        <div class="col-12 my-1">
+          <label class="my-3 lesser-opacity"
+            >I understand that the latest security measures will be employed,
+            but there is still a risk of information leakage in case of a
+            security breach. I understand that the TreadWill team is not to be
+            held responsible for any breach.
+          </label>
+          <br />
+          <mat-radio-group
+            (change)="activateSubmitButton()"
+            formControlName="informationLeakage"
+            color="primary"
+            required
+          >
+            <mat-radio-button
+              [value]="1"
+              class="mr-5"
+              #btn9
+              [ngClass]="{ checkedBtn: btn9.checked, unChecked: !btn9.checked }"
+            >
+              Accept</mat-radio-button
+            >
+            <mat-radio-button
+              [value]="0"
+              class="ml-4"
+              #btn10
+              [ngClass]="{
+                checkedBtn: btn10.checked,
+                unChecked: !btn10.checked
+              }"
+            >
+              Decline</mat-radio-button
+            >
+          </mat-radio-group>
+        </div>
+
+        <div class="col-12 my-1">
+          <label class="my-3 lesser-opacity"
+            >Notifications are an essential part of this program. Please accept
+            to allow notifications.</label
+          >
+          <br />
+          <mat-radio-group
+            (change)="notificationsPermission()"
+            formControlName="notificationsInfo"
+            color="primary"
+            required
+          >
+            <ng-container *ngIf="!updatingPermissions; else loading">
+              <mat-radio-button
+                [value]="1"
+                class="mr-5"
+                #btn13
+                [ngClass]="{
+                  checkedBtn: btn13.checked,
+                  unChecked: !btn13.checked
+                }"
+              >
+                Accept</mat-radio-button
+              >
+            </ng-container>
+            <ng-template #loading>
+              <div class="mr-5 d-inline-block loading">
+                <span class="spinner-border spinner-border-custom"></span>
+                Accept
+              </div>
+            </ng-template>
+            <mat-radio-button
+              [value]="0"
+              class="ml-4"
+              #btn14
+              [ngClass]="{
+                checkedBtn: btn14.checked,
+                unChecked: !btn14.checked
+              }"
+            >
+              Decline</mat-radio-button
+            >
+          </mat-radio-group>
+        </div>
+        <div class="col-12" [ngStyle]="{display : showHelp && !userDeclined ? 'block' : 'none'}">
+
+            <div class="error-msg px-3 py-2">
+              {{ errorMessage }}
             </div>
 
-            <div class="col-12 my-1">
-                <label class="my-3 lesser-opacity"> I understand that my participation is voluntary and that
-                    I am free to withdraw at any time, without giving any reason, and without
-                    any current or future medical care or legal rights being affected.
-                </label>
-                <br>
-                <mat-radio-group (change)="activateSubmitButton()" formControlName="voluntaryInfo" color="primary" required>
-                    <mat-radio-button [value]="1" class="mr-5"
-                        #btn3 [ngClass]="{ 'checkedBtn': btn3.checked , 'unChecked': !btn3.checked}">
-                        Accept</mat-radio-button>
-                    <mat-radio-button [value]="0" class="ml-4"
-                        #btn4 [ngClass]="{ 'checkedBtn': btn4.checked , 'unChecked': !btn4.checked}">
-                        Decline</mat-radio-button>
-                </mat-radio-group>
-            </div>
+            <div class="troubleshoot py-3 px-3">
+              <div>
+                {{notificationHelp}}
+                <a [href]="notificationLink" target="_blank" class="anchorify-blue">{{notificationLink}}</a>
+              </div>
 
-            <div class="col-12 my-1">
-                <label class="my-3 lesser-opacity">I understand that any information I provide while taking part
-                    in the study will be kept confidential. However, if I pose harm to myself,
-                    to another person, or to the community, TreadWill reserves the right to take
-                    steps permitted by law to help prevent the potential harm from happening.
-                    However, TreadWill or its members are not to be held responsible for any harm
-                    that might occur during the course of my participation in the study.
-                </label>
-                <br>
-                <mat-radio-group (change)="activateSubmitButton()" formControlName="confidentialInfo" color="primary" required>
-                    <mat-radio-button [value]="1" class="mr-5"
-                        #btn5 [ngClass]="{ 'checkedBtn': btn5.checked , 'unChecked': !btn5.checked}">
-                        Accept</mat-radio-button>
-                    <mat-radio-button [value]="0" class="ml-4"
-                        #btn6 [ngClass]="{ 'checkedBtn': btn6.checked , 'unChecked': !btn6.checked}">
-                        Decline</mat-radio-button>
-                </mat-radio-group>
+            <div class="py-3">
+              Still facing issues?
+              <a class="anchorify-blue" (click)="onContactUsClicked()"
+                >Contact us.</a
+              >
             </div>
-
-            <div class="col-12 my-1">
-                <label class="my-3 lesser-opacity">I understand that relevant sections of my data collected
-                    during the study may be used by the TreadWill team for research purposes.
-                    The results of the study may be published so that its findings are available
-                    to the scientific community and the public; however, any personal identifiers
-                    will be removed from the data.
-                </label>
-                <br>
-                <mat-radio-group (change)="activateSubmitButton()" formControlName="dataPublicationInfo" color="primary" required>
-                    <mat-radio-button [value]="1" class="mr-5"
-                        #btn7 [ngClass]="{ 'checkedBtn': btn7.checked , 'unChecked': !btn7.checked}">
-                        Accept</mat-radio-button>
-                    <mat-radio-button [value]="0" class="ml-4"
-                        #btn8 [ngClass]="{ 'checkedBtn': btn8.checked , 'unChecked': !btn8.checked}">
-                        Decline</mat-radio-button>
-                </mat-radio-group>
-            </div>
-
-            <div class="col-12 my-1">
-                <label class="my-3 lesser-opacity">I understand that the latest security measures will be
-                    employed, but there is still a risk of information leakage
-                    in case of a security breach. I understand that the TreadWill team is not to
-                    be held responsible for any breach.
-                </label>
-                <br>
-                <mat-radio-group (change)="activateSubmitButton()" formControlName="informationLeakage" color="primary" required>
-                    <mat-radio-button [value]="1" class="mr-5"
-                        #btn9 [ngClass]="{ 'checkedBtn': btn9.checked , 'unChecked': !btn9.checked}">
-                        Accept</mat-radio-button>
-                    <mat-radio-button [value]="0" class="ml-4"
-                        #btn10 [ngClass]="{ 'checkedBtn': btn10.checked , 'unChecked': !btn10.checked}">
-                        Decline</mat-radio-button>
-                </mat-radio-group>
-            </div>
-
-            <div class="col-12 my-1">
-              <label class="my-3 lesser-opacity">Notifications are an essential part of this program. Please accept to allow notifications.</label>
-              <br>
-              <mat-radio-group (change)="notificationsPermission()" formControlName="notificationsInfo" color="primary" required>
-                <ng-container *ngIf="!updatingPermissions; else loading">
-                <mat-radio-button [value]="1" class="mr-5"
-                                  #btn13 [ngClass]="{ 'checkedBtn': btn13.checked , 'unChecked': !btn13.checked}">
-                  Accept</mat-radio-button>
-                </ng-container>
-                <ng-template #loading>
-                  <div class="mr-5 d-inline-block loading">
-                  <span class="spinner-border spinner-border-custom"></span>
-                  Accept
-                  </div>
-                </ng-template>
-                <mat-radio-button [value]="0" class="ml-4"
-                                  #btn14 [ngClass]="{ 'checkedBtn': btn14.checked , 'unChecked': !btn14.checked}">
-                  Decline</mat-radio-button>
-              </mat-radio-group>
-            </div>
-
-            <div class="col-12 my-1">
-              <label class="my-3 lesser-opacity">For the purpose of this study, it is required that you add TreadWill to your home screen. Please accept to add TreadWill to your home screen. <b>By adding TreadWill, you also agree to participate in the TreadWill study.</b></label>
-              <br>
-              <mat-radio-group (change)="homeScreenPermission()" formControlName="homeScreenInfo" color="primary" required>
-                <mat-radio-button [value]="1" class="mr-5"
-                                  #btn15 [ngClass]="{ 'checkedBtn': btn15.checked , 'unChecked': !btn15.checked}">
-                  Accept</mat-radio-button>
-                <mat-radio-button [value]="0" class="ml-4"
-                                  #btn16 [ngClass]="{ 'checkedBtn': btn16.checked , 'unChecked': !btn16.checked}">
-                  Decline</mat-radio-button>
-              </mat-radio-group>
-              <br>
-              <mat-hint class="hint">To activate this Accept button, you'll need to accept the other conditions first.</mat-hint>
             </div>
         </div>
-    </form>
-</div>
 
-<div class="row mt-5 mx-0">
+        <div class="col-12 my-1">
+          <label class="my-3 lesser-opacity"
+            >For the purpose of this study, it is required that you add
+            TreadWill to your home screen. Please accept to add TreadWill to
+            your home screen.
+            <b
+              >By adding TreadWill, you also agree to participate in the
+              TreadWill study.</b
+            ></label
+          >
+          <br />
+          <mat-radio-group
+            (change)="homeScreenPermission()"
+            formControlName="homeScreenInfo"
+            color="primary"
+            required
+          >
+            <mat-radio-button
+              [value]="1"
+              class="mr-5"
+              #btn15
+              [ngClass]="{
+                checkedBtn: btn15.checked,
+                unChecked: !btn15.checked
+              }"
+            >
+              Accept</mat-radio-button
+            >
+            <mat-radio-button
+              [value]="0"
+              class="ml-4"
+              #btn16
+              [ngClass]="{
+                checkedBtn: btn16.checked,
+                unChecked: !btn16.checked
+              }"
+            >
+              Decline</mat-radio-button
+            >
+          </mat-radio-group>
+          <br />
+          <mat-hint class="hint"
+            >To activate this Accept button, you'll need to accept the other
+            conditions first.</mat-hint
+          >
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="row mt-5 mx-0">
     <app-trial-pages-footer class="w-100"></app-trial-pages-footer>
-</div>
+  </div>
 </div>
 <ng-template #desktopMessage>
   <div>
