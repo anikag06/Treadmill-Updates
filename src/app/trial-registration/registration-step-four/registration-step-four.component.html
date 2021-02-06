@@ -227,17 +227,24 @@
             >
           </mat-radio-group>
         </div>
-        <div class="col-12" [ngStyle]="{display : showHelp && !userDeclined ? 'block' : 'none'}">
+        <div
+          class="col-12"
+          [ngStyle]="{ display: showHelp && !userDeclined ? 'block' : 'none' }"
+        >
+          <div class="error-msg px-3 py-2">
+            {{ errorMessage }}
+          </div>
 
-            <div class="error-msg px-3 py-2">
-              {{ errorMessage }}
+          <div class="troubleshoot py-3 px-3">
+            <div>
+              <span [innerHTML]="notificationHelp"></span>
+              <a
+                [href]="notificationLink"
+                target="_blank"
+                class="anchorify-blue"
+                >{{ notificationLink }}</a
+              >
             </div>
-
-            <div class="troubleshoot py-3 px-3">
-              <div>
-                {{notificationHelp}}
-                <a [href]="notificationLink" target="_blank" class="anchorify-blue">{{notificationLink}}</a>
-              </div>
 
             <div class="py-3">
               Still facing issues?
@@ -245,7 +252,7 @@
                 >Contact us.</a
               >
             </div>
-            </div>
+          </div>
         </div>
 
         <div class="col-12 my-1">
