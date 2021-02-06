@@ -45,7 +45,7 @@ export class RegistrationStepFourComponent implements OnInit {
     null,
     null,
     null,
-    null
+    null,
   );
 
   participationID = 0;
@@ -75,7 +75,7 @@ export class RegistrationStepFourComponent implements OnInit {
     private a2hsService: A2HSService,
     private dialog: MatDialog,
     private changeDetector: ChangeDetectorRef,
-    private showContactUsService: MatContactUsDialogService
+    private showContactUsService: MatContactUsDialogService,
   ) {}
 
   ngOnInit() {
@@ -95,10 +95,10 @@ export class RegistrationStepFourComponent implements OnInit {
     this.starting_time = dateTime.replace('Z', '').replace('T', ' ');
 
     this.participationID = this.registrationDataService.participationID;
-    this.fcmService.permit.subscribe((permit) => {
+    this.fcmService.permit.subscribe(permit => {
       this.notificationsAllowed = permit ? 1 : 0;
       this.consentForm.controls['notificationsInfo'].setValue(
-        this.notificationsAllowed
+        this.notificationsAllowed,
       );
       this.updatingPermissions = false;
       this.showHelp = this.notificationsAllowed === 0;
@@ -166,7 +166,7 @@ export class RegistrationStepFourComponent implements OnInit {
   homeScreenPermission() {
     this.addingToHomescreen = true;
     if (this.consentForm.value.homeScreenInfo) {
-      this.a2hsService.getDeferredPrompt().subscribe((deferredPrompt) => {
+      this.a2hsService.getDeferredPrompt().subscribe(deferredPrompt => {
         this.addingToHomescreen = false;
         if (!deferredPrompt) {
           return;

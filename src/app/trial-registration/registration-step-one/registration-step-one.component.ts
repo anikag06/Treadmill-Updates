@@ -56,7 +56,7 @@ export class RegistrationStepOneComponent implements OnInit {
     private showContactUsService: MatContactUsDialogService,
     private registrationDataService: RegistrationDataService,
     private questionnaireService: QuizService,
-    private a2hsService: A2HSService
+    private a2hsService: A2HSService,
   ) {}
 
   ngOnInit() {
@@ -101,12 +101,12 @@ export class RegistrationStepOneComponent implements OnInit {
                 this.router.navigate([INELIGIBLE_FOR_TRIAL]);
               }
             },
-            (err) => {
+            err => {
               this.showLoading = false;
               if (err.error.message === 'Invalid email-id') {
                 this.showErrorMessage = true;
               }
-            }
+            },
           );
       } else {
         this.showLoading = false;
