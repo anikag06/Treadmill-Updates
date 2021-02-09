@@ -37,14 +37,14 @@
 .date {
   font-size: 24px;
   font-weight: 500;
-  color: black;
+  color: #3f51b5;
   opacity: 0.87;
 }
-.select-days{
+.select-days {
   display: flex;
   margin-left: 5%;
-  margin-bottom : 3%;
-  margin-top :1%;
+  margin-bottom: 3%;
+  margin-top: 1%;
 }
 
 .circle {
@@ -71,7 +71,6 @@
 .mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
   background-color: rgba(10, 10, 10, 0.54);
 }
-
 
 .close-btn {
   right: -4px;
@@ -116,8 +115,22 @@
 }
 
 .span-text {
-  opacity: 0.4;
   font-size: 1.5rem;
+  color: #000000de;
+  font-weight: 500;
+}
+
+.span-text-end {
+  font-size: 1.5rem;
+  color: #3f51b5;
+  font-weight: 500;
+}
+
+.same-date {
+  font-size: 0.75rem;
+  opacity: 0.4;
+  color: #000000DE;
+  font-weight: normal;
 }
 
 .modal {
@@ -135,31 +148,31 @@
   top: 0;
   left: 0;
 }
-@media only screen and (max-device-width: 576px)  {
+@media only screen and (max-device-width: 576px) {
   :host-context(.chatbot) .modal {
-   height: 100%;
+    height: 100%;
     width: 100%;
   }
-  :host-context(.chatbot) .done-btn{
-    bottom : 18px;
+  :host-context(.chatbot) .done-btn {
+    bottom: 18px;
   }
 }
 
-@media only screen and (min-device-width: 768px)  {
+@media only screen and (min-device-width: 768px) {
   :host-context(.chatbot) .modal {
     bottom: 0;
     top: -15%;
   }
 }
 
-.select-all{
+.select-all {
   font-size: 14px;
   position: absolute;
   right: 7%;
 }
 
-@media only screen and (max-device-width: 576px)  {
-  .select-days{
+@media only screen and (max-device-width: 576px) {
+  .select-days {
     margin-bottom: 1%;
   }
 }
