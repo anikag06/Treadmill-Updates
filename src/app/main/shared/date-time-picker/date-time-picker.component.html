@@ -4,17 +4,14 @@
       <div class="startEndDate">
         <ng-container *ngIf="showWhenStart">
           <span class="span-text">
-            When do you want to start?
+            Select start date
           </span>
         </ng-container>
         <ng-container *ngIf="showTillWhen">
-          <div class="span-text">
-            and till when?
+          <div class="span-text-end">
+            Select end date
             <div
-              [ngStyle]="{
-                fontSize: '0.75rem',
-                opacity: '0.4'
-              }"
+             class="same-date"
             >
               Tap on
               {{ startEndDate[START_DATE] | date: 'shortDate' | date: 'd' }}
