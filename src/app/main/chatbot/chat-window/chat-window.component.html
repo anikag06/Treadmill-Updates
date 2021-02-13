@@ -41,7 +41,12 @@
         </mat-progress-spinner>
         <div [ngStyle]="{ fontSize: '12px' }">Loading Messages...</div>
       </div>
-      <div class="clearfix messages" *ngFor="let m of messages">
+      <div class="clearfix messages" *ngFor="let m of messages; let i = index">
+        <div style="text-align: center;">
+          <div class="my-3" *ngIf="isDifferentDay(i)">
+            <span class="msg-date">{{ getMessageDate(i) }}</span>
+          </div>
+        </div>
         <div>
           <ng-container *ngIf="!m.waiting">
             <div class="message" [ngClass]="{ bot: !m.user }" *ngIf="m.message">

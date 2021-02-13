@@ -38,6 +38,7 @@ import { NavbarNotificationsService } from '@/main/shared/navbar/navbar-notifica
 import { CustomOverlayService } from '@/main/shared/custom-overlay/custom-overlay.service';
 import { CommonService } from '@/shared/common.service';
 import { IntroService } from '@/main/walk-through/intro.service';
+import * as moment from 'moment';
 
 declare var twemoji: any;
 
@@ -158,6 +159,8 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   utm_parameters = '?utm_source=Treadwill_IITK&utm_medium=referral';
   @ViewChild('frameContainer', { static: false }) frameRef!: ElementRef;
   currentModule!: string;
+  messageDateString!: string;
+  showWillBotTyping = false;
 
   ngOnChanges(): void {
     if (!this.chatWindowClosed) {
@@ -191,7 +194,8 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
                     message.datetime,
                     false,
                     [],
-                    this.images
+                    this.images,
+                    message.msg_time
                   )
                 );
                 this.scrollToBottom();
@@ -250,7 +254,8 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
           new Date(),
           false,
           [],
-          []
+          [],
+          new Date()
         )
       );
       this.scrollToBottom();
@@ -285,6 +290,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       }
       delete this.widgetValues;
       this.showTextInput = false;
+      this.showWillBotTyping = true;
     }
   }
 
@@ -315,7 +321,8 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
         new Date(),
         false,
         [],
-        []
+        [],
+        new Date()
       )
     );
     this.webSocket.send(
@@ -326,6 +333,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     );
     this.chatButtons = [];
     this.showMore = false;
+    this.showWillBotTyping = true;
   }
 
   scrollToBottom() {
@@ -366,7 +374,8 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
           new Date(),
           false,
           [],
-          []
+          [],
+          new Date()
         );
         this.messages.push(item);
         this.webSocket.close();
@@ -468,7 +477,8 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       m.datetime,
       false,
       m.widgets,
-      this.images
+      this.images,
+      new Date()
     );
     if (m.buttons && m.buttons.length > 0) {
       this.buttonType = m.buttons[0].type;
@@ -556,6 +566,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
         (m[index].widgets && m[index].widgets.length > 0)
       ) {
         setTimeout(() => {
+          this.showWillBotTyping = false;
           this.isLoading = true;
           this.showWritingAndPushChat(m[index]);
           this.scrollToBottom();
@@ -652,7 +663,8 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
                     message.datetime,
                     false,
                     [],
-                    this.images
+                    this.images,
+                    message.msg_time
                   )
                 );
 
@@ -694,7 +706,8 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
           new Date(),
           false,
           [],
-          []
+          [],
+          new Date()
         )
       );
       this.multiLineChat.push(this.message);
@@ -746,5 +759,44 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   }
   onFocusEvent(event: any) {
     this.scrollToBottom();
+  }
+
+  isDifferentDay(messageIndex: number): boolean {
+    if (messageIndex === 0) {
+      return true;
+    }
+
+    const d1 = new Date(this.messages[messageIndex - 1].msg_time);
+    const d2 = new Date(this.messages[messageIndex].msg_time);
+
+    return (
+      d1.getFullYear() !== d2.getFullYear() ||
+      d1.getMonth() !== d2.getMonth() ||
+      d1.getDate() !== d2.getDate()
+    );
+  }
+
+  getMessageDate(messageIndex: number): string {
+    const dateToday = new Date();
+    const longDateYesterday = new Date();
+    longDateYesterday.setDate(new Date().getDate() - 1);
+    const today = moment(dateToday).format('ddd,DD MMM YYYY');
+    const yesterday = moment(longDateYesterday).format('ddd,DD MMM YYYY');
+
+    const wholeDate = new Date(
+      this.messages[messageIndex].msg_time
+    ).toDateString();
+
+    this.messageDateString = moment(
+      this.messages[messageIndex].msg_time
+    ).format('ddd,DD MMM YYYY');
+
+    if (this.messageDateString === today) {
+      return 'Today';
+    } else if (this.messageDateString === yesterday) {
+      return 'Yesterday';
+    } else {
+      return this.messageDateString;
+    }
   }
 }
