@@ -102,9 +102,9 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     this.commonService.isOnline$().subscribe((isOnline) => {
       this.isOnline = isOnline;
       if (!this.isOnline) {
-        this.chatButtons = [];
-        this.showDateTimeWidgetBtn = false;
-        this.showMoodWidgetBtn = false;
+        // this.chatButtons = [];
+        // this.showDateTimeWidgetBtn = false;
+        // this.showMoodWidgetBtn = false;
       }
     });
   }
