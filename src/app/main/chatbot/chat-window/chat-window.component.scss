@@ -418,7 +418,7 @@ $x3: -$leftPos + $dotSpacing;
 }
 .spinnerDiv {
   position: absolute;
-  left: 30%;
+  left: 37%;
   display: inline-flex;
 }
 
@@ -460,4 +460,11 @@ $x3: -$leftPos + $dotSpacing;
   background: #F2F2F2 0 0 no-repeat padding-box;
   border-radius: 13px;
   padding: 5px 12px;
+}
+.bot-typing{
+  position: absolute;
+  bottom: 3%;
+  font-size: 12px;
+  left: 2%;
+  color: #808080;
 }
