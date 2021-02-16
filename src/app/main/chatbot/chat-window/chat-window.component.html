@@ -181,12 +181,12 @@
           </button>
         </div>
       </div>
-      <div class="clearfix chatbot-error-card" *ngIf="!isOnline">
+      <div class="clearfix chatbot-error-card" [hidden]="isOnline">
         <!--        {{ isOnline }}-->
         <img
           src="assets/chatbot/Internet_disconnected.svg"
           width="135px"
-          [ngStyle]="{ marginLeft: '10%' }"
+          [ngStyle]="{ marginLeft: '10%'}"
         />
         <div
           [ngStyle]="{
