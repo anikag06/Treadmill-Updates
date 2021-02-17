@@ -20,7 +20,7 @@
   </div>
   <div
     class="chat-frame-container"
-    [ngStyle]="{ height: mobileView ? 'calc(98% - 46px)' : '490px' }"
+    [ngStyle]="{ height: mobileView ? 'calc( ' + getFrameHeight() +'px - 46px)' : '490px' }"
     #frameContainer
   >
     <div

@@ -161,6 +161,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   currentModule!: string;
   messageDateString!: string;
   showWillBotTyping = false;
+  height = 0;
 
   ngOnChanges(): void {
     if (!this.chatWindowClosed) {
@@ -600,7 +601,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     const unsplashObject = {
       type: 'image',
       url: image.static_url,
-      link: image.creator_link + this.utm_parameters,
+      link: image.creator_link,
       name: image.creator,
       credits: true,
     };
@@ -689,6 +690,9 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     } else {
       return 0;
     }
+  }
+  getFrameHeight() {
+    return window.innerHeight - 15;
   }
   //
   sendReply(event: any) {
