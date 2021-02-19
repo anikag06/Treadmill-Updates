@@ -18,24 +18,24 @@
   width: 344px;
   right: 50px;
   height: 540px;
-  padding-right: 0px;
+  padding-right: 0;
   display: flex;
   flex-direction: column;
-  padding-left: 0px;
+  padding-left: 0;
   bottom: 4vh;
   z-index: 200;
-  border-radius: 10px 10px 0px 0px;
+  border-radius: 10px 10px 0 0;
   box-shadow: 0px -3px 8px #00000029;
   font-family: 'Roboto', sans-serif !important;
-  background: #ffffff 0% 0% no-repeat padding-box;
+  background: #ffffff 0 0 no-repeat padding-box;
   background-image: url('assets/chatbot/Rectangle.png');
   background-size: cover;
   font-family: 'Roboto', sans-serif !important;
   .chat-header {
     height: 46px;
-    box-shadow: 0px 1px 3px #00000029;
-    background: #ffffff 0% 0% no-repeat padding-box;
-    border-radius: 10px 10px 0px 0px;
+    box-shadow: 0 1px 3px #00000029;
+    background: #ffffff 0 0 no-repeat padding-box;
+    border-radius: 10px 10px 0 0;
     h3 {
       float: left;
       font-size: 20px;
@@ -246,7 +246,7 @@
 }
 
 button {
-  background: #ffffff 0% 0% no-repeat padding-box;
+  background: #ffffff 0 0 no-repeat padding-box;
 }
 
 @media screen and (max-width: 500px) {
@@ -260,7 +260,7 @@ button {
     left: 0;
     // margin: 0;
     margin: 4% 2% 0 2%;
-    background: #ffffff 0% 0% no-repeat padding-box;
+    background: #ffffff 0 0 no-repeat padding-box;
     background-image: url('assets/chatbot/Rectangle.png');
     background-size: cover;
     box-shadow: 0px -3px 8px #00000029;
@@ -387,7 +387,7 @@ $x3: -$leftPos + $dotSpacing;
 }
 
 .chatbot-error-card {
-  background: #ffffff 0% 0% no-repeat padding-box;
+  background: #ffffff 0 0 no-repeat padding-box;
   box-shadow: 0px -1px 3px #00000029;
   position: absolute;
   bottom: 1%;
@@ -414,11 +414,11 @@ $x3: -$leftPos + $dotSpacing;
   margin-bottom: 5px;
 }
 .mat-form-field {
-  background: #ffffff 0% 0% no-repeat padding-box;
+  background: #ffffff 0 0 no-repeat padding-box;
 }
 .spinnerDiv {
   position: absolute;
-  left: 30%;
+  left: 37%;
   display: inline-flex;
 }
 
@@ -452,4 +452,19 @@ $x3: -$leftPos + $dotSpacing;
 
 .display_block{
   display: block;
+}
+.msg-date{
+  font-size: 12px;
+  letter-spacing: 0;
+  color: #000000;
+  background: #F2F2F2 0 0 no-repeat padding-box;
+  border-radius: 13px;
+  padding: 5px 12px;
+}
+.bot-typing{
+  position: absolute;
+  bottom: 3%;
+  font-size: 12px;
+  left: 2%;
+  color: #808080;
 }
