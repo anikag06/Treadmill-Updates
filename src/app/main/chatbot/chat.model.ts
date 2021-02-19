@@ -11,6 +11,6 @@ export class Chat {
     public waiting: boolean,
     public widgets: string[],
     public embed_links: any,
-    public msg_time: any
+    public msg_time: any,
   ) {}
 }

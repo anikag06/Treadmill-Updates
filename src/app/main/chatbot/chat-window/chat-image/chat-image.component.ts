@@ -37,7 +37,7 @@ export class ChatImageComponent implements OnInit {
           },
           this.fromConversation
             ? this.image.gif_running_duration * 2
-            : this.CHATBOT_GIF_LOOP_TIME
+            : this.CHATBOT_GIF_LOOP_TIME,
         );
       }
     }

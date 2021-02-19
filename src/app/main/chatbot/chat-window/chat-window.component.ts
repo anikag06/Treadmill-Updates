@@ -196,8 +196,8 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
                     false,
                     [],
                     this.images,
-                    message.msg_time
-                  )
+                    message.msg_time,
+                  ),
                 );
                 this.scrollToBottom();
               }
@@ -256,8 +256,8 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
           false,
           [],
           [],
-          new Date()
-        )
+          new Date(),
+        ),
       );
       this.scrollToBottom();
       const message = this.message;
@@ -323,8 +323,8 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
         false,
         [],
         [],
-        new Date()
-      )
+        new Date(),
+      ),
     );
     this.webSocket.send(
       JSON.stringify({
@@ -376,7 +376,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
           false,
           [],
           [],
-          new Date()
+          new Date(),
         );
         this.messages.push(item);
         this.webSocket.close();
@@ -479,7 +479,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       false,
       m.widgets,
       this.images,
-      new Date()
+      new Date(),
     );
     if (m.buttons && m.buttons.length > 0) {
       this.buttonType = m.buttons[0].type;
@@ -665,8 +665,8 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
                     false,
                     [],
                     this.images,
-                    message.msg_time
-                  )
+                    message.msg_time,
+                  ),
                 );
 
                 this.showSpinner = false;
@@ -711,8 +711,8 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
           false,
           [],
           [],
-          new Date()
-        )
+          new Date(),
+        ),
       );
       this.multiLineChat.push(this.message);
       this.message = '';
@@ -788,11 +788,11 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     const yesterday = moment(longDateYesterday).format('ddd,DD MMM YYYY');
 
     const wholeDate = new Date(
-      this.messages[messageIndex].msg_time
+      this.messages[messageIndex].msg_time,
     ).toDateString();
 
     this.messageDateString = moment(
-      this.messages[messageIndex].msg_time
+      this.messages[messageIndex].msg_time,
     ).format('ddd,DD MMM YYYY');
 
     if (this.messageDateString === today) {
