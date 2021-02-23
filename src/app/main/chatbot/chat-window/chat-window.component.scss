@@ -96,7 +96,7 @@
   .message-text {
     padding: 10px 10px 10px 12px;
     border-radius: 6px 0px 0px 6px;
-    font-size: 14px;
+    font-size: 15px;
     text-align: left;
     box-shadow: 0px 1px 3px #00000029;
     background: #ffffff 0% 0% no-repeat padding-box;
@@ -125,6 +125,7 @@
 .textarea {
   width: 88%;
   float: left;
+  font-size: 15px;
   textarea::-webkit-scrollbar {
     display: none;
     width: 0 !important;
@@ -213,6 +214,11 @@
   }
 }
 
+@keyframes loading {
+  0% { background-position  : -100px; }
+  100% { background-position : 500px; }
+}
+
 .radio_button:hover {
   background: #e9faff;
 }
@@ -274,8 +280,8 @@ button {
     }
     .form-div {
       //height: 8%;
-      bottom: 5px;
-      margin-top: 10px;
+      //bottom: 5px;
+      //margin-top: 10px;
     }
     .scroll-bottom {
       position: absolute;
@@ -463,8 +469,19 @@ $x3: -$leftPos + $dotSpacing;
 }
 .bot-typing{
   position: absolute;
-  bottom: 3%;
+  bottom: 2%;
   font-size: 12px;
   left: 2%;
   color: #808080;
+}
+.module-skeleton {
+  animation: loading 1.7s infinite linear;
+  background: #dedfe1;
+  background-image: -webkit-linear-gradient(to right, #dedfe1 0%, #f2f3f5 20%, #dedfe1 40%, #dedfe1 100%);
+  background-image: linear-gradient(to right, #dedfe1 0%, #f2f3f5 20%, #dedfe1 40%, #dedfe1 100%);
+  background-repeat: no-repeat;
+  width: 150px;
+  height : 80px;
+  border: none;
+  border-radius: 10px;
 }
