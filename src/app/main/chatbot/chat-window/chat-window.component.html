@@ -20,7 +20,9 @@
   </div>
   <div
     class="chat-frame-container"
-    [ngStyle]="{ height: mobileView ? 'calc( ' + getFrameHeight() +'px - 46px)' : '490px' }"
+    [ngStyle]="{
+      height: mobileView ? 'calc( ' + getFrameHeight() + 'px - 46px)' : '490px'
+    }"
     #frameContainer
   >
     <div
@@ -149,18 +151,32 @@
         <button
           mat-stroked-button
           color="primary"
-          *ngFor="let button of chatButtons"
+          *ngFor="let button of chatButtons; let ind = index"
           [ngClass]="{
             'btn radio_button ripple': button.type === radio,
             'btn module_button': button.type === clickAble
           }"
           (click)="chatButtonPressed(button)"
         >
+          <span
+            class="module-skeleton"
+            [ngStyle]="{
+              display:
+                button.type === clickAble && !button.loaded ? 'block' : 'none'
+            }"
+
+          >
+          </span>
           <img
             [src]="button.image_url"
             [alt]="button.emojified_payload"
             width="150px"
             height="80px"
+            [ngStyle]="{
+              display:
+                button.type === clickAble && button.loaded ? 'block' : 'none'
+            }"
+            (load)="imageLoaded(ind)"
             *ngIf="button.type === clickAble; else btnText"
           />
           <ng-template #btnText>
@@ -186,7 +202,7 @@
         <img
           src="assets/chatbot/Internet_disconnected.svg"
           width="135px"
-          [ngStyle]="{ marginLeft: '10%'}"
+          [ngStyle]="{ marginLeft: '10%' }"
         />
         <div
           [ngStyle]="{
@@ -243,8 +259,7 @@
           <!--                <mat-form-field class="full-width">-->
           <textarea
             matInput
-            cdkTextareaAutosize
-            cdkAutosizeMinRows="1"
+            rows="3"
             placeholder="Enter your message"
             [(ngModel)]="message"
             name="message"
