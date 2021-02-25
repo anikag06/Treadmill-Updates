@@ -18,9 +18,10 @@ import { User } from '@/shared/user.model';
 export class UserProfileComponent implements OnInit, AfterViewInit {
   constructor(
     private element: ElementRef,
-    private userProfileService: UserProfileService,
+    private userProfileService: UserProfileService
   ) {}
   @Input() userProfile!: UserProfile;
+  @Input() fromSupportGroup!: boolean;
   showLoading = true;
   profileLoaded = false;
   user!: User;
@@ -28,26 +29,30 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
   silverBadgesColor = '#96959A';
   bronzeBadgesColor = '#CD7F32';
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.userProfile);
+  }
+
+  ngOnChanges() {}
 
   ngAfterViewInit() {
     const inkBar = this.element.nativeElement.querySelectorAll(
-      '.mat-tab-group.mat-primary .mat-ink-bar,.mat-tab-nav-bar.mat-primary .mat-ink-bar',
+      '.mat-tab-group.mat-primary .mat-ink-bar,.mat-tab-nav-bar.mat-primary .mat-ink-bar'
     );
     inkBar[0].setAttribute('style', 'background: black;');
     const tabLabel = this.element.nativeElement.querySelectorAll(
-      '.mat-tab-label',
+      '.mat-tab-label'
     );
     for (let i = 0; i < tabLabel.length; i++) {
       tabLabel[i].setAttribute(
         'style',
-        'min-width: 80px;height:40px;opacity:1',
+        'min-width: 80px;height:40px;opacity:1'
       );
     }
 
     if (window.innerWidth < MOBILE_WIDTH) {
       const headerText = this.element.nativeElement.querySelectorAll(
-        '.mat-card-header-text',
+        '.mat-card-header-text'
       );
       headerText[0].setAttribute('style', 'margin: 0px');
     }
@@ -73,6 +78,9 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
   }
 
   getScore() {
+    if (this.fromSupportGroup) {
+      return this.userProfile.score;
+    }
     return this.userProfileService.getScoreValue();
   }
 }

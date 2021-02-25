@@ -387,7 +387,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
         this.messages.push(item);
         this.webSocket.close();
       } else if (data.action === 'ws_close') {
-        this.closeChat();
+        this.close();
       } else {
         this.page = 1;
         this.start(data.message);
@@ -428,7 +428,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       }
     });
 
-    if (m.buttons && m.buttons.length < 5) {
+    if (m.buttons && m.buttons.length !== 0 && m.buttons.length < 5) {
       setTimeout(() => {
         this.chatButtons = [];
         this.chatButtons = m.buttons;
@@ -436,7 +436,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
           this.chatButtons[i].loaded = false;
         }
       }, this.getSentenceDelayButton(m.text));
-    } else {
+    } else if (m.buttons && m.buttons.length !== 0 && m.buttons.length >= 5) {
       this.buttonsBuffer = m.buttons;
       setTimeout(() => {
         this.chatButtons = m.buttons.slice(0, 4);

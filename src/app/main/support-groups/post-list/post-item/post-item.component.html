@@ -15,7 +15,7 @@
 <div class="post-item">
   <div class="d-flex flex-row" appClickOutside (clickOutside)="onClickOutside($event)">
     <div class="support-profile-card" *ngIf="showProfile">
-      <app-user-profile class="support-group" [userProfile]="userProfile"></app-user-profile>
+      <app-user-profile class="support-group" [fromSupportGroup]="true" [userProfile]="userProfile"></app-user-profile>
     </div>
     <div class=" d-inline-flex flex-row align-items-start" style="width:80%">
 
