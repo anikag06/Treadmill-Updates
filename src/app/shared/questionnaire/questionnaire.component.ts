@@ -173,6 +173,7 @@ export class QuestionnaireComponent implements OnInit {
   followup = false;
   showLoading = false;
   // tslint:disable-next-line:max-line-length
+  iswaitList = false;
   constructor(
     private quizService: QuizService,
     private flowService: FlowService,
@@ -702,6 +703,8 @@ export class QuestionnaireComponent implements OnInit {
         gad_response.user_response,
       );
       registration_gad.participant_id = this.registrationDataService.participationID;
+      this.iswaitList = this.registrationDataService.isWaitList;
+      console.log('waitlist', this.iswaitList , this.registrationDataService.isWaitList);
 
       this.registrationDataService
         .saveGADData(registration_gad)
@@ -710,11 +713,13 @@ export class QuestionnaireComponent implements OnInit {
           const userEligible = !res_data.data.excluded;
           this.registrationDataService.participationID =
             res_data.data.participant_id;
-          if (userEligible) {
+          if (userEligible && !this.iswaitList) {
             this.trialAuthService.activateChild(true);
             const stepNumber = res_data.data.next_step;
             const navigation_step = REGISTRATION_PATH + '/step-' + stepNumber;
             this.router.navigate([navigation_step]);
+          } else if (userEligible && this.iswaitList) {
+            this.quizService.questionnaire_active.emit(false);
           } else {
             this.moveToThankYouPage();
           }

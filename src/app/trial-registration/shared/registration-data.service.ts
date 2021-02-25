@@ -24,6 +24,8 @@ export class RegistrationDataService {
   participationID!: number;
   trial_email!: string;
   signup_link!: string;
+  isWaitList!: boolean;
+
   constructor(private http: HttpClient) {}
 
   storeEmailID(emailID: any) {
