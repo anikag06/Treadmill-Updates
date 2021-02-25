@@ -32,10 +32,8 @@ export class CommonService {
     private http: HttpClient,
     private userProfileService: UserProfileService,
     private snackBar: MatSnackBar,
-    private componentFactoryResolver: ComponentFactoryResolver,
-  ) {
-    this.user = this.authService.isLoggedIn()!;
-  }
+    private componentFactoryResolver: ComponentFactoryResolver
+  ) {}
   isOnline$() {
     return merge<boolean>(
       fromEvent(window, 'offline').pipe(map(() => false)),
@@ -43,11 +41,12 @@ export class CommonService {
       new Observable((sub: Observer<boolean>) => {
         sub.next(navigator.onLine);
         sub.complete();
-      }),
+      })
     );
   }
 
   postScore(score: number) {
+    this.user = this.authService.isLoggedIn()!;
     const body = {
       score: score,
     };
@@ -62,7 +61,7 @@ export class CommonService {
         '/api/v1/user/user-profile/' +
         this.user.username,
       body,
-      httpOptions,
+      httpOptions
     );
   }
   postScoreForOther(score: number, username: string) {
@@ -78,7 +77,7 @@ export class CommonService {
     return this.http.patch(
       environment.API_ENDPOINT + '/api/v1/user/user-profile/' + username,
       body,
-      httpOptions,
+      httpOptions
     );
   }
   updateScore(score: number) {
@@ -94,10 +93,10 @@ export class CommonService {
 
   showPointsNotification(points: number) {
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
-      PointsComponent,
+      PointsComponent
     );
     const pointsComponent = this.pointsNotificationRef.createComponent(
-      componentFactory,
+      componentFactory
     );
     pointsComponent.instance.points = points;
     this.component = pointsComponent;
