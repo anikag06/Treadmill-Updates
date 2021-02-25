@@ -211,7 +211,6 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnInit() {
     this.mobileView = window.innerWidth < MOBILE_WIDTH;
-
     if (this.introService.getChatbotIntro()) {
       this.introService.startChatbotCloseIntro();
     }
@@ -501,7 +500,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       this.buttonType = m.buttons[0].type;
     }
     this.messages.push(item);
-
+    this.scrollToBottom();
     setTimeout(() => {
       this.scrollToBottom();
     }, this.getSentenceDelayButton(m.text) + 50);
