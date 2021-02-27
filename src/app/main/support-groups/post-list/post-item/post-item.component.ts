@@ -360,8 +360,10 @@ export class PostItemComponent
   /**
    * If the post is made by the same user
    */
+
   ownPost() {
-    return this.user.username === this.supportGroupItem.user.username;
+    // tslint:disable-next-line:max-line-length
+    return this.user.username.localeCompare(this.supportGroupItem.user.username, undefined, { sensitivity: 'base' }) === 0;   // checking for case-insensitive string comparison
   }
 
   /**
@@ -432,15 +434,14 @@ export class PostItemComponent
           () => {
             if (
               !this.upVoteFirstClick &&
-              !this.downVoteFirstClick &&
-              this.supportGroupItem.is_voted !== -1
+              this.supportGroupItem.is_voted === 1
             ) {
               this.upVoteFirstClick = true;
               this.commonService.updateScore(SUPPORT_GROUP_UP_DOWN_VOTE_SCORE);
               this.commonService.postScoreForOther(
                 SUPPORT_GROUP_GETTING_UP_VOTE_SCORE,
                 this.supportGroupItem.user.username,
-              );
+              ).subscribe( () => {});
             }
           },
           () => {
@@ -475,7 +476,7 @@ export class PostItemComponent
           if (
             !this.downVoteFirstClick &&
             !this.upVoteFirstClick &&
-            this.supportGroupItem.is_voted !== -1
+            this.supportGroupItem.is_voted !== 1
           ) {
             this.downVoteFirstClick = true;
             this.commonService.updateScore(SUPPORT_GROUP_UP_DOWN_VOTE_SCORE);
