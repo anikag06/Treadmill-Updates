@@ -9,7 +9,7 @@
   <div class="row  mx-0"  *ngIf="userExists">
     <p>You have already signed up for TreadWill. Your username is {{username}}. Please go to <a routerLink="/landing">Login</a> page.</p>
   </div>
-  <div class="row  mx-0"  *ngIf="already_submitted || date_over">
+  <div class="row  mx-0 thank-you-text"  *ngIf="already_submitted || date_over">
     <p>You have already submitted the questionnaire.</p>
     <p>Please click <a href="{{sign_up_link}}">here</a> to go to the sign up page.
     </p>

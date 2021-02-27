@@ -40,6 +40,7 @@ export class WaitlistComponent implements OnInit {
     if (smallDevice) {
       this.showContent = true;
     }
+   this.registrationDataService.isWaitList = true;
     this.activatedRoute.params.subscribe(params => {
       this.encrypted_email = params['unique-code'];
 
@@ -76,6 +77,7 @@ export class WaitlistComponent implements OnInit {
     });
     this.quizService.questionnaire_active.subscribe((value: boolean) => {
       if (!value) {
+        this.showQuestionnaire = false;
         this.quizSubmitted = true;
       }
     });
