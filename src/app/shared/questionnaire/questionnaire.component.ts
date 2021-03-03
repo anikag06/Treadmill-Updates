@@ -704,7 +704,11 @@ export class QuestionnaireComponent implements OnInit {
       );
       registration_gad.participant_id = this.registrationDataService.participationID;
       this.iswaitList = this.registrationDataService.isWaitList;
-      console.log('waitlist', this.iswaitList , this.registrationDataService.isWaitList);
+      console.log(
+        'waitlist',
+        this.iswaitList,
+        this.registrationDataService.isWaitList,
+      );
 
       this.registrationDataService
         .saveGADData(registration_gad)

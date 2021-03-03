@@ -171,10 +171,12 @@ export class NestedCommentComponent
             ) {
               this.upVoteFirstClick = true;
               this.commonService.updateScore(SUPPORT_GROUP_UP_DOWN_VOTE_SCORE);
-              this.commonService.postScoreForOther(
-                SUPPORT_GROUP_GETTING_UP_VOTE_SCORE,
-                this.userNestedComment.user.username,
-              ).subscribe( () => {});
+              this.commonService
+                .postScoreForOther(
+                  SUPPORT_GROUP_GETTING_UP_VOTE_SCORE,
+                  this.userNestedComment.user.username,
+                )
+                .subscribe(() => {});
             }
           },
           () => {
@@ -245,7 +247,13 @@ export class NestedCommentComponent
    */
   ownComment() {
     // checking for case-insensitive string comparison
-    return this.user.username.localeCompare(this.userNestedComment.user.username, undefined, { sensitivity: 'base' }) === 0;
+    return (
+      this.user.username.localeCompare(
+        this.userNestedComment.user.username,
+        undefined,
+        { sensitivity: 'base' },
+      ) === 0
+    );
   }
 
   onClickOutside(event: Object) {

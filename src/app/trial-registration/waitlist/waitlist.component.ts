@@ -40,7 +40,7 @@ export class WaitlistComponent implements OnInit {
     if (smallDevice) {
       this.showContent = true;
     }
-   this.registrationDataService.isWaitList = true;
+    this.registrationDataService.isWaitList = true;
     this.activatedRoute.params.subscribe(params => {
       this.encrypted_email = params['unique-code'];
 

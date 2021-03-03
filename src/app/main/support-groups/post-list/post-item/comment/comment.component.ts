@@ -312,16 +312,15 @@ export class CommentComponent
         })
         .subscribe(
           () => {
-            if (
-              !this.upVoteFirstClick &&
-              this.comment.is_voted === 1
-            ) {
+            if (!this.upVoteFirstClick && this.comment.is_voted === 1) {
               this.upVoteFirstClick = true;
               this.commonService.updateScore(SUPPORT_GROUP_UP_DOWN_VOTE_SCORE);
-              this.commonService.postScoreForOther(
-                SUPPORT_GROUP_GETTING_UP_VOTE_SCORE,
-                this.comment.user.username,
-              ).subscribe( () => {});
+              this.commonService
+                .postScoreForOther(
+                  SUPPORT_GROUP_GETTING_UP_VOTE_SCORE,
+                  this.comment.user.username,
+                )
+                .subscribe(() => {});
             }
           },
           () => {
@@ -388,8 +387,11 @@ export class CommentComponent
    */
   ownComment() {
     // checking for case-insensitive string comparison
-    return this.user.username.localeCompare(this.comment.user.username, undefined, { sensitivity: 'base' }) === 0;
-
+    return (
+      this.user.username.localeCompare(this.comment.user.username, undefined, {
+        sensitivity: 'base',
+      }) === 0
+    );
   }
 
   onCommentShowProfile(username: string) {

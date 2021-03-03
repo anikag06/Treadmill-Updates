@@ -363,7 +363,13 @@ export class PostItemComponent
 
   ownPost() {
     // tslint:disable-next-line:max-line-length
-    return this.user.username.localeCompare(this.supportGroupItem.user.username, undefined, { sensitivity: 'base' }) === 0;   // checking for case-insensitive string comparison
+    return (
+      this.user.username.localeCompare(
+        this.supportGroupItem.user.username,
+        undefined,
+        { sensitivity: 'base' },
+      ) === 0
+    ); // checking for case-insensitive string comparison
   }
 
   /**
@@ -438,10 +444,12 @@ export class PostItemComponent
             ) {
               this.upVoteFirstClick = true;
               this.commonService.updateScore(SUPPORT_GROUP_UP_DOWN_VOTE_SCORE);
-              this.commonService.postScoreForOther(
-                SUPPORT_GROUP_GETTING_UP_VOTE_SCORE,
-                this.supportGroupItem.user.username,
-              ).subscribe( () => {});
+              this.commonService
+                .postScoreForOther(
+                  SUPPORT_GROUP_GETTING_UP_VOTE_SCORE,
+                  this.supportGroupItem.user.username,
+                )
+                .subscribe(() => {});
             }
           },
           () => {
