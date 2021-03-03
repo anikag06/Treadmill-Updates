@@ -4,8 +4,6 @@ import { QuesUserResponseArray } from './input/response';
 import { QuizService } from './questionnaire.service';
 import { environment } from 'environments/environment';
 
-// tslint:disable-next-line:max-line-length
-// import { User } from '@/shared/user.model';
 import {
   useAnimation,
   trigger,
@@ -16,10 +14,7 @@ import {
 } from '@angular/animations';
 import { DataService } from './data.service';
 import { FlowService } from '@/main/flow/flow.service';
-// import { StepGroup } from '@/main/flow/step-group/step-group.model';
-// import { ACTIVE, QUESTIONNAIRE, } from '@/app.constants';
 import { Router, ActivatedRoute } from '@angular/router';
-// import { Step } from '@/main/flow/step-group/step/step.model';
 import { TrialAuthService } from '@/trial-registration/shared/trial-auth.service';
 import { RegistrationQuestionnaireScore } from '@/trial-registration/registration-step-three/resgistration-step-three-response.model';
 import { RegistrationDataService } from '@/trial-registration/shared/registration-data.service';
@@ -704,11 +699,6 @@ export class QuestionnaireComponent implements OnInit {
       );
       registration_gad.participant_id = this.registrationDataService.participationID;
       this.iswaitList = this.registrationDataService.isWaitList;
-      console.log(
-        'waitlist',
-        this.iswaitList,
-        this.registrationDataService.isWaitList,
-      );
 
       this.registrationDataService
         .saveGADData(registration_gad)
