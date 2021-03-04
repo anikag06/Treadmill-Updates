@@ -24,7 +24,7 @@ export class CustomOverlayComponent implements OnInit {
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
     private notificationService: NavbarNotificationsService,
-    private overlayService: CustomOverlayService,
+    private overlayService: CustomOverlayService
   ) {}
 
   ngOnInit() {
@@ -49,7 +49,10 @@ export class CustomOverlayComponent implements OnInit {
     // }
   }
   onClick($event: any) {
-    $event.stopPropagation();
+    if (!this.overlayService.showChatbot) {
+      $event.stopPropagation();
+    }
+
     if (
       $event.target.classList.contains('backdrop') &&
       !this.overlayService.showChatbot
