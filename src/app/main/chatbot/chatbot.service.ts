@@ -21,7 +21,7 @@ export class ChatbotService {
         '?page=1&' +
         'date_time=' +
         dateTime,
-      {},
+      {}
     );
   }
 
@@ -34,7 +34,7 @@ export class ChatbotService {
         page +
         '&date_time=' +
         dateTime,
-      {},
+      {}
     );
   }
 }

@@ -24,7 +24,7 @@ export class CustomOverlayComponent implements OnInit {
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
     private notificationService: NavbarNotificationsService,
-    private overlayService: CustomOverlayService,
+    private overlayService: CustomOverlayService
   ) {}
 
   ngOnInit() {
