@@ -1,4 +1,9 @@
-<div *ngIf="!removeChat" appNavbarFlow>
+<div
+  *ngIf="!removeChat"
+  appNavbarFlow
+  appClickOutside
+  (clickOutside)="onClickOutside($event)"
+>
   <button
     mat-stroked-button
     aria-label="Chatbot icon button"
@@ -20,4 +25,7 @@
     [currentDateTime]="currentDateTime"
     (chatWindowClosedEmitter)="updateChatWindow($event)"
   ></app-chat-window>
+</div>
+<div>
+  <ng-template #clickOutsideNotification></ng-template>
 </div>

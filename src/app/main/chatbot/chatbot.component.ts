@@ -1,19 +1,21 @@
 import {
   Component,
-  OnInit,
-  ElementRef,
-  Inject,
-  ViewChild,
   ComponentFactoryResolver,
+  ElementRef,
   Input,
+  OnInit,
+  ViewChild,
+  ViewContainerRef,
 } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { DOCUMENT } from '@angular/common';
+import { Router } from '@angular/router';
 import { CustomOverlayComponent } from '@/main/shared/custom-overlay/custom-overlay.component';
 import { NavbarFlowDirective } from '@/main/shared/navbar/navbar-flow.directive';
 import { NavbarNotificationsService } from '@/main/shared/navbar/navbar-notifications.service';
 import { CustomOverlayService } from '@/main/shared/custom-overlay/custom-overlay.service';
 import { IntroService } from '@/main/walk-through/intro.service';
+import { ChatbotClickOutsideComponent } from '@/main/chatbot/chatbot-click-outside/chatbot-click-outside.component';
+import { ChatbotService } from '@/main/chatbot/chatbot.service';
+import { MOBILE_WIDTH } from '@/app.constants';
 
 @Component({
   selector: 'app-chatbot',
@@ -29,6 +31,13 @@ export class ChatbotComponent implements OnInit {
   overlayOpen = false;
   @Input() flowOpen!: boolean;
   currentDateTime!: any;
+  @ViewChild('clickOutsideNotification', {
+    static: true,
+    read: ViewContainerRef,
+  })
+  clickOutsideRef!: ViewContainerRef;
+  CLICK_OUTSIDE_DURATION = 5000;
+  mobileView!: boolean;
 
   constructor(
     private router: Router,
@@ -37,6 +46,7 @@ export class ChatbotComponent implements OnInit {
     private overlayService: CustomOverlayService,
     private componentFactoryResolver: ComponentFactoryResolver,
     private introService: IntroService,
+    private chatbotService: ChatbotService
   ) {}
 
   ngOnInit() {
@@ -51,6 +61,7 @@ export class ChatbotComponent implements OnInit {
       this.overlayService.showFlow = false;
       this.removingChat();
     });
+    this.mobileView = window.innerWidth < MOBILE_WIDTH;
   }
 
   toggleChat() {
@@ -62,7 +73,7 @@ export class ChatbotComponent implements OnInit {
     this.overlayService.showFlow = false;
     this.overlayService.showChatbot = true;
     const navbarFLowComponentFactory = this.componentFactoryResolver.resolveComponentFactory(
-      CustomOverlayComponent,
+      CustomOverlayComponent
     );
     const hostViewContainerRef = this.flowHost.viewContainerRef;
     hostViewContainerRef.clear();
@@ -78,6 +89,10 @@ export class ChatbotComponent implements OnInit {
     if (this.introService.getChatbotIntro()) {
       this.introService.exitChatbotIntro();
     }
+
+    setTimeout(() => {
+      this.chatbotService.showOutsideModal = true;
+    }, 50);
   }
 
   updateChatWindow(event: boolean) {
@@ -86,7 +101,7 @@ export class ChatbotComponent implements OnInit {
 
   removingChat() {
     let match = false;
-    this.blacklisted.forEach(data => {
+    this.blacklisted.forEach((data) => {
       if (location.pathname.match(data)) {
         match = true;
       }
@@ -96,5 +111,30 @@ export class ChatbotComponent implements OnInit {
         this.removeChat = false;
       }
     });
+  }
+  onClickOutside(event: any) {
+    if (
+      event &&
+      (<any>event)['value'] === true &&
+      !this.chatbotService.chatBotModalClicked &&
+      !this.chatbotService.modalExist &&
+      !this.chatwindowClosed &&
+      this.chatbotService.showOutsideModal &&
+      !this.mobileView
+    ) {
+      const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
+        ChatbotClickOutsideComponent
+      );
+      const clickOutsideComponent = this.clickOutsideRef.createComponent(
+        componentFactory
+      );
+
+      this.chatbotService.modalExist = true;
+      setTimeout(() => {
+        clickOutsideComponent.destroy();
+        this.chatbotService.chatBotModalClicked = false;
+        this.chatbotService.modalExist = false;
+      }, this.CLICK_OUTSIDE_DURATION);
+    }
   }
 }

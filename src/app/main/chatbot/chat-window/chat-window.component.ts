@@ -67,12 +67,6 @@ declare var twemoji: any;
           transform: 'translateY(0%)',
         })
       ),
-      // state(
-      //   'animateClosed',
-      //   style({
-      //     transform: 'translateY(100%)',
-      //   }),
-      // ),
       transition('open => closed', [animate('0.5s linear')]),
       transition('closed => open', [animate('0.5s linear')]),
       transition('void => animateOpen', [
@@ -100,11 +94,6 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   ) {
     this.commonService.isOnline$().subscribe((isOnline) => {
       this.isOnline = isOnline;
-      if (!this.isOnline) {
-        // this.chatButtons = [];
-        // this.showDateTimeWidgetBtn = false;
-        // this.showMoodWidgetBtn = false;
-      }
     });
   }
 
@@ -312,6 +301,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       }, this.SCROLL_DELAY);
       this.overlayService.closeChatbotOverlay.emit();
     }
+    this.chatbotService.showOutsideModal = false;
   }
 
   ngOnDestroy(): void {
