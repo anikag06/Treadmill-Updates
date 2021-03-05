@@ -184,6 +184,7 @@ import { ReportproblemComponent } from './reportproblem/reportproblem.component'
 import { ReportproblemService } from '@/main/reportproblem/reportproblem.service';
 import { UpdateBottomSheetComponent } from '@/shared/update-bottom-sheet/update-bottom-sheet.component';
 import { FcmService } from '@/shared/fcm.service';
+import { ChatbotClickOutsideComponent } from './chatbot/chatbot-click-outside/chatbot-click-outside.component';
 
 // import { Resources2Routing } from './extra-resources/extra-resources-routing.module.ts/extra-resources-routing.module.ts.component';
 
@@ -302,6 +303,7 @@ import { FcmService } from '@/shared/fcm.service';
     ResourcesIntroComponent,
     ReportproblemComponent,
     UpdateBottomSheetComponent,
+    ChatbotClickOutsideComponent,
   ],
   imports: [
     CommonModule,
@@ -418,6 +420,7 @@ import { FcmService } from '@/shared/fcm.service';
     ResourcesIntroComponent,
     ReportproblemComponent,
     UpdateBottomSheetComponent,
+    ChatbotClickOutsideComponent,
   ],
   exports: [TrimStringPipe],
 })

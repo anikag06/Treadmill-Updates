@@ -9,6 +9,10 @@ import * as moment from 'moment';
 export class ChatbotService {
   constructor(private http: HttpClient) {}
 
+  chatBotModalClicked = false;
+  modalExist = false;
+  showOutsideModal = false;
+
   postPreviousChat(currentDateTime: any) {
     const dateTime = moment.utc(currentDateTime).format('DD/MM/YY+HH:mm:ss');
     return this.http.post(
@@ -17,7 +21,7 @@ export class ChatbotService {
         '?page=1&' +
         'date_time=' +
         dateTime,
-      {},
+      {}
     );
   }
 
@@ -30,7 +34,7 @@ export class ChatbotService {
         page +
         '&date_time=' +
         dateTime,
-      {},
+      {}
     );
   }
 }
