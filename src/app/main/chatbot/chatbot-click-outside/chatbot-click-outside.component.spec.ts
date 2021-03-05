@@ -8,9 +8,8 @@ describe('ChatbotClickOutsideComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ChatbotClickOutsideComponent ]
-    })
-    .compileComponents();
+      declarations: [ChatbotClickOutsideComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
