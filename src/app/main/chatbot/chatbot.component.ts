@@ -2,6 +2,7 @@ import {
   Component,
   ComponentFactoryResolver,
   ElementRef,
+  HostListener,
   Input,
   OnInit,
   ViewChild,
@@ -38,6 +39,8 @@ export class ChatbotComponent implements OnInit {
   clickOutsideRef!: ViewContainerRef;
   CLICK_OUTSIDE_DURATION = 5000;
   mobileView!: boolean;
+  popupXPosition!: number;
+  popupYPosition!: number;
 
   constructor(
     private router: Router,
@@ -112,6 +115,7 @@ export class ChatbotComponent implements OnInit {
       }
     });
   }
+
   onClickOutside(event: any) {
     if (
       event &&
@@ -128,6 +132,8 @@ export class ChatbotComponent implements OnInit {
       const clickOutsideComponent = this.clickOutsideRef.createComponent(
         componentFactory
       );
+      clickOutsideComponent.instance.xPosition = this.popupXPosition;
+      clickOutsideComponent.instance.yPosition = this.popupYPosition;
 
       this.chatbotService.modalExist = true;
       setTimeout(() => {
@@ -135,6 +141,23 @@ export class ChatbotComponent implements OnInit {
         this.chatbotService.chatBotModalClicked = false;
         this.chatbotService.modalExist = false;
       }, this.CLICK_OUTSIDE_DURATION);
+    }
+  }
+  @HostListener('document:click', ['$event'])
+  clickout(event: MouseEvent) {
+    const popupHeight = 100, // hardcode these values
+      popupWidth = 320;
+    console.log(window.innerWidth);
+    if (event.clientX + popupWidth > window.innerWidth) {
+      this.popupXPosition = event.pageX - popupWidth;
+    } else {
+      this.popupXPosition = event.pageX;
+    }
+
+    if (event.clientY + popupHeight > window.innerHeight) {
+      this.popupYPosition = event.pageY - popupHeight;
+    } else {
+      this.popupYPosition = event.pageY;
     }
   }
 }
