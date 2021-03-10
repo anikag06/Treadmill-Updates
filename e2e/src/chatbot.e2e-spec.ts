@@ -27,7 +27,7 @@ describe('treadwill Flow control group', () => {
     page.clickLoginLink();
     browser.sleep(2500);
     // username is hardcoded here
-    page.fillLoginForm('root123', 'test123');
+    page.fillLoginForm('arka321', 'test123');
     expect(fp.onDashboard()).toBeTruthy('url does not contains dashboard');
     browser.sleep(1000);
   });
