@@ -12,6 +12,7 @@ describe('treadwill Flow control group', () => {
   let page: AppPage;
   let fp: FlowPage;
   let cp: ChatbotPage;
+  let button = element(by.css('.button'))
 
 
   beforeEach(() => {
@@ -34,13 +35,23 @@ describe('treadwill Flow control group', () => {
 
   it('should click on chatbot', () => {
     page.clickChatbotBtn();
+    browser.sleep(2000);
+  });
 
-    browser.sleep(6000);
+  it('should check no problem statement', () => {
+    expect(button.getText()).toEqual('No problem');
+    cp.clickOnButton('No problem');
+    browser.sleep(2000);
+  });
+
+  it('should check next statement', () => {
+    expect(cp.findButton('Sure')).toBeTruthy();
+    cp.clickOnButton('Sure');
     browser.sleep(2000);
   });
 
 
-  
+
   afterEach(async () => {
     // Assert that there are no errors emitted from the browser
     // const logs = await browser

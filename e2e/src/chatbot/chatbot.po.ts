@@ -16,4 +16,18 @@ export class ChatbotPage {
     browser.refresh();
     browser.sleep(2000);
   }
+
+  findButton(btn: string) {
+    const newbtn = element(by.cssContainingText('button', btn));
+    browser.wait(this.EC.presenceOf(newbtn)).then(() => {
+      return true;
+    });
+  }
+
+  clickOnButton(btn: string) {
+    const btnClick = element(by.cssContainingText('button', btn));
+    // browser.wait(this.EC.presenceOf(btnClick)).then(() => {
+      btnClick.click();
+    // });
+  }
 }
