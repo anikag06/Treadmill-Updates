@@ -2,6 +2,7 @@ import {
   Component,
   ComponentFactoryResolver,
   ElementRef,
+  HostListener,
   Input,
   OnInit,
   ViewChild,
@@ -38,6 +39,10 @@ export class ChatbotComponent implements OnInit {
   clickOutsideRef!: ViewContainerRef;
   CLICK_OUTSIDE_DURATION = 5000;
   mobileView!: boolean;
+  popupXPosition!: number;
+  popupYPosition!: number;
+  clickOutsideComponent!: any;
+  timer!: any;
 
   constructor(
     private router: Router,
@@ -46,7 +51,7 @@ export class ChatbotComponent implements OnInit {
     private overlayService: CustomOverlayService,
     private componentFactoryResolver: ComponentFactoryResolver,
     private introService: IntroService,
-    private chatbotService: ChatbotService,
+    private chatbotService: ChatbotService
   ) {}
 
   ngOnInit() {
@@ -73,7 +78,7 @@ export class ChatbotComponent implements OnInit {
     this.overlayService.showFlow = false;
     this.overlayService.showChatbot = true;
     const navbarFLowComponentFactory = this.componentFactoryResolver.resolveComponentFactory(
-      CustomOverlayComponent,
+      CustomOverlayComponent
     );
     const hostViewContainerRef = this.flowHost.viewContainerRef;
     hostViewContainerRef.clear();
@@ -92,16 +97,19 @@ export class ChatbotComponent implements OnInit {
 
     setTimeout(() => {
       this.chatbotService.showOutsideModal = true;
-    }, 50);
+    }, 500);
   }
 
   updateChatWindow(event: boolean) {
     this.chatwindowClosed = event;
+    this.clickOutsideComponent.destroy();
+    this.chatbotService.modalExist = false;
+    clearTimeout(this.timer);
   }
 
   removingChat() {
     let match = false;
-    this.blacklisted.forEach(data => {
+    this.blacklisted.forEach((data) => {
       if (location.pathname.match(data)) {
         match = true;
       }
@@ -112,6 +120,7 @@ export class ChatbotComponent implements OnInit {
       }
     });
   }
+
   onClickOutside(event: any) {
     if (
       event &&
@@ -123,18 +132,55 @@ export class ChatbotComponent implements OnInit {
       !this.mobileView
     ) {
       const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
-        ChatbotClickOutsideComponent,
+        ChatbotClickOutsideComponent
       );
-      const clickOutsideComponent = this.clickOutsideRef.createComponent(
-        componentFactory,
+      this.clickOutsideComponent = this.clickOutsideRef.createComponent(
+        componentFactory
       );
+      this.clickOutsideComponent.instance.xPosition = this.popupXPosition;
+      this.clickOutsideComponent.instance.yPosition = this.popupYPosition;
 
       this.chatbotService.modalExist = true;
-      setTimeout(() => {
-        clickOutsideComponent.destroy();
+      this.timer = setTimeout(() => {
+        this.clickOutsideComponent.destroy();
         this.chatbotService.chatBotModalClicked = false;
         this.chatbotService.modalExist = false;
+        // this.chatbotService.showOutsideModal = false;
       }, this.CLICK_OUTSIDE_DURATION);
     }
+  }
+  @HostListener('document:click', ['$event'])
+  clickout(event: MouseEvent) {
+    const popupHeight = 80, // hardcode these values
+      popupWidth = 320;
+
+    if (event.clientX + popupWidth > window.innerWidth) {
+      this.popupXPosition = event.pageX - popupWidth;
+    } else {
+      this.popupXPosition = event.pageX;
+    }
+
+    if (event.clientY + popupHeight > window.innerHeight) {
+      this.popupYPosition = event.pageY - popupHeight;
+    } else {
+      this.popupYPosition = event.pageY;
+    }
+    const rect2 = this.elementRef.nativeElement
+      .querySelector('.chat-window')
+      .getBoundingClientRect();
+
+    const isColliding = !(
+      this.popupYPosition > rect2.bottom ||
+      this.popupXPosition + 320 < rect2.left ||
+      this.popupYPosition + 80 < rect2.top ||
+      this.popupXPosition > rect2.right
+    );
+    if (isColliding) {
+      this.popupXPosition =
+        window.innerWidth <= 1366
+          ? window.innerWidth / 2 - 100
+          : window.innerWidth / 2 + 100;
+    }
+    // console.log(isColliding, this.popupXPosition, this.popupYPosition, rect2);
   }
 }

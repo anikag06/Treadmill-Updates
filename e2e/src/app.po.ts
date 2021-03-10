@@ -21,6 +21,10 @@ export class AppPage {
     element(by.css(text)).click();
   }
 
+  clickChatbotBtn() {
+    element(by.css('.chat-btn')).click();
+  }
+
   clickLoginLink() {
     // element(by.css('a.login-btn')).click();
     // element(by.css('a.pre-login-side-nav-anchor')).click();
