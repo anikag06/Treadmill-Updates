@@ -4,8 +4,6 @@ import { QuesUserResponseArray } from './input/response';
 import { QuizService } from './questionnaire.service';
 import { environment } from 'environments/environment';
 
-// tslint:disable-next-line:max-line-length
-// import { User } from '@/shared/user.model';
 import {
   useAnimation,
   trigger,
@@ -16,10 +14,7 @@ import {
 } from '@angular/animations';
 import { DataService } from './data.service';
 import { FlowService } from '@/main/flow/flow.service';
-// import { StepGroup } from '@/main/flow/step-group/step-group.model';
-// import { ACTIVE, QUESTIONNAIRE, } from '@/app.constants';
 import { Router, ActivatedRoute } from '@angular/router';
-// import { Step } from '@/main/flow/step-group/step/step.model';
 import { TrialAuthService } from '@/trial-registration/shared/trial-auth.service';
 import { RegistrationQuestionnaireScore } from '@/trial-registration/registration-step-three/resgistration-step-three-response.model';
 import { RegistrationDataService } from '@/trial-registration/shared/registration-data.service';
@@ -173,6 +168,7 @@ export class QuestionnaireComponent implements OnInit {
   followup = false;
   showLoading = false;
   // tslint:disable-next-line:max-line-length
+  iswaitList = false;
   constructor(
     private quizService: QuizService,
     private flowService: FlowService,
@@ -702,6 +698,7 @@ export class QuestionnaireComponent implements OnInit {
         gad_response.user_response,
       );
       registration_gad.participant_id = this.registrationDataService.participationID;
+      this.iswaitList = this.registrationDataService.isWaitList;
 
       this.registrationDataService
         .saveGADData(registration_gad)
@@ -710,11 +707,13 @@ export class QuestionnaireComponent implements OnInit {
           const userEligible = !res_data.data.excluded;
           this.registrationDataService.participationID =
             res_data.data.participant_id;
-          if (userEligible) {
+          if (userEligible && !this.iswaitList) {
             this.trialAuthService.activateChild(true);
             const stepNumber = res_data.data.next_step;
             const navigation_step = REGISTRATION_PATH + '/step-' + stepNumber;
             this.router.navigate([navigation_step]);
+          } else if (userEligible && this.iswaitList) {
+            this.quizService.questionnaire_active.emit(false);
           } else {
             this.moveToThankYouPage();
           }

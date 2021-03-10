@@ -67,12 +67,6 @@ declare var twemoji: any;
           transform: 'translateY(0%)',
         }),
       ),
-      // state(
-      //   'animateClosed',
-      //   style({
-      //     transform: 'translateY(100%)',
-      //   }),
-      // ),
       transition('open => closed', [animate('0.5s linear')]),
       transition('closed => open', [animate('0.5s linear')]),
       transition('void => animateOpen', [
@@ -100,11 +94,6 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   ) {
     this.commonService.isOnline$().subscribe(isOnline => {
       this.isOnline = isOnline;
-      if (!this.isOnline) {
-        // this.chatButtons = [];
-        // this.showDateTimeWidgetBtn = false;
-        // this.showMoodWidgetBtn = false;
-      }
     });
   }
 
@@ -114,7 +103,6 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   buttons: any = [];
   scrollTop = 0;
   totalDelay = 3000;
-  halfwayDelay = 0;
   delayPerWord = 50;
   chatClosed = false;
   retries = 0;
@@ -165,6 +153,8 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   PUSHCHAT_DELAY = 1500;
   INITIAL_DELAY = 1000;
   SCROLL_DELAY = 500;
+  DElAY_PER_WORD_BUTTON = 250;
+  FOCUS_DELAY = 200;
 
   ngOnChanges(): void {
     if (!this.chatWindowClosed) {
@@ -192,15 +182,17 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
                       message.msg_time,
                     ),
                   );
-                  this.scrollToBottom();
                 }
               });
+              this.scrollToBottom();
               setTimeout(() => {
                 this.startChatSession(RESUME_CHAT);
               }, 500);
             }
           },
-          (error: HttpErrorResponse) => {},
+          (error: HttpErrorResponse) => {
+            this.showMaintenance = true;
+          },
         );
       }
     } else {
@@ -210,7 +202,6 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnInit() {
     this.mobileView = window.innerWidth < MOBILE_WIDTH;
-
     if (this.introService.getChatbotIntro()) {
       this.introService.startChatbotCloseIntro();
     }
@@ -310,6 +301,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       }, this.SCROLL_DELAY);
       this.overlayService.closeChatbotOverlay.emit();
     }
+    this.chatbotService.showOutsideModal = false;
   }
 
   ngOnDestroy(): void {
@@ -387,7 +379,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
         this.messages.push(item);
         this.webSocket.close();
       } else if (data.action === 'ws_close') {
-        this.closeChat();
+        this.close();
       } else {
         this.page = 1;
         this.start(data.message);
@@ -428,38 +420,36 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       }
     });
 
-    if (m.buttons && m.buttons.length < 5) {
+    if (m.buttons && m.buttons.length !== 0 && m.buttons.length < 5) {
       setTimeout(() => {
         this.chatButtons = [];
         this.chatButtons = m.buttons;
         for (let i = 0; i < this.chatButtons.length; i++) {
           this.chatButtons[i].loaded = false;
         }
-      }, 500);
-    } else {
+      }, this.getSentenceDelayButton(m.text));
+    } else if (m.buttons && m.buttons.length !== 0 && m.buttons.length >= 5) {
       this.buttonsBuffer = m.buttons;
       setTimeout(() => {
         this.chatButtons = m.buttons.slice(0, 4);
         this.counter = 3;
         this.showMore = true;
-      }, 500);
+      }, this.getSentenceDelayButton(m.text));
     }
     if (Array.isArray(m.widgets) && m.widgets.length) {
       if (m.widgets[0] === this.ratingWidget) {
         setTimeout(() => {
           this.showSlider = true;
-        }, 500);
-        const height = this.frameRef.nativeElement.offsetHeight - 180;
-        this.renderer.setStyle(
-          this.frameRef.nativeElement,
-          'height',
-          `${height}px`,
-        );
+          const height = this.frameRef.nativeElement.offsetHeight - 180;
+          this.renderer.setStyle(
+            this.frameRef.nativeElement,
+            'height',
+            `${height}px`,
+          );
+        }, this.getSentenceDelayButton(m.text));
       } else if (m.widgets[0] === this.moodWidget) {
         setTimeout(() => {
           this.showMoodWidgetBtn = true;
-        }, this.INITIAL_DELAY);
-        setTimeout(() => {
           const moodBtn = this.elementRef.nativeElement.querySelectorAll(
             '.mood-btn',
           );
@@ -468,13 +458,10 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
               btn.remove();
             }
           });
-        }, 100);
+        }, this.getSentenceDelayButton(m.text));
       } else {
         setTimeout(() => {
           this.showDateTimeWidgetBtn = true;
-        }, 500);
-
-        setTimeout(() => {
           const dateTimeBtn = this.elementRef.nativeElement.querySelectorAll(
             '.date-time-btn',
           );
@@ -483,7 +470,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
               btn.remove();
             }
           });
-        }, 100);
+        }, this.getSentenceDelayButton(m.text));
       }
     }
 
@@ -505,10 +492,10 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       this.buttonType = m.buttons[0].type;
     }
     this.messages.push(item);
-
+    this.scrollToBottom();
     setTimeout(() => {
       this.scrollToBottom();
-    }, 600);
+    }, this.getSentenceDelayButton(m.text) + 50);
 
     // this.showButtons = [];
   }
@@ -533,6 +520,10 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
 
   getWordCount(str: string) {
     return str.split(' ').length;
+  }
+
+  getSentenceDelayButton(str: string) {
+    return this.getWordCount(str) * this.DElAY_PER_WORD_BUTTON;
   }
 
   getSentenceDelay(str: string) {
@@ -791,7 +782,9 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     return errorMessage === stripMessageText;
   }
   onFocusEvent(event: any) {
-    this.scrollToBottom();
+    setTimeout(() => {
+      this.scrollToBottom();
+    }, this.FOCUS_DELAY);
   }
 
   isDifferentDay(messageIndex: number): boolean {

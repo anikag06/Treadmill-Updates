@@ -167,15 +167,16 @@ export class NestedCommentComponent
           () => {
             if (
               !this.upVoteFirstClick &&
-              !this.downVoteFirstClick &&
-              this.userNestedComment.is_voted !== -1
+              this.userNestedComment.is_voted === 1
             ) {
               this.upVoteFirstClick = true;
               this.commonService.updateScore(SUPPORT_GROUP_UP_DOWN_VOTE_SCORE);
-              this.commonService.postScoreForOther(
-                SUPPORT_GROUP_GETTING_UP_VOTE_SCORE,
-                this.userNestedComment.user.username,
-              );
+              this.commonService
+                .postScoreForOther(
+                  SUPPORT_GROUP_GETTING_UP_VOTE_SCORE,
+                  this.userNestedComment.user.username,
+                )
+                .subscribe(() => {});
             }
           },
           () => {
@@ -211,7 +212,7 @@ export class NestedCommentComponent
             if (
               !this.downVoteFirstClick &&
               !this.upVoteFirstClick &&
-              this.userNestedComment.is_voted !== -1
+              this.userNestedComment.is_voted !== 1
             ) {
               this.downVoteFirstClick = true;
               this.commonService.updateScore(SUPPORT_GROUP_UP_DOWN_VOTE_SCORE);
@@ -245,7 +246,14 @@ export class NestedCommentComponent
    * If the comment is made by the same user
    */
   ownComment() {
-    return this.user.username === this.userNestedComment.user.username;
+    // checking for case-insensitive string comparison
+    return (
+      this.user.username.localeCompare(
+        this.userNestedComment.user.username,
+        undefined,
+        { sensitivity: 'base' },
+      ) === 0
+    );
   }
 
   onClickOutside(event: Object) {

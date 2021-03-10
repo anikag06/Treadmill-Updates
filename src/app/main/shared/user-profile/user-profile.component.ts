@@ -21,6 +21,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
     private userProfileService: UserProfileService,
   ) {}
   @Input() userProfile!: UserProfile;
+  @Input() fromSupportGroup!: boolean;
   showLoading = true;
   profileLoaded = false;
   user!: User;
@@ -28,7 +29,11 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
   silverBadgesColor = '#96959A';
   bronzeBadgesColor = '#CD7F32';
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.userProfile);
+  }
+
+  ngOnChanges() {}
 
   ngAfterViewInit() {
     const inkBar = this.element.nativeElement.querySelectorAll(
@@ -73,6 +78,9 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
   }
 
   getScore() {
+    if (this.fromSupportGroup) {
+      return this.userProfile.score;
+    }
     return this.userProfileService.getScoreValue();
   }
 }

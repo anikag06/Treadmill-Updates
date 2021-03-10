@@ -33,9 +33,7 @@ export class CommonService {
     private userProfileService: UserProfileService,
     private snackBar: MatSnackBar,
     private componentFactoryResolver: ComponentFactoryResolver,
-  ) {
-    this.user = this.authService.isLoggedIn()!;
-  }
+  ) {}
   isOnline$() {
     return merge<boolean>(
       fromEvent(window, 'offline').pipe(map(() => false)),
@@ -48,6 +46,7 @@ export class CommonService {
   }
 
   postScore(score: number) {
+    this.user = this.authService.isLoggedIn()!;
     const body = {
       score: score,
     };

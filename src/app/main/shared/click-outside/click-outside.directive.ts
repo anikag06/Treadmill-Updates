@@ -37,8 +37,8 @@ export class ClickOutsideDirective implements OnInit {
     this.globalClickSubscription.unsubscribe();
   }
   onGlobalClick(event: MouseEvent) {
-    if (event instanceof MouseEvent && this.listening === true) {
-      if (this.isDescendant(this._elRef.nativeElement, event.target) === true) {
+    if (event instanceof MouseEvent && this.listening) {
+      if (this.isDescendant(this._elRef.nativeElement, event.target)) {
         this.clickOutside.emit({
           target: event.target || null,
           value: false,

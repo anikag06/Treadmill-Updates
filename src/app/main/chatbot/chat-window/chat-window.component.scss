@@ -117,10 +117,6 @@
     padding: 15px;
   }
   float: left;
-  // .meta {
-  //   display: block;
-  //   border-top: 2px dashed #cccccc;
-  // }
 }
 .textarea {
   width: 88%;
@@ -175,7 +171,9 @@
   margin: 0 auto;
   justify-content: center;
   .radio_button {
-    border: 1px solid #000000;
+    background: #FFFFFF 0 0 no-repeat padding-box;
+    box-shadow: 0 3px 6px #00000029;
+    border: 1px solid #00000066;
     border-radius: 20px;
     text-align: center;
     letter-spacing: 0;
@@ -186,8 +184,7 @@
     margin-top: 10px;
     margin-left: 5px;
     font-weight: 500;
-    font-size: 14px;
-    box-shadow: none;
+    font-size: 15px;
     word-break: break-word;
     white-space: normal;
     line-height: 1rem;
@@ -271,17 +268,11 @@ button {
     background-size: cover;
     box-shadow: 0px -3px 8px #00000029;
     .chat-frame {
-      //flex-grow: 1;
-      //display: block;
-      //height: 84%;
       .chat-header {
         height: 7%;
       }
     }
     .form-div {
-      //height: 8%;
-      //bottom: 5px;
-      //margin-top: 10px;
     }
     .scroll-bottom {
       position: absolute;

@@ -39,7 +39,7 @@
     <div class="d-inline-flex flex-row justify-content-center" *ngIf="!editMode" appClickOutside
          (clickOutside)="onClickOutside($event)">
       <div class="comment-profile-card" *ngIf="showProfile">
-        <app-user-profile class="support-group" [userProfile]="userProfile"></app-user-profile>
+        <app-user-profile class="support-group" [fromSupportGroup]="true" [userProfile]="userProfile"></app-user-profile>
       </div>
       <img [src]="comment.user.avatar" alt="User avatar" width="36" height="36"
         (click)="onCommentShowProfile(comment.user.username)">
