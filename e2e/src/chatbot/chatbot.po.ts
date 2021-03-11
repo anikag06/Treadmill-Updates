@@ -17,10 +17,10 @@ export class ChatbotPage {
     browser.sleep(2000);
   }
 
-  findButton(btn: string) {
-    const newbtn = element(by.cssContainingText('button', btn));
+  findButton() {
+    const newbtn = element(by.css('.buttons.radio_button'));
     browser.wait(this.EC.presenceOf(newbtn)).then(() => {
-      return true;
+      return newbtn;
     });
   }
 
