@@ -4,15 +4,16 @@ import { browser, by, element, logging } from 'protractor';
 import { FlowPage } from './flow/flow.po';
 import { protractor } from 'protractor/built/ptor';
 import {ChatbotPage} from './chatbot/chatbot.po';
+import { key } from 'localforage';
 declare var testType: any;
 declare var moduleNumber: number;
 // declare var loginTime: number;
 
-describe('treadwill Flow control group', () => {
+describe('treadwill Chatbot', () => {
   let page: AppPage;
   let fp: FlowPage;
   let cp: ChatbotPage;
-  let button = element(by.css('.buttons.radio_button'));
+  let button = element(by.css('button.radio_button'));
 
 
   beforeEach(() => {
@@ -45,14 +46,21 @@ describe('treadwill Flow control group', () => {
     browser.sleep(2000);
   });
 
-  it('should check next statement', () => {
-    cp.findButton();
-    expect(button.getText()).toEqual('Sure');
-    cp.clickOnButton('Sure');
+  it('should check textarea', () => {
+    cp.findTextArea();
+    cp.writeText('I am worried about everything, a lot many things.');
+    browser.actions().sendKeys(protractor.Key.ENTER).perform();
+    // expect(button.getText()).toEqual('No');
+    // cp.clickOnButton('No');
     browser.sleep(2000);
   });
 
-
+  // it('should check next statement', () => {
+  //   cp.findButton();
+  //   expect(button.getText()).toEqual('No');
+  //   cp.clickOnButton('No');
+  //   browser.sleep(2000);
+  // });
 
   afterEach(async () => {
     // Assert that there are no errors emitted from the browser

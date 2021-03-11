@@ -18,16 +18,30 @@ export class ChatbotPage {
   }
 
   findButton() {
-    const newbtn = element(by.css('.buttons.radio_button'));
+    const newbtn = element(by.css('button.radio_button'));
     browser.wait(this.EC.presenceOf(newbtn)).then(() => {
-      return newbtn;
-    });
+      console.log('Radio button found');
+      });
   }
 
   clickOnButton(btn: string) {
     const btnClick = element(by.cssContainingText('button', btn));
     // browser.wait(this.EC.presenceOf(btnClick)).then(() => {
       btnClick.click();
+    // });
+  }
+
+  findTextArea() {
+    const textarea = element(by.css('textarea'));
+    browser.wait(this.EC.presenceOf(textarea)). then(() => {
+      console.log('Text Area found');
+    });
+  }
+
+  writeText(btn: string) {
+    const textbox = element(by.css('textarea'));
+    // browser.wait(this.EC.presenceOf(btnClick)).then(() => {
+      textbox.sendKeys(btn);
     // });
   }
 }
