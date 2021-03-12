@@ -39,14 +39,22 @@ describe('treadwill Chatbot', () => {
     browser.sleep(2000);
   });
 
-  it('should check no problem statement', () => {
+  it('should run chatbot for 10 minutes', () => {
+    for (let i = 0; i < 10; i++) {
+      cp.findComponentType();
+      // expect(button.getText()).toEqual('No problem');
+    }
+  }, 10 * 60 * 1000);
+
+
+  xit('should check no problem statement', () => {
     cp.findButton();
     expect(button.getText()).toEqual('No problem');
     cp.clickOnButton('No problem');
     browser.sleep(2000);
   });
 
-  it('should check textarea', () => {
+  xit('should check textarea', () => {
     cp.findTextArea();
     cp.writeText('I am worried about everything, a lot many things.');
     browser.actions().sendKeys(protractor.Key.ENTER).perform();
