@@ -121,10 +121,8 @@ export class ChatbotComponent implements OnInit {
     });
   }
 
-  onClickOutside(event: any) {
+  onClickOutside() {
     if (
-      event &&
-      (<any>event)['value'] === true &&
       !this.chatbotService.chatBotModalClicked &&
       !this.chatbotService.modalExist &&
       !this.chatwindowClosed &&

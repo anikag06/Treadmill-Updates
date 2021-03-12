@@ -52,20 +52,20 @@ declare var twemoji: any;
         style({
           visibility: 'visible',
           transform: 'translateY(0%)',
-        }),
+        })
       ),
       state(
         'closed',
         style({
           visibility: 'hidden',
           transform: 'translateY(0%)',
-        }),
+        })
       ),
       state(
         'animateOpen',
         style({
           transform: 'translateY(0%)',
-        }),
+        })
       ),
       transition('open => closed', [animate('0.5s linear')]),
       transition('closed => open', [animate('0.5s linear')]),
@@ -90,9 +90,9 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     private elementRef: ElementRef,
     private commonService: CommonService,
     private renderer: Renderer2,
-    private introService: IntroService,
+    private introService: IntroService
   ) {
-    this.commonService.isOnline$().subscribe(isOnline => {
+    this.commonService.isOnline$().subscribe((isOnline) => {
       this.isOnline = isOnline;
     });
   }
@@ -179,8 +179,8 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
                       false,
                       [],
                       this.images,
-                      message.msg_time,
-                    ),
+                      message.msg_time
+                    )
                   );
                 }
               });
@@ -192,7 +192,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
           },
           (error: HttpErrorResponse) => {
             this.showMaintenance = true;
-          },
+          }
         );
       }
     } else {
@@ -230,7 +230,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     this.renderer.setStyle(
       this.frameRef.nativeElement,
       'height',
-      `${height}px`,
+      `${height}px`
     );
   }
 
@@ -251,8 +251,8 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
           false,
           [],
           [],
-          new Date(),
-        ),
+          new Date()
+        )
       );
       const message = this.message;
       const widgetValues = {
@@ -269,7 +269,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
               buttons: [],
               widgets: [widgetValues],
             },
-          }),
+          })
         );
       } else {
         this.webSocket.send(
@@ -280,7 +280,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
               buttons: [],
               widgets: [],
             },
-          }),
+          })
         );
       }
       delete this.widgetValues;
@@ -321,14 +321,14 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
         false,
         [],
         [],
-        new Date(),
-      ),
+        new Date()
+      )
     );
     this.webSocket.send(
       JSON.stringify({
         action: REPLY_CURRENT,
         message: { text: '', buttons: [button] },
-      }),
+      })
     );
     this.chatButtons = [];
     this.showMore = false;
@@ -337,7 +337,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
 
   scrollToBottom() {
     if (this.messagesDiv) {
-      this.scrollTop = this.messagesDiv.nativeElement.scrollHeight + 100;
+      this.scrollTop = this.messagesDiv.nativeElement.scrollHeight;
       this.changRef.detectChanges();
     }
   }
@@ -351,9 +351,9 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
 
   startChatSession(type: string) {
     this.webSocket = new WebSocket(
-      environment.CHAT_HOST + '/ws/chat/?token=' + this.authService.getToken(),
+      environment.CHAT_HOST + '/ws/chat/?token=' + this.authService.getToken()
     );
-    this.webSocket.onopen = event => {
+    this.webSocket.onopen = (event) => {
       this.webSocket.send(JSON.stringify({ action: type, module_name: '' }));
     };
     this.webSocket.onmessage = (message: any) => {
@@ -374,7 +374,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
           false,
           [],
           [],
-          new Date(),
+          new Date()
         );
         this.messages.push(item);
         this.webSocket.close();
@@ -395,7 +395,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
         this.retries++;
         setTimeout(
           () => this.startChatSession(NEW_CHAT),
-          CHATBOT_RETRY_TIMEOUT,
+          CHATBOT_RETRY_TIMEOUT
         );
       }
     };
@@ -444,14 +444,18 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
           this.renderer.setStyle(
             this.frameRef.nativeElement,
             'height',
-            `${height}px`,
+            `${height}px`
           );
+          setTimeout(() => {
+            this.scrollTop = this.messagesDiv.nativeElement.scrollHeight;
+            this.changRef.detectChanges();
+          }, 100);
         }, this.getSentenceDelayButton(m.text));
       } else if (m.widgets[0] === this.moodWidget) {
         setTimeout(() => {
           this.showMoodWidgetBtn = true;
           const moodBtn = this.elementRef.nativeElement.querySelectorAll(
-            '.mood-btn',
+            '.mood-btn'
           );
           moodBtn.forEach((btn: any, index: number) => {
             if (index !== moodBtn.length - 1) {
@@ -463,7 +467,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
         setTimeout(() => {
           this.showDateTimeWidgetBtn = true;
           const dateTimeBtn = this.elementRef.nativeElement.querySelectorAll(
-            '.date-time-btn',
+            '.date-time-btn'
           );
           dateTimeBtn.forEach((btn: any, index: number) => {
             if (index !== dateTimeBtn.length - 1) {
@@ -486,7 +490,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       false,
       m.widgets,
       this.images,
-      new Date(),
+      new Date()
     );
     if (m.buttons && m.buttons.length > 0) {
       this.buttonType = m.buttons[0].type;
@@ -664,7 +668,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
               this.showSpinner = false;
             }
             const firstMessageBox = this.messagesDiv.nativeElement.querySelectorAll(
-              '.message-text',
+              '.message-text'
             );
             data.data.messages.reverse().forEach((message: any) => {
               if (!this.isErrorMessage(message)) {
@@ -680,8 +684,8 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
                     false,
                     [],
                     this.images,
-                    message.msg_time,
-                  ),
+                    message.msg_time
+                  )
                 );
 
                 this.showSpinner = false;
@@ -731,8 +735,8 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
           false,
           [],
           [],
-          new Date(),
-        ),
+          new Date()
+        )
       );
       this.multiLineChat.push(this.message);
       this.message = '';
@@ -744,7 +748,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
           this.submitMultiLineChat(this.multiLineChat);
           this.isMultiLineInput = false;
         },
-        this.isMultiLineInput ? this.MULTILINEINPUT_DELAY : 0,
+        this.isMultiLineInput ? this.MULTILINEINPUT_DELAY : 0
       );
     }
   }
@@ -758,7 +762,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
           buttons: [],
           widgets: [],
         },
-      }),
+      })
     );
     this.showTextInput = false;
     this.multiLineChat = [];
@@ -810,11 +814,11 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     const yesterday = moment(longDateYesterday).format('ddd,DD MMM YYYY');
 
     const wholeDate = new Date(
-      this.messages[messageIndex].msg_time,
+      this.messages[messageIndex].msg_time
     ).toDateString();
 
     this.messageDateString = moment(
-      this.messages[messageIndex].msg_time,
+      this.messages[messageIndex].msg_time
     ).format('ddd,DD MMM YYYY');
 
     if (this.messageDateString === today) {

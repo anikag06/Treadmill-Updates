@@ -170,6 +170,7 @@
           <img
             [src]="button.image_url"
             [alt]="button.emojified_payload"
+            class="module-img"
             width="150px"
             height="80px"
             [ngStyle]="{
@@ -190,7 +191,7 @@
           <button
             id="more_button"
             *ngIf="showMore"
-            class="btn btn-link"
+            class="more-btn btn btn-link"
             (click)="getButtons()"
           >
             + more...
