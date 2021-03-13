@@ -41,10 +41,18 @@ export class ChatbotPage {
   findComponentType() {
     const newbtn = element(by.css('button.radio_button'));
     browser.wait(this.EC.presenceOf(newbtn), 10 * 1000).then(() => {
-      console.log('Radio button found');
-      newbtn.click();
+      const allOptions = element.all(by.css('.buttons button'));
+      browser.sleep(2000);
+      allOptions.count().then(function(numberOfItems) {
+        return Math.floor(Math.random() * numberOfItems);
+      }).then(function(randomNumber) {
+        browser.sleep(2000);
+        allOptions.get(randomNumber).click();
+        console.log('Radio button clicked', randomNumber);
+      });
     }).catch(() => {
       // Fill text area
+      console.log('CHECK IF TEXT AREA');
       const textarea = element(by.css('textarea'));
       browser.wait(this.EC.presenceOf(textarea), 10 * 1000).then(() => {
         console.log('Text Area found');
@@ -52,8 +60,9 @@ export class ChatbotPage {
         browser.actions().sendKeys(protractor.Key.ENTER).perform();
       }).catch(() => {
         // select mood
+        console.log('CHECK IF MOOD WIDGET');
         browser.sleep(2000);
-        const moodBtn = element(by.cssContainingText('button', 'Enter mood'));
+        const moodBtn = element(by.cssContainingText('button.mood-btn', 'Enter mood'));
         browser.wait(this.EC.presenceOf(moodBtn), 10 * 1000).then(() => {
           console.log('Mood Button Clicked');
           moodBtn.click();
@@ -64,6 +73,7 @@ export class ChatbotPage {
           });
         }).catch(() => {
           // give rating
+          console.log('CHECK IF SLIDER');
           const ratingSelect = element(by.css('mat-slider'));
           browser.wait(this.EC.presenceOf(ratingSelect), 10 * 1000).then(() => {
             console.log('Slider found');
@@ -72,6 +82,7 @@ export class ChatbotPage {
             this.clickOnButton('Done');
             }).catch(() => {
             // select date
+            console.log('CHECK IF DATE-TIME WIDGET');
             browser.sleep(2000);
             const scheduleBtn = element(by.cssContainingText('button', 'Set Schedule'));
             browser.wait(this.EC.presenceOf(scheduleBtn), 10 * 1000).then(() => {
@@ -85,7 +96,15 @@ export class ChatbotPage {
                 browser.sleep(2000);
                 this.clickOnButton('Done');
             }).catch(() => {
-              console.log('restart');
+              // check if module_button
+              console.log('CHECK IF MODULE BUTTON');
+              const moduleBtn = element(by.css('button.module_button'));
+              browser.wait(this.EC.presenceOf(moduleBtn), 10 * 1000).then(() => {
+                console.log('Module Button Clicked');
+                moduleBtn.click();
+              }).catch(() => {
+                console.log('restart');
+              });
             });
           });
         });

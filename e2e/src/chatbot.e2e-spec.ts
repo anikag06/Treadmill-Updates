@@ -29,7 +29,7 @@ describe('treadwill Chatbot', () => {
     page.clickLoginLink();
     browser.sleep(2500);
     // username is hardcoded here
-    page.fillLoginForm('new_arka_iitk', 'test123');
+    page.fillLoginForm('tanu2', 'test1604');
     expect(fp.onDashboard()).toBeTruthy('url does not contains dashboard');
     browser.sleep(1000);
   });
@@ -40,7 +40,7 @@ describe('treadwill Chatbot', () => {
   });
 
   it('should run chatbot for 10 minutes', () => {
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 50; i++) {
       cp.findComponentType();
       // expect(button.getText()).toEqual('No problem');
     }
