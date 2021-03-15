@@ -14,12 +14,14 @@ describe('treadwill Chatbot', () => {
   let fp: FlowPage;
   let cp: ChatbotPage;
   let button = element(by.css('button.radio_button'));
-
+  let originalTimeout: number;
 
   beforeEach(() => {
     page = new AppPage();
     fp = new FlowPage();
     cp = new ChatbotPage();
+    originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 1000000;
   });
 
   it('should show login dialog', () => {
@@ -40,8 +42,9 @@ describe('treadwill Chatbot', () => {
   });
 
   it('should run chatbot for 10 minutes', () => {
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 10; i++) {
       cp.findComponentType();
+      console.log("Loop" + i);
       // expect(button.getText()).toEqual('No problem');
     }
   }, 10 * 60 * 1000);
@@ -71,6 +74,7 @@ describe('treadwill Chatbot', () => {
   // });
 
   afterEach(async () => {
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
     // Assert that there are no errors emitted from the browser
     // const logs = await browser
     //   .manage()

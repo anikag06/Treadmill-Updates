@@ -67,10 +67,22 @@ export class ChatbotPage {
         browser.wait(this.EC.presenceOf(moodBtn), 10 * 1000).then(() => {
           console.log('Mood Button Clicked');
           moodBtn.click();
-          const moodSelect = element(by.css('.select-mood'));
-          browser.wait(this.EC.presenceOf(moodSelect), 10 * 1000).then(() => {
+          browser.sleep(2000);
+          // const moodSelect = element(by.css('.select-mood'));
+          const moodSelect = element(by.id('mat-expansion-panel-header-7'));
+          moodSelect.click();
+          browser.sleep(2000);
+          const negMoodCheck1 = element(by.id('mat-checkbox-2'));
+          negMoodCheck1.click();
+          browser.sleep(2000);
+          const negMoodCheck2 = element(by.id('mat-checkbox-5'));
+          negMoodCheck2.click();
+          browser.sleep(2000);
+          // browser.wait(this.EC.presenceOf(moodSelect), 10 * 1000).then(() => {
+          browser.wait(this.EC.presenceOf(negMoodCheck2), 10 * 1000).then(() => {
             console.log('Mood Selected');
-            element(by.css('.mat-checkbox-inner-container')).click();
+            element(by.className('done-btn mat-raised-button mat-button-base')).click();
+            // element(by.css('.mat-checkbox-inner-container')).click();
           });
           
         }).catch(() => {
