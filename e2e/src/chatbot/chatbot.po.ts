@@ -62,7 +62,8 @@ export class ChatbotPage {
         // select mood
         console.log('CHECK IF MOOD WIDGET');
         browser.sleep(2000);
-        const moodBtn = element(by.cssContainingText('button.mood-btn', 'Enter mood'));
+        // const moodBtn = element(by.cssContainingText('button.mood-btn', 'Enter mood'));
+        const moodBtn =  element(by.className('mood-btn btn px-0 py-0 btn-outline-light mt-2 ng-tns-c25-33 ng-star-inserted'));
         browser.wait(this.EC.presenceOf(moodBtn), 10 * 1000).then(() => {
           console.log('Mood Button Clicked');
           moodBtn.click();
@@ -71,6 +72,7 @@ export class ChatbotPage {
             console.log('Mood Selected');
             element(by.css('.mat-checkbox-inner-container')).click();
           });
+          
         }).catch(() => {
           // give rating
           console.log('CHECK IF SLIDER');
@@ -84,7 +86,8 @@ export class ChatbotPage {
             // select date
             console.log('CHECK IF DATE-TIME WIDGET');
             browser.sleep(2000);
-            const scheduleBtn = element(by.cssContainingText('button', 'Set Schedule'));
+            // const scheduleBtn = element(by.cssContainingText('button', 'Set Schedule'));
+            const scheduleBtn =  element(by.className('btn px-0 py-0 btn-outline-light date-time-btn mt-2 ng-tns-c25-33 ng-star-inserted'));
             browser.wait(this.EC.presenceOf(scheduleBtn), 10 * 1000).then(() => {
               scheduleBtn.click();
               const dateSelect1 = element(by.cssContainingText('.owl-dt-calendar-cell-content', '15'));
