@@ -32,8 +32,9 @@ describe('treadwill Chatbot', () => {
     browser.sleep(2500);
     // username is hardcoded here
     page.fillLoginForm('new_arka_iitk', 'test123');
-    expect(fp.onDashboard()).toBeTruthy('url does not contains dashboard');
-    browser.sleep(1000);
+    // expect(fp.onDashboard()).toBeTruthy('url does not contains dashboard');
+    expect(element(by.className('dashboard-mat-drawer-content mat-drawer-content')).isPresent()).toBe(true);
+    browser.sleep(2000);
   });
 
   it('should click on chatbot', () => {
@@ -42,29 +43,28 @@ describe('treadwill Chatbot', () => {
   });
 
   it('should run chatbot for 10 minutes', () => {
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 25; i++) {
       cp.findComponentType();
       console.log("Loop" + i);
-      // expect(button.getText()).toEqual('No problem');
     }
   }, 10 * 60 * 1000);
 
 
-  xit('should check no problem statement', () => {
-    cp.findButton();
-    expect(button.getText()).toEqual('No problem');
-    cp.clickOnButton('No problem');
-    browser.sleep(2000);
-  });
+  // xit('should check no problem statement', () => {
+  //   cp.findButton();
+  //   expect(button.getText()).toEqual('No problem');
+  //   cp.clickOnButton('No problem');
+  //   browser.sleep(2000);
+  // });
 
-  xit('should check textarea', () => {
-    cp.findTextArea();
-    cp.writeText('I am worried about everything, a lot many things.');
-    browser.actions().sendKeys(protractor.Key.ENTER).perform();
-    // expect(button.getText()).toEqual('No');
-    // cp.clickOnButton('No');
-    browser.sleep(2000);
-  });
+  // xit('should check textarea', () => {
+  //   cp.findTextArea();
+  //   cp.writeText('I am worried about everything, a lot many things.');
+  //   browser.actions().sendKeys(protractor.Key.ENTER).perform();
+  //   // expect(button.getText()).toEqual('No');
+  //   // cp.clickOnButton('No');
+  //   browser.sleep(2000);
+  // });
 
   // it('should check next statement', () => {
   //   cp.findButton();
@@ -87,3 +87,7 @@ describe('treadwill Chatbot', () => {
     // );
   });
 });
+function i(i: any) {
+  throw new Error('Function not implemented.');
+}
+
