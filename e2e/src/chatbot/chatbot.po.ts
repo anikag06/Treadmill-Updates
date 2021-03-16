@@ -11,6 +11,8 @@ export class ChatbotPage {
   isRatingWidget = false;
   isDateTimeWidget = false;
   isButton = false;
+  items = element.all(by.className('message-text'));
+
 
 
 
@@ -84,7 +86,7 @@ export class ChatbotPage {
             element(by.className('done-btn mat-raised-button mat-button-base')).click();
             // element(by.css('.mat-checkbox-inner-container')).click();
           });
-          
+
         }).catch(() => {
           // give rating
           console.log('CHECK IF SLIDER');
@@ -159,5 +161,29 @@ export class ChatbotPage {
     // browser.wait(this.EC.presenceOf(btnClick)).then(() => {
       textbox.sendKeys(btn);
     // });
+  }
+  findMessage() {
+    browser.sleep(2000);
+    const message = element(by.className('message-text'));
+    browser.wait(this.EC.presenceOf(message), 1 * 60 * 1000).then(() => {
+      const lastMessage = this.items.last().getText();
+      lastMessage.then( (lastmessage) => {
+        console.log('last message', lastmessage);
+        this.checkMessage(lastmessage);
+      });
+      browser.sleep(2000);
+    });
+  }
+  checkMessage(lastmessage: string) {
+    this.items.each((currentItem, index) => {
+      if (currentItem !== undefined) {
+        currentItem.getText().then((currentItemText) => {
+          if (lastmessage === currentItemText) {
+            console.log('current message3', currentItemText);
+          }
+          return lastmessage === currentItemText;
+        });
+      }
+    });
   }
 }
