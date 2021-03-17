@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   HOST: '172.26.90.50:9000',
-  //CHAT_HOST: 'wss://bot.treadwill.org:8002',
+  // CHAT_HOST: 'wss://bot.treadwill.org:8002',
   // CHAT_HOST: 'ws://127.0.0.1:8000',
   CHAT_HOST: 'wss://botv2.treadwill.org:8004',
   // CHATBOT_API: 'https://www.bot.treadwill.org:8002',

@@ -3,7 +3,7 @@ import { AppPage } from './app.po';
 import { browser, by, element, logging } from 'protractor';
 import { FlowPage } from './flow/flow.po';
 import { protractor } from 'protractor/built/ptor';
-import {ChatbotPage} from './chatbot/chatbot.po';
+import { ChatbotPage } from './chatbot/chatbot.po';
 import { key } from 'localforage';
 declare var testType: any;
 declare var moduleNumber: number;
@@ -35,7 +35,11 @@ describe('treadwill Chatbot', () => {
     // username is hardcoded here
     page.fillLoginForm('new_arka_iitk', 'test123');
     // expect(fp.onDashboard()).toBeTruthy('url does not contains dashboard');
-    expect(element(by.className('dashboard-mat-drawer-content mat-drawer-content')).isPresent()).toBe(true);
+    expect(
+      element(
+        by.className('dashboard-mat-drawer-content mat-drawer-content'),
+      ).isPresent(),
+    ).toBe(true);
     browser.sleep(2000);
   });
 
@@ -44,24 +48,32 @@ describe('treadwill Chatbot', () => {
     browser.sleep(2000);
   });
 
-  xit('should run chatbot for 10 minutes', () => {
-    for (let i = 0; i < 50; i++) {
-      cp.findComponentType();
-      console.log("Loop" + i);
-    }
-  }, 10 * 60 * 1000);
-
-  it('should check for repetition of messages in chatbot for 10 minutes', async () => {
-    for (let i = 0; i < 10; i++) {
-      cp.findComponentType();
-      messageRepeatVal = await cp.checkRepeatMsg();
-      if (messageRepeatVal == true){
-        flag = 1
+  xit(
+    'should run chatbot for 10 minutes',
+    () => {
+      for (let i = 0; i < 50; i++) {
+        cp.findComponentType();
+        console.log('Loop' + i);
       }
-      console.log("Loop" + i);
-    }
-    expect(flag).toEqual(0);
-  }, 10 * 60 * 1000);
+    },
+    10 * 60 * 1000,
+  );
+
+  it(
+    'should check for repetition of messages in chatbot for 10 minutes',
+    async () => {
+      for (let i = 0; i < 10; i++) {
+        cp.findComponentType();
+        messageRepeatVal = await cp.checkRepeatMsg();
+        if (messageRepeatVal == true) {
+          flag = 1;
+        }
+        console.log('Loop' + i);
+      }
+      expect(flag).toEqual(0);
+    },
+    10 * 60 * 1000,
+  );
 
   // xit('should check no problem statement', () => {
   //   cp.findButton();
@@ -101,4 +113,3 @@ describe('treadwill Chatbot', () => {
     // );
   });
 });
-
