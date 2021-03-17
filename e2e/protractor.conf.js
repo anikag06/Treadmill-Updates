@@ -25,7 +25,8 @@ exports.config = {
   }
   ],
   directConnect: true,
-  baseUrl: 'http://localhost:4200/',
+  // baseUrl: 'http://localhost:4200/',
+  baseUrl: 'https://version2.treadwill.org/',
   framework: 'jasmine',
   jasmineNodeOpts: {
     showColors: true,
