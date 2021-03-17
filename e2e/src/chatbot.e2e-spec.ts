@@ -15,6 +15,8 @@ describe('treadwill Chatbot', () => {
   let cp: ChatbotPage;
   let button = element(by.css('button.radio_button'));
   let originalTimeout: number;
+  let messageRepeatVal = false;
+  let flag = 0;
 
   beforeEach(() => {
     page = new AppPage();
@@ -49,6 +51,17 @@ describe('treadwill Chatbot', () => {
     }
   }, 10 * 60 * 1000);
 
+  it('should check for repetition of messages in chatbot for 10 minutes', async () => {
+    for (let i = 0; i < 10; i++) {
+      cp.findComponentType();
+      messageRepeatVal = await cp.checkRepeatMsg();
+      if (messageRepeatVal == true){
+        flag = 1
+      }
+      console.log("Loop" + i);
+    }
+    expect(flag).toEqual(0);
+  }, 10 * 60 * 1000);
 
   // xit('should check no problem statement', () => {
   //   cp.findButton();
@@ -66,7 +79,7 @@ describe('treadwill Chatbot', () => {
   //   browser.sleep(2000);
   // });
 
-  it('should check next statement', () => {
+  xit('should check next statement', () => {
     cp.findButton();
     expect(button.getText()).toEqual('No problem');
     cp.clickOnButton('No problem');
@@ -88,7 +101,4 @@ describe('treadwill Chatbot', () => {
     // );
   });
 });
-function i(i: any) {
-  throw new Error('Function not implemented.');
-}
 

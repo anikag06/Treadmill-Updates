@@ -1,4 +1,5 @@
 /* tslint:disable:no-trailing-whitespace */
+import { ListKeyManager } from '@angular/cdk/a11y';
 import { browser, by, element, protractor } from 'protractor';
 import { AppPage } from '../app.po';
 
@@ -11,11 +12,9 @@ export class ChatbotPage {
   isRatingWidget = false;
   isDateTimeWidget = false;
   isButton = false;
-  items = element.all(by.className('message-text'));
-
-
-
-
+  // items = element.all(by.className('message-text'));
+  items = element.all(by.className('message bot')).all(by.className('message-text'));
+  
   navigateToDashboard() {
     return browser.get('/main/dashboard') as Promise<any>;
   }
@@ -127,7 +126,6 @@ export class ChatbotPage {
         });
       });
     });
-
   }
   setRating() {
     const sliderBar = browser.findElement(protractor.By.css('.mat-slider-thumb-label'));
@@ -162,10 +160,12 @@ export class ChatbotPage {
       textbox.sendKeys(btn);
     // });
   }
-  findMessage() {
+
+  findMessage(){
     browser.sleep(2000);
     const message = element(by.className('message-text'));
     browser.wait(this.EC.presenceOf(message), 1 * 60 * 1000).then(() => {
+      console.log('Items: ', this.items);
       const lastMessage = this.items.last().getText();
       lastMessage.then( (lastmessage) => {
         console.log('last message', lastmessage);
@@ -181,9 +181,24 @@ export class ChatbotPage {
           if (lastmessage === currentItemText) {
             console.log('current message3', currentItemText);
           }
+          console.log('current message :', currentItemText);
           return lastmessage === currentItemText;
         });
       }
     });
+  }
+
+  async checkRepeatMsg(){
+    const last = this.items.get((await this.items.count()) - 1);
+    const secondLast = this.items.get((await this.items.count()) - 2);
+    const lastmsg = await last.getText();
+    const secondlastmsg = await secondLast.getText();
+    console.log("Last message: ", lastmsg);
+    console.log("second last message: ", secondlastmsg);
+    if (lastmsg === secondlastmsg){
+      console.log('Message Repeat');
+      return true;
+    }
+    return false;
   }
 }
