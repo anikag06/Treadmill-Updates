@@ -2,6 +2,7 @@
 
 .q {
     min-height: 90vh;
+    min-width: 74vw;
 }
 
 
@@ -80,6 +81,9 @@
 
 
 @media screen and (max-width: 1040px) {
+  .q {
+    width: 100%;
+  }
     .card{
 
         width: 600px;
@@ -116,6 +120,7 @@
   }
 
 @media screen and (min-width: 578px) and (max-width: 700px) {
+
     .card{
 
         width: 576px;
@@ -160,6 +165,7 @@
   }
 
   @media screen and (max-width: 576px) {
+
     .card{
         width: 100%;
         max-width: 400px;
