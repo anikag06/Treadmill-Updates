@@ -75,6 +75,14 @@ describe('treadwill Chatbot', () => {
     10 * 60 * 1000,
   );
 
+  it('should check for intro_bot messages in between of chat',
+    async () => {
+      for (let i = 0; i < 10; i++) {
+        cp.findComponentType();
+      }
+    },
+    10 * 60 * 1000,
+  )
   // xit('should check no problem statement', () => {
   //   cp.findButton();
   //   expect(button.getText()).toEqual('No problem');
@@ -90,14 +98,6 @@ describe('treadwill Chatbot', () => {
   //   // cp.clickOnButton('No');
   //   browser.sleep(2000);
   // });
-
-  xit('should check next statement', () => {
-    cp.findButton();
-    expect(button.getText()).toEqual('No problem');
-    cp.clickOnButton('No problem');
-    cp.findMessage();
-    browser.sleep(2000);
-  });
 
   afterEach(async () => {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;

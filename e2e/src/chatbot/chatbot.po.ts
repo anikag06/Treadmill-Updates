@@ -219,33 +219,6 @@ export class ChatbotPage {
     // });
   }
 
-  findMessage() {
-    browser.sleep(2000);
-    const message = element(by.className('message-text'));
-    browser.wait(this.EC.presenceOf(message), 1 * 60 * 1000).then(() => {
-      console.log('Items: ', this.items);
-      const lastMessage = this.items.last().getText();
-      lastMessage.then(lastmessage => {
-        console.log('last message', lastmessage);
-        this.checkMessage(lastmessage);
-      });
-      browser.sleep(2000);
-    });
-  }
-  checkMessage(lastmessage: string) {
-    this.items.each((currentItem, index) => {
-      if (currentItem !== undefined) {
-        currentItem.getText().then(currentItemText => {
-          if (lastmessage === currentItemText) {
-            console.log('current message3', currentItemText);
-          }
-          console.log('current message :', currentItemText);
-          return lastmessage === currentItemText;
-        });
-      }
-    });
-  }
-
   async checkRepeatMsg() {
     const last = this.items.get((await this.items.count()) - 1);
     const secondLast = this.items.get((await this.items.count()) - 2);
@@ -254,8 +227,14 @@ export class ChatbotPage {
     console.log('Last message: ', lastmsg);
     console.log('second last message: ', secondlastmsg);
     if (lastmsg === secondlastmsg) {
-      console.log('Message Repeat');
-      return true;
+      if(lastmsg === "Hi again... let me start from where we left..." ||
+        lastmsg === "Hey, it's good to see you again... let me start from where we left..." ||
+        lastmsg === "Okay I'm back... give me a second to resume the conversation...") {
+        return false;
+      } else {
+        console.log('Message Repeat');
+        return true;
+      }
     }
     return false;
   }
