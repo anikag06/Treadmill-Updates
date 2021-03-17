@@ -12,6 +12,8 @@ exports.config = {
     test1: ['./src/**/app.e2e-spec.ts','./src/**/flow.e2e-spec.ts','./src/**/flow-control.e2e-spec.ts'],
     test2: [ './src/**/flow.e2e-spec.ts'], // only experimental with username hardcoded
     test3: [ './src/**/flow-control.e2e-spec.ts'], // only control with username hardcoded
+    test4: [ './src/**/chatbot.e2e-spec.ts'], // for chatbot with username hardcoded
+
   },
   multiCapabilities: [
     {
