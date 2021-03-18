@@ -16,6 +16,9 @@ describe('treadwill Chatbot', () => {
   let button = element(by.css('button.radio_button'));
   let originalTimeout: number;
   let messageRepeatVal = false;
+  let arrayFilled = false;
+
+
   let flag = 0;
 
   beforeEach(() => {
@@ -59,7 +62,7 @@ describe('treadwill Chatbot', () => {
     10 * 60 * 1000,
   );
 
-  it(
+  xit(
     'should check for repetition of messages in chatbot for 10 minutes',
     async () => {
       for (let i = 0; i < 10; i++) {
@@ -75,20 +78,14 @@ describe('treadwill Chatbot', () => {
     10 * 60 * 1000,
   );
 
-  it('should check for intro_bot messages in between of chat',
+  xit('should check for intro_bot messages in between of chat',
     async () => {
       for (let i = 0; i < 10; i++) {
         cp.findComponentType();
       }
     },
     10 * 60 * 1000,
-  )
-  // xit('should check no problem statement', () => {
-  //   cp.findButton();
-  //   expect(button.getText()).toEqual('No problem');
-  //   cp.clickOnButton('No problem');
-  //   browser.sleep(2000);
-  // });
+  );
 
   // xit('should check textarea', () => {
   //   cp.findTextArea();
@@ -98,6 +95,30 @@ describe('treadwill Chatbot', () => {
   //   // cp.clickOnButton('No');
   //   browser.sleep(2000);
   // });
+
+  it('should check module repeated',
+    async() => {
+    for (let i = 0; i < 50; i++) {
+      cp.findComponentType();
+      arrayFilled = await cp.getArrayCount(20);
+      if (arrayFilled === true) {
+        break;
+      }
+    }
+      for (let i = 0; i < 50; i++) {
+        console.log('fill next array');
+        cp.findComponentType();
+        arrayFilled = await cp.getArrayCount(40);
+        if (arrayFilled === true) {
+          break;
+        }
+      }
+
+    //compare subset of arrays
+      cp.makeSubset();
+
+  }, 10 * 60 * 1000);
+
 
   afterEach(async () => {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;

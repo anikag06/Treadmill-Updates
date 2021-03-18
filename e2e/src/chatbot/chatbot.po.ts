@@ -12,10 +12,9 @@ export class ChatbotPage {
   isRatingWidget = false;
   isDateTimeWidget = false;
   isButton = false;
-  // items = element.all(by.className('message-text'));
-  items = element
-    .all(by.className('message bot'))
-    .all(by.className('message-text'));
+  array1: string[] = [];
+  array2: string[] = [];
+  items = element.all(by.className('message bot')).all(by.className('message-text'));
 
   navigateToDashboard() {
     return browser.get('/main/dashboard') as Promise<any>;
@@ -237,5 +236,54 @@ export class ChatbotPage {
       }
     }
     return false;
+  }
+
+  async getArrayCount(num: number) {
+    const count = await this.items.count();
+    console.log('Number', count);
+    if (count >= num) {
+      this.addtoArray(count);
+      return true;
+    }
+    return false;
+   }
+
+  async addtoArray(count: number) {
+    if (count = 20) {
+    for (let i = 0; i < count; i++) {
+      this.array1.push(await this.items.get(i).getText());
+    }
+    console.log('array1', this.array1);
+    }
+    if (count = 40) {
+       for (let k = 19; k < count; k++) {
+        this.array2.push(await this.items.get(k).getText());
+      }
+      console.log('array2', this.array2);
+    }
+  }
+
+  async makeSubset() {
+    const newSet = new Set();
+    for (let i = this.array1.length; i < this.array1.length - 10; i--) {
+      newSet.add(this.array1[i]);
+    }
+    for (let j = 0; j <= 10; j++) {
+      newSet.add(this.array2[j]);
+    }
+    console.log('Set size', await newSet, await newSet.size);
+  }
+
+  appendNextMessage(num: number) {
+    const j = this.array1.length;
+    this.items.count().then(function(numberOfItems) {
+      console.log('Number', num, numberOfItems);
+      // const k = numberOfItems - j;
+      // console.log('remain value1', k);
+      // return k;
+    });
+    //   .then((k) => {
+    //   console.log('remain value2', k);
+    // });
   }
 }
