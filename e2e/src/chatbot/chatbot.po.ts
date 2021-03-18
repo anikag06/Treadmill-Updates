@@ -1,6 +1,7 @@
 /* tslint:disable:no-trailing-whitespace */
 import { ListKeyManager } from '@angular/cdk/a11y';
 import { browser, by, element, protractor } from 'protractor';
+import { count } from 'rxjs/operators';
 import { AppPage } from '../app.po';
 
 export class ChatbotPage {
@@ -237,5 +238,19 @@ export class ChatbotPage {
       }
     }
     return false;
+  }
+
+  async checkIntroBotMsg() {
+    const last = this.items.get((await this.items.count()) - 1);
+    const lastmsg = await last.getText();
+    console.log('Last message: ', lastmsg);
+    if(lastmsg === "Hi again... let me start from where we left..." ||
+      lastmsg === "Hey, it's good to see you again... let me start from where we left..." ||
+      lastmsg === "Okay I'm back... give me a second to resume the conversation...") {
+      console.log('Intro Bot Message found in between conversation. Check for Back')
+      return true;
+    } else {
+      return false;
+    }
   }
 }

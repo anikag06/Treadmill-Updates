@@ -5,6 +5,7 @@ import { FlowPage } from './flow/flow.po';
 import { protractor } from 'protractor/built/ptor';
 import { ChatbotPage } from './chatbot/chatbot.po';
 import { key } from 'localforage';
+import { count } from 'console';
 declare var testType: any;
 declare var moduleNumber: number;
 // declare var loginTime: number;
@@ -16,7 +17,9 @@ describe('treadwill Chatbot', () => {
   let button = element(by.css('button.radio_button'));
   let originalTimeout: number;
   let messageRepeatVal = false;
+  let messageIntroBotVal = false;
   let flag = 0;
+  let introCount=0;
 
   beforeEach(() => {
     page = new AppPage();
@@ -59,7 +62,7 @@ describe('treadwill Chatbot', () => {
     10 * 60 * 1000,
   );
 
-  it(
+  xit(
     'should check for repetition of messages in chatbot for 10 minutes',
     async () => {
       for (let i = 0; i < 10; i++) {
@@ -79,25 +82,16 @@ describe('treadwill Chatbot', () => {
     async () => {
       for (let i = 0; i < 10; i++) {
         cp.findComponentType();
+        messageIntroBotVal = await cp.checkIntroBotMsg();
+        if (messageIntroBotVal == true) {
+          introCount++;
+        }
+        console.log('Loop' + i);
       }
+      expect(introCount).toEqual(1);
     },
     10 * 60 * 1000,
   )
-  // xit('should check no problem statement', () => {
-  //   cp.findButton();
-  //   expect(button.getText()).toEqual('No problem');
-  //   cp.clickOnButton('No problem');
-  //   browser.sleep(2000);
-  // });
-
-  // xit('should check textarea', () => {
-  //   cp.findTextArea();
-  //   cp.writeText('I am worried about everything, a lot many things.');
-  //   browser.actions().sendKeys(protractor.Key.ENTER).perform();
-  //   // expect(button.getText()).toEqual('No');
-  //   // cp.clickOnButton('No');
-  //   browser.sleep(2000);
-  // });
 
   afterEach(async () => {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
