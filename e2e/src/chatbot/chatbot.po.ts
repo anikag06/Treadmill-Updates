@@ -40,7 +40,7 @@ export class ChatbotPage {
     btnClick.click();
     // });
   }
-  findComponentType() {
+  findComponentType(element: any, browser: any) {
     const newbtn = element(by.css('button.radio_button'));
     browser
       .wait(this.EC.presenceOf(newbtn), 10 * 1000)
@@ -49,13 +49,13 @@ export class ChatbotPage {
         browser.sleep(2000);
         allOptions
           .count()
-          .then(function(numberOfItems) {
+          .then(function(numberOfItems: number) {
             return Math.floor(Math.random() * numberOfItems);
           })
-          .then(function(randomNumber) {
+          .then(function(randomNumber: number) {
             browser.sleep(2000);
             allOptions.get(randomNumber).click();
-            console.log('Radio button clicked', randomNumber);
+            console.log('Radio button clicked', randomNumber, browser);
           });
       })
       .catch(() => {
@@ -172,6 +172,7 @@ export class ChatbotPage {
                           })
                           .catch(() => {
                             console.log('restart');
+                            return;
                           });
                       });
                   });
