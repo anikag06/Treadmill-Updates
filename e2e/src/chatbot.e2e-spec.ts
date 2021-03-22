@@ -39,9 +39,10 @@ describe('treadwill Chatbot', () => {
     browser.waitForAngularEnabled(false);
     browser.sleep(2000);
     page.clickLoginLink();
-    browser.sleep(4500);
+    browser.sleep(3500);
     // username is hardcoded here
     page.fillLoginForm('new_arka_iitk', 'test123');
+    browser.sleep(3500);
     // expect(fp.onDashboard()).toBeTruthy('url does not contains dashboard');
     expect(
       element(
@@ -100,7 +101,7 @@ describe('treadwill Chatbot', () => {
 
   it('should check for module repetition',
     async() => {
-    const num = 50
+    const num = 10
     for (let i = 0; i <= num; i++) {
       console.log('Lopp 1: ', i);
       cp.findComponentType();
