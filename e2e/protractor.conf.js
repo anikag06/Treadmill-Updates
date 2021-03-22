@@ -13,9 +13,6 @@ exports.config = {
     test2: [ './src/**/flow.e2e-spec.ts'], // only experimental with username hardcoded
     test3: [ './src/**/flow-control.e2e-spec.ts'], // only control with username hardcoded
     test4: [ './src/**/chatbot.e2e-spec.ts'], // for chatbot with username hardcoded
-    test5: [ './src/**/chatbot-multiple.e2e-spec.ts'], // for multiple chatbots with username hardcoded
-
-
   },
   multiCapabilities: [
     {
@@ -32,7 +29,7 @@ exports.config = {
   framework: 'jasmine',
   jasmineNodeOpts: {
     showColors: true,
-    defaultTimeoutInterval: 60000,
+    defaultTimeoutInterval: 6000000,
     print: function() {}
   },
   onPrepare() {

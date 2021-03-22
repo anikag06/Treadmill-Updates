@@ -13,10 +13,9 @@ export class ChatbotPage {
   isRatingWidget = false;
   isDateTimeWidget = false;
   isButton = false;
-  // items = element.all(by.className('message-text'));
-  items = element
-    .all(by.className('message bot'))
-    .all(by.className('message-text'));
+  array1: string[] = [];
+  array2: string[] = [];
+  items = element.all(by.className('message bot')).all(by.className('message-text'));
 
   navigateToDashboard() {
     return browser.get('/main/dashboard') as Promise<any>;
@@ -58,6 +57,7 @@ export class ChatbotPage {
             browser.sleep(2000);
             allOptions.get(randomNumber).click();
             console.log('Radio button clicked', randomNumber);
+            browser.sleep(2000);
           });
       })
       .catch(() => {
@@ -253,4 +253,75 @@ export class ChatbotPage {
       return false;
     }
   }
+
+  async createMessageArrays(num: number){
+    const last = this.items.get((await this.items.count()) - 1);
+    const lastmsg = await last.getText();
+    console.log('last message: ', lastmsg);
+    if(this.array1.length < num){
+      this.array1.push(lastmsg);
+      console.log('pushed to array 1: ', this.array1.length);
+      return false;
+    } else if (this.array2.length < num){
+      this.array2.push(lastmsg);
+      console.log('pushed to array 2: ', this.array2.length);
+      return false;
+    }
+    return true;
+  }
+
+  async getSubsetArrayLength() {
+    const filteredArray = this.array1.filter(value => this.array2.includes(value));
+    console.log('getSubsetArrayLength() ->', filteredArray);
+    return filteredArray.length;
+  }
+
+//   async getArrayCount(num: number) {
+//     const count = await this.items.count();
+//     console.log('Number', count);
+//     if (count <= num) {
+//       this.addtoArray(count);
+//       return true;
+//     }
+//     return false;
+//   }
+
+//   async addtoArray(count: number) {
+//     if (count = 20) {
+//     for (let i = 0; i < count; i++) {
+//       this.array1.push(await this.items.get(i).getText());
+//     }
+//     console.log('array1', this.array1);
+//     }
+//     if (count = 40) {
+//        for (let k = 19; k < count; k++) {
+//         this.array2.push(await this.items.get(k).getText());
+//       }
+//       console.log('array2', this.array2);
+//     }
+//   }
+
+//   async makeSubset() {
+//     const newSet = new Set();
+//     for (let i = this.array1.length; i < this.array1.length - 10; i--) {
+//       newSet.add(this.array1[i]);
+//     }
+//     for (let j = 0; j <= 10; j++) {
+//       newSet.add(this.array2[j]);
+//     }
+//     console.log('Set size', newSet, newSet.size);
+//   }
+
+//   appendNextMessage(num: number) {
+//     const j = this.array1.length;
+//     this.items.count().then(function(numberOfItems) {
+//       console.log('Number', num, numberOfItems);
+//       // const k = numberOfItems - j;
+//       // console.log('remain value1', k);
+//       // return k;
+//     });
+//     //   .then((k) => {
+//     //   console.log('remain value2', k);
+//     // });
+//   }
 }
