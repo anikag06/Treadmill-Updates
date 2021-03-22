@@ -1,0 +1,215 @@
+import { browser, by, element, protractor } from 'protractor';
+import { config } from 'rxjs';
+
+export class ChatbotAppPage {
+  EC = protractor.ExpectedConditions;
+  newUsername!: string;
+  newEmaiId!: any;
+  numberInUsername!: number;
+
+
+  navigateTo() {
+    return browser.get('browser.baseUrl') as Promise<any>;
+  }
+
+  clickChatbotBtn(elem: any) {
+    elem(by.className('chat-btn')).click();
+  }
+
+  clickLoginLink(elem: any) {
+    // element(by.css('a.login-btn')).click();
+    // element(by.css('a.pre-login-side-nav-anchor')).click();
+    elem(by.partialLinkText('Login')).click();
+  }
+  fillLoginForm(username: string, password: string, element: any) {
+    console.log('USERNAME', username);
+    element(by.css('.login-form'))
+      .element(by.name('username'))
+      .sendKeys(username);
+    browser.sleep(1000);
+    element(by.css('.login-form'))
+      .element(by.name('password'))
+      .sendKeys(password);
+    browser.sleep(1000);
+    element(by.css('button.login-btn')).click();
+    browser.sleep(3000);
+  }
+  getChatBotText() {
+    return element(by.css('.chatbot-text')).getText() as Promise<string>;
+  }
+  async clickOnButton(btn: string) {
+    const btnClick = element(by.cssContainingText('.radio_button', btn));
+    console.log('click button');
+    browser.wait(this.EC.elementToBeClickable(btnClick)).then(() => {
+      btnClick.click();
+    });
+    // return element(by.buttonText(btn)).click();
+  }
+  setDays() {
+    const dayBtn = element(by.cssContainingText('button', 'S'));
+    dayBtn.click();
+  }
+
+  async findComponentType(elem: any) {
+    console.log('loop for find component type');
+
+    const newbtn =  elem(by.css('button.radio_button'));
+    browser
+      .wait(this.EC.presenceOf(newbtn), 1 * 1000)
+      .then(async() => {
+        const allOptions = await elem.all(by.css('.buttons button'));
+        console.log('text', await allOptions.get(0).getText());
+        browser.sleep(2000);
+        allOptions
+          .count()
+          .then( function(numberOfItems: number) {
+            return  Math.floor(Math.random() * numberOfItems);
+          })
+          .then( function(randomNumber: number) {
+            browser.sleep(2000);
+            console.log('Radio button clicked', randomNumber);
+            return  allOptions.get(randomNumber).click();
+          });
+      })
+      .catch( () => {
+        // Fill text area
+        console.log('CHECK IF TEXT AREA');
+        const textarea =  elem(by.css('textarea'));
+         browser
+          .wait(this.EC.presenceOf(textarea), 1 * 1000)
+          .then( () => {
+            console.log('Text Area found');
+             this.writeText('Something');
+             browser
+              .actions()
+              .sendKeys(protractor.Key.ENTER)
+              .perform();
+          })
+          .catch(async () => {
+            // select mood
+             console.log('CHECK IF MOOD WIDGET');
+            browser.sleep(2000);
+            // const moodBtn = elem(by.cssContainingText('button.mood-btn', 'Enter mood'));
+            const moodBtn =  elem(
+              by.className(
+                'mood-btn btn px-0 py-0 btn-outline-light mt-2 ng-tns-c25-33 ng-star-inserted',
+              ),
+            );
+             browser
+              .wait(this.EC.presenceOf(moodBtn), 10 * 1000)
+              .then(() => {
+                console.log('Mood Button Clicked');
+                moodBtn.click();
+                browser.sleep(2000);
+                // const moodSelect = elem(by.css('.select-mood'));
+                const moodSelect = elem(
+                  by.id('mat-expansion-panel-header-7'),
+                );
+                moodSelect.click();
+                browser.sleep(2000);
+                const negMoodCheck1 = elem(by.id('mat-checkbox-2'));
+                negMoodCheck1.click();
+                browser.sleep(2000);
+                const negMoodCheck2 = elem(by.id('mat-checkbox-5'));
+                negMoodCheck2.click();
+                browser.sleep(2000);
+                // browser.wait(this.EC.presenceOf(moodSelect), 10 * 1000).then(() => {
+                browser
+                  .wait(this.EC.presenceOf(negMoodCheck2), 10 * 1000)
+                  .then(() => {
+                    console.log('Mood Selected');
+                    elem(
+                      by.className(
+                        'done-btn mat-raised-button mat-button-base',
+                      ),
+                    ).click();
+                    // elem(by.css('.mat-checkbox-inner-container')).click();
+                  });
+              })
+              .catch(() => {
+                // give rating
+                console.log('CHECK IF SLIDER');
+                const ratingSelect = elem(by.css('mat-slider'));
+                browser
+                  .wait(this.EC.presenceOf(ratingSelect), 10 * 1000)
+                  .then(() => {
+                    console.log('Slider found');
+                    this.setRating();
+                    browser.sleep(2000);
+                    this.clickOnButton('Done');
+                  })
+                  .catch(() => {
+                    // select date
+                    console.log('CHECK IF DATE-TIME WIDGET');
+                    browser.sleep(2000);
+                    // const scheduleBtn = elem(by.cssContainingText('button', 'Set Schedule'));
+                    const scheduleBtn = elem(
+                      by.className(
+                        'btn px-0 py-0 btn-outline-light date-time-btn mt-2 ng-tns-c25-33 ng-star-inserted',
+                      ),
+                    );
+                    browser
+                      .wait(this.EC.presenceOf(scheduleBtn), 10 * 1000)
+                      .then(() => {
+                        scheduleBtn.click();
+                        const dateSelect1 = elem(
+                          by.cssContainingText(
+                            '.owl-dt-calendar-cell-content',
+                            '15',
+                          ),
+                        );
+                        dateSelect1.click();
+                        const dateSelect2 = elem(
+                          by.cssContainingText(
+                            '.owl-dt-calendar-cell-content',
+                            '18',
+                          ),
+                        );
+                        dateSelect2.click();
+                        console.log('Date time widget found');
+                        this.setDays();
+                        browser.sleep(2000);
+                        this.clickOnButton('Done');
+                      })
+                      .catch(() => {
+                        // check if module_button
+                        console.log('CHECK IF MODULE BUTTON');
+                        const moduleBtn = elem(
+                          by.css('button.module_button'),
+                        );
+                        browser
+                          .wait(this.EC.presenceOf(moduleBtn), 10 * 1000)
+                          .then(() => {
+                            console.log('Module Button Clicked');
+                            moduleBtn.click();
+                          })
+                          .catch(() => {
+                            console.log('restart');
+                            return;
+                          });
+                      });
+                  });
+              });
+          });
+      });
+  }
+
+
+  writeText(btn: string) {
+    const textbox = element(by.css('textarea'));
+    // browser.wait(this.EC.presenceOf(btnClick)).then(() => {
+    textbox.sendKeys(btn);
+    // });
+  }
+  setRating() {
+    const sliderBar = browser.findElement(
+      protractor.By.css('.mat-slider-thumb-label'),
+    );
+    browser
+      .actions()
+      .dragAndDrop(sliderBar, { x: 50, y: 0 })
+      .perform();
+    browser.sleep(1000);
+    // expect(sliderBar.getAttribute('value')).toEqual('7');
+  }
+}

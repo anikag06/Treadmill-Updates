@@ -21,11 +21,11 @@ export class AppPage {
     element(by.css(text)).click();
   }
 
-  clickChatbotBtn(element: any) {
+  clickChatbotBtn() {
     element(by.css('.chat-btn')).click();
   }
 
-  clickLoginLink(element: any) {
+  clickLoginLink() {
     // element(by.css('a.login-btn')).click();
     // element(by.css('a.pre-login-side-nav-anchor')).click();
     element(by.partialLinkText('Login')).click();
@@ -252,7 +252,7 @@ export class AppPage {
     browser.sleep(5000);
     return this.newUsername;
   }
-  fillLoginForm(username: string, password: string, element: any) {
+  fillLoginForm(username: string, password: string) {
     console.log('USERNAME', username);
     element(by.css('.login-form'))
       .element(by.name('username'))

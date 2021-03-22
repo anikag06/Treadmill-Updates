@@ -40,7 +40,7 @@ export class ChatbotPage {
     btnClick.click();
     // });
   }
-  findComponentType(element: any, browser: any) {
+  findComponentType() {
     const newbtn = element(by.css('button.radio_button'));
     browser
       .wait(this.EC.presenceOf(newbtn), 10 * 1000)
