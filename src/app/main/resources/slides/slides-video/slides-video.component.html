@@ -22,7 +22,7 @@
       {{instruction}}</button>
 
     <div class="align-items-end" style="margin-top:auto;">
-      <button type="button" class="btn btn-small back-text" (click)="onBack()" #backBtn tabindex="-1">{{backBtnTxt}}</button>
+      <button type="button" class="btn btn-small back-text" [ngStyle]="{color : fromChatbot ? 'black' : '#999999'}" (click)="onBack()" #backBtn tabindex="-1">{{backBtnTxt}}</button>
     </div>
   </div>
 </div>
