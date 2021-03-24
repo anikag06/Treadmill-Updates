@@ -4,7 +4,7 @@
 const { SpecReporter } = require('jasmine-spec-reporter');
 
 exports.config = {
-  allScriptsTimeout: 11000,
+  allScriptsTimeout: 110000,
   // specs: [
   //   './src/**/*.e2e-spec.ts'
   // ],
@@ -13,7 +13,11 @@ exports.config = {
     test2: [ './src/**/flow.e2e-spec.ts'], // only experimental with username hardcoded
     test3: [ './src/**/flow-control.e2e-spec.ts'], // only control with username hardcoded
     test4: [ './src/**/chatbot.e2e-spec.ts'], // for chatbot with username hardcoded
-    test5: [ './src/**/chatbotMultiuser.e2e-spec.ts'], // for chatbot with multi users
+    test5: [ './src/**/chatbot.e2e-spec.ts', './src/**/chatbot-2.e2e-spec.ts' , './src/**/chatbot-3.e2e-spec.ts',
+      './src/**/chatbot-4.e2e-spec.ts',
+      './src/**/chatbot-5.e2e-spec.ts', './src/**/chatbot-6.e2e-spec.ts', './src/**/chatbot-7.e2e-spec.ts',
+      './src/**/chatbot-8.e2e-spec.ts'] // chatbot testing for multiple users
+
   },
   multiCapabilities: [
     {
@@ -21,8 +25,10 @@ exports.config = {
       'chromeOptions': {
         'prefs': {
           'profile.managed_default_content_settings.notifications': 1}
-      }
-  }
+      },
+      shardTestFiles: true, // set only for running suite test5 otherwise comment out
+      maxInstances: 8 // set8 only for running suite test5 otherwise comment out
+  },
   ],
   directConnect: true,
   // baseUrl: 'http://localhost:4200/',

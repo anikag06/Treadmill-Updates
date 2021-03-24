@@ -57,7 +57,7 @@ describe('treadwill Chatbot', () => {
     browser.sleep(2000);
   });
 
-  xit(
+  it(
     'should run chatbot for 10 minutes',
     () => {
       for (let i = 0; i < 50; i++) {
