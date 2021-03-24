@@ -103,12 +103,12 @@ describe('treadwill Chatbot', () => {
     async() => {
     const num = 10
     for (let i = 0; i <= num; i++) {
-      console.log('Lopp 1: ', i);
+      console.log('Loop 1: ', i);
       cp.findComponentType();
       arrayFilled = await cp.createMessageArrays(num);
     }
     for (let i = 0; i <= num+1; i++) {
-      console.log('Lopp 2: ', i);
+      console.log('Loop 2: ', i);
       cp.findComponentType();
       arrayFilled = await cp.createMessageArrays(num);
     }

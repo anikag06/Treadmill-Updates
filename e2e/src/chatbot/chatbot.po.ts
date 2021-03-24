@@ -77,87 +77,88 @@ export class ChatbotPage {
           .catch(() => {
             // select mood
             console.log('CHECK IF MOOD WIDGET');
-            browser.sleep(2000);
+            // browser.sleep(2000);
             // const moodBtn = element(by.cssContainingText('button.mood-btn', 'Enter mood'));
-            const moodBtn = element(
+            const moodBtn = element.all(
               by.className(
                 'mood-btn btn px-0 py-0 btn-outline-light mt-2 ng-tns-c25-33 ng-star-inserted',
               ),
-            );
+            ).last();
             browser
               .wait(this.EC.presenceOf(moodBtn), 10 * 1000)
               .then(() => {
                 console.log('Mood Button Clicked');
                 moodBtn.click();
-                browser.sleep(2000);
+                browser.sleep(3500);
                 // const moodSelect = element(by.css('.select-mood'));
-                const moodSelect = element(
+                const moodSelect = element.all(
                   by.id('mat-expansion-panel-header-7'),
-                );
+                ).last();
                 moodSelect.click();
-                browser.sleep(2000);
-                const negMoodCheck1 = element(by.id('mat-checkbox-2'));
+                // browser.sleep(1000);
+                const negMoodCheck1 = element.all(by.id('mat-checkbox-2')).last();
                 negMoodCheck1.click();
-                browser.sleep(2000);
-                const negMoodCheck2 = element(by.id('mat-checkbox-5'));
+                // browser.sleep(3000);
+                const negMoodCheck2 = element.all(by.id('mat-checkbox-5')).last();
                 negMoodCheck2.click();
-                browser.sleep(2000);
+                // browser.sleep(3000);
                 // browser.wait(this.EC.presenceOf(moodSelect), 10 * 1000).then(() => {
                 browser
                   .wait(this.EC.presenceOf(negMoodCheck2), 10 * 1000)
                   .then(() => {
                     console.log('Mood Selected');
-                    element(
+                    element.all(
                       by.className(
                         'done-btn mat-raised-button mat-button-base',
                       ),
-                    ).click();
+                    ).last().click();
                     // element(by.css('.mat-checkbox-inner-container')).click();
                   });
               })
               .catch(() => {
                 // give rating
                 console.log('CHECK IF SLIDER');
-                const ratingSelect = element(by.css('mat-slider'));
+                // const ratingSelect = element(by.css('mat-slider'));
+                const ratingSelect = element.all(by.className('mat-slider mat-accent mat-slider-horizontal mat-slider-thumb-label-showing mat-slider-min-value')).last();
                 browser
                   .wait(this.EC.presenceOf(ratingSelect), 10 * 1000)
                   .then(() => {
                     console.log('Slider found');
                     this.setRating();
-                    browser.sleep(2000);
-                    this.clickOnButton('Done');
+                    browser.sleep(1000);
+                    const doneBtn = element.all(by.className('btn done-btn mat-raised-button mat-button-base')).last();
+                    doneBtn.click();
+                    // this.clickOnButton('Done');
                   })
                   .catch(() => {
                     // select date
                     console.log('CHECK IF DATE-TIME WIDGET');
-                    browser.sleep(2000);
+                    // browser.sleep(3000);
                     // const scheduleBtn = element(by.cssContainingText('button', 'Set Schedule'));
                     const scheduleBtn = element(
                       by.className(
                         'btn px-0 py-0 btn-outline-light date-time-btn mt-2 ng-tns-c25-33 ng-star-inserted',
                       ),
                     );
+                    // browser.sleep(2000);
                     browser
                       .wait(this.EC.presenceOf(scheduleBtn), 10 * 1000)
                       .then(() => {
                         scheduleBtn.click();
-                        const dateSelect1 = element(
-                          by.cssContainingText(
-                            '.owl-dt-calendar-cell-content',
-                            '15',
-                          ),
-                        );
+                        const dateSelect1 = element(by.className('owl-dt-calendar-cell-content owl-dt-calendar-cell-today'));
                         dateSelect1.click();
+                        browser.sleep(2000);
                         const dateSelect2 = element(
                           by.cssContainingText(
                             '.owl-dt-calendar-cell-content',
-                            '18',
+                            '31',
                           ),
-                        );
+                        );        
                         dateSelect2.click();
+                        // browser.sleep(2000);
                         console.log('Date time widget found');
                         this.setDays();
-                        browser.sleep(2000);
+                        // browser.sleep(2000);
                         this.clickOnButton('Done');
                       })
                       .catch(() => {
@@ -182,9 +183,11 @@ export class ChatbotPage {
       });
   }
   setRating() {
-    const sliderBar = browser.findElement(
-      protractor.By.css('.mat-slider-thumb-label'),
-    );
+    const sliderBar = element.all(by.className('mat-slider-thumb-label')).last();
+    // browser.findElement(
+      // element(by.css('.mat-slider-thumb-label')),
+      // element(by.className('mat-slider-thumb-label')),
+    // );
     browser
       .actions()
       .dragAndDrop(sliderBar, { x: 50, y: 0 })
