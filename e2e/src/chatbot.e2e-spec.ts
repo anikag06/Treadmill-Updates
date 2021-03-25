@@ -101,7 +101,7 @@ describe('treadwill Chatbot', () => {
 
   it('should check for module repetition',
     async() => {
-    const num = 10
+    const num = 100
     for (let i = 0; i <= num; i++) {
       console.log('Loop 1: ', i);
       cp.findComponentType();

@@ -43,22 +43,28 @@ export class ChatbotPage {
   }
   findComponentType() {
     const newbtn = element(by.css('button.radio_button'));
+    // const newbtn = element.all(by.className('mat-stroked-button mat-button-base ng-tns-c22-9 radio_button ripple mat-primary ng-star-inserted')).last();
     browser
       .wait(this.EC.presenceOf(newbtn), 10 * 1000)
       .then(() => {
-        const allOptions = element.all(by.css('.buttons button'));
-        browser.sleep(2000);
+        // const allOptions = element.all(by.css('.buttons button'));
+        const allOptions = element.all(by.css('button.radio_button'));
+        // const allOptions = element.all(by.className('mat-stroked-button mat-button-base ng-tns-c22-9 radio_button ripple mat-primary ng-star-inserted'));
+        // browser.sleep(2000);
         allOptions
           .count()
           .then(function(numberOfItems) {
-            return Math.floor(Math.random() * numberOfItems);
-          })
-          .then(function(randomNumber) {
-            browser.sleep(2000);
-            allOptions.get(randomNumber).click();
-            console.log('Radio button clicked', randomNumber);
-            browser.sleep(2000);
+            allOptions.get(Math.floor(Math.random() * numberOfItems)).click();
+            // browser.sleep(2000);
+            // return Math.floor(Math.random() * numberOfItems);
           });
+          // .then(function(randomNumber) {
+          //   // browser.sleep(2000);
+          //   const allOptionsAgain = element.all(by.css('button.radio_button'));
+          //   allOptionsAgain.get(randomNumber).click();
+          //   console.log('Radio button clicked', randomNumber);
+          //   browser.sleep(2000);
+          // });
       })
       .catch(() => {
         // Fill text area
