@@ -41,7 +41,7 @@ describe('treadwill Chatbot', () => {
     page.clickLoginLink();
     browser.sleep(3500);
     // username is hardcoded here
-    page.fillLoginForm('new_arka_iitk', 'test123');
+    page.fillLoginForm('arka321', 'test123');
     browser.sleep(3500);
     // expect(fp.onDashboard()).toBeTruthy('url does not contains dashboard');
     expect(
@@ -57,7 +57,7 @@ describe('treadwill Chatbot', () => {
     browser.sleep(2000);
   });
 
-  it(
+  xit(
     'should run chatbot for 10 minutes',
     () => {
       for (let i = 0; i < 50; i++) {
@@ -65,7 +65,7 @@ describe('treadwill Chatbot', () => {
         console.log('Loop' + i);
       }
     },
-    10 * 60 * 1000,
+    50 * 60 * 1000,
   );
 
   xit(
@@ -101,7 +101,7 @@ describe('treadwill Chatbot', () => {
 
   it('should check for module repetition',
     async() => {
-    const num = 10
+    const num = 10;
     for (let i = 0; i <= num; i++) {
       console.log('Loop 1: ', i);
       cp.findComponentType();
