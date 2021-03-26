@@ -47,24 +47,12 @@ export class ChatbotPage {
     browser
       .wait(this.EC.presenceOf(newbtn), 10 * 1000)
       .then(() => {
-        // const allOptions = element.all(by.css('.buttons button'));
         const allOptions = element.all(by.css('button.radio_button'));
-        // const allOptions = element.all(by.className('mat-stroked-button mat-button-base ng-tns-c22-9 radio_button ripple mat-primary ng-star-inserted'));
-        // browser.sleep(2000);
         allOptions
           .count()
           .then(function(numberOfItems) {
             allOptions.get(Math.floor(Math.random() * numberOfItems)).click();
-            // browser.sleep(2000);
-            // return Math.floor(Math.random() * numberOfItems);
           });
-          // .then(function(randomNumber) {
-          //   // browser.sleep(2000);
-          //   const allOptionsAgain = element.all(by.css('button.radio_button'));
-          //   allOptionsAgain.get(randomNumber).click();
-          //   console.log('Radio button clicked', randomNumber);
-          //   browser.sleep(2000);
-          // });
       })
       .catch(() => {
         // Fill text area
@@ -148,7 +136,7 @@ export class ChatbotPage {
                     );
                     // browser.sleep(2000);
                     browser
-                      .wait(this.EC.presenceOf(scheduleBtn), 10 * 1000)
+                      .wait(this.EC.presenceOf(scheduleBtn), 15 * 1000)
                       .then(() => {
                         scheduleBtn.click();
                         const dateSelect1 = element(by.className('owl-dt-calendar-cell-content owl-dt-calendar-cell-today'));
@@ -181,6 +169,7 @@ export class ChatbotPage {
                           })
                           .catch(() => {
                             console.log('restart');
+                            return;
                           });
                       });
                   });
@@ -264,9 +253,26 @@ export class ChatbotPage {
   }
 
   async createMessageArrays(num: number){
-    const last = this.items.get((await this.items.count()) - 1);
-    const lastmsg = await last.getText();
-    console.log('last message: ', lastmsg);
+    var lastmsg = "no message"
+    let chatMessages = element.all(by.className('message bot')).all(by.className('message-text'));
+    for(let i=0; i<5; i++){
+      try{
+
+        // const last = this.items.get((await this.items.count()) - 1);
+        const last = this.items.get((await chatMessages.count()) - 1);
+        // const lastmsg = await last.getText();
+        lastmsg = await last.getText();
+        console.log('last message: ', lastmsg);
+        break;
+      } catch {
+        console.log('Inside createMessageArrays function catch try block!!!')
+        // const last = this.items.get((await this.items.count()) - 1);
+        const last = this.items.get((await chatMessages.count()) - 1);
+        // const lastmsg = await last.getText();
+        lastmsg = await last.getText();
+        console.log('last message: ', lastmsg);
+      }
+    }
     if(this.array1.length < num){
       this.array1.push(lastmsg);
       console.log('pushed to array 1: ', this.array1.length);
