@@ -36,7 +36,7 @@ export class ChatbotPage {
   }
 
   clickOnButton(btn: string) {
-    const btnClick = element(by.cssContainingText('button', btn));
+    const btnClick = element.all(by.cssContainingText('button', btn)).last();
     // browser.wait(this.EC.presenceOf(btnClick)).then(() => {
     btnClick.click();
     // });
@@ -75,7 +75,7 @@ export class ChatbotPage {
             // const moodBtn = element(by.cssContainingText('button.mood-btn', 'Enter mood'));
             const moodBtn = element.all(
               by.className(
-                'mood-btn btn px-0 py-0 btn-outline-light mt-2 ng-tns-c25-33 ng-star-inserted',
+                'mood-btn btn btn-outline-light',
               ),
             ).last();
             browser
@@ -83,30 +83,35 @@ export class ChatbotPage {
               .then(() => {
                 console.log('Mood Button Clicked');
                 moodBtn.click();
-                browser.sleep(3500);
-                // const moodSelect = element(by.css('.select-mood'));
-                const moodSelect = element.all(
-                  by.id('mat-expansion-panel-header-7'),
-                ).last();
+                browser.sleep(2500);
+                const moodSelect = element.all(by.cssContainingText('div.select-mood', ' Negative mood ')).last();
+                // const moodSelect = element(
+                //   by.id('mat-expansion-panel-header-7'),
+                // );
+                browser
+                  .wait(this.EC.presenceOf(moodSelect), 20 * 1000)
+                  .then(() => {
                 moodSelect.click();
-                // browser.sleep(1000);
-                const negMoodCheck1 = element.all(by.id('mat-checkbox-2')).last();
-                negMoodCheck1.click();
+                browser.sleep(3000);
+
+                const negMoodCheck1 = element.all(by.cssContainingText('.mat-checkbox-label', 'Anxious')).last();
+                // negMoodCheck1.click();
                 // browser.sleep(3000);
-                const negMoodCheck2 = element.all(by.id('mat-checkbox-5')).last();
-                negMoodCheck2.click();
-                // browser.sleep(3000);
+                // const negMoodCheck2 = element(by.id('mat-checkbox-5'));
                 // browser.wait(this.EC.presenceOf(moodSelect), 10 * 1000).then(() => {
                 browser
-                  .wait(this.EC.presenceOf(negMoodCheck2), 10 * 1000)
+                  .wait(this.EC.presenceOf(negMoodCheck1), 20 * 1000)
                   .then(() => {
+                    negMoodCheck1.click();
                     console.log('Mood Selected');
+                    browser.sleep(3000);
                     element.all(
                       by.className(
                         'done-btn mat-raised-button mat-button-base',
                       ),
                     ).last().click();
                     // element(by.css('.mat-checkbox-inner-container')).click();
+                  });
                   });
               })
               .catch(() => {
@@ -131,7 +136,7 @@ export class ChatbotPage {
                     // const scheduleBtn = element(by.cssContainingText('button', 'Set Schedule'));
                     const scheduleBtn = element(
                       by.className(
-                        'btn px-0 py-0 btn-outline-light date-time-btn mt-2 ng-tns-c25-33 ng-star-inserted',
+                        'btn btn-outline-light date-time-btn ',
                       ),
                     );
                     // browser.sleep(2000);
@@ -139,21 +144,27 @@ export class ChatbotPage {
                       .wait(this.EC.presenceOf(scheduleBtn), 15 * 1000)
                       .then(() => {
                         scheduleBtn.click();
-                        const dateSelect1 = element(by.className('owl-dt-calendar-cell-content owl-dt-calendar-cell-today'));
-                        dateSelect1.click();
-                        browser.sleep(2000);
-                        const dateSelect2 = element(
-                          by.cssContainingText(
-                            '.owl-dt-calendar-cell-content',
-                            '31',
-                          ),
-                        );        
-                        dateSelect2.click();
+                        const dateSelect1 = element.all(by.className('owl-dt-calendar-cell-content owl-dt-calendar-cell-today')).last();
+                        browser
+                          .wait(this.EC.presenceOf(scheduleBtn), 10 * 1000)
+                          .then(() => {
+                            dateSelect1.click();
+                            browser.sleep(2000);
+                            const dateSelect2 = element.all(
+                              by.cssContainingText(
+                                '.owl-dt-calendar-cell-content',
+                                '31',
+                              ),
+                            ).last();
+                            browser.sleep(2000);
+                            dateSelect2.click();
+                            console.log('Date time widget found');
+                            this.setDays();
+                            // browser.sleep(2000);
+                            this.clickOnButton('Done');
+                          });
                         // browser.sleep(2000);
-                        console.log('Date time widget found');
-                        this.setDays();
-                        // browser.sleep(2000);
-                        this.clickOnButton('Done');
+
                       })
                       .catch(() => {
                         // check if module_button
@@ -219,12 +230,63 @@ export class ChatbotPage {
   }
 
   async checkRepeatMsg() {
-    const last = this.items.get((await this.items.count()) - 1);
-    const secondLast = this.items.get((await this.items.count()) - 2);
-    const lastmsg = await last.getText();
-    const secondlastmsg = await secondLast.getText();
-    console.log('Last message: ', lastmsg);
-    console.log('second last message: ', secondlastmsg);
+    // const last = this.items.get((await this.items.count()) - 1);
+    // const secondLast = this.items.get((await this.items.count()) - 2);
+    // const lastmsg = await last.getText();
+    // const secondlastmsg = await secondLast.getText();
+    // console.log('Last message: ', lastmsg);
+    // console.log('second last message: ', secondlastmsg);
+    var lastmsg
+    var secondlastmsg
+    try{
+      const secondLast = this.items.get((await this.items.count()) - 2);
+      const last = this.items.get((await this.items.count()) - 1);
+      // browser.sleep(2000);
+      // const secondLast = this.items.get((await this.items.count()) - 2);
+      lastmsg = await last.getText();
+      secondlastmsg = await secondLast.getText();
+      console.log('Last message: ', lastmsg);
+      console.log('second last message: ', secondlastmsg);
+    } catch {
+      try{
+        const last = this.items.get((await this.items.count()) - 1);
+        // browser.sleep(2000);
+        const secondLast = this.items.get((await this.items.count()) - 2);
+        lastmsg = await last.getText();
+        secondlastmsg = await secondLast.getText();
+        console.log('Last message: ', lastmsg);
+        console.log('second last message: ', secondlastmsg);
+      } catch {
+        try{
+          const secondLast = this.items.get((await this.items.count()) - 2);
+          const last = this.items.get((await this.items.count()) - 1);
+          // browser.sleep(2000);
+          // const secondLast = this.items.get((await this.items.count()) - 2);
+          lastmsg = await last.getText();
+          secondlastmsg = await secondLast.getText();
+          console.log('Last message: ', lastmsg);
+          console.log('second last message: ', secondlastmsg);
+        } catch {
+          try{
+            const last = this.items.get((await this.items.count()) - 1);
+            // browser.sleep(2000);
+            const secondLast = this.items.get((await this.items.count()) - 2);
+            lastmsg = await last.getText();
+            secondlastmsg = await secondLast.getText();
+            console.log('Last message: ', lastmsg);
+            console.log('second last message: ', secondlastmsg);
+          } catch {
+            const last = this.items.get((await this.items.count()) - 1);
+            // browser.sleep(2000);
+            const secondLast = this.items.get((await this.items.count()) - 2);
+            lastmsg = await last.getText();
+            secondlastmsg = await secondLast.getText();
+            console.log('Last message: ', lastmsg);
+            console.log('second last message: ', secondlastmsg);
+          }
+        }
+      }
+    }
     if (lastmsg === secondlastmsg) {
       if(lastmsg === "Hi again... let me start from where we left..." ||
         lastmsg === "Hey, it's good to see you again... let me start from where we left..." ||
@@ -239,9 +301,41 @@ export class ChatbotPage {
   }
 
   async checkIntroBotMsg() {
-    const last = this.items.get((await this.items.count()) - 1);
-    const lastmsg = await last.getText();
-    console.log('Last message: ', lastmsg);
+    // const last = this.items.get((await this.items.count()) - 1);
+    // const lastmsg = await last.getText();
+    // console.log('Last message: ', lastmsg);
+    var lastmsg
+    try{
+      const last = this.items.get((await this.items.count()) - 1);
+      lastmsg = await last.getText();
+      console.log('last message: ', lastmsg);
+    } catch {
+      try{
+        console.log('Inside createMessageArrays function catch try 1 block!!!')
+        const last = this.items.get((await this.items.count()) - 1);
+        lastmsg = await last.getText();
+        console.log('last message: ', lastmsg);
+      } catch {
+        try{
+          console.log('Inside createMessageArrays function catch try 2 block!!!')
+          const last = this.items.get((await this.items.count()) - 1);
+          lastmsg = await last.getText();
+          console.log('last message: ', lastmsg);
+        } catch {
+          try{
+            console.log('Inside createMessageArrays function catch try 3 block!!!')
+            const last = this.items.get((await this.items.count()) - 1);
+            lastmsg = await last.getText();
+            console.log('last message: ', lastmsg);
+          } catch {
+            console.log('Inside createMessageArrays function catch catch block!!!')
+            const last = this.items.get((await this.items.count()) - 1);
+            lastmsg = await last.getText();
+            console.log('last message: ', lastmsg);
+          }
+        }
+      }
+    }
     if(lastmsg === "Hi again... let me start from where we left..." ||
       lastmsg === "Hey, it's good to see you again... let me start from where we left..." ||
       lastmsg === "Okay I'm back... give me a second to resume the conversation...") {
@@ -253,24 +347,41 @@ export class ChatbotPage {
   }
 
   async createMessageArrays(num: number){
-    var lastmsg = "no message"
-    let chatMessages = element.all(by.className('message bot')).all(by.className('message-text'));
-    for(let i=0; i<5; i++){
+    var lastmsg
+    try{
+      const last = this.items.get((await this.items.count()) - 1);
+      // const lastmsg = await last.getText();
+      lastmsg = await last.getText();
+      console.log('last message: ', lastmsg);
+    } catch {
       try{
-
-        // const last = this.items.get((await this.items.count()) - 1);
-        const last = this.items.get((await chatMessages.count()) - 1);
+        console.log('Inside createMessageArrays function catch try 1 block!!!')
+        const last = this.items.get((await this.items.count()) - 1);
         // const lastmsg = await last.getText();
         lastmsg = await last.getText();
         console.log('last message: ', lastmsg);
-        break;
       } catch {
-        console.log('Inside createMessageArrays function catch try block!!!')
-        // const last = this.items.get((await this.items.count()) - 1);
-        const last = this.items.get((await chatMessages.count()) - 1);
-        // const lastmsg = await last.getText();
-        lastmsg = await last.getText();
-        console.log('last message: ', lastmsg);
+        try{
+          console.log('Inside createMessageArrays function catch try 2 block!!!')
+          const last = this.items.get((await this.items.count()) - 1);
+          // const lastmsg = await last.getText();
+          lastmsg = await last.getText();
+          console.log('last message: ', lastmsg);
+        } catch {
+          try{
+            console.log('Inside createMessageArrays function catch try 3 block!!!')
+            const last = this.items.get((await this.items.count()) - 1);
+            // const lastmsg = await last.getText();
+            lastmsg = await last.getText();
+            console.log('last message: ', lastmsg);
+          } catch {
+            console.log('Inside createMessageArrays function catch catch block!!!')
+            const last = this.items.get((await this.items.count()) - 1);
+            // const lastmsg = await last.getText();
+            lastmsg = await last.getText();
+            console.log('last message: ', lastmsg);
+          }
+        }
       }
     }
     if(this.array1.length < num){

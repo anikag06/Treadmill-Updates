@@ -41,7 +41,7 @@ describe('treadwill Chatbot', () => {
     page.clickLoginLink();
     browser.sleep(3500);
     // username is hardcoded here
-    page.fillLoginForm('new_arka_iitk', 'test123');
+    page.fillLoginForm('arka313', 'test123');
     browser.sleep(3500);
     // expect(fp.onDashboard()).toBeTruthy('url does not contains dashboard');
     expect(
@@ -65,13 +65,13 @@ describe('treadwill Chatbot', () => {
         console.log('Loop' + i);
       }
     },
-    10 * 60 * 1000,
+    50 * 60 * 1000,
   );
 
-  xit(
-    'should check for repetition of messages in chatbot for 10 minutes',
+  it(
+    'should check for repetition of messages in chatbot for 100 iterations',
     async () => {
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 100; i++) {
         cp.findComponentType();
         messageRepeatVal = await cp.checkRepeatMsg();
         if (messageRepeatVal == true) {
@@ -81,12 +81,12 @@ describe('treadwill Chatbot', () => {
       }
       expect(flag).toEqual(0);
     },
-    10 * 60 * 1000,
+    100 * 60 * 1000,
   );
 
   xit('should check for intro_bot messages in between of chat',
     async () => {
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 100; i++) {
         cp.findComponentType();
         messageIntroBotVal = await cp.checkIntroBotMsg();
         if (messageIntroBotVal == true) {
@@ -96,10 +96,10 @@ describe('treadwill Chatbot', () => {
       }
       expect(introCount).toEqual(1);
     },
-    10 * 60 * 1000,
+    100 * 60 * 1000,
   );
 
-  it('should check for module repetition',
+  xit('should check for module repetition',
     async() => {
     const num = 100
     for (let i = 0; i <= num; i++) {
