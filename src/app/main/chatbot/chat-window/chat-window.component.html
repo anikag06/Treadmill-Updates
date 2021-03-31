@@ -43,18 +43,18 @@
         </mat-progress-spinner>
         <div [ngStyle]="{ fontSize: '12px' }">Loading Messages...</div>
       </div>
-      <div class="bot-typing" *ngIf="showWillBotTyping">
-        WillBot is typing...
-      </div>
       <div class="clearfix messages" *ngFor="let m of messages; let i = index">
-        <div style="text-align: center;">
-          <div class="my-3" *ngIf="isDifferentDay(i)">
+        <div *ngIf="isDifferentDay(i)" style="text-align: center;">
+          <div class="my-3">
             <span class="msg-date">{{ getMessageDate(i) }}</span>
           </div>
         </div>
         <div>
           <ng-container *ngIf="!m.waiting">
-            <div class="message" [ngClass]="{ bot: !m.user }" *ngIf="m.message">
+            <div
+              class="message"
+              [ngClass]="{ bot: !m.user }"
+              *ngIf="m.message">
               <div class="message-text" [innerHTML]="m.message"></div>
               <!-- <span class="date-time">{{m.datetime | date: 'short' }}</span> -->
             </div>
@@ -76,11 +76,14 @@
         </div>
 
         <div *ngFor="let widget of m.widgets">
-          <div class="buttons">
+          <div
+            class="text-center"
+            *ngIf="widget === moodWidget || widget === dateTimeWidget"
+          >
             <button
               (click)="onMoodSelect()"
               *ngIf="widget === moodWidget && showMoodWidgetBtn"
-              class="mood-btn btn px-0 py-0 btn-outline-light mt-2"
+              class="mood-btn btn px-0 py-0 btn-outline-light mt-2 mb-4"
             >
               <img
                 [ngStyle]="{ width: '184px', height: '50px' }"
@@ -98,7 +101,7 @@
               ></app-mood-tracker>
             </div>
             <button
-              class="btn px-0 py-0 btn-outline-light date-time-btn mt-2"
+              class="btn px-0 py-0 btn-outline-light date-time-btn mt-2 mb-4"
               (click)="onDateTimeSelect()"
               *ngIf="widget === dateTimeWidget && showDateTimeWidgetBtn"
             >
@@ -143,11 +146,8 @@
           display_cell: buttonType === clickAble,
           display_block: buttonType !== clickAble
         }"
+        *ngIf="chatButtons && chatButtons.length > 0"
       >
-        <!--        <div-->
-        <!--          *ngIf="buttonType === clickAble"-->
-        <!--          style="margin-left: 10%;"-->
-        <!--        ></div>-->
         <button
           mat-stroked-button
           color="primary"
@@ -164,7 +164,6 @@
               display:
                 button.type === clickAble && !button.loaded ? 'block' : 'none'
             }"
-
           >
           </span>
           <img
@@ -229,17 +228,23 @@
           I am being maintained!
         </div>
       </div>
-      <div *ngIf="isLoading">
+      <div *ngIf="isLoading" class="clearfix mt-0">
         <div class="message bot">
           <div class="message-text waiting">
             <div class="dot-typing"></div>
           </div>
         </div>
       </div>
+      <div class="bot-typing" *ngIf="showWillBotTyping">
+        WillBot is typing...
+      </div>
+      <div class="clearfix bottom-div w-100"
+      [ngStyle]="{marginTop : !showTextInput && !showSlider ? '90px': '30px' }">
+      </div>
     </div>
 
     <div
-      [ngStyle]="{display : showScrollToBottom ? 'block' : 'none'}"
+      [ngStyle]="{ display: showScrollToBottom ? 'block' : 'none' }"
       class="scroll-bottom"
       (click)="onScrollToBottomClick()"
     >
@@ -271,8 +276,6 @@
             (focus)="onFocusEvent($event)"
           >
           </textarea>
-          <!--          (keyup.enter)="onKey($event)"-->
-          <!--        </mat-form-field>-->
         </div>
         <div class="btn-div">
           <button type="submit">

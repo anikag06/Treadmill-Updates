@@ -115,6 +115,8 @@
   }
   .message-text.waiting {
     padding: 15px;
+    margin-top: 0;
+    margin-bottom: 40px;
   }
   float: left;
 }
@@ -276,8 +278,9 @@ button {
     }
     .scroll-bottom {
       position: absolute;
-      bottom: 15vh;
+      bottom: 30vh;
       right: 5vw;
+      z-index: 99999;
     }
   }
 }
@@ -438,7 +441,7 @@ $x3: -$leftPos + $dotSpacing;
 }
 .scroll-bottom {
   position: absolute;
-  bottom: 60px;
+  bottom: 20vh;
   right: 8%;
 }
 
@@ -459,10 +462,8 @@ $x3: -$leftPos + $dotSpacing;
   padding: 5px 12px;
 }
 .bot-typing{
-  position: absolute;
-  bottom: 2%;
   font-size: 12px;
-  left: 2%;
+ margin-left: 5px;
   color: #808080;
 }
 .module-skeleton {
