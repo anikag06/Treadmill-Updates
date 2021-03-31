@@ -1,7 +1,7 @@
 /* tslint:disable:no-trailing-whitespace */
 import { ListKeyManager } from '@angular/cdk/a11y';
 import { browser, by, element, protractor } from 'protractor';
-import { count } from 'rxjs/operators';
+import { count, delay } from 'rxjs/operators';
 import { AppPage } from '../app.po';
 
 export class ChatbotPage {
@@ -240,25 +240,30 @@ export class ChatbotPage {
     var secondlastmsg
     try{
       const secondLast = this.items.get((await this.items.count()) - 2);
+      // browser.sleep(500);
+      delay(500);
       const last = this.items.get((await this.items.count()) - 1);
-      // browser.sleep(2000);
-      // const secondLast = this.items.get((await this.items.count()) - 2);
       lastmsg = await last.getText();
       secondlastmsg = await secondLast.getText();
       console.log('Last message: ', lastmsg);
       console.log('second last message: ', secondlastmsg);
     } catch {
       try{
-        const last = this.items.get((await this.items.count()) - 1);
-        // browser.sleep(2000);
+        console.log('---------Inside catch try 1--------');
         const secondLast = this.items.get((await this.items.count()) - 2);
+        // browser.sleep(500);
+        delay(500);
+        const last = this.items.get((await this.items.count()) - 1);
         lastmsg = await last.getText();
         secondlastmsg = await secondLast.getText();
         console.log('Last message: ', lastmsg);
         console.log('second last message: ', secondlastmsg);
       } catch {
         try{
+          console.log('---------Inside catch try 2--------');
           const secondLast = this.items.get((await this.items.count()) - 2);
+          // browser.sleep(500);
+          delay(500);
           const last = this.items.get((await this.items.count()) - 1);
           // browser.sleep(2000);
           // const secondLast = this.items.get((await this.items.count()) - 2);
@@ -268,17 +273,21 @@ export class ChatbotPage {
           console.log('second last message: ', secondlastmsg);
         } catch {
           try{
-            const last = this.items.get((await this.items.count()) - 1);
-            // browser.sleep(2000);
+            console.log('---------Inside catch try 3--------');
             const secondLast = this.items.get((await this.items.count()) - 2);
+            // browser.sleep(500);
+            delay(500);
+            const last = this.items.get((await this.items.count()) - 1);
             lastmsg = await last.getText();
             secondlastmsg = await secondLast.getText();
             console.log('Last message: ', lastmsg);
             console.log('second last message: ', secondlastmsg);
           } catch {
-            const last = this.items.get((await this.items.count()) - 1);
-            // browser.sleep(2000);
+            console.log('---------Inside catch catch 4--------');
             const secondLast = this.items.get((await this.items.count()) - 2);
+            // browser.sleep(500);
+            delay(500);
+            const last = this.items.get((await this.items.count()) - 1);
             lastmsg = await last.getText();
             secondlastmsg = await secondLast.getText();
             console.log('Last message: ', lastmsg);

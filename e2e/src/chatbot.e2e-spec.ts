@@ -41,7 +41,7 @@ describe('treadwill Chatbot', () => {
     page.clickLoginLink();
     browser.sleep(3500);
     // username is hardcoded here
-    page.fillLoginForm('arka313', 'test123');
+    page.fillLoginForm('test202', 'test123');
     browser.sleep(3500);
     // expect(fp.onDashboard()).toBeTruthy('url does not contains dashboard');
     expect(
