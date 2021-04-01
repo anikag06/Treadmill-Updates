@@ -6,13 +6,16 @@ import { A2HSService } from '@/shared/a2hs.service';
 import { MatContactUsDialogService } from '@/shared/mat-contact-us-dialog/mat-contact-us-dialog.service';
 import { AuthService } from '@/shared/auth/auth.service';
 import {
-  LOGGED_IN_PATH,
   DEFAULT_PATH,
+  IS_VISITED,
   LANDING_RESET_PASSWORD_PATH,
+  LOGGED_IN_PATH,
   LOGIN_AFTER_RESET,
 } from '@/app.constants';
 
 import { MatLoginDialogComponent } from '@/pre-login/login/mat-login-dialog/mat-login-dialog.component';
+import { MatDialog } from '@angular/material';
+import { ChangeBrowserDialogComponent } from '@/shared/change-browser-dialog/change-browser-dialog.component';
 
 @Component({
   selector: 'app-pre-login',
@@ -31,6 +34,7 @@ export class PreLoginComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -48,11 +52,18 @@ export class PreLoginComponent implements OnInit {
     if (this.router.url === LOGIN_AFTER_RESET) {
       this.onLoginClicked();
     }
+    if (
+      !this.isChromeBrowser() &&
+      sessionStorage.getItem(IS_VISITED) === null
+    ) {
+      this.showBrowserChangeDialog();
+      sessionStorage.setItem(IS_VISITED, 'true');
+    }
   }
 
   onLoginClicked() {
     this.showLoginSignupDialogService.broadcastLoginClicked(
-      MatLoginDialogComponent,
+      MatLoginDialogComponent
     );
   }
 
@@ -76,5 +87,42 @@ export class PreLoginComponent implements OnInit {
 
   onTermsConditions() {
     this.router.navigate(['trial/terms-and-conditions']);
+  }
+
+  showBrowserChangeDialog() {
+    const dialogRef = this.dialog.open(ChangeBrowserDialogComponent, {
+      autoFocus: false,
+      panelClass: 'change-browser-dialog-container',
+      disableClose: true,
+      maxWidth: '91vw',
+    });
+  }
+
+  isChromeBrowser(): boolean {
+    const uaString = navigator.userAgent.toLowerCase();
+
+    let isChrome = /chrome/.test(uaString);
+    const isExplorer = /msie/.test(uaString);
+    const isExplorer_11 = /rv:11/.test(uaString);
+    const isFirefox = /firefox/.test(uaString);
+    let isSafari = /safari/.test(uaString);
+    const isOpera = /opr/.test(uaString);
+    const isEdgeDesktop = /edg/.test(uaString);
+    const isEdgeiOS = /edgios/.test(uaString);
+    const isEdgeAndroid = /edga/.test(uaString);
+
+    if (isChrome && isSafari) {
+      isSafari = false;
+    }
+    if (isChrome && (isEdgeDesktop || isEdgeiOS || isEdgeAndroid)) {
+      isChrome = false;
+    }
+    if (isSafari && (isEdgeDesktop || isEdgeiOS || isEdgeAndroid)) {
+      isSafari = false;
+    }
+    if (isChrome && isOpera) {
+      isChrome = false;
+    }
+    return isChrome;
   }
 }

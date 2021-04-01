@@ -48,6 +48,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { CommonDialogComponent } from './shared/common-dialog/common-dialog.component';
 import { PointsComponent } from '@/main/shared/points/points.component';
 import { GlobalErrorHandler } from '@/shared/global-error-handler';
+import { ChangeBrowserDialogComponent } from './shared/change-browser-dialog/change-browser-dialog.component';
 
 declare let $: any;
 
@@ -67,6 +68,7 @@ declare let $: any;
     SignupResetCommonComponent,
     CommonDialogComponent,
     PointsComponent,
+    ChangeBrowserDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -117,6 +119,7 @@ declare let $: any;
     ErrorDialogComponent,
     CommonDialogComponent,
     PointsComponent,
+    ChangeBrowserDialogComponent,
   ],
 })
 export class AppModule {}
