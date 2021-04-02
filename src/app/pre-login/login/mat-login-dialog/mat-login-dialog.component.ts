@@ -8,6 +8,7 @@ import {
   LOGGED_IN_PATH,
   INELIGIBLE_FOR_TRIAL,
   LANDING_RESET_PASSWORD_PATH,
+  IS_VISITED,
 } from '@/app.constants';
 import { LocalStorageService } from '@/shared/localstorage.service';
 import { ShowLoginSignupDialogService } from '@/pre-login/shared/show-login-signup-dialog.service';
@@ -53,7 +54,7 @@ export class MatLoginDialogComponent implements OnInit {
     private router: Router,
     private showLoginSignupService: ShowLoginSignupDialogService,
     private matLoginDialogService: MatLoginDialogService,
-    private activatedRoute: ActivatedRoute,
+    private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit() {
@@ -79,6 +80,7 @@ export class MatLoginDialogComponent implements OnInit {
           this.authService.setLoginData(data);
           this.router.navigateByUrl(LOGGED_IN_PATH).then(() => {
             this.dialogRef.close();
+            sessionStorage.setItem(IS_VISITED, 'true');
           });
         }
       })
@@ -131,12 +133,12 @@ export class MatLoginDialogComponent implements OnInit {
           this.recoverUsernameMsgShow = true;
           this.showUsernameLoading = false;
         },
-        error => {
+        (error) => {
           this.usernameErrorMsg = error.error.message;
           this.showUsernameLoading = false;
           this.recoverUsernameStatus = false;
           this.usernameErrorMsgShow = true;
-        },
+        }
       );
   }
 
@@ -154,12 +156,12 @@ export class MatLoginDialogComponent implements OnInit {
           this.recoverPasswordMsgShow = true;
           this.showPasswordLoading = false;
         },
-        error => {
+        (error) => {
           this.passwordErrorMsg = error.error.email;
           this.showPasswordLoading = false;
           this.passwordErrorMsgShow = true;
           this.recoverPasswordStatus = false;
-        },
+        }
       );
   }
 

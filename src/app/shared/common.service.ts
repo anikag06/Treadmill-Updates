@@ -11,8 +11,9 @@ import { AuthService } from '@/shared/auth/auth.service';
 import { User } from '@/shared/user.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UserProfileService } from '@/main/shared/user-profile/user-profile.service';
-import { MatSnackBar } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { PointsComponent } from '@/main/shared/points/points.component';
+import { ChangeBrowserDialogComponent } from '@/shared/change-browser-dialog/change-browser-dialog.component';
 
 @Injectable({
   providedIn: 'root',
@@ -33,6 +34,7 @@ export class CommonService {
     private userProfileService: UserProfileService,
     private snackBar: MatSnackBar,
     private componentFactoryResolver: ComponentFactoryResolver,
+    private dialog: MatDialog
   ) {}
   isOnline$() {
     return merge<boolean>(
@@ -41,7 +43,7 @@ export class CommonService {
       new Observable((sub: Observer<boolean>) => {
         sub.next(navigator.onLine);
         sub.complete();
-      }),
+      })
     );
   }
 
@@ -61,7 +63,7 @@ export class CommonService {
         '/api/v1/user/user-profile/' +
         this.user.username,
       body,
-      httpOptions,
+      httpOptions
     );
   }
   postScoreForOther(score: number, username: string) {
@@ -77,7 +79,7 @@ export class CommonService {
     return this.http.patch(
       environment.API_ENDPOINT + '/api/v1/user/user-profile/' + username,
       body,
-      httpOptions,
+      httpOptions
     );
   }
   updateScore(score: number) {
@@ -93,10 +95,10 @@ export class CommonService {
 
   showPointsNotification(points: number) {
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
-      PointsComponent,
+      PointsComponent
     );
     const pointsComponent = this.pointsNotificationRef.createComponent(
-      componentFactory,
+      componentFactory
     );
     pointsComponent.instance.points = points;
     this.component = pointsComponent;
@@ -115,5 +117,42 @@ export class CommonService {
   }
   setIsIntroPointsFalse() {
     this.isIntroPoints = false;
+  }
+
+  isChromeBrowser(): boolean {
+    const uaString = navigator.userAgent.toLowerCase();
+
+    let isChrome = /chrome/.test(uaString);
+    const isExplorer = /msie/.test(uaString);
+    const isExplorer_11 = /rv:11/.test(uaString);
+    const isFirefox = /firefox/.test(uaString);
+    let isSafari = /safari/.test(uaString);
+    const isOpera = /opr/.test(uaString);
+    const isEdgeDesktop = /edg/.test(uaString);
+    const isEdgeiOS = /edgios/.test(uaString);
+    const isEdgeAndroid = /edga/.test(uaString);
+
+    if (isChrome && isSafari) {
+      isSafari = false;
+    }
+    if (isChrome && (isEdgeDesktop || isEdgeiOS || isEdgeAndroid)) {
+      isChrome = false;
+    }
+    if (isSafari && (isEdgeDesktop || isEdgeiOS || isEdgeAndroid)) {
+      isSafari = false;
+    }
+    if (isChrome && isOpera) {
+      isChrome = false;
+    }
+    return isChrome;
+  }
+
+  showBrowserChangeDialog() {
+    const dialogRef = this.dialog.open(ChangeBrowserDialogComponent, {
+      autoFocus: false,
+      panelClass: 'change-browser-dialog-container',
+      disableClose: true,
+      maxWidth: '91vw',
+    });
   }
 }
