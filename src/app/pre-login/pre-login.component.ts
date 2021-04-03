@@ -35,7 +35,7 @@ export class PreLoginComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private commonService: CommonService
+    private commonService: CommonService,
   ) {}
 
   ngOnInit() {
@@ -64,7 +64,7 @@ export class PreLoginComponent implements OnInit {
 
   onLoginClicked() {
     this.showLoginSignupDialogService.broadcastLoginClicked(
-      MatLoginDialogComponent
+      MatLoginDialogComponent,
     );
   }
 

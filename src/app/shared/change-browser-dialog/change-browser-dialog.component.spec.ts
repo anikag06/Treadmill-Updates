@@ -8,9 +8,8 @@ describe('ChangeBrowserDialogComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ChangeBrowserDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [ChangeBrowserDialogComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
