@@ -17,7 +17,7 @@
   z-index: 200;
   display: grid;
   width: 90%;
-  position: absolute;
+  //position: absolute;
   bottom: 3px;
   color: #fafafa;
   background: rgb(42, 59, 61);
@@ -158,7 +158,7 @@
   }
 }
 
-@media only screen and (min-device-width: 768px) {
+@media only screen and (min-device-width: 768px) and (min-device-height: 641px) {
   :host-context(.chatbot) .modal {
     bottom: 0;
     top: -15%;

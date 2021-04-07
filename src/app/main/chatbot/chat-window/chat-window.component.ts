@@ -370,7 +370,9 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
         this.messages.push(item);
         this.webSocket.close();
       } else if (data.action === 'ws_close') {
-        this.close();
+        this.closeChat();
+        this.overlayService.closeChatbotOverlay.emit();
+        this.chatbotService.showOutsideModal = false;
       } else {
         this.page = 1;
         this.start(data.message);

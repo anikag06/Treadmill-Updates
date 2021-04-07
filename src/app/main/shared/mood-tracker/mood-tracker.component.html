@@ -1,5 +1,11 @@
 <div class="overlay">
-  <div class="modal">
+  <div
+    class="modal"
+    [ngStyle]="{
+      height: smallWindow && !mobileView ?   '540px' : '',
+      overflowY: smallWindow && !mobileView ? 'scroll' : 'auto'
+    }"
+  >
     <div class="moodTrackerDiv">
       <mat-accordion class="moods">
         <mat-expansion-panel hideToggle>
@@ -194,7 +200,13 @@
     <button class="close-btn" (click)="closeModal()">
       <mat-icon>close</mat-icon>
     </button>
-    <div class="done-btn-div">
+    <div
+      class="done-btn-div"
+      [ngStyle]="{
+        position: smallWindow && !mobileView ? 'initial' : 'absolute',
+        marginBottom : smallWindow && !mobileView ? '20px' : '0'
+      }"
+    >
       <button
         type="submit"
         mat-raised-button

@@ -1,5 +1,11 @@
 <div class="overlay">
-  <div class="modal">
+  <div
+    class="modal"
+    [ngStyle]="{
+      height: smallWindow && !mobileView ?  '540px' : '',
+      overflowY: smallWindow && !mobileView ? 'scroll' : 'auto'
+    }"
+  >
     <div class="dateTimeDiv">
       <div class="startEndDate">
         <ng-container *ngIf="showWhenStart">
@@ -10,9 +16,7 @@
         <ng-container *ngIf="showTillWhen">
           <div class="span-text-end">
             Select end date
-            <div
-             class="same-date"
-            >
+            <div class="same-date">
               Tap on
               {{ startEndDate[START_DATE] | date: 'shortDate' | date: 'd' }}
               for same day
@@ -32,7 +36,7 @@
         </ng-container>
       </div>
 
-      <div [ngStyle]="{marginTop : '1rem'}">
+      <div [ngStyle]="{ marginTop: '1rem' }">
         <owl-date-time-inline
           [(ngModel)]="startEndDate"
           hour12Timer="true"
@@ -43,26 +47,29 @@
         </owl-date-time-inline>
       </div>
       <div class="repeat" *ngIf="showStartEndDate">
-        <div
-          class="select-days"
-        >
+        <div class="select-days">
           Select Days
           <div class="select-all" *ngIf="numberOfDays()">
-         <span [ngStyle]="{opacity : '0.6'}"> Select all days &nbsp;</span>
+            <span [ngStyle]="{ opacity: '0.6' }"> Select all days &nbsp;</span>
             <mat-slide-toggle
               color="primary"
-              (change) = "markDays(toggle.checked)"
+              (change)="markDays(toggle.checked)"
               [(ngModel)]="isToggleChecked"
-            #toggle>
+              #toggle
+            >
             </mat-slide-toggle>
-        </div>
+          </div>
         </div>
         <div class="days">
           <button
             class="circle"
             *ngFor="let day of daysCircle; let i = index"
             [ngStyle]="
-              day.selected && { background: '#3f51b5', color: '#ffffff',border : '1px solid #3f51b5' }
+              day.selected && {
+                background: '#3f51b5',
+                color: '#ffffff',
+                border: '1px solid #3f51b5'
+              }
             "
             (click)="onDaySelected(i)"
           >
@@ -78,6 +85,9 @@
       type="submit"
       mat-raised-button
       class="done-btn"
+      [ngStyle]="{
+        position: smallWindow && !mobileView ? 'initial' : 'absolute'
+      }"
       [disabled]="!enableButton"
       (click)="dateTimeMessageSubmit()"
     >
