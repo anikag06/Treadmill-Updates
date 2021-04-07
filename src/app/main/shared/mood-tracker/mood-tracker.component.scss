@@ -208,7 +208,7 @@ label {
   }
 }
 
-@media only screen and (min-device-width: 768px) and (min-device-height: 641px){
+@media only screen and (min-device-width: 768px) {
   :host-context(.chatbot) .modal {
     bottom: 0vh;
     top: -15%;

@@ -3,7 +3,8 @@
     class="modal"
     [ngStyle]="{
       height: smallWindow && !mobileView ?   '540px' : '',
-      overflowY: smallWindow && !mobileView ? 'scroll' : 'auto'
+      overflowY: smallWindow && !mobileView ? 'scroll' : 'auto',
+      top: smallWindow && !mobileView ?   '0' : ''
     }"
   >
     <div class="moodTrackerDiv">
