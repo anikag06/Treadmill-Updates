@@ -101,7 +101,7 @@ a.toggler {
   position: absolute;
   text-align: initial;
   max-width: 500px;
-  margin-left: 140px;
+  margin-left: 110px;
   max-height: 340px;
   min-width: 490px;
 }
@@ -133,7 +133,7 @@ a.toggler {
   .comment-profile-card {
     max-height: 280px;
     left: 30px;
-    max-width: 400px;
+    max-width: 460px;
     margin-left: 85px;
     min-width: 390px;
   }
@@ -175,6 +175,6 @@ a.toggler {
     min-width: 315px;
     margin-left: 10px;
     margin-top: 15px;
-    left: 0;
+    left: -10px;
   }
 }

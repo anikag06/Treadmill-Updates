@@ -11,7 +11,6 @@ import { ProgressComponent } from './dashboard/progress/progress.component';
 import { ThingsTodoComponent } from './dashboard/things-todo/things-todo.component';
 import { TimeAgoPipe } from '../shared/time-ago.pipe';
 import { TrimStringPipe } from './shared/trim-string.pipe';
-import { ChatbotAvatarComponent } from './dashboard/chatbot-avatar/chatbot-avatar.component';
 import { GamesComponent } from './games/games.component';
 import { GamesListComponent } from './games/games-list/games-list.component';
 import { GameItemComponent } from './games/games-list/game-item/game-item.component';
@@ -197,7 +196,6 @@ import { ClickOutsideChatbotDirective } from '@/main/chatbot/click-outside-chatb
     ThingsTodoComponent,
     TimeAgoPipe,
     TrimStringPipe,
-    ChatbotAvatarComponent,
     GamesComponent,
     GamesListComponent,
     GameItemComponent,

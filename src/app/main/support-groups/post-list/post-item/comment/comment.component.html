@@ -36,7 +36,7 @@
     </form>
   </div>
   <div class="d-flex flex-row">
-    <div class="d-inline-flex flex-row justify-content-center" *ngIf="!editMode" appClickOutside
+    <div class="d-inline-flex flex-row" *ngIf="!editMode" appClickOutside
          (clickOutside)="onClickOutside($event)">
       <div class="comment-profile-card" *ngIf="showProfile">
         <app-user-profile class="support-group" [fromSupportGroup]="true" [userProfile]="userProfile"></app-user-profile>
