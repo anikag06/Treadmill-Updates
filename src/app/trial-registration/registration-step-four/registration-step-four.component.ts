@@ -108,13 +108,6 @@ export class RegistrationStepFourComponent implements OnInit {
   }
 
   step4DataSubmit() {
-    // used for e2e testing
-    this.registrationDataService
-      .getSignupLinkForTesting(this.registrationDataService.trial_email)
-      .subscribe((data: any) => {
-        this.registrationDataService.signup_link = data.unique_link;
-      });
-    // till here
     if (this.consentForm.valid) {
       this.showLoading = true;
       const dateNow = new Date();
