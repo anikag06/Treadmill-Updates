@@ -386,7 +386,8 @@ export const REGISTRATION_GAD_RESPONSE =
 export const REGISTRATION_SIQ_RESPONSE =
   '/api/v1/questionnaire/trial-siq-user-response/';
 export const REGISTRATION_CONSENT = '/api/v1/trial-iitk/participant-consent/';
-
+// number of participants left
+export const GET_PARTICIPANT_COUNT = '/api/v1/trial-iitk/participant-count/';
 // wait-list followup questionaire
 export const GET_LINK_DATA = '/api/v1/trial-iitk/verify-wait-list-link/';
 // contact us dialog data api
