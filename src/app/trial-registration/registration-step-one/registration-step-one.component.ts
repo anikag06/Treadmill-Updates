@@ -40,6 +40,7 @@ export class RegistrationStepOneComponent implements OnInit {
     'rediffmail.com',
   ];
   emailServicePresent = false;
+  remainingParticipants = 2000;
 
   emailForm = new FormGroup({
     email: new FormControl(''),
@@ -65,14 +66,16 @@ export class RegistrationStepOneComponent implements OnInit {
     if (smallDevice) {
       this.showRegistrationContent = true;
     }
+    this.registrationDataService.getNumParticpantsLeft().subscribe( (data: any) => {
+      if (data) {
+        this.remainingParticipants = data.data.no_participant_left;
+      }
+    });
   }
 
   emailSubmit() {
     if (this.emailForm.valid) {
       this.showLoading = true;
-      // required for e2e testing
-      this.registrationDataService.trial_email = this.emailForm.value.email;
-      // till here
       // check if modern email service provider
       if (this.checkEmailService(this.emailForm.value.email)) {
         this.registrationDataService

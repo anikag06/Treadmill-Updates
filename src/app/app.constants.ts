@@ -375,8 +375,6 @@ export const REGISTRATION_PATH = '/trial/trial-registration';
 export const GET_COUNTRY_LIST = '/api/v1/user/get-country-list/';
 // time zone
 export const GET_TIMEZONE = '/api/v1/trial-iitk/get-timezone-list/';
-// signup link required for e2e testing
-export const GET_SIGNUP_LINK = '/api/v1/trial-iitk/get-unique-link-e2e/';
 // trial registration steps
 export const EMAIL_REGISTRATION = '/api/v1/trial-iitk/register-participant/';
 export const REGISTRATION_STEP_TWO =
@@ -388,7 +386,8 @@ export const REGISTRATION_GAD_RESPONSE =
 export const REGISTRATION_SIQ_RESPONSE =
   '/api/v1/questionnaire/trial-siq-user-response/';
 export const REGISTRATION_CONSENT = '/api/v1/trial-iitk/participant-consent/';
-
+// number of participants left
+export const GET_PARTICIPANT_COUNT = '/api/v1/trial-iitk/participant-count/';
 // wait-list followup questionaire
 export const GET_LINK_DATA = '/api/v1/trial-iitk/verify-wait-list-link/';
 // contact us dialog data api

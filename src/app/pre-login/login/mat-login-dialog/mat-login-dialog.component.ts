@@ -54,7 +54,7 @@ export class MatLoginDialogComponent implements OnInit {
     private router: Router,
     private showLoginSignupService: ShowLoginSignupDialogService,
     private matLoginDialogService: MatLoginDialogService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
   ) {}
 
   ngOnInit() {
@@ -133,12 +133,12 @@ export class MatLoginDialogComponent implements OnInit {
           this.recoverUsernameMsgShow = true;
           this.showUsernameLoading = false;
         },
-        (error) => {
+        error => {
           this.usernameErrorMsg = error.error.message;
           this.showUsernameLoading = false;
           this.recoverUsernameStatus = false;
           this.usernameErrorMsgShow = true;
-        }
+        },
       );
   }
 
@@ -156,12 +156,12 @@ export class MatLoginDialogComponent implements OnInit {
           this.recoverPasswordMsgShow = true;
           this.showPasswordLoading = false;
         },
-        (error) => {
+        error => {
           this.passwordErrorMsg = error.error.email;
           this.showPasswordLoading = false;
           this.passwordErrorMsgShow = true;
           this.recoverPasswordStatus = false;
-        }
+        },
       );
   }
 
