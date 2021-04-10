@@ -66,11 +66,13 @@ export class RegistrationStepOneComponent implements OnInit {
     if (smallDevice) {
       this.showRegistrationContent = true;
     }
-    this.registrationDataService.getNumParticpantsLeft().subscribe( (data: any) => {
-      if (data) {
-        this.remainingParticipants = data.data.no_participant_left;
-      }
-    });
+    this.registrationDataService
+      .getNumParticpantsLeft()
+      .subscribe((data: any) => {
+        if (data) {
+          this.remainingParticipants = data.data.no_participant_left;
+        }
+      });
   }
 
   emailSubmit() {

@@ -10,7 +10,8 @@ import {
   REGISTRATION_CONSENT,
   REGISTRATION_SIQ_RESPONSE,
   GET_COUNTRY_LIST,
-  GET_TIMEZONE, GET_PARTICIPANT_COUNT,
+  GET_TIMEZONE,
+  GET_PARTICIPANT_COUNT,
 } from '@/app.constants';
 import { RegistrationStepTwoForm } from '../registration-step-two/step-two-form-data.model';
 import { RegistrationQuestionnaireScore } from '../registration-step-three/resgistration-step-three-response.model';

@@ -27,7 +27,9 @@ export class DateTimePickerComponent
   public min = new Date();
   public startDate!: Date;
   public endDate: Date = new Date();
-  public startAt: Date = moment(new Date()).add(10, 'm').toDate();
+  public startAt: Date = moment(new Date())
+    .add(10, 'm')
+    .toDate();
   @Output() dateTimeMessage = new EventEmitter();
   @Output() taskFormDateTime = new EventEmitter();
   public startEndDate: Date[] = [];
@@ -47,9 +49,9 @@ export class DateTimePickerComponent
     private element: ElementRef,
     @Optional() public dialogRef: MatDialogRef<DateTimePickerComponent>,
     private dateTimePickerService: DateTimePickerService,
-    @Optional() @Inject(MAT_DIALOG_DATA) public data: any
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
-    WEEK.forEach((day) => {
+    WEEK.forEach(day => {
       const newDay = new Day(day, false);
       this.daysCircle.push(newDay);
       this.mobileView = window.innerWidth < MOBILE_WIDTH;
@@ -91,10 +93,10 @@ export class DateTimePickerComponent
 
   ngAfterViewInit() {
     const dateTimepicker = this.element.nativeElement.querySelectorAll(
-      '.owl-dt-inline-container'
+      '.owl-dt-inline-container',
     );
     const removeFromToDate = this.element.nativeElement.querySelectorAll(
-      '.owl-dt-container-info'
+      '.owl-dt-container-info',
     );
     dateTimepicker[0].setAttribute('style', 'box-shadow:none');
     removeFromToDate[0].setAttribute('style', 'display:none');
@@ -124,7 +126,7 @@ export class DateTimePickerComponent
 
     this.formDateTime.push(
       this.startEndDate[this.START_DATE],
-      this.startEndDate[this.END_DATE]
+      this.startEndDate[this.END_DATE],
     );
     let utcTime;
     if (
@@ -136,11 +138,11 @@ export class DateTimePickerComponent
       this.timeToString(this.startEndDate[this.START_DATE]) !== this.data.time
     ) {
       utcTime = this.dateTimePickerService.getUTCTime(
-        this.startEndDate[this.START_DATE]
+        this.startEndDate[this.START_DATE],
       );
     } else {
       utcTime = this.dateTimePickerService.getUTCTime(
-        this.startEndDate[this.END_DATE]
+        this.startEndDate[this.END_DATE],
       );
     }
 
@@ -148,11 +150,11 @@ export class DateTimePickerComponent
 
     const date = this.dateTimePickerService.getDateRange(
       this.startEndDate[this.START_DATE],
-      this.startEndDate[this.END_DATE]
+      this.startEndDate[this.END_DATE],
     );
 
     const hourMinute = this.dateTimePickerService.getTimeAmPm(
-      this.startEndDate[this.END_DATE]
+      this.startEndDate[this.END_DATE],
     );
 
     const repeat = this.getRepeatedDays(this.daysCircle);
@@ -185,7 +187,9 @@ export class DateTimePickerComponent
       repeat +
       '<br/>' +
       '📅 ' +
-      moment(this.startDate).format("Do MMM'YY").toString();
+      moment(this.startDate)
+        .format("Do MMM'YY")
+        .toString();
 
     const chatDateTimeMessage = sameDate ? sameDateMessage : differDateMessage;
 
@@ -281,10 +285,10 @@ export class DateTimePickerComponent
 
   isSameDate() {
     const startDate = moment(this.startEndDate[this.START_DATE]).format(
-      'YYYY-MM-DD'
+      'YYYY-MM-DD',
     );
     const endDate = moment(this.startEndDate[this.END_DATE]).format(
-      'YYYY-MM-DD'
+      'YYYY-MM-DD',
     );
 
     return startDate === endDate;
@@ -294,13 +298,13 @@ export class DateTimePickerComponent
     const days =
       moment(this.startEndDate[this.END_DATE]).diff(
         this.startEndDate[this.START_DATE],
-        'days'
+        'days',
       ) + 1;
     return days > 6;
   }
 
   markDays(value: boolean) {
-    this.daysCircle.forEach((day) => {
+    this.daysCircle.forEach(day => {
       day.selected = value;
     });
   }
