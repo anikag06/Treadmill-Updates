@@ -46,48 +46,44 @@ export class GameItemComponent implements OnInit {
   completedMsg = 'Congrats! You have completed this game!';
   incompleteMsg = 'Start playing this game today!';
   @Input() game!: Game;
-  @Input() gameBar!: GamesBar;
+  @Input() gamesBarData!: any;
+  gameBar!: GamesBar;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private introService: IntroService,
     private introDialogService: IntroDialogService,
-    private gamesProgressBarService: GamesProgressBarService,
   ) {}
 
   ngOnInit() {
-    this.gamesProgressBarService
-      .getGamesProgressInfo()
-      .subscribe((object: any) => {
-        if (this.game.name === FRIENDLY_FACE_GAME) {
-          this.allCalculations(object.ff_game);
-          this.coinColor = '#E8C70F';
-        }
+    if (this.game.name === FRIENDLY_FACE_GAME) {
+      this.allCalculations(this.gamesBarData.ff_game);
+      this.coinColor = '#E8C70F';
+    }
 
-        if (this.game.name === INTERPRETATION_BIAS_GAME) {
-          this.allCalculations(object.ib_game);
-          this.coinColor = '#1977A1';
-        }
-        if (this.game.name === EXECUTIVE_CONTROL_GAME) {
-          this.allCalculations(object.ec_game);
-          this.coinColor = '#853102';
-        }
-        if (this.game.name === IDENTIFY_COGNITIVE_DISTORTION_GAME) {
-          this.allCalculations(object.icd_game);
-          this.coinColor = '#0C8C95';
-        }
-        if (this.game.name === MENTAL_IMAGERY_GAME) {
-          this.allCalculations(object.mi_game);
-          this.coinColor = '#CE7F7F';
-        }
-        // lh
-        if (this.game.name === LEARNED_HELPLESSNESS_GAME) {
-          this.started = true;
-          this.showPb = false;
-          this.solveItStatus = object.lh_game.completed;
-        }
-      });
+    if (this.game.name === INTERPRETATION_BIAS_GAME) {
+      this.allCalculations(this.gamesBarData.ib_game);
+      this.coinColor = '#1977A1';
+    }
+    if (this.game.name === EXECUTIVE_CONTROL_GAME) {
+      this.allCalculations(this.gamesBarData.ec_game);
+      this.coinColor = '#853102';
+    }
+    if (this.game.name === IDENTIFY_COGNITIVE_DISTORTION_GAME) {
+      this.allCalculations(this.gamesBarData.icd_game);
+      this.coinColor = '#0C8C95';
+    }
+    if (this.game.name === MENTAL_IMAGERY_GAME) {
+      this.allCalculations(this.gamesBarData.mi_game);
+      this.coinColor = '#CE7F7F';
+    }
+    // lh
+    if (this.game.name === LEARNED_HELPLESSNESS_GAME) {
+      this.started = true;
+      this.showPb = false;
+      this.solveItStatus = this.gamesBarData.lh_game.completed;
+    }
   }
 
   onGameClick(game: Game) {

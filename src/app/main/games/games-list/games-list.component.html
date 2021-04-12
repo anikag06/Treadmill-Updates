@@ -1,18 +1,15 @@
 <div class="row mx-0">
   <div class="col-12">
-    <!-- <h1 class="main-heading-h1">Games</h1> -->
   </div>
 </div>
 <div class="games-section">
-  <!-- <div class="row d-flex justify-content-around justify-content-sm-between justify-content-md-between"> -->
   <div class="row d-flex flex-wrap justify-content-around justify-content-md-between align-content-xl-stretch">
 
-    <ng-container *ngIf="games$ | async as games else loader">
+    <ng-container *ngIf="progressData && games$ | async as games else loader">
       <div class="flex px-1" *ngFor="let game of games" >
-        <app-game-item [game]="game">
+        <app-game-item [gamesBarData]="gamesBarData" [game]="game">
         </app-game-item>
       </div>
-
     </ng-container>
   </div>
 </div>
