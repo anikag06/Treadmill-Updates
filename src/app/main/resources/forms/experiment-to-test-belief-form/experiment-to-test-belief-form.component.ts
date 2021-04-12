@@ -45,6 +45,7 @@ import { Title } from '@angular/platform-browser';
   selector: 'app-experiment-to-test-belief-form',
   templateUrl: './experiment-to-test-belief-form.component.html',
   styleUrls: ['./experiment-to-test-belief-form.component.scss'],
+  providers: [ExperimentToTestBeliefService],
 })
 export class ExperimentToTestBeliefFormComponent implements OnInit {
   @Input() fromSlide!: boolean;
@@ -96,11 +97,11 @@ export class ExperimentToTestBeliefFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private flowService: FlowService,
     private activatedRoute: ActivatedRoute,
-    private stepDataService: StepsDataService,
+    private stepDataService: StepsDataService
   ) {}
 
   ngOnInit() {
-    this.activatedRoute.params.subscribe(v => {
+    this.activatedRoute.params.subscribe((v) => {
       this.step_id = v.step_id;
     });
     if (this.step_id) {
@@ -144,7 +145,7 @@ export class ExperimentToTestBeliefFormComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.subscriptions.forEach(sub => {
+    this.subscriptions.forEach((sub) => {
       sub.unsubscribe();
     });
   }
@@ -246,10 +247,7 @@ export class ExperimentToTestBeliefFormComponent implements OnInit {
     const date = this.task.end_at + ' ' + this.task.time;
     this.disableEmergency =
       moment().format('YYYY-MM-DD HH:mm') <
-      moment
-        .utc(date)
-        .local()
-        .format('YYYY-MM-DD HH:mm');
+      moment.utc(date).local().format('YYYY-MM-DD HH:mm');
   }
   onOutcomeClick() {
     if (this.outcome) {
@@ -270,7 +268,7 @@ export class ExperimentToTestBeliefFormComponent implements OnInit {
   onShowMessage() {
     if (this.initialRating > 0 && this.finalRating > 0 && this.formComplete) {
       const index = this.formService.getRandomInt(
-        EXPERIMENT_TO_TEST_BELIEF_QUOTES.length,
+        EXPERIMENT_TO_TEST_BELIEF_QUOTES.length
       );
       this.quote = EXPERIMENT_TO_TEST_BELIEF_QUOTES[index].quote;
       this.quotedBy = EXPERIMENT_TO_TEST_BELIEF_QUOTES[index].by;
@@ -281,9 +279,9 @@ export class ExperimentToTestBeliefFormComponent implements OnInit {
           'Well Done',
           EXPERIMENT_TO_TEST_BELIEF_MESSAGE[
             this.formService.getRandomInt(
-              EXPERIMENT_TO_TEST_BELIEF_MESSAGE.length,
+              EXPERIMENT_TO_TEST_BELIEF_MESSAGE.length
             )
-          ],
+          ]
         );
       } else {
         this.message = new FormMessage(
@@ -291,9 +289,9 @@ export class ExperimentToTestBeliefFormComponent implements OnInit {
           '',
           EXPERIMENT_TO_TEST_BELIEF_NGT_MESSAGE[
             this.formService.getRandomInt(
-              EXPERIMENT_TO_TEST_BELIEF_NGT_MESSAGE.length,
+              EXPERIMENT_TO_TEST_BELIEF_NGT_MESSAGE.length
             )
-          ],
+          ]
         );
       }
     }

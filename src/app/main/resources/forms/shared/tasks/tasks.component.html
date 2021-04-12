@@ -68,7 +68,6 @@
                       : ''
                   "
                   required
-                  (focusout)="this.updateTask()"
                   (focus)="onShowTrashIcon(i)"
                   #answer="matInput"
                 ></textarea>
@@ -144,12 +143,13 @@
     </div>
     <br />
 
-    <div class="text-right" *ngIf="!this.task || taskValueChanged">
+    <div class="text-right" [ngStyle]="{height : '40px'}">
       <button
         mat-raised-button
         class="continue-btn"
         [disabled]="tasksGroup.invalid"
         (click)="saveData()"
+        *ngIf="!this.task || taskValueChanged"
       >
         <ng-container *ngIf="!showLoading; else loading"
         >Save

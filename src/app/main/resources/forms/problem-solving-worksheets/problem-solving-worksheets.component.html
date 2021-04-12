@@ -189,7 +189,7 @@
             </div>
             <div class="card-body">
               <div *ngFor="let solution of solutions" class="mb-4">
-                <div class="mb-3" [ngStyle]="{ fontSize: '1.125rem' }">
+                <div class="mb-3" [ngStyle]="{ fontSize: '1.125rem' ,wordWrap: 'break-word'}">
                   <div>Solution: {{ solution.solution }}</div>
                 </div>
                 <app-pros-cons-container

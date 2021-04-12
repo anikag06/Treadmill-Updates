@@ -1,20 +1,20 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { UserTask } from '@/main/resources/forms/shared/tasks/user-task.model';
-import { SET_ACTIVITY, SET_TASK_FORM_NAME, TREADWILL } from '@/app.constants';
+import { SET_ACTIVITY, SET_TASK_FORM_NAME } from '@/app.constants';
 
 import { FormService } from '@/main/resources/forms/form.service';
 import { TASK_QUOTES } from '@/main/resources/forms/task-forms/task-form-message';
-import { map, switchMap } from 'rxjs/operators';
 import { FlowService } from '@/main/flow/flow.service';
 import { ActivatedRoute } from '@angular/router';
 import { StepsDataService } from '@/main/resources/shared/steps-data.service';
 import { IntroService } from '@/main/walk-through/intro.service';
-import { Title } from '@angular/platform-browser';
+import { TasksService } from '@/main/resources/forms/shared/tasks/tasks.service';
 
 @Component({
   selector: 'app-task-forms',
   templateUrl: './task-forms.component.html',
   styleUrls: ['./task-forms.component.scss'],
+  providers: [TasksService],
 })
 export class TaskFormsComponent implements OnInit {
   @Input() fromSlide!: boolean;
@@ -40,11 +40,11 @@ export class TaskFormsComponent implements OnInit {
     private flowService: FlowService,
     private activatedRoute: ActivatedRoute,
     private stepDataService: StepsDataService,
-    private introService: IntroService,
+    private introService: IntroService
   ) {}
 
   ngOnInit() {
-    this.activatedRoute.params.subscribe(v => {
+    this.activatedRoute.params.subscribe((v) => {
       this.step_id = v.step_id;
     });
     if (this.step_id !== null) {

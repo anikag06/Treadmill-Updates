@@ -3,7 +3,6 @@ import {
   BELIEF_CHANGE,
   BELIEF_CHANGE_FORM_NAME,
   THINKING_IMG,
-  TREADWILL,
   WELL_DONE_IMG,
 } from '@/app.constants';
 import { FormMessage } from '@/main/resources/forms/shared/form-message/form-message.model';
@@ -14,17 +13,16 @@ import {
   BELIEF_CHANGE_NEGATIVE_MSG,
   BELIEF_CHANGE_POSITIVE_MSG,
 } from '@/main/resources/forms/belief-change/belief-change-message';
-import { map, switchMap } from 'rxjs/operators';
 import { StepsDataService } from '@/main/resources/shared/steps-data.service';
 import { FlowService } from '@/main/flow/flow.service';
 import { ActivatedRoute } from '@angular/router';
 import { BeliefChangeService } from '@/main/resources/forms/belief-change/belief-change.service';
-import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-belief-change',
   templateUrl: './belief-change.component.html',
   styleUrls: ['./belief-change.component.scss'],
+  providers: [BeliefChangeService],
 })
 export class BeliefChangeComponent implements OnInit {
   @Input() fromSlide!: boolean;
@@ -34,7 +32,7 @@ export class BeliefChangeComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private stepDataService: StepsDataService,
     private flowService: FlowService,
-    private beliefService: BeliefChangeService,
+    private beliefService: BeliefChangeService
   ) {}
 
   formName = BELIEF_CHANGE_FORM_NAME;
@@ -67,7 +65,7 @@ export class BeliefChangeComponent implements OnInit {
   step_id!: number;
   showLoading = true;
   ngOnInit() {
-    this.activatedRoute.params.subscribe(v => {
+    this.activatedRoute.params.subscribe((v) => {
       this.step_id = v.step_id;
     });
     if (this.step_id) {
@@ -173,7 +171,7 @@ export class BeliefChangeComponent implements OnInit {
           'Well Done',
           BELIEF_CHANGE_POSITIVE_MSG[
             this.formService.getRandomInt(BELIEF_CHANGE_POSITIVE_MSG.length)
-          ],
+          ]
         );
       } else {
         this.message = new FormMessage(
@@ -181,7 +179,7 @@ export class BeliefChangeComponent implements OnInit {
           '',
           BELIEF_CHANGE_NEGATIVE_MSG[
             this.formService.getRandomInt(BELIEF_CHANGE_NEGATIVE_MSG.length)
-          ],
+          ]
         );
       }
     }

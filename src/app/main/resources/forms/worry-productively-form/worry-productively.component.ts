@@ -35,13 +35,12 @@ import { FormMessage } from '../shared/form-message/form-message.model';
 import { FlowService } from '@/main/flow/flow.service';
 import { ActivatedRoute } from '@angular/router';
 import { StepsDataService } from '@/main/resources/shared/steps-data.service';
-import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-worry-productively-form',
   templateUrl: './worry-productively.component.html',
   styleUrls: ['./worry-productively.component.scss'],
-  //   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [WorryProductivelyService],
 })
 export class WorryProductivelyComponent implements OnInit, OnDestroy {
   @Input() fromSlide!: boolean;
@@ -106,11 +105,11 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
     private element: ElementRef,
     private flowService: FlowService,
     private activatedRoute: ActivatedRoute,
-    private stepDataService: StepsDataService,
+    private stepDataService: StepsDataService
   ) {}
 
   ngOnInit() {
-    this.activatedRoute.params.subscribe(v => {
+    this.activatedRoute.params.subscribe((v) => {
       this.step_id = v.step_id;
     });
     if (this.step_id !== null) {
@@ -175,7 +174,7 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscriptions.forEach(sub => {
+    this.subscriptions.forEach((sub) => {
       sub.unsubscribe();
     });
   }
@@ -192,7 +191,7 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
           if (resp.body.data) {
             this.uselessCharacteristicsForm.setControl(
               'characteristics',
-              this.fb.array(resp.body.data),
+              this.fb.array(resp.body.data)
             );
             if (this.worry) {
               if (this.worry.worry_rating_initial !== null) {
@@ -283,7 +282,7 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
       this.characteristicCount += 1;
     } else {
       const i = characteristics.controls.findIndex(
-        x => x.value === event.source.value,
+        (x) => x.value === event.source.value
       );
       characteristics.removeAt(i);
       this.characteristicCount -= 1;
@@ -360,7 +359,7 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
   onShowMessage() {
     if (this.initialRating > 0 && this.finalRating > 0 && this.formComplete) {
       const index = this.formService.getRandomInt(
-        WORRY_PRODUCTIVELY_QUOTES.length,
+        WORRY_PRODUCTIVELY_QUOTES.length
       );
       this.quote = WORRY_PRODUCTIVELY_QUOTES[index].quote;
       this.quotedBy = WORRY_PRODUCTIVELY_QUOTES[index].by;
@@ -371,7 +370,7 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
           'Well Done',
           WORRY_PRODUCTIVELY_MESSAGE[
             this.formService.getRandomInt(WORRY_PRODUCTIVELY_MESSAGE.length)
-          ],
+          ]
         );
       } else {
         this.message = new FormMessage(
@@ -379,7 +378,7 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
           '',
           WORRY_PRODUCTIVELY_NGT_MESSAGE[
             this.formService.getRandomInt(WORRY_PRODUCTIVELY_NGT_MESSAGE.length)
-          ],
+          ]
         );
       }
     }

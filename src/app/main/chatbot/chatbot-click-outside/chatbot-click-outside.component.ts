@@ -12,14 +12,4 @@ export class ChatbotClickOutsideComponent implements OnInit {
   yPosition!: number;
   constructor(private chatbotService: ChatbotService) {}
   ngOnInit() {}
-
-  // closeMessage() {
-  //   this.chatbotService.chatBotModalClicked = true;
-  //   this.showMessage = false;
-  //   this.chatbotService.modalExist = false;
-  //   this.chatbotService.deleteTimer();
-  //   setTimeout(() => {
-  //     this.chatbotService.chatBotModalClicked = false;
-  //   }, 50);
-  // }
 }

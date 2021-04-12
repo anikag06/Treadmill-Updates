@@ -2,7 +2,6 @@ import {
   THINKING_IMG,
   THOUGHT_RECORD,
   THOUGHT_RECORD_FORM_NAME,
-  TREADWILL,
   WELL_DONE_IMG,
 } from '@/app.constants';
 import { Component, Input, OnInit } from '@angular/core';
@@ -17,15 +16,14 @@ import { ThoughtRecordService } from '@/main/resources/forms/thought-record-form
 import { Thought } from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
 import { FlowService } from '@/main/flow/flow.service';
 import { ActivatedRoute } from '@angular/router';
-import { map, switchMap } from 'rxjs/operators';
 import { StepsDataService } from '@/main/resources/shared/steps-data.service';
 import { FormsService } from '@/main/forms.service';
-import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-thought-record-form',
   templateUrl: './thought-record-form.component.html',
   styleUrls: ['./thought-record-form.component.scss'],
+  providers: [ThoughtRecordService],
 })
 export class ThoughtRecordFormComponent implements OnInit {
   @Input() fromSlide!: boolean;
@@ -78,11 +76,11 @@ export class ThoughtRecordFormComponent implements OnInit {
     private thoughtRecordService: ThoughtRecordService,
     private flowService: FlowService,
     private activatedRoute: ActivatedRoute,
-    private stepDataService: StepsDataService,
+    private stepDataService: StepsDataService
   ) {}
 
   ngOnInit() {
-    this.activatedRoute.params.subscribe(v => {
+    this.activatedRoute.params.subscribe((v) => {
       this.step_id = v.step_id;
     });
     if (this.step_id !== null) {
@@ -209,7 +207,7 @@ export class ThoughtRecordFormComponent implements OnInit {
           'Well Done',
           TRF_POSITIVE_MSG[
             this.formService.getRandomInt(TRF_POSITIVE_MSG.length)
-          ],
+          ]
         );
       } else {
         this.message = new FormMessage(
@@ -217,7 +215,7 @@ export class ThoughtRecordFormComponent implements OnInit {
           '',
           TRF_NEGATIVE_MSG[
             this.formService.getRandomInt(TRF_NEGATIVE_MSG.length)
-          ],
+          ]
         );
       }
     }

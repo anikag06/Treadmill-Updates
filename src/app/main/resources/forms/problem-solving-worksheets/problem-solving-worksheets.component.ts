@@ -19,7 +19,6 @@ import {
   PROBLEM_SOLVING_FORM_NAME,
   PSF_PROBLEM,
   PSF_PROBLEM_SOLVING,
-  TREADWILL,
 } from '@/app.constants';
 import { UserTask } from '@/main/resources/forms/shared/tasks/user-task.model';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
@@ -28,22 +27,19 @@ import { SolutionsComponent } from './solutions/solutions.component';
 import { FormService } from '@/main/resources/forms/form.service';
 import { PROBLEM_SOLVING_QUOTES } from '@/main/resources/forms/problem-solving-worksheets/problem-solving-message';
 import { TasksService } from '@/main/resources/forms/shared/tasks/tasks.service';
-import { TechniquesInfoComponent } from '@/main/resources/forms/shared/techniques-info/techniques-info.component';
-import { THINIKING_ERROR_DATA } from '@/main/resources/forms/shared/techniques-info/thinking-error-technique.data';
 import { MatDialog } from '@angular/material';
-import { map, switchMap } from 'rxjs/operators';
 import { FlowService } from '@/main/flow/flow.service';
 import { ActivatedRoute } from '@angular/router';
 import { StepsDataService } from '@/main/resources/shared/steps-data.service';
 import { ProsConsInfoComponent } from '@/main/resources/forms/problem-solving-worksheets/pros-cons-container/pros-cons/pros-cons-info/pros-cons-info.component';
 import { CommonService } from '@/shared/common.service';
 import { UserProfileService } from '@/main/shared/user-profile/user-profile.service';
-import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-problem-solving-worksheets',
   templateUrl: './problem-solving-worksheets.component.html',
   styleUrls: ['./problem-solving-worksheets.component.scss'],
+  providers: [ProblemSolvingWorksheetsService],
 })
 export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   user!: User;
@@ -101,12 +97,12 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private stepDataService: StepsDataService,
     private commonService: CommonService,
-    private userProfileService: UserProfileService,
+    private userProfileService: UserProfileService
   ) {}
 
   ngOnInit() {
     this.user = <User>this.authService.isLoggedIn();
-    this.activatedRoute.params.subscribe(v => {
+    this.activatedRoute.params.subscribe((v) => {
       this.step_id = v.step_id;
     });
     if (this.step_id !== null) {
@@ -156,7 +152,7 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscriptions.forEach(sub => {
+    this.subscriptions.forEach((sub) => {
       sub.unsubscribe();
     });
   }
@@ -189,14 +185,14 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
         this.problem.bestsolution = resp.solution_id;
         if (this.problem.bestsolution) {
           const bestSolution = this.solutions.find(
-            sol => sol.id === this.problem.bestsolution.solution_id,
+            (sol) => sol.id === this.problem.bestsolution.solution_id
           );
         }
       });
   }
 
   getBestSolutionText(solution_id: number) {
-    const bestSolution = this.solutions.find(sol => sol.id === solution_id);
+    const bestSolution = this.solutions.find((sol) => sol.id === solution_id);
     if (bestSolution) {
       return bestSolution.solution;
     }
@@ -275,7 +271,7 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
             this.problem.id,
             resp.data.solutions[lastIndex].solution,
             false,
-            0,
+            0
           );
           this.solutions.push(solution);
           this.showSolutionsForm = false;
@@ -317,7 +313,7 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
 
   onSolutionRemove(solution: Solution) {
     this.problemService.deleteSolution(solution.id).subscribe((data: any) => {
-      this.solutions = this.solutions.filter(solu => solu !== solution);
+      this.solutions = this.solutions.filter((solu) => solu !== solution);
       if (this.solutions.length === 0) {
         this.solutionsSaved = false;
       }
