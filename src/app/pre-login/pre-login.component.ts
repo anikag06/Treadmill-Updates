@@ -41,7 +41,7 @@ export class PreLoginComponent implements OnInit {
   ngOnInit() {
     const user = this.authService.isLoggedIn();
     if (user && user.is_active) {
-      this.router.navigate([LOGGED_IN_PATH]);
+      // this.router.navigate([LOGGED_IN_PATH]);
     } else {
       this.router.navigate([DEFAULT_PATH]);
       if (

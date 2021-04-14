@@ -23,9 +23,6 @@ export class AppComponent {
     this.a2HSService.setDeferredPrompt();
     const user = this.authService.isLoggedIn();
     const url = window.location.href;
-    // const outsideUrls = ['trial', 'iitk', 'sign-up', 'reset'];
-    // const relativePath = url.substring(url.indexOf('org') + 3);
-    // const isOutsideUrl = outsideUrls.some((o) => relativePath.includes(o));
 
     if (user && user.is_active && !url.includes('main')) {
       this.router.navigate([LOGGED_IN_PATH]);
