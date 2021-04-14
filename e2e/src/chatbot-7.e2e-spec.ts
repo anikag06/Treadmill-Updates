@@ -4,7 +4,6 @@ import { browser, by, element, logging } from 'protractor';
 import { FlowPage } from './flow/flow.po';
 import { ChatbotPage } from './chatbot/chatbot.po';
 
-
 describe('treadwill Chatbot', () => {
   let page: AppPage;
   let fp: FlowPage;
@@ -51,7 +50,6 @@ describe('treadwill Chatbot', () => {
     },
     10 * 60 * 1000,
   );
-
 
   afterEach(async () => {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;

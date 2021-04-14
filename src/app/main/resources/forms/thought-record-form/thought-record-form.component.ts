@@ -76,11 +76,11 @@ export class ThoughtRecordFormComponent implements OnInit {
     private thoughtRecordService: ThoughtRecordService,
     private flowService: FlowService,
     private activatedRoute: ActivatedRoute,
-    private stepDataService: StepsDataService
+    private stepDataService: StepsDataService,
   ) {}
 
   ngOnInit() {
-    this.activatedRoute.params.subscribe((v) => {
+    this.activatedRoute.params.subscribe(v => {
       this.step_id = v.step_id;
     });
     if (this.step_id !== null) {
@@ -207,7 +207,7 @@ export class ThoughtRecordFormComponent implements OnInit {
           'Well Done',
           TRF_POSITIVE_MSG[
             this.formService.getRandomInt(TRF_POSITIVE_MSG.length)
-          ]
+          ],
         );
       } else {
         this.message = new FormMessage(
@@ -215,7 +215,7 @@ export class ThoughtRecordFormComponent implements OnInit {
           '',
           TRF_NEGATIVE_MSG[
             this.formService.getRandomInt(TRF_NEGATIVE_MSG.length)
-          ]
+          ],
         );
       }
     }

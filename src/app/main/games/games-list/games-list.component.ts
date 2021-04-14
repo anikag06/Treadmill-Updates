@@ -4,8 +4,8 @@ import { Game } from '@/main/shared/game.model';
 import { Observable } from 'rxjs';
 import { Router, Route, ActivatedRoute } from '@angular/router';
 import { GamePlayService } from '@/main/games/shared/game-play.service';
-import {GamesBar} from "@/main/shared/games-bar.model";
-import {GamesProgressBarService} from "@/main/games/shared/games-progress-bar.service";
+import { GamesBar } from '@/main/shared/games-bar.model';
+import { GamesProgressBarService } from '@/main/games/shared/games-progress-bar.service';
 
 @Component({
   selector: 'app-games-list',
@@ -17,9 +17,10 @@ export class GamesListComponent implements OnInit {
   gamesBarData!: any;
   progressData = false;
 
-  constructor(private gamesService: GamesService,
-              private gamesProgressBarService: GamesProgressBarService,
-              ) {}
+  constructor(
+    private gamesService: GamesService,
+    private gamesProgressBarService: GamesProgressBarService,
+  ) {}
 
   ngOnInit() {
     this.games$ = this.gamesService.getGames();

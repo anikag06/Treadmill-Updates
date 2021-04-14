@@ -18,7 +18,6 @@ describe('treadwill Chatbot', () => {
   let messageRepeatVal = false;
   let arrayFilled = false;
 
-
   let flag = 0;
 
   beforeEach(() => {
@@ -61,7 +60,6 @@ describe('treadwill Chatbot', () => {
     },
     10 * 60 * 1000,
   );
-
 
   afterEach(async () => {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;

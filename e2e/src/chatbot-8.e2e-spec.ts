@@ -10,8 +10,6 @@ describe('treadwill Chatbot-8', () => {
   let cp: ChatbotPage;
   let originalTimeout: number;
 
-
-
   beforeEach(() => {
     page = new AppPage();
     fp = new FlowPage();
@@ -52,7 +50,6 @@ describe('treadwill Chatbot-8', () => {
     },
     10 * 60 * 1000,
   );
-
 
   afterEach(async () => {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;

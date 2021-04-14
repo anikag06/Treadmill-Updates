@@ -15,7 +15,9 @@ export class ChatbotPage {
   isButton = false;
   array1: string[] = [];
   array2: string[] = [];
-  items = element.all(by.className('message bot')).all(by.className('message-text'));
+  items = element
+    .all(by.className('message bot'))
+    .all(by.className('message-text'));
 
   navigateToDashboard() {
     return browser.get('/main/dashboard') as Promise<any>;
@@ -48,11 +50,9 @@ export class ChatbotPage {
       .wait(this.EC.presenceOf(newbtn), 10 * 1000)
       .then(() => {
         const allOptions = element.all(by.css('button.radio_button'));
-        allOptions
-          .count()
-          .then(function(numberOfItems) {
-            allOptions.get(Math.floor(Math.random() * numberOfItems)).click();
-          });
+        allOptions.count().then(function(numberOfItems) {
+          allOptions.get(Math.floor(Math.random() * numberOfItems)).click();
+        });
       })
       .catch(() => {
         // Fill text area
@@ -73,59 +73,80 @@ export class ChatbotPage {
             console.log('CHECK IF MOOD WIDGET');
             // browser.sleep(2000);
             // const moodBtn = element(by.cssContainingText('button.mood-btn', 'Enter mood'));
-            const moodBtn = element.all(
-              by.className(
-                'mood-btn btn btn-outline-light',
-              ),
-            ).last();
+            const moodBtn = element
+              .all(by.className('mood-btn btn btn-outline-light'))
+              .last();
             browser
               .wait(this.EC.presenceOf(moodBtn), 10 * 1000)
               .then(() => {
                 console.log('Mood Button Clicked');
                 moodBtn.click();
                 browser.sleep(2500);
-                const moodSelect = element.all(by.cssContainingText('div.select-mood', ' Negative mood ')).last();
+                const moodSelect = element
+                  .all(
+                    by.cssContainingText('div.select-mood', ' Negative mood '),
+                  )
+                  .last();
                 // const moodSelect = element(
                 //   by.id('mat-expansion-panel-header-7'),
                 // );
                 browser
                   .wait(this.EC.presenceOf(moodSelect), 20 * 1000)
                   .then(() => {
-                moodSelect.click();
-                browser.sleep(3000);
-
-                const negMoodCheck1 = element.all(by.cssContainingText('.mat-checkbox-label', 'Anxious')).last();
-                // negMoodCheck1.click();
-                // browser.sleep(3000);
-                // const negMoodCheck2 = element(by.id('mat-checkbox-5'));
-                // browser.wait(this.EC.presenceOf(moodSelect), 10 * 1000).then(() => {
-                browser
-                  .wait(this.EC.presenceOf(negMoodCheck1), 20 * 1000)
-                  .then(() => {
-                    negMoodCheck1.click();
-                    console.log('Mood Selected');
+                    moodSelect.click();
                     browser.sleep(3000);
-                    element.all(
-                      by.className(
-                        'done-btn mat-raised-button mat-button-base',
-                      ),
-                    ).last().click();
-                    // element(by.css('.mat-checkbox-inner-container')).click();
-                  });
+
+                    const negMoodCheck1 = element
+                      .all(
+                        by.cssContainingText('.mat-checkbox-label', 'Anxious'),
+                      )
+                      .last();
+                    // negMoodCheck1.click();
+                    // browser.sleep(3000);
+                    // const negMoodCheck2 = element(by.id('mat-checkbox-5'));
+                    // browser.wait(this.EC.presenceOf(moodSelect), 10 * 1000).then(() => {
+                    browser
+                      .wait(this.EC.presenceOf(negMoodCheck1), 20 * 1000)
+                      .then(() => {
+                        negMoodCheck1.click();
+                        console.log('Mood Selected');
+                        browser.sleep(3000);
+                        element
+                          .all(
+                            by.className(
+                              'done-btn mat-raised-button mat-button-base',
+                            ),
+                          )
+                          .last()
+                          .click();
+                        // element(by.css('.mat-checkbox-inner-container')).click();
+                      });
                   });
               })
               .catch(() => {
                 // give rating
                 console.log('CHECK IF SLIDER');
                 // const ratingSelect = element(by.css('mat-slider'));
-                const ratingSelect = element.all(by.className('mat-slider mat-accent mat-slider-horizontal mat-slider-thumb-label-showing mat-slider-min-value')).last();
+                const ratingSelect = element
+                  .all(
+                    by.className(
+                      'mat-slider mat-accent mat-slider-horizontal mat-slider-thumb-label-showing mat-slider-min-value',
+                    ),
+                  )
+                  .last();
                 browser
                   .wait(this.EC.presenceOf(ratingSelect), 10 * 1000)
                   .then(() => {
                     console.log('Slider found');
                     this.setRating();
                     browser.sleep(1000);
-                    const doneBtn = element.all(by.className('btn done-btn mat-raised-button mat-button-base')).last();
+                    const doneBtn = element
+                      .all(
+                        by.className(
+                          'btn done-btn mat-raised-button mat-button-base',
+                        ),
+                      )
+                      .last();
                     doneBtn.click();
                     // this.clickOnButton('Done');
                   })
@@ -135,27 +156,33 @@ export class ChatbotPage {
                     // browser.sleep(3000);
                     // const scheduleBtn = element(by.cssContainingText('button', 'Set Schedule'));
                     const scheduleBtn = element(
-                      by.className(
-                        'btn btn-outline-light date-time-btn ',
-                      ),
+                      by.className('btn btn-outline-light date-time-btn '),
                     );
                     // browser.sleep(2000);
                     browser
                       .wait(this.EC.presenceOf(scheduleBtn), 15 * 1000)
                       .then(() => {
                         scheduleBtn.click();
-                        const dateSelect1 = element.all(by.className('owl-dt-calendar-cell-content owl-dt-calendar-cell-today')).last();
+                        const dateSelect1 = element
+                          .all(
+                            by.className(
+                              'owl-dt-calendar-cell-content owl-dt-calendar-cell-today',
+                            ),
+                          )
+                          .last();
                         browser
                           .wait(this.EC.presenceOf(scheduleBtn), 10 * 1000)
                           .then(() => {
                             dateSelect1.click();
                             browser.sleep(2000);
-                            const dateSelect2 = element.all(
-                              by.cssContainingText(
-                                '.owl-dt-calendar-cell-content',
-                                '31',
-                              ),
-                            ).last();
+                            const dateSelect2 = element
+                              .all(
+                                by.cssContainingText(
+                                  '.owl-dt-calendar-cell-content',
+                                  '31',
+                                ),
+                              )
+                              .last();
                             browser.sleep(2000);
                             dateSelect2.click();
                             console.log('Date time widget found');
@@ -164,7 +191,6 @@ export class ChatbotPage {
                             this.clickOnButton('Done');
                           });
                         // browser.sleep(2000);
-
                       })
                       .catch(() => {
                         // check if module_button
@@ -189,10 +215,12 @@ export class ChatbotPage {
       });
   }
   setRating() {
-    const sliderBar = element.all(by.className('mat-slider-thumb-label')).last();
+    const sliderBar = element
+      .all(by.className('mat-slider-thumb-label'))
+      .last();
     // browser.findElement(
-      // element(by.css('.mat-slider-thumb-label')),
-      // element(by.className('mat-slider-thumb-label')),
+    // element(by.css('.mat-slider-thumb-label')),
+    // element(by.className('mat-slider-thumb-label')),
     // );
     browser
       .actions()
@@ -236,9 +264,9 @@ export class ChatbotPage {
     // const secondlastmsg = await secondLast.getText();
     // console.log('Last message: ', lastmsg);
     // console.log('second last message: ', secondlastmsg);
-    var lastmsg
-    var secondlastmsg
-    try{
+    var lastmsg;
+    var secondlastmsg;
+    try {
       const secondLast = this.items.get((await this.items.count()) - 2);
       // browser.sleep(500);
       delay(500);
@@ -248,7 +276,7 @@ export class ChatbotPage {
       console.log('Last message: ', lastmsg);
       console.log('second last message: ', secondlastmsg);
     } catch {
-      try{
+      try {
         console.log('---------Inside catch try 1--------');
         const secondLast = this.items.get((await this.items.count()) - 2);
         // browser.sleep(500);
@@ -259,7 +287,7 @@ export class ChatbotPage {
         console.log('Last message: ', lastmsg);
         console.log('second last message: ', secondlastmsg);
       } catch {
-        try{
+        try {
           console.log('---------Inside catch try 2--------');
           const secondLast = this.items.get((await this.items.count()) - 2);
           // browser.sleep(500);
@@ -272,7 +300,7 @@ export class ChatbotPage {
           console.log('Last message: ', lastmsg);
           console.log('second last message: ', secondlastmsg);
         } catch {
-          try{
+          try {
             console.log('---------Inside catch try 3--------');
             const secondLast = this.items.get((await this.items.count()) - 2);
             // browser.sleep(500);
@@ -297,9 +325,13 @@ export class ChatbotPage {
       }
     }
     if (lastmsg === secondlastmsg) {
-      if(lastmsg === "Hi again... let me start from where we left..." ||
-        lastmsg === "Hey, it's good to see you again... let me start from where we left..." ||
-        lastmsg === "Okay I'm back... give me a second to resume the conversation...") {
+      if (
+        lastmsg === 'Hi again... let me start from where we left...' ||
+        lastmsg ===
+          "Hey, it's good to see you again... let me start from where we left..." ||
+        lastmsg ===
+          "Okay I'm back... give me a second to resume the conversation..."
+      ) {
         return false;
       } else {
         console.log('Message Repeat');
@@ -313,31 +345,37 @@ export class ChatbotPage {
     // const last = this.items.get((await this.items.count()) - 1);
     // const lastmsg = await last.getText();
     // console.log('Last message: ', lastmsg);
-    var lastmsg
-    try{
+    var lastmsg;
+    try {
       const last = this.items.get((await this.items.count()) - 1);
       lastmsg = await last.getText();
       console.log('last message: ', lastmsg);
     } catch {
-      try{
-        console.log('Inside createMessageArrays function catch try 1 block!!!')
+      try {
+        console.log('Inside createMessageArrays function catch try 1 block!!!');
         const last = this.items.get((await this.items.count()) - 1);
         lastmsg = await last.getText();
         console.log('last message: ', lastmsg);
       } catch {
-        try{
-          console.log('Inside createMessageArrays function catch try 2 block!!!')
+        try {
+          console.log(
+            'Inside createMessageArrays function catch try 2 block!!!',
+          );
           const last = this.items.get((await this.items.count()) - 1);
           lastmsg = await last.getText();
           console.log('last message: ', lastmsg);
         } catch {
-          try{
-            console.log('Inside createMessageArrays function catch try 3 block!!!')
+          try {
+            console.log(
+              'Inside createMessageArrays function catch try 3 block!!!',
+            );
             const last = this.items.get((await this.items.count()) - 1);
             lastmsg = await last.getText();
             console.log('last message: ', lastmsg);
           } catch {
-            console.log('Inside createMessageArrays function catch catch block!!!')
+            console.log(
+              'Inside createMessageArrays function catch catch block!!!',
+            );
             const last = this.items.get((await this.items.count()) - 1);
             lastmsg = await last.getText();
             console.log('last message: ', lastmsg);
@@ -345,46 +383,58 @@ export class ChatbotPage {
         }
       }
     }
-    if(lastmsg === "Hi again... let me start from where we left..." ||
-      lastmsg === "Hey, it's good to see you again... let me start from where we left..." ||
-      lastmsg === "Okay I'm back... give me a second to resume the conversation...") {
-      console.log('Intro Bot Message found in between conversation. Check for Back')
+    if (
+      lastmsg === 'Hi again... let me start from where we left...' ||
+      lastmsg ===
+        "Hey, it's good to see you again... let me start from where we left..." ||
+      lastmsg ===
+        "Okay I'm back... give me a second to resume the conversation..."
+    ) {
+      console.log(
+        'Intro Bot Message found in between conversation. Check for Back',
+      );
       return true;
     } else {
       return false;
     }
   }
 
-  async createMessageArrays(num: number){
-    var lastmsg
-    try{
+  async createMessageArrays(num: number) {
+    var lastmsg;
+    try {
       const last = this.items.get((await this.items.count()) - 1);
       // const lastmsg = await last.getText();
       lastmsg = await last.getText();
       console.log('last message: ', lastmsg);
     } catch {
-      try{
-        console.log('Inside createMessageArrays function catch try 1 block!!!')
+      try {
+        console.log('Inside createMessageArrays function catch try 1 block!!!');
         const last = this.items.get((await this.items.count()) - 1);
         // const lastmsg = await last.getText();
         lastmsg = await last.getText();
         console.log('last message: ', lastmsg);
       } catch {
-        try{
-          console.log('Inside createMessageArrays function catch try 2 block!!!')
+        try {
+          console.log(
+            'Inside createMessageArrays function catch try 2 block!!!',
+          );
           const last = this.items.get((await this.items.count()) - 1);
           // const lastmsg = await last.getText();
           lastmsg = await last.getText();
           console.log('last message: ', lastmsg);
         } catch {
-          try{
-            console.log('Inside createMessageArrays function catch try 3 block!!!')
+          try {
+            console.log(
+              'Inside createMessageArrays function catch try 3 block!!!',
+            );
             const last = this.items.get((await this.items.count()) - 1);
             // const lastmsg = await last.getText();
             lastmsg = await last.getText();
             console.log('last message: ', lastmsg);
           } catch {
-            console.log('Inside createMessageArrays function catch catch block!!!')
+            console.log(
+              'Inside createMessageArrays function catch catch block!!!',
+            );
             const last = this.items.get((await this.items.count()) - 1);
             // const lastmsg = await last.getText();
             lastmsg = await last.getText();
@@ -393,11 +443,11 @@ export class ChatbotPage {
         }
       }
     }
-    if(this.array1.length < num){
+    if (this.array1.length < num) {
       this.array1.push(lastmsg);
       console.log('pushed to array 1: ', this.array1.length);
       return false;
-    } else if (this.array2.length < num){
+    } else if (this.array2.length < num) {
       this.array2.push(lastmsg);
       console.log('pushed to array 2: ', this.array2.length);
       return false;
@@ -406,57 +456,59 @@ export class ChatbotPage {
   }
 
   async getSubsetArrayLength() {
-    const filteredArray = this.array1.filter(value => this.array2.includes(value));
+    const filteredArray = this.array1.filter(value =>
+      this.array2.includes(value),
+    );
     console.log('getSubsetArrayLength() ->', filteredArray);
     return filteredArray.length;
   }
 
-//   async getArrayCount(num: number) {
-//     const count = await this.items.count();
-//     console.log('Number', count);
-//     if (count <= num) {
-//       this.addtoArray(count);
-//       return true;
-//     }
-//     return false;
-//   }
+  //   async getArrayCount(num: number) {
+  //     const count = await this.items.count();
+  //     console.log('Number', count);
+  //     if (count <= num) {
+  //       this.addtoArray(count);
+  //       return true;
+  //     }
+  //     return false;
+  //   }
 
-//   async addtoArray(count: number) {
-//     if (count = 20) {
-//     for (let i = 0; i < count; i++) {
-//       this.array1.push(await this.items.get(i).getText());
-//     }
-//     console.log('array1', this.array1);
-//     }
-//     if (count = 40) {
-//        for (let k = 19; k < count; k++) {
-//         this.array2.push(await this.items.get(k).getText());
-//       }
-//       console.log('array2', this.array2);
-//     }
-//   }
+  //   async addtoArray(count: number) {
+  //     if (count = 20) {
+  //     for (let i = 0; i < count; i++) {
+  //       this.array1.push(await this.items.get(i).getText());
+  //     }
+  //     console.log('array1', this.array1);
+  //     }
+  //     if (count = 40) {
+  //        for (let k = 19; k < count; k++) {
+  //         this.array2.push(await this.items.get(k).getText());
+  //       }
+  //       console.log('array2', this.array2);
+  //     }
+  //   }
 
-//   async makeSubset() {
-//     const newSet = new Set();
-//     for (let i = this.array1.length; i < this.array1.length - 10; i--) {
-//       newSet.add(this.array1[i]);
-//     }
-//     for (let j = 0; j <= 10; j++) {
-//       newSet.add(this.array2[j]);
-//     }
-//     console.log('Set size', newSet, newSet.size);
-//   }
+  //   async makeSubset() {
+  //     const newSet = new Set();
+  //     for (let i = this.array1.length; i < this.array1.length - 10; i--) {
+  //       newSet.add(this.array1[i]);
+  //     }
+  //     for (let j = 0; j <= 10; j++) {
+  //       newSet.add(this.array2[j]);
+  //     }
+  //     console.log('Set size', newSet, newSet.size);
+  //   }
 
-//   appendNextMessage(num: number) {
-//     const j = this.array1.length;
-//     this.items.count().then(function(numberOfItems) {
-//       console.log('Number', num, numberOfItems);
-//       // const k = numberOfItems - j;
-//       // console.log('remain value1', k);
-//       // return k;
-//     });
-//     //   .then((k) => {
-//     //   console.log('remain value2', k);
-//     // });
-//   }
+  //   appendNextMessage(num: number) {
+  //     const j = this.array1.length;
+  //     this.items.count().then(function(numberOfItems) {
+  //       console.log('Number', num, numberOfItems);
+  //       // const k = numberOfItems - j;
+  //       // console.log('remain value1', k);
+  //       // return k;
+  //     });
+  //     //   .then((k) => {
+  //     //   console.log('remain value2', k);
+  //     // });
+  //   }
 }

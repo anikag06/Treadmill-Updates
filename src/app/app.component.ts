@@ -17,7 +17,7 @@ export class AppComponent {
     private titleService: Title,
     private a2HSService: A2HSService,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
   ) {
     this.titleService.setTitle(TREADWILL);
     this.a2HSService.setDeferredPrompt();

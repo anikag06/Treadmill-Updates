@@ -20,9 +20,8 @@ describe('treadwill Chatbot', () => {
   let messageIntroBotVal = false;
   let arrayFilled = false;
 
-
   let flag = 0;
-  let introCount=0;
+  let introCount = 0;
   let lengthSubset = 0;
 
   beforeEach(() => {
@@ -84,7 +83,8 @@ describe('treadwill Chatbot', () => {
     100 * 60 * 1000,
   );
 
-  xit('should check for intro_bot messages in between of chat',
+  xit(
+    'should check for intro_bot messages in between of chat',
     async () => {
       for (let i = 0; i < 100; i++) {
         cp.findComponentType();
@@ -99,26 +99,29 @@ describe('treadwill Chatbot', () => {
     100 * 60 * 1000,
   );
 
-  xit('should check for module repetition',
-    async() => {
-    const num = 100
-    for (let i = 0; i <= num; i++) {
-      console.log('Loop 1: ', i);
-      cp.findComponentType();
-      arrayFilled = await cp.createMessageArrays(num);
-    }
-    for (let i = 0; i <= num+1; i++) {
-      console.log('Loop 2: ', i);
-      cp.findComponentType();
-      arrayFilled = await cp.createMessageArrays(num);
-    }
-    if (arrayFilled === true) {
-      console.log('Array filled true');
-      lengthSubset =  await cp.getSubsetArrayLength();
-    }
-    
-    expect(lengthSubset).toBeLessThanOrEqual(num/4);
-  }, 100 * 60 * 1000);
+  xit(
+    'should check for module repetition',
+    async () => {
+      const num = 100;
+      for (let i = 0; i <= num; i++) {
+        console.log('Loop 1: ', i);
+        cp.findComponentType();
+        arrayFilled = await cp.createMessageArrays(num);
+      }
+      for (let i = 0; i <= num + 1; i++) {
+        console.log('Loop 2: ', i);
+        cp.findComponentType();
+        arrayFilled = await cp.createMessageArrays(num);
+      }
+      if (arrayFilled === true) {
+        console.log('Array filled true');
+        lengthSubset = await cp.getSubsetArrayLength();
+      }
+
+      expect(lengthSubset).toBeLessThanOrEqual(num / 4);
+    },
+    100 * 60 * 1000,
+  );
 
   // it('should check module repeated',
   //   async() => {
@@ -142,7 +145,6 @@ describe('treadwill Chatbot', () => {
   //     cp.makeSubset();
 
   // }, 10 * 60 * 1000);
-
 
   afterEach(async () => {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;

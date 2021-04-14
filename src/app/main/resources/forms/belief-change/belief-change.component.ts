@@ -32,7 +32,7 @@ export class BeliefChangeComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private stepDataService: StepsDataService,
     private flowService: FlowService,
-    private beliefService: BeliefChangeService
+    private beliefService: BeliefChangeService,
   ) {}
 
   formName = BELIEF_CHANGE_FORM_NAME;
@@ -65,7 +65,7 @@ export class BeliefChangeComponent implements OnInit {
   step_id!: number;
   showLoading = true;
   ngOnInit() {
-    this.activatedRoute.params.subscribe((v) => {
+    this.activatedRoute.params.subscribe(v => {
       this.step_id = v.step_id;
     });
     if (this.step_id) {
@@ -171,7 +171,7 @@ export class BeliefChangeComponent implements OnInit {
           'Well Done',
           BELIEF_CHANGE_POSITIVE_MSG[
             this.formService.getRandomInt(BELIEF_CHANGE_POSITIVE_MSG.length)
-          ]
+          ],
         );
       } else {
         this.message = new FormMessage(
@@ -179,7 +179,7 @@ export class BeliefChangeComponent implements OnInit {
           '',
           BELIEF_CHANGE_NEGATIVE_MSG[
             this.formService.getRandomInt(BELIEF_CHANGE_NEGATIVE_MSG.length)
-          ]
+          ],
         );
       }
     }

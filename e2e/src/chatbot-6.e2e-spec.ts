@@ -51,7 +51,6 @@ describe('treadwill Chatbot', () => {
     10 * 60 * 1000,
   );
 
-
   afterEach(async () => {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
     // Assert that there are no errors emitted from the browser

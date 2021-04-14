@@ -40,11 +40,11 @@ export class TaskFormsComponent implements OnInit {
     private flowService: FlowService,
     private activatedRoute: ActivatedRoute,
     private stepDataService: StepsDataService,
-    private introService: IntroService
+    private introService: IntroService,
   ) {}
 
   ngOnInit() {
-    this.activatedRoute.params.subscribe((v) => {
+    this.activatedRoute.params.subscribe(v => {
       this.step_id = v.step_id;
     });
     if (this.step_id !== null) {
