@@ -143,6 +143,7 @@
   border-radius: 5px;
   text-align: center;
   z-index: 11;
+  position: relative;
 }
 :host-context(.chatbot) .modal {
   top: 0;
@@ -152,9 +153,12 @@
   :host-context(.chatbot) .modal {
     height: 100%;
     width: 100%;
+    position: fixed;
   }
   :host-context(.chatbot) .done-btn {
-    bottom: 18px;
+    //bottom: 18px;
+    position: relative !important;
+    margin-bottom: 20px;
   }
 }
 
@@ -162,6 +166,7 @@
   :host-context(.chatbot) .modal {
     bottom: 0;
     top: -15%;
+    position: fixed;
   }
 }
 

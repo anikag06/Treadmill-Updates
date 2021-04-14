@@ -2,9 +2,9 @@
   <div
     class="modal"
     [ngStyle]="{
-      height: smallWindow && !mobileView ?  '540px' : '',
+      height: smallWindow && !mobileView ? '540px' : '',
       overflowY: smallWindow && !mobileView ? 'scroll' : 'auto',
-      top: smallWindow && !mobileView ?   '0' : ''
+      top: smallWindow && !mobileView ? '0' : ''
     }"
   >
     <div class="dateTimeDiv">
@@ -47,35 +47,39 @@
         >
         </owl-date-time-inline>
       </div>
-      <div class="repeat" *ngIf="showStartEndDate">
-        <div class="select-days">
-          Select Days
-          <div class="select-all" *ngIf="numberOfDays()">
-            <span [ngStyle]="{ opacity: '0.6' }"> Select all days &nbsp;</span>
-            <mat-slide-toggle
-              color="primary"
-              (change)="markDays(toggle.checked)"
-              [(ngModel)]="isToggleChecked"
-              #toggle
-            >
-            </mat-slide-toggle>
+      <div [ngStyle]="{height : '70px'}">
+        <div class="repeat" *ngIf="showStartEndDate">
+          <div class="select-days">
+            Select Days
+            <div class="select-all" *ngIf="numberOfDays()">
+              <span [ngStyle]="{ opacity: '0.6' }">
+                Select all days &nbsp;</span
+              >
+              <mat-slide-toggle
+                color="primary"
+                (change)="markDays(toggle.checked)"
+                [(ngModel)]="isToggleChecked"
+                #toggle
+              >
+              </mat-slide-toggle>
+            </div>
           </div>
-        </div>
-        <div class="days">
-          <button
-            class="circle"
-            *ngFor="let day of daysCircle; let i = index"
-            [ngStyle]="
-              day.selected && {
-                background: '#3f51b5',
-                color: '#ffffff',
-                border: '1px solid #3f51b5'
-              }
-            "
-            (click)="onDaySelected(i)"
-          >
-            {{ day.day[0] }}
-          </button>
+          <div class="days">
+            <button
+              class="circle"
+              *ngFor="let day of daysCircle; let i = index"
+              [ngStyle]="
+                day.selected && {
+                  background: '#3f51b5',
+                  color: '#ffffff',
+                  border: '1px solid #3f51b5'
+                }
+              "
+              (click)="onDaySelected(i)"
+            >
+              {{ day.day[0] }}
+            </button>
+          </div>
         </div>
       </div>
     </div>
