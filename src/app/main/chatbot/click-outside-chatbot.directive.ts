@@ -27,7 +27,8 @@ export class ClickOutsideChatbotDirective {
       target.className.includes('mat-icon') ||
       target.className.includes('btn') ||
       target.className.includes('mat-button-wrapper') ||
-      target.className.includes('emoji');
+      target.className.includes('emoji') ||
+      target.className.includes('introjs-button');
     const clickedInside =
       isButton || this.elementRef.nativeElement.contains(target);
 

@@ -35,13 +35,13 @@ export class PreLoginComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private commonService: CommonService,
+    private commonService: CommonService
   ) {}
 
   ngOnInit() {
     const user = this.authService.isLoggedIn();
     if (user && user.is_active) {
-      // this.router.navigate([LOGGED_IN_PATH]);
+      this.router.navigate([LOGGED_IN_PATH]);
     } else {
       this.router.navigate([DEFAULT_PATH]);
       if (
@@ -64,7 +64,7 @@ export class PreLoginComponent implements OnInit {
 
   onLoginClicked() {
     this.showLoginSignupDialogService.broadcastLoginClicked(
-      MatLoginDialogComponent,
+      MatLoginDialogComponent
     );
   }
 
