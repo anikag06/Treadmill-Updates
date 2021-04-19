@@ -54,7 +54,7 @@ export class DateTimePickerComponent
       const newDay = new Day(day, false);
       this.daysCircle.push(newDay);
       this.mobileView = window.innerWidth < MOBILE_WIDTH;
-      this.smallWindow = window.innerHeight < 641;
+      this.smallWindow = window.innerHeight < 638;
     });
 
     if (data) {
