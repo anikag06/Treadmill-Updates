@@ -11,11 +11,9 @@ import { ScoreComponent } from './score/score.component';
 import { PhqNineComponent } from './score/phq-nine/phq-nine.component';
 import { GadSevenComponent } from './score/gad-seven/gad-seven.component';
 import { CommonGameComponent } from './games/games-list/common-game/common-game.component';
-import { GetQuestionnaireComponent } from './dashboard/get-questionnaire/get-questionnaire.component';
 import { SurveyComponent } from './shared/survey/survey.component';
 import { NeedToTalkComponent } from '@/main/need-to-talk/need-to-talk.component';
 import { SettingsComponent } from '@/main/settings/settings.component';
-import { ResetPasswordComponent } from '@/pre-login/reset-password/reset-password.component';
 
 export const mainRoutes: Routes = [
   {
@@ -28,7 +26,6 @@ export const mainRoutes: Routes = [
         component: DashboardComponent,
         data: { title: 'Home' },
       },
-      { path: 'questionnaire', component: GetQuestionnaireComponent },
       { path: 'survey', component: SurveyComponent }, // :id here is step_id
       { path: 'survey/:id', component: SurveyComponent }, // :id here is step_id
       {
