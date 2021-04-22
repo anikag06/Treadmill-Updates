@@ -37,7 +37,7 @@ export const routes: Routes = [
 
   {
     path: 'main',
-    loadChildren: () => import('./main/main.module').then(m => m.MainModule),
+    loadChildren: () => import('./main/main.module').then((m) => m.MainModule),
     data: { preload: true },
     canActivateChild: [AuthGuard],
   },
@@ -45,10 +45,10 @@ export const routes: Routes = [
     path: 'trial',
     loadChildren: () =>
       import('./trial-registration/trial-registration.module').then(
-        m => m.TrialRegistrationModule,
+        (m) => m.TrialRegistrationModule
       ),
   },
-  { path: 'iitk', component: TempLandingPageComponent },
+  { path: 'iitk', redirectTo: 'trial/trial-registration' },
   { path: '**', component: NotFoundComponent },
 ];
 
