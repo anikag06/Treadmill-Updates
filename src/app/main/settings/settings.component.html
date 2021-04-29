@@ -21,7 +21,7 @@
           (input) = "usernameAvailability()" >
         <mat-error>not</mat-error>
        <mat-hint [ngClass] = "this.usernameAvailableStatus === true? 'success-msg':'not-success-msg'"
-                 *ngIf ="this.usernameAvailable === true || this.newUsername == !user.username">{{usernameAvailableMessage}}</mat-hint>
+                 *ngIf ="this.usernameAvailable === true || this.newUsername == !user.username || this.checkForWhiteSpace(this.newUsername)" >{{usernameAvailableMessage}}</mat-hint>
        <mat-hint [ngClass] = "this.usernamePasswordStatus === true? 'success-msg':'not-success-msg'"
                  *ngIf ="this.usernameAvailable === false">{{usernamePasswordCorrectMessage}}</mat-hint>
       </mat-form-field>&nbsp;&nbsp;&nbsp;&nbsp;
