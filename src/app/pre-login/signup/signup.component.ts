@@ -90,7 +90,7 @@ export class SignUpComponent implements OnInit {
     this.signUpService.signUpData(this.data).subscribe(
       res => {
         this.onSignUpDone();
-        (this.showLoading = false);
+        this.showLoading = false;
       },
       err => {
         this.showLoading = false;
@@ -199,7 +199,7 @@ export class SignUpComponent implements OnInit {
 
   checkUsernameAvailability() {
     if (this.checkForWhiteSpace(this.signupForm.value.username)) {
-      this.signupForm.controls.username.setErrors({invalid: true});
+      this.signupForm.controls.username.setErrors({ invalid: true });
       this.usernameError = 'Username should not contain any space';
       this.isUsernameAvailable = false;
       this.activateSubmitButton();
@@ -210,7 +210,7 @@ export class SignUpComponent implements OnInit {
           this.usernameAvailableMessage = data.message;
           this.isUsernameAvailable = data.data;
           if (!this.isUsernameAvailable) {
-            this.signupForm.controls.username.setErrors({unavailable: true});
+            this.signupForm.controls.username.setErrors({ unavailable: true });
           }
           this.activateSubmitButton();
         });
