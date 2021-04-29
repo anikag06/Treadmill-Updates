@@ -157,23 +157,24 @@ export class SettingsComponent implements OnInit {
   usernameAvailability() {
     this.showLoadingUsernameChange = true;
     this.usernameTyped = true;
-      this.settingsService
-        .usernameAvailabilityCheck(this.newUsername)
-        .subscribe((data: any) => {
-          if (this.checkForWhiteSpace(this.newUsername)) {
-            this.usernameAvailableStatus = false;
-            this.usernameAvailableMessage = 'Username should not contain any space';
-            this.showLoadingUsernameChange = false;
-          } else {
-            this.usernameAvailableStatus = data.data;
-            this.usernameAvailableMessage = data.message;
-          }
+    this.settingsService
+      .usernameAvailabilityCheck(this.newUsername)
+      .subscribe((data: any) => {
+        if (this.checkForWhiteSpace(this.newUsername)) {
+          this.usernameAvailableStatus = false;
+          this.usernameAvailableMessage =
+            'Username should not contain any space';
           this.showLoadingUsernameChange = false;
-          this.usernameAvailable = true;
-          this.removeMsg();
-        });
-      this.usernamePasswordCorrectMessage = '';
-      this.usernamePasswordSubmitShow = false;
+        } else {
+          this.usernameAvailableStatus = data.data;
+          this.usernameAvailableMessage = data.message;
+        }
+        this.showLoadingUsernameChange = false;
+        this.usernameAvailable = true;
+        this.removeMsg();
+      });
+    this.usernamePasswordCorrectMessage = '';
+    this.usernamePasswordSubmitShow = false;
   }
 
   removeMsg() {
