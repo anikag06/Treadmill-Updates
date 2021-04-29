@@ -89,7 +89,8 @@ export class SignUpComponent implements OnInit {
     this.matchPasswords();
     this.signUpService.signUpData(this.data).subscribe(
       res => {
-        this.onSignUpDone(), (this.showLoading = false);
+        this.onSignUpDone();
+        (this.showLoading = false);
       },
       err => {
         this.showLoading = false;
@@ -197,15 +198,26 @@ export class SignUpComponent implements OnInit {
   }
 
   checkUsernameAvailability() {
-    this.signUpService
-      .usernameAvailabilityCheck(this.signupForm.value.username)
-      .subscribe((data: any) => {
-        this.usernameAvailableMessage = data.message;
-        this.isUsernameAvailable = data.data;
-        if (!this.isUsernameAvailable) {
-          this.signupForm.controls.username.setErrors({ unavailable: true });
-        }
-        this.activateSubmitButton();
-      });
+    if (this.checkForWhiteSpace(this.signupForm.value.username)) {
+      this.signupForm.controls.username.setErrors({invalid: true});
+      this.usernameError = 'Username should not contain any space';
+      this.isUsernameAvailable = false;
+      this.activateSubmitButton();
+    } else {
+      this.signUpService
+        .usernameAvailabilityCheck(this.signupForm.value.username)
+        .subscribe((data: any) => {
+          this.usernameAvailableMessage = data.message;
+          this.isUsernameAvailable = data.data;
+          if (!this.isUsernameAvailable) {
+            this.signupForm.controls.username.setErrors({unavailable: true});
+          }
+          this.activateSubmitButton();
+        });
+    }
+  }
+
+  checkForWhiteSpace(username: string) {
+    return username.indexOf(' ') >= 0;
   }
 }
