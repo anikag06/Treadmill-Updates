@@ -1,0 +1,23 @@
+<div class="main">
+  <div class="row mx-0" style="height: 140px">
+  </div>
+  <div class="row mx-0">
+    <div class="col-1">
+    </div>
+
+    <div class="col-5">
+      <div class="content ">
+        <div class="row mx-0">
+        Please open this link on your mobile or scan the QR code
+        </div>
+        <div class="row mx-0" style="margin-top: 78px">
+          <img [src]="imgPath" *ngIf="newCode">
+          <img src="assets/trial-registration/qrcode.svg" *ngIf="!newCode" >
+        </div>
+      </div>
+    </div>
+    <div class="col-6">
+<img src="assets/trial-registration/Mobile in hand.png" alt="Mobile in hand">
+    </div>
+  </div>
+</div>
