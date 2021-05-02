@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Route, Router } from '@angular/router';
+import { REGISTRATION_PATH } from '@/app.constants';
 
 @Component({
   selector: 'app-trial-pages-header',
@@ -39,7 +40,7 @@ export class TrialPagesHeaderComponent implements OnInit {
 
   onLogoClick() {
     if (!this.reregister) {
-      this.router.navigate(['trial/trial-registration']);
+      this.router.navigate([REGISTRATION_PATH]);
     }
   }
 }

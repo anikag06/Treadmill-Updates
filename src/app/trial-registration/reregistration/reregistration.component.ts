@@ -58,7 +58,7 @@ export class ReregistrationComponent implements OnInit {
             }
           },
           err => {
-            this.router.navigate(['/trial/trial-registration']);
+            this.router.navigate([REGISTRATION_PATH]);
           },
         );
     });

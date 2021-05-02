@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material';
 import { Overlay } from '@angular/cdk/overlay';
 import { DialogSize } from '@/shared/dialog-size.service';
 import { Router } from '@angular/router';
+import { REGISTRATION_PATH } from '@/app.constants';
 
 @Injectable({
   providedIn: 'root',
@@ -43,7 +44,7 @@ export class ShowLoginSignupDialogService {
   }
 
   joinStudyClicked() {
-    this.router.navigate(['trial/trial-registration']);
+    this.router.navigate([REGISTRATION_PATH]);
   }
 
   signupDone() {

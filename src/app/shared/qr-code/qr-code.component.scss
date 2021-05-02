@@ -1,7 +1,6 @@
 .main{
-  height: 99vh;
-  width: 99vw;
   background-color: #293839;
+  height: 100vh;
 }
 .content{
   font-family: Roboto;
@@ -9,4 +8,8 @@
   max-width: 408px;
   font-size: 40px;
   color: white;
+}
+
+.white-device{
+  margin-top: -50px;
 }

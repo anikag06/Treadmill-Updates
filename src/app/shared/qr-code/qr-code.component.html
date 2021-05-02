@@ -11,13 +11,20 @@
         Please open this link on your mobile or scan the QR code
         </div>
         <div class="row mx-0" style="margin-top: 78px">
+          <p style="font-size: medium;">
+            {{pageUrl}}
+            <br>
+            OR
+          </p>
+        </div>
+        <div class="row mx-0">
           <img [src]="imgPath" *ngIf="newCode">
           <img src="assets/trial-registration/qrcode.svg" *ngIf="!newCode" >
         </div>
       </div>
     </div>
     <div class="col-6">
-<img src="assets/trial-registration/Mobile in hand.png" alt="Mobile in hand">
+    <img class="white-device" src="assets/trial-registration/white_device.png" alt="White device">
     </div>
   </div>
 </div>

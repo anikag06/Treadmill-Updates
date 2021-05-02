@@ -9,6 +9,7 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { TrialAuthService } from './trial-auth.service';
+import { REGISTRATION_PATH } from '@/app.constants';
 
 @Injectable({
   providedIn: 'root',
@@ -25,7 +26,7 @@ export class TrialActivateGuard implements CanActivate, CanActivateChild {
     | boolean
     | UrlTree {
     if (!this.authService.getCanNavigate()) {
-      this.router.navigate(['/trial/trial-registration']);
+      this.router.navigate([REGISTRATION_PATH]);
       return false;
     }
     this.authService.activateChild(false);
