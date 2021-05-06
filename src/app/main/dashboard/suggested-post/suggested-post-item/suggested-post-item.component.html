@@ -20,7 +20,7 @@
     </div>
 
     <div class="post-body giveMeEllipsis">
-      {{suggestedPost.body }}
+      <div [innerHTML]="suggestedPost.body | safeHtml" ></div>
     </div>
   </div>
 
