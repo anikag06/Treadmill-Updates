@@ -1,5 +1,14 @@
 <div class="container-fluid">
     <app-trial-pages-header></app-trial-pages-header>
+  <div *ngIf="!userExcluded">
+    <div class="row mx-1 my-3 thank-you-text" >
+      Thanks for your interest in TreadWill.
+    TreadWill is an experimental tool designed to help individuals with depressive symptoms. It is not suitable for everybody at this point.
+      We have detected that TreadWill won't be useful to you.
+      To get help, please contact a mental health professional near you.
+  </div>
+  </div>
+  <div *ngIf="userExcluded">
     <div class="m-medium row mx-1 my-3">
         You need more help.
     </div>
@@ -20,5 +29,6 @@
         we strongly encourage you to seek help from a professional counsellor or psychiatrist
         in your area.
     </div>
+  </div>
 </div>
 

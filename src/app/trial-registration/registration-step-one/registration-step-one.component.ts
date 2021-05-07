@@ -76,6 +76,7 @@ export class RegistrationStepOneComponent implements OnInit {
   }
 
   emailSubmit() {
+    localStorage.clear();
     if (this.emailForm.valid) {
       this.showLoading = true;
       // check if modern email service provider

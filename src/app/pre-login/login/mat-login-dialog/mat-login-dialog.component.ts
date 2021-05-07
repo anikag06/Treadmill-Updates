@@ -8,7 +8,7 @@ import {
   LOGGED_IN_PATH,
   INELIGIBLE_FOR_TRIAL,
   LANDING_RESET_PASSWORD_PATH,
-  IS_VISITED,
+  IS_VISITED, USEREXCLUDED,
 } from '@/app.constants';
 import { LocalStorageService } from '@/shared/localstorage.service';
 import { ShowLoginSignupDialogService } from '@/pre-login/shared/show-login-signup-dialog.service';
@@ -73,6 +73,7 @@ export class MatLoginDialogComponent implements OnInit {
       .then((data: any) => {
         this.authService.isUserExcluded = data.data.is_excluded;
         if (data.data.is_excluded) {
+          localStorage.setItem(USEREXCLUDED, 'true');
           this.router.navigateByUrl(INELIGIBLE_FOR_TRIAL).then(() => {
             this.dialogRef.close();
           });
