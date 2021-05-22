@@ -16,14 +16,22 @@ config = {
 firebase.initializeApp(config);
 
 const messaging = firebase.messaging();
+let url;
 messaging.onBackgroundMessage(function (payload) {
   const notificationOptions = {
     body: payload.data.body,
     icon: 'assets/icons/icon-144x144.png',
     badge: 'https://www.treadwill.org/assets/icons/icon.png',
   };
+  url = payload.data.click_action;
   return self.registration.showNotification(
     payload.data.title,
     notificationOptions
   );
+});
+self.addEventListener('notificationclick', function (event) {
+  event.notification.close();
+  if (self.clients.openWindow && url) {
+    event.waitUntil(self.clients.openWindow(url));
+  }
 });
