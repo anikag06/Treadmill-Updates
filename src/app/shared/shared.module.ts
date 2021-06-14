@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SlidesVideoComponent } from '@/main/resources/slides/slides-video/slides-video.component';
-import { QuestionnaireModule } from '@/questionnaire.module';
+import { QuestionnaireDeprecatedModule } from '@/questionnaire-deprecated.module';
 import { MaterialModule } from '@/material.module';
 import { SafeUrlPipe } from '@/shared/safe-url.pipe';
 import { FormSliderComponent } from '@/main/resources/forms/shared/form-slider/form-slider.component';
@@ -18,10 +18,14 @@ import { LazyLoadingImageDirective } from '@/main/shared/lazy-loading-image/lazy
 import { SafeHtmlPipe } from '@/shared/safe-html.pipe';
 import { SanitizedHtmlPipe } from '@/shared/sanitized-html.pipe';
 import { StepCompletedComponent } from '@/main/resources/shared/step-completed/step-completed.component';
+import {QuestionnaireComponent} from '@/shared/questionnaire/questionnaire.component';
+import {QuestionnaireItemComponent} from '@/shared/questionnaire/questionnaire-item/questionnaire-item.component';
+import {MatProgressBarModule} from '@angular/material';
 
 @NgModule({
   declarations: [
     SlidesVideoComponent,
+    QuestionnaireComponent,
     SafeUrlPipe,
     CongratsDialogComponent,
     ChatVideoComponent,
@@ -35,18 +39,20 @@ import { StepCompletedComponent } from '@/main/resources/shared/step-completed/s
     SafeHtmlPipe,
     SanitizedHtmlPipe,
     StepCompletedComponent,
+    QuestionnaireItemComponent,
   ],
-  imports: [
-    CommonModule,
-    QuestionnaireModule,
-    MaterialModule,
-    FormsModule,
-    OwlDateTimeModule,
-    OwlNativeDateTimeModule,
-  ],
+    imports: [
+        CommonModule,
+        QuestionnaireDeprecatedModule,
+        MaterialModule,
+        FormsModule,
+        OwlDateTimeModule,
+        OwlNativeDateTimeModule,
+        MatProgressBarModule,
+    ],
   exports: [
     SlidesVideoComponent,
-    QuestionnaireModule,
+    QuestionnaireDeprecatedModule,
     MaterialModule,
     SafeUrlPipe,
     ChatVideoComponent,
@@ -61,6 +67,7 @@ import { StepCompletedComponent } from '@/main/resources/shared/step-completed/s
     SafeHtmlPipe,
     SanitizedHtmlPipe,
     StepCompletedComponent,
+    QuestionnaireComponent,
   ],
   entryComponents: [
     SlidesVideoComponent,

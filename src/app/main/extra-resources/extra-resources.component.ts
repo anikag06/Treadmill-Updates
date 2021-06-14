@@ -23,6 +23,7 @@ import { VideoCovid19Item } from '@/main/extra-resources/shared/videoCovid19.mod
 import { UsefulListItem } from '@/main/extra-resources/shared/usefulList.model';
 import { RESOURCES_PAGE, TESTIMONIALS_PAGE, TREADWILL } from '@/app.constants';
 import { Title } from '@angular/platform-browser';
+import {QuestionnaireItem} from '@/shared/questionnaire/shared/questionnaire.model';
 
 @Component({
   selector: 'app-extra-resources',
@@ -36,6 +37,7 @@ export class ExtraResourcesComponent implements OnInit {
   usefulListItems: UsefulListItem[] = [];
   mindfulnessVideoItems: MindfulnessVideoItem[] = [];
   videoCovid19Items: VideoCovid19Item[] = [];
+  questionnaireItems: QuestionnaireItem[] = [];
   videoClicked!: VideoItem;
   showVideoState = false;
   showMindfulnessVideoState = false;
@@ -190,6 +192,17 @@ export class ExtraResourcesComponent implements OnInit {
     this.extraResourcesService.usefulListItemClickBehavior.next(
       usefulListItemBeingClicked,
     );
+  }
+
+  questionnaireItemClick(questionnaireItemBeingClicked: UsefulListItem) {
+    this.router.navigate(['questionnaireItem/', questionnaireItemBeingClicked.id], {
+      relativeTo: this.route,
+    });
+
+    this.extraResourcesService.usefulListItemClickBehavior.next(
+      questionnaireItemBeingClicked,
+    );
+
   }
 
   changeMindfulnessVideoState() {

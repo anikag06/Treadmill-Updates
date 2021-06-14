@@ -20,7 +20,7 @@ import { ConclusionService } from '../conclusion.service';
 import { StepsDataService } from '../../shared/steps-data.service';
 import { StepCompleteData } from '../../shared/completion-data.model';
 import { CommonDialogsService } from '../../shared/common-dialogs.service';
-import { QuizService } from '@/shared/questionnaire/questionnaire.service';
+import { QuizService } from '@/shared/questionnaire-deprecated/questionnaire-deprecated.service';
 import { FlowService } from '@/main/flow/flow.service';
 import { CommonService } from '@/shared/common.service';
 import { User } from '@/shared/user.model';

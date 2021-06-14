@@ -11,7 +11,7 @@ import { MatContactUsDialogService } from '@/shared/mat-contact-us-dialog/mat-co
 import { INELIGIBLE_FOR_TRIAL, REGISTRATION_PATH } from '@/app.constants';
 import { FormGroup, FormControl } from '@angular/forms';
 import { RegistrationDataService } from '../shared/registration-data.service';
-import { QuizService } from '@/shared/questionnaire/questionnaire.service';
+import { QuizService } from '@/shared/questionnaire-deprecated/questionnaire-deprecated.service';
 import { A2HSService } from '@/shared/a2hs.service';
 import { FcmService } from '@/shared/fcm.service';
 

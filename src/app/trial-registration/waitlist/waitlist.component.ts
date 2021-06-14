@@ -3,7 +3,7 @@ import { RegistrationDataService } from '@/trial-registration/shared/registratio
 import { ActivatedRoute, Router } from '@angular/router';
 import { TrialAuthService } from '@/trial-registration/shared/trial-auth.service';
 import { MatContactUsDialogService } from '@/shared/mat-contact-us-dialog/mat-contact-us-dialog.service';
-import { QuizService } from '@/shared/questionnaire/questionnaire.service';
+import { QuizService } from '@/shared/questionnaire-deprecated/questionnaire-deprecated.service';
 import { INELIGIBLE_FOR_TRIAL, PHQ9, REGISTRATION_PATH } from '@/app.constants';
 import { WaitlistService } from './waitlist.service';
 

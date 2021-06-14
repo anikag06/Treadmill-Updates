@@ -1,0 +1,58 @@
+<div *ngIf = "this.introPage">
+  <mat-card>
+  <div class = "row">
+    <div class = "col">Title</div>
+    <div class = "col">Description</div>
+  </div>
+   <div class = "row">
+    <button mat-raised-button (click) = "showTestPage()">Start Test</button>
+   </div>
+  </mat-card>
+</div>
+
+
+
+<div *ngIf = "!this.introPage">
+  <mat-progress-bar [value] = "((this.questionCount)/this.total_questions)*100"></mat-progress-bar>
+  <mat-card>
+  <div class = "row">
+    <div class = "col">Title</div>
+  </div>
+  <div class = "row">
+    <div class = "col">Question {{this.questionCount}} of {{this.total_questions}}</div>
+  </div>
+  <div class = "row">
+    <div class = "col">
+    <mat-icon *ngIf = "this.questionCount > 1" (click) = "backArrowClick()">arrow_back_ios</mat-icon>
+    </div>
+    <div class = "col">{{this.ques}}</div>
+    <div class = "col">
+    <mat-icon *ngIf = "this.questionCount < this.total_questions" (click) = "forwardArrowClick()">arrow_forward_ios</mat-icon>
+    </div>
+  </div>
+  <div class = "row">
+<!--    <div class = "col">{{this.options}}</div>-->
+<!-- option types using if condition -->
+    <div *ngIf = "this.optionType == 'radio'">
+    <mat-radio-button *ngFor = "let op of scoreArray" [value] = "this.tempOptionsScore[0].options.id" (click) = "optionClick(1)">{{op}}</mat-radio-button>
+    </div>
+    <div *ngIf = "this.optionType == 'slider'">
+      <div class = "col">
+      <span *ngFor = "let op of scoreArray"  (click) = "optionClick(1)">{{op}}  </span>
+      </div>
+
+      <mat-slider
+        tickLabel
+        [value] = "scoreArray"
+        color="accent"
+        min="1"
+        max="10" (click) = "optionClick(1)"></mat-slider>
+    </div>
+  </div>
+  <div class = "row">
+    <div class = "col">
+      <button mat-raised-button *ngIf="this.questionCount == this.total_questions">Submit Test</button>
+    </div>
+  </div>
+  </mat-card>
+</div>

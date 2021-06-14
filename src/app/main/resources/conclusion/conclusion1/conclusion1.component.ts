@@ -25,7 +25,7 @@ import { StepsDataService } from '../../shared/steps-data.service';
 import { StepCompleteData } from '../../shared/completion-data.model';
 import { CommonDialogsService } from '../../shared/common-dialogs.service';
 import { Step } from '@/main/flow/step-group/step/step.model';
-import { QuizService } from '@/shared/questionnaire/questionnaire.service';
+import { QuizService } from '@/shared/questionnaire-deprecated/questionnaire-deprecated.service';
 import { FlowService } from '@/main/flow/flow.service';
 import { NavbarNotificationsService } from '@/main/shared/navbar/navbar-notifications.service';
 import { CommonService } from '@/shared/common.service';

@@ -6,7 +6,7 @@ import { MOBILE_WIDTH } from '@/app.constants';
 import { MatDialog } from '@angular/material/dialog';
 import { IntroService } from '@/main/walk-through/intro.service';
 import { isNotNullOrUndefined } from 'codelyzer/util/isNotNullOrUndefined';
-import { QuizService } from '@/shared/questionnaire/questionnaire.service';
+import { QuizService } from '@/shared/questionnaire-deprecated/questionnaire-deprecated.service';
 import { Router } from '@angular/router';
 
 @Component({

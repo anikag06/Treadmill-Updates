@@ -5,7 +5,7 @@ import { INELIGIBLE_FOR_TRIAL, REGISTRATION_PATH } from '@/app.constants';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { RegistrationStepTwoForm } from './step-two-form-data.model';
 import { RegistrationDataService } from '../shared/registration-data.service';
-import { QuizService } from '@/shared/questionnaire/questionnaire.service';
+import { QuizService } from '@/shared/questionnaire-deprecated/questionnaire-deprecated.service';
 
 @Component({
   selector: 'app-registration-step-two',

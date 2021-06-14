@@ -77,4 +77,8 @@ export class PreLoginComponent implements OnInit {
   onTermsConditions() {
     this.router.navigate(['trial/terms-and-conditions']);
   }
+
+  questionnaireClicked(){
+    this.router.navigate(['extra-resources/questionnaireItem/' ]);
+  }
 }

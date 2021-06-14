@@ -101,8 +101,35 @@
       <a  (click) = "changeUsefulListState()" class = "see-all" *ngIf = "showUsefulListState == false; else usefulListSeeLess"><img src = "assets/icons/arrow.svg">&nbsp;See all</a>
     </div>
   </div>
+
+  <div class = "row">
+    <div class = "col">
+      <p class = "heading">Questionnaires</p>
+    </div>
+  </div>
+
+  <div class = "space-below-section">
+    <div>
+<!--      <div class = "row no-gutters">-->
+<!--        <div class = "each-item" *ngFor = "let questionnaireItem of questionnaireItems">-->
+<!--          <app-questionnaire [questionnaireItem] = "questionnaireItem" (click) = "questionnaireItemClick(questionnaireItem)"></app-questionnaire>-->
+<!--        </div>-->
+<!--      </div>-->
+
+      <div class="row no-gutters">
+        <div class="each-item" *ngFor = "let usefulListItem of usefulListItems" >
+          <app-questionnaire [usefulListItem] = "usefulListItem" (click) = "questionnaireItemClick(usefulListItem)"></app-questionnaire>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
   <div class = "end-space"></div>
 </div>
+
+
+
 
 
 

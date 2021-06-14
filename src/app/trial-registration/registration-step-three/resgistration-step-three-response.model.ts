@@ -1,4 +1,4 @@
-import { QuestionnaireResponse } from '@/shared/questionnaire/input/questionnaire-response.model';
+import { QuestionnaireResponse } from '@/shared/questionnaire-deprecated/input/questionnaire-response.model';
 
 export class RegistrationQuestionnaireScore {
   constructor(
