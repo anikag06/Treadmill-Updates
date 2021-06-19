@@ -39,6 +39,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { QuizService } from '@/shared/questionnaire-deprecated/questionnaire-deprecated.service';
+import { QuestionnaireService } from '@/shared/questionnaire/questionnaire.service';
 import { TempLandingPageComponent } from '@/temp-landing-page/temp-landing-page.component';
 import { ResetPasswordComponent } from '@/pre-login/reset-password/reset-password.component';
 import { SignupResetCommonComponent } from '@/pre-login/shared/signup-reset-common/signup-reset-common.component';
@@ -110,6 +111,7 @@ declare let $: any;
     SignUpService,
     CommonService,
     QuizService,
+    QuestionnaireService,
     MatLoginDialogService,
     ResetPasswordService,
     {provide: ErrorHandler, useClass: GlobalErrorHandler},

@@ -27,6 +27,7 @@ import { MatDrawer, MatTooltip } from '@angular/material';
 import { DataService } from '@/shared/questionnaire-deprecated/data.service';
 import { FcmService } from '@/shared/fcm.service';
 import { QuizService } from '@/shared/questionnaire-deprecated/questionnaire-deprecated.service';
+import { QuestionnaireService } from '@/shared/questionnaire/questionnaire.service';
 import { FlowService } from './flow/flow.service';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { SurveyService } from './shared/survey.service';

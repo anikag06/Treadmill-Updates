@@ -250,6 +250,8 @@ export const USER_PHQ_DATA = '/api/v1/questionnaire/phq-user-response/';
 export const USER_GAD_DATA = '/api/v1/questionnaire/gad-user-response/';
 export const USER_SIQ_DATA = '/api/v1/questionnaire/siq-user-response/';
 
+export const QUESTIONNAIRE_LIST = '/api/v1/multi_questionnaires/';
+
 // FORMS
 export const RECOMMENDED = 'recommended';
 export const WORRY_PROBLEM = 'worry';

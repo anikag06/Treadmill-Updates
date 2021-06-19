@@ -1,5 +1,26 @@
 <div class="container resources-container px-0"  *ngIf="outlet.isActivated == false">
+  <div class = "row" *ngIf = "!this.quesExpand">
+    <div class = "col" (click) = "onVideosTab()">
+      Videos
+    </div>
+    <div class = "col" (click) = "onReadingTab()">
+      Reading
+    </div>
+    <div class = "col" (click) = "onQuestionnaireTab()">
+      Questionnaires
+    </div>
+  </div>
+  <div class = "row" *ngIf = "this.quesExpand">
+    <div class = "col">
+      List
+    </div>
+    <div class = "col">
+      My Results
+    </div>
+  </div>
+
   <div *ngIf = "user.is_exp">
+  <div *ngIf = "this.forVideosTab">
   <div class="row" #mindfulness>
     <div class="col">
       <p class="heading">Mindfulness Videos</p>
@@ -61,10 +82,12 @@
         <a  (click) = "changeVideoOnCovid19State()"  class = "see-all " *ngIf = "showVideoCovid19State == false; else videoCovid19SeeLess"><img src = "assets/icons/arrow.svg">&nbsp; See all </a>
       </div>
     </div>
+  </div>
 
 
 
 
+  <div *ngIf = "this.forReadingTab">
   <div class="row">
     <div class="col">
       <p class="heading">Reading Materials</p>
@@ -83,7 +106,9 @@
   </div>
   </div>
   </div>
+  </div>
 
+  <div *ngIf = "this.forReadingTab">
   <div class="row">
     <div class="col">
       <p class="heading">Useful Lists</p>
@@ -101,7 +126,9 @@
       <a  (click) = "changeUsefulListState()" class = "see-all" *ngIf = "showUsefulListState == false; else usefulListSeeLess"><img src = "assets/icons/arrow.svg">&nbsp;See all</a>
     </div>
   </div>
+  </div>
 
+  <div *ngIf = "this.forQuestionnaireTab">
   <div class = "row">
     <div class = "col">
       <p class = "heading">Questionnaires</p>
@@ -110,19 +137,23 @@
 
   <div class = "space-below-section">
     <div>
-<!--      <div class = "row no-gutters">-->
-<!--        <div class = "each-item" *ngFor = "let questionnaireItem of questionnaireItems">-->
-<!--          <app-questionnaire [questionnaireItem] = "questionnaireItem" (click) = "questionnaireItemClick(questionnaireItem)"></app-questionnaire>-->
-<!--        </div>-->
-<!--      </div>-->
-
-      <div class="row no-gutters">
-        <div class="each-item" *ngFor = "let usefulListItem of usefulListItems" >
-          <app-questionnaire [usefulListItem] = "usefulListItem" (click) = "questionnaireItemClick(usefulListItem)"></app-questionnaire>
+     <div class = "row no-gutters">
+       <div class = "each-item" *ngFor = "let questionnaireItem of questionnaireItems">
+         <app-questionnaire [questionnaireItem] = "questionnaireItem" (click) = "questionnaireItemClick(questionnaireItem)"></app-questionnaire>
         </div>
       </div>
 
+<!--      <div class="row no-gutters">-->
+<!--        <div class="each-item" *ngFor = "let usefulListItem of usefulListItems" >-->
+<!--          <app-questionnaire [usefulListItem] = "usefulListItem" (click) = "questionnaireItemClick(usefulListItem)"></app-questionnaire>-->
+<!--        </div>-->
+<!--      </div>-->
+
     </div>
+    <div>
+      <a class = "see-all" (click) = "changeQuesState()"><img src = "assets/icons/arrow.svg">&nbsp;See all</a>
+    </div>
+  </div>
   </div>
 
   <div class = "end-space"></div>

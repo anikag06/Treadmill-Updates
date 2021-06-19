@@ -9,7 +9,7 @@ import {
   DEPRESSION_VIDEO_LIST,
   WATCHED_VIDEO,
   VIDEO_COVID_19_LIST,
-  USEFUL_LIST,
+  USEFUL_LIST, QUESTIONNAIRE_LIST,
 } from '@/app.constants';
 import { switchMap } from 'rxjs/operators';
 import {
@@ -124,6 +124,11 @@ export class ExtraResourcesService {
         '/api/v1/resources/mindfulness-videos/' +
         mindfulnessVideoId +
         '/',
+    );
+  }
+  getQuestionnaire(){
+    return this.http.get(
+      environment.API_ENDPOINT + '/api/v1/multi_questionnaire/'
     );
   }
 

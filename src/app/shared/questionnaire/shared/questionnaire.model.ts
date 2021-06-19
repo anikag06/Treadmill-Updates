@@ -1,11 +1,13 @@
+import {QuestionModel} from "@/shared/questionnaire/shared/question.model";
+
 export class QuestionnaireItem {
   constructor(
     public title: string,
-    public introText: string,
+    public subtitle: string,
     public id: number,
+    public instructions: string,
+    public category: string,
     public order: number,
-    public count: number,
-    public quesNo: number,
-    public question: string,
+    public question: QuestionModel[],
   ) {}
 }

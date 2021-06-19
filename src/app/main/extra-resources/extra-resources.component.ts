@@ -24,6 +24,7 @@ import { UsefulListItem } from '@/main/extra-resources/shared/usefulList.model';
 import { RESOURCES_PAGE, TESTIMONIALS_PAGE, TREADWILL } from '@/app.constants';
 import { Title } from '@angular/platform-browser';
 import {QuestionnaireItem} from '@/shared/questionnaire/shared/questionnaire.model';
+import {QuestionnaireService} from "@/shared/questionnaire/questionnaire.service";
 
 @Component({
   selector: 'app-extra-resources',
@@ -49,11 +50,16 @@ export class ExtraResourcesComponent implements OnInit {
   countVideoItem = 0;
   countMindfulVideoItem = 0;
   countVideoCovid19Item = 0;
+  countQuestionnaireItem = 0;
   navbarTitle!: string;
   stepGroupSequence!: number;
   stepSequence!: number;
   stepName!: string;
   step_id!: number;
+  forVideosTab = true;
+  forReadingTab = false;
+  forQuestionnaireTab = false;
+  quesExpand = false;
 
   @ViewChild('mindfulness', { static: false }) mindfulness!: ElementRef;
   @ViewChild('depression', { static: false }) depression!: ElementRef;
@@ -67,6 +73,7 @@ export class ExtraResourcesComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private stepDataService: StepsDataService,
     private authService: AuthService,
+    private quesService: QuestionnaireService,
   ) {}
 
   ngOnInit() {
@@ -145,7 +152,28 @@ export class ExtraResourcesComponent implements OnInit {
           this.countUsefulListItem = this.countUsefulListItem + 1;
         });
       });
+
+    // this.quesService
+    //   .getQuestionnaires()
+    //   .subscribe((questionnaire_data: any) => {
+    //     questionnaire_data.results.forEach((element:any) => {
+    //       this.questionnaireItems.push(<QuestionnaireItem>element);
+    //       this.countQuestionnaireItem = this.countQuestionnaireItem + 1;
+    //       console.log('title', element.title);
+    //
+    //     });
+    //   });
+    this.extraResourcesService
+      .getQuestionnaire()
+      .subscribe((qu_data: any) => {
+        qu_data.results.forEach((element: any) => {
+          console.log('title', element.title);
+        });
+    });
   }
+
+
+
 
   videoClick(videoBeingClicked: VideoItem) {
     this.router.navigate(['videoItem/', videoBeingClicked.id], {
@@ -194,14 +222,14 @@ export class ExtraResourcesComponent implements OnInit {
     );
   }
 
-  questionnaireItemClick(questionnaireItemBeingClicked: UsefulListItem) {
+  questionnaireItemClick(questionnaireItemBeingClicked: QuestionnaireItem) {
     this.router.navigate(['questionnaireItem/', questionnaireItemBeingClicked.id], {
       relativeTo: this.route,
     });
 
-    this.extraResourcesService.usefulListItemClickBehavior.next(
-      questionnaireItemBeingClicked,
-    );
+    // this.extraResourcesService.usefulListItemClickBehavior.next(
+    //   questionnaireItemBeingClicked,
+    // );
 
   }
 
@@ -224,9 +252,31 @@ export class ExtraResourcesComponent implements OnInit {
   changeUsefulListState() {
     this.showUsefulListState = !this.showUsefulListState;
   }
+  changeQuesState(){
+    this.quesExpand = true;
+  }
+
   scrollDown(elem: any) {
     setTimeout(() => {
       elem.nativeElement.scrollIntoView({ behavior: 'smooth' });
     }, 100);
+  }
+  onVideosTab() {
+    this.forVideosTab = true;
+    this.forReadingTab = false;
+    this.forQuestionnaireTab = false;
+
+  }
+  onReadingTab() {
+    this.forVideosTab = false;
+    this.forReadingTab = true;
+    this.forQuestionnaireTab = false;
+
+  }
+  onQuestionnaireTab(){
+    this.forVideosTab = false;
+    this.forReadingTab = false;
+    this.forQuestionnaireTab = true;
+
   }
 }

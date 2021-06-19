@@ -6,7 +6,7 @@ import {environment} from '../../../../environments/environment';
 import {GET_PHQ_QUESTIONS} from '@/app.constants';
 import {Quiz} from '@/shared/questionnaire-deprecated/input/quiz';
 import {element} from 'protractor';
-import {Options} from '@/shared/questionnaire/shared/options.models';
+import {Options} from '@/shared/questionnaire/shared/options.model';
 
 @Component({
   selector: 'app-questionnaire-item',
