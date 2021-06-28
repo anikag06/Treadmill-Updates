@@ -343,7 +343,7 @@ export class PostItemComponent
    * On Delete emit the item so that it can be removed form the list
    */
   onDelete() {
-    if (confirm('Are you sure to delete this post ?')) {
+    if (confirm('Sure you want to delete this post?')) {
       this.deleteEvent.emit(this.supportGroupItem);
     }
   }

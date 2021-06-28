@@ -268,7 +268,7 @@ export class CommentComponent
   }
 
   onDelete() {
-    if (confirm('Are you sure to delete this comment')) {
+    if (confirm('Sure you want to delete this comment?')) {
       this.commentService.deleteComment(this.comment.id).subscribe(() => {
         this.deleteEmitter.emit(this.comment);
       }, this.errorService.errorResponse('Cannot Delete'));
@@ -276,7 +276,7 @@ export class CommentComponent
   }
 
   onCancel() {
-    if (confirm('Are you sure to close editor ?')) {
+    if (confirm('Sure you want to close the editor?')) {
       this.editMode = false;
     }
   }

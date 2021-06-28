@@ -252,7 +252,7 @@ export class CreatePostComponent implements OnInit {
   }
 
   onClose() {
-    if (confirm('Are you sure to close you will lost unsaved post ?')) {
+    if (confirm('Sure you want to discard this post?')) {
       this.dialogRef.close();
     }
   }

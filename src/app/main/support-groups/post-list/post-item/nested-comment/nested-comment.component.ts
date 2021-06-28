@@ -130,7 +130,7 @@ export class NestedCommentComponent
    * When editing cancel
    */
   onCancel() {
-    if (confirm('Are you sure to cancel ?')) {
+    if (confirm('Sure you want to cancel the reply?')) {
       this.editMode = false;
     }
   }
@@ -139,7 +139,7 @@ export class NestedCommentComponent
    * On Delete
    */
   onDelete() {
-    if (confirm('Are you sure to delete this comment ?')) {
+    if (confirm('Sure you want to delete this comment ?')) {
       this.deleteEmitter.emit(this.userNestedComment);
     }
   }
