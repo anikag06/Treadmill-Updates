@@ -1,4 +1,4 @@
-<div *ngIf = "this.introPage">
+<div *ngIf = "this.introPage && !this.resultPage && !this.submitPage">
   <mat-card>
   <div class = "row">
     <div class = "col">Title</div>
@@ -12,7 +12,7 @@
 
 
 
-<div *ngIf = "!this.introPage">
+<div *ngIf = "!this.introPage && !this.resultPage && !this.submitPage">
   <mat-progress-bar [value] = "((this.questionCount)/this.total_questions)*100"></mat-progress-bar>
   <mat-card>
   <div class = "row">
@@ -27,18 +27,19 @@
     </div>
     <div class = "col">{{this.ques}}</div>
     <div class = "col">
-    <mat-icon *ngIf = "this.questionCount < this.total_questions" (click) = "forwardArrowClick()">arrow_forward_ios</mat-icon>
+    <mat-icon *ngIf = "this.questionCount <= this.total_questions" (click) = "forwardArrowClick()">arrow_forward_ios</mat-icon>
     </div>
   </div>
   <div class = "row">
 <!--    <div class = "col">{{this.options}}</div>-->
 <!-- option types using if condition -->
     <div *ngIf = "this.optionType == 'radio'">
-    <mat-radio-button *ngFor = "let op of scoreArray" [value] = "this.tempOptionsScore[0].options.id" (click) = "optionClick(1)">{{op}}</mat-radio-button>
+    <mat-radio-button *ngFor = "let op of scoreArray" [value] = "this.tempOptionsScore[0].options.id" (click) = "optionClick(1, this.questionCount)">{{op}}</mat-radio-button>
+    <!-- HERE, USE THE FOR LOOP TO ADD THE OPTIONS. IN THE CLICK SEND THE OPTION ORDER, OPTION ID, AND QUESTION NUMBER -->
     </div>
     <div *ngIf = "this.optionType == 'slider'">
       <div class = "col">
-      <span *ngFor = "let op of scoreArray"  (click) = "optionClick(1)">{{op}}  </span>
+      <span *ngFor = "let op of scoreArray"  (click) = "optionClick(1, this.questionCount)">{{op}}  </span>
       </div>
 
       <mat-slider
@@ -46,13 +47,28 @@
         [value] = "scoreArray"
         color="accent"
         min="1"
-        max="10" (click) = "optionClick(1)"></mat-slider>
+        max="10" (click) = "optionClick(1, this.questionCount)"></mat-slider>
+    </div>
+    <div *ngIf = "this.optionType == 'text'">
+      <mat-form-field>
+        <input matInput type = "text">
+      </mat-form-field>
     </div>
   </div>
+
+  </mat-card>
+</div>
+
+<div *ngIf  = "this.submitPage && !this.resultPage">
   <div class = "row">
     <div class = "col">
-      <button mat-raised-button *ngIf="this.questionCount == this.total_questions">Submit Test</button>
+      <p>CLicking on the back button will prevent responses from saving. Click on the below button to see the results</p>
+      <button mat-raised-button *ngIf="this.questionCount == this.total_questions" (click) = "submitTestClick()">Submit Test</button>
     </div>
   </div>
-  </mat-card>
+</div>
+
+<div *ngIf = "this.resultPage && !this.submitPage">
+  <app-questionnaire-result dataToShow = this.resultItem></app-questionnaire-result>
+
 </div>

@@ -24,6 +24,7 @@ import { VideosComponent } from '@/main/extra-resources/videos/videos.component'
 import { ReadingItem } from '@/main/extra-resources/shared/reading.model';
 import { MindfulnessVideoItem } from '@/main/extra-resources/shared/mindfulnessVideo.model';
 import { VideoCovid19Item } from '@/main/extra-resources/shared/videoCovid19.model';
+import {QuestionnaireItem} from "@/shared/questionnaire/shared/questionnaire.model";
 
 @Injectable({
   providedIn: 'root',
@@ -35,6 +36,7 @@ export class ExtraResourcesService {
   readingItemInResource!: ReadingItem;
   videoCovid19InResource!: VideoCovid19Item;
   usefulListItemInResource!: ReadingItem;
+  questionnaireItemInResource!: QuestionnaireItem;
 
   videoClickBehavior: BehaviorSubject<VideoItem> = new BehaviorSubject<
     VideoItem
@@ -62,6 +64,11 @@ export class ExtraResourcesService {
     ReadingItem
   > = new BehaviorSubject<ReadingItem>(this.usefulListItemInResource);
   usefulListItemClickedEvent = this.usefulListItemClickBehavior.asObservable();
+
+  questionnaireItemClickBehavior: BehaviorSubject<
+    QuestionnaireItem
+    > = new BehaviorSubject<QuestionnaireItem>(this.questionnaireItemInResource);
+  questionnaireItemClickedEvent = this.questionnaireItemClickBehavior.asObservable();
 
   constructor(
     private http: HttpClient,
@@ -127,8 +134,8 @@ export class ExtraResourcesService {
     );
   }
   getQuestionnaire(){
-    return this.http.get(
-      environment.API_ENDPOINT + '/api/v1/multi_questionnaire/'
+    return this.http.get<QuestionnaireItem>(
+      environment.API_ENDPOINT + QUESTIONNAIRE_LIST
     );
   }
 

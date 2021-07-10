@@ -16,4 +16,8 @@ export class QuestionnaireService {
       environment.API_ENDPOINT + QUESTIONNAIRE_LIST
     );
   }
+
+  postChoicesGetResults() {
+    // return this.http.post
+  }
 }

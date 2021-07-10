@@ -21,6 +21,7 @@ import { StepCompletedComponent } from '@/main/resources/shared/step-completed/s
 import {QuestionnaireComponent} from '@/shared/questionnaire/questionnaire.component';
 import {QuestionnaireItemComponent} from '@/shared/questionnaire/questionnaire-item/questionnaire-item.component';
 import {MatProgressBarModule} from '@angular/material';
+import {QuestionnaireResultComponent} from "@/shared/questionnaire/shared/questionnaire-result/questionnaire-result.component";
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import {MatProgressBarModule} from '@angular/material';
     SanitizedHtmlPipe,
     StepCompletedComponent,
     QuestionnaireItemComponent,
+    QuestionnaireResultComponent,
   ],
     imports: [
         CommonModule,

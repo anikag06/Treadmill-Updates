@@ -41,6 +41,7 @@ export class ExtraResourcesComponent implements OnInit {
   questionnaireItems: QuestionnaireItem[] = [];
   videoClicked!: VideoItem;
   showVideoState = false;
+  showMyResults = false;
   showMindfulnessVideoState = false;
   showVideoCovid19State = false;
   showReadingMaterialState = false;
@@ -153,23 +154,25 @@ export class ExtraResourcesComponent implements OnInit {
         });
       });
 
-    // this.quesService
-    //   .getQuestionnaires()
-    //   .subscribe((questionnaire_data: any) => {
-    //     questionnaire_data.results.forEach((element:any) => {
-    //       this.questionnaireItems.push(<QuestionnaireItem>element);
-    //       this.countQuestionnaireItem = this.countQuestionnaireItem + 1;
-    //       console.log('title', element.title);
-    //
-    //     });
-    //   });
-    this.extraResourcesService
-      .getQuestionnaire()
-      .subscribe((qu_data: any) => {
-        qu_data.results.forEach((element: any) => {
-          console.log('title', element.title);
-        });
-    });
+     // this.quesService
+     //   .getQuestionnaires()
+     //   .subscribe((questionnaire_data: any) => {
+     //     questionnaire_data.results.forEach((element:any) => {
+     //       this.questionnaireItems.push(<QuestionnaireItem>element);
+     //       this.countQuestionnaireItem = this.countQuestionnaireItem + 1;
+     //       console.log('title', element.title);
+     //
+     //     });
+     //   });
+     this.extraResourcesService
+       .getQuestionnaire()
+       .subscribe((qu_data: any) => {
+         qu_data.results.forEach((element: any) => {
+           this.questionnaireItems.push(<QuestionnaireItem>element);
+           this.countQuestionnaireItem = this.countQuestionnaireItem + 1;
+           console.log('title', element.title);
+         });
+     });
   }
 
 
@@ -227,9 +230,9 @@ export class ExtraResourcesComponent implements OnInit {
       relativeTo: this.route,
     });
 
-    // this.extraResourcesService.usefulListItemClickBehavior.next(
-    //   questionnaireItemBeingClicked,
-    // );
+     this.extraResourcesService.questionnaireItemClickBehavior.next(
+       questionnaireItemBeingClicked,
+     );
 
   }
 
@@ -278,5 +281,13 @@ export class ExtraResourcesComponent implements OnInit {
     this.forReadingTab = false;
     this.forQuestionnaireTab = true;
 
+  }
+
+  onMyListClick() {
+    this.showMyResults = false;
+  }
+
+  onMyResultsClick() {
+    this.showMyResults = true;
   }
 }
