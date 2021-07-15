@@ -9,6 +9,8 @@ import {element} from 'protractor';
 import {Options} from '@/shared/questionnaire/shared/options.model';
 import {QuestionnaireService} from "@/shared/questionnaire/questionnaire.service";
 import {Result} from "@/shared/questionnaire/shared/result.model";
+import {ExtraResourcesService} from "@/main/extra-resources/extra-resources.service";
+import {ActivatedRoute, Route, Router} from "@angular/router";
 
 @Component({
   selector: 'app-questionnaire-item',
@@ -17,12 +19,15 @@ import {Result} from "@/shared/questionnaire/shared/result.model";
 })
 
 export class QuestionnaireItemComponent implements OnInit {
-  @Input() questionnaireItem!: QuestionnaireItem; // questionnaire model
+  // @Input() questionnaireItem!: QuestionnaireItem; // questionnaire model
   @Input() optionsItem!: Options;
   @Input() usefulItem!: UsefulListItem;
+  testShow!: string;
+  questionnaireIdToSend!: number;
+  questionnaireItem!: QuestionnaireItem;
   resultItem: Result[] = [];
   total_questions!: number;
-  title!: string;
+  // title!: string;
   questionnaireI: Quiz = new Quiz(null); // need to change the data type once the api is made to questionnaire model
   questionCount = 1;
   ques!: string;
@@ -88,27 +93,48 @@ export class QuestionnaireItemComponent implements OnInit {
   constructor(
     private quizService: QuizService,
     private questionnaireService: QuestionnaireService,
+    private extraResourcesService: ExtraResourcesService,
+    private activateRoutes: ActivatedRoute,
+    private router: Router,
   ) {
   }
 
   ngOnInit() {
     //this.choicesArrayGroup = //window.localStorage.getItem(CHOICES_GROUP) ? // this line before the ? is not compulsory to put. If any error, try checking with this, or else remove
       //JSON.parse(window.localStorage.getItem(CHOICES_GROUP) || '[]'); //: [];
-
-    this.quizService.get(environment.API_ENDPOINT + GET_PHQ_QUESTIONS).subscribe((res: any) => {
-      this.questionnaireI = new Quiz(res);
-      this.total_questions = this.questionnaireI.count;
-      this.ques = this.questionnaireI.questions[0].name;
-      this.options = this.questionnaireI.questions[0].id;
-      this.optionType = this.tempOptionsScore[0].tempOptionType;
-      console.log(this.total_questions);
-      console.log(this.options);
-      console.log(this.tempOptionsScore[0].options[0].score );
-       this.tempOptionsScore[0].options.forEach((data: any) => {
-         this.scoreArray.push(data.name);
-        console.log('data', data.id, this.scoreArray);
-       });
+    this.activateRoutes.params.subscribe(data => {
+      this.questionnaireIdToSend = data.id;
     });
+    this.questionnaireService.getAQuestionnaire(this.questionnaireIdToSend).subscribe(data => {
+      this.questionnaireItem = <QuestionnaireItem>data;
+      console.log('from url', this.questionnaireItem);
+    })
+
+    // this.extraResourcesService.sendQuestionnaireItem.subscribe((data: any) => {
+    //   this.qItem = <QuestionnaireItem>data;
+    //   this.testShow = this.qItem.title;
+    //
+    //   console.log('data1', this.testShow);
+    //   console.log('instr', this.qItem.instructions);
+    //   console.log('title', this.qItem);
+    // });
+    console.log('show item', this.questionnaireItem);
+
+
+    // this.quizService.get(environment.API_ENDPOINT + GET_PHQ_QUESTIONS).subscribe((res: any) => {
+    //   this.questionnaireI = new Quiz(res);
+    //   this.total_questions = this.questionnaireI.count;
+    //   this.ques = this.questionnaireI.questions[0].name;
+    //   this.options = this.questionnaireI.questions[0].id;
+    //   this.optionType = this.tempOptionsScore[0].tempOptionType;
+    //   console.log(this.total_questions);
+    //   console.log(this.options);
+    //   console.log(this.tempOptionsScore[0].options[0].score );
+    //    this.tempOptionsScore[0].options.forEach((data: any) => {
+    //      this.scoreArray.push(data.name);
+    //     console.log('data', data.id, this.scoreArray);
+    //    });
+    // });
     // this.questionnaireI.push(<QuestionnaireModel>data)
     // this.eachQuestionItem.push(<Question>this.questionnaireI.questions)
     // this.quesIndex = this.

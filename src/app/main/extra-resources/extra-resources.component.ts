@@ -154,25 +154,26 @@ export class ExtraResourcesComponent implements OnInit {
         });
       });
 
-     // this.quesService
-     //   .getQuestionnaires()
-     //   .subscribe((questionnaire_data: any) => {
-     //     questionnaire_data.results.forEach((element:any) => {
+       this.quesService
+         .getQuestionnaires()
+         .subscribe((questionnaire_data: any) => {
+           questionnaire_data.results.forEach((element:any) => {
+             this.questionnaireItems.push(<QuestionnaireItem>element);
+             this.countQuestionnaireItem = this.countQuestionnaireItem + 1;
+             console.log('title', element.title);
+
+           });
+         });
+     // this.extraResourcesService
+     //   .getQuestionnaire()
+     //   .subscribe((qu_data: any) => {
+     //     console.log('title', qu_data);
+     //     qu_data.results.forEach((element: any) => {
      //       this.questionnaireItems.push(<QuestionnaireItem>element);
      //       this.countQuestionnaireItem = this.countQuestionnaireItem + 1;
      //       console.log('title', element.title);
-     //
      //     });
-     //   });
-     this.extraResourcesService
-       .getQuestionnaire()
-       .subscribe((qu_data: any) => {
-         qu_data.results.forEach((element: any) => {
-           this.questionnaireItems.push(<QuestionnaireItem>element);
-           this.countQuestionnaireItem = this.countQuestionnaireItem + 1;
-           console.log('title', element.title);
-         });
-     });
+     // });
   }
 
 
@@ -233,6 +234,8 @@ export class ExtraResourcesComponent implements OnInit {
      this.extraResourcesService.questionnaireItemClickBehavior.next(
        questionnaireItemBeingClicked,
      );
+     console.log('data click', questionnaireItemBeingClicked);
+     this.extraResourcesService.sendQuestionnaireItem.emit(questionnaireItemBeingClicked);
 
   }
 

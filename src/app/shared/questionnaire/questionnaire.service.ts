@@ -17,6 +17,12 @@ export class QuestionnaireService {
     );
   }
 
+  getAQuestionnaire(Qid: number) {
+    return this.http.get(
+      environment.API_ENDPOINT + QUESTIONNAIRE_LIST + Qid,
+    );
+  }
+
   postChoicesGetResults() {
     // return this.http.post
   }

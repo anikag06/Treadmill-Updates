@@ -37,6 +37,7 @@ export class ExtraResourcesService {
   videoCovid19InResource!: VideoCovid19Item;
   usefulListItemInResource!: ReadingItem;
   questionnaireItemInResource!: QuestionnaireItem;
+  sendQuestionnaireItem =  new EventEmitter<any>();
 
   videoClickBehavior: BehaviorSubject<VideoItem> = new BehaviorSubject<
     VideoItem

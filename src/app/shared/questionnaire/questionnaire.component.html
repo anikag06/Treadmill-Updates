@@ -3,14 +3,16 @@
   <div class = "preview-img-div">
     <div class = "preview-img"></div>
   </div>
-  <mat-card-footer [innerHtml] = "questionnaireItem.title"></mat-card-footer>
-  <mat-card-footer [innerHtml] = "questionnaireItem.subtitle"></mat-card-footer>
+  <mat-card-footer>
+    <mat-card-title>{{questionnaireItem.title}}</mat-card-title>
+    <mat-card-subtitle>{{questionnaireItem.subtitle}}</mat-card-subtitle>
+  </mat-card-footer>
 </mat-card>
 </div>
 
 <div *ngIf = "isResult == 'true'">
 <mat-card class = "card">
-  
+
 
 </mat-card>
 

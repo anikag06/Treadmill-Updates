@@ -23,7 +23,7 @@ export class QuestionnaireComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('title', this.questionnaireItem.title);
+    console.log('title', this.questionnaireItem);
   }
 
 

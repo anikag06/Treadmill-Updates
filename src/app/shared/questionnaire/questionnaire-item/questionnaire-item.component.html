@@ -1,8 +1,12 @@
 <div *ngIf = "this.introPage && !this.resultPage && !this.submitPage">
   <mat-card>
   <div class = "row">
-    <div class = "col">Title</div>
-    <div class = "col">Description</div>
+    <div class = "col">
+      <mat-card-header>
+      <mat-card-title>{{this.questionnaireItem.title}}</mat-card-title>
+      </mat-card-header>
+    </div>
+    <div class = "col"><mat-card-content >{{this.questionnaireItem.instructions}}</mat-card-content></div>
   </div>
    <div class = "row">
     <button mat-raised-button (click) = "showTestPage()">Start Test</button>

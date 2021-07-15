@@ -13,6 +13,8 @@ import {
 } from '@/app.constants';
 
 import { MatLoginDialogComponent } from '@/pre-login/login/mat-login-dialog/mat-login-dialog.component';
+import {QuestionnaireService} from "@/shared/questionnaire/questionnaire.service";
+import {QuestionnaireItem} from "@/shared/questionnaire/shared/questionnaire.model";
 
 @Component({
   selector: 'app-pre-login',
@@ -23,6 +25,8 @@ import { MatLoginDialogComponent } from '@/pre-login/login/mat-login-dialog/mat-
 export class PreLoginComponent implements OnInit {
   loggedIn = false;
   url!: string;
+  questionnaireItemsPL: QuestionnaireItem[] = [];
+  countQuestionnaireItemPL = 0;
 
   constructor(
     private showLoginSignupDialogService: ShowLoginSignupDialogService,
@@ -31,6 +35,7 @@ export class PreLoginComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
+    private questionnaireService: QuestionnaireService,
   ) {}
 
   ngOnInit() {
@@ -48,6 +53,17 @@ export class PreLoginComponent implements OnInit {
     if (this.router.url === LOGIN_AFTER_RESET) {
       this.onLoginClicked();
     }
+
+    this.questionnaireService
+      .getQuestionnaires()
+      .subscribe((questionnaire_data: any) => {
+        questionnaire_data.results.forEach((element:any) => {
+          this.questionnaireItemsPL.push(<QuestionnaireItem>element);
+          this.countQuestionnaireItemPL = this.countQuestionnaireItemPL + 1;
+          console.log('title', element.title);
+
+        });
+      });
   }
 
   onLoginClicked() {
@@ -62,6 +78,10 @@ export class PreLoginComponent implements OnInit {
 
   onJoinTheStudyClicked() {
     this.showLoginSignupDialogService.joinStudyClicked();
+  }
+
+  onPreLoginQuestionnaireShow() {
+
   }
 
   onWorkWithUsClicked() {
@@ -79,6 +99,6 @@ export class PreLoginComponent implements OnInit {
   }
 
   questionnaireClicked(){
-    this.router.navigate(['extra-resources/questionnaireItem/' ]);
+    this.router.navigate(['questionnaireItem/' ]);
   }
 }
