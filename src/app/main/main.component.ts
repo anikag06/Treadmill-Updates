@@ -275,13 +275,6 @@ export class MainComponent
         this.authService.refresh();
       },
     );
-    if (
-      !this.commonService.isChromeBrowser() &&
-      sessionStorage.getItem(IS_VISITED) === null
-    ) {
-      this.commonService.showBrowserChangeDialog();
-      sessionStorage.setItem(IS_VISITED, 'true');
-    }
   }
 
   ngAfterContentInit(): void {

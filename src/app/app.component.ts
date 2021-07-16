@@ -3,8 +3,9 @@ import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { slideInAnimation } from './shared/main.animations';
 import { Title } from '@angular/platform-browser';
 import { A2HSService } from '@/shared/a2hs.service';
-import { LOGGED_IN_PATH, TREADWILL } from '@/app.constants';
+import { IS_VISITED, LOGGED_IN_PATH, TREADWILL } from '@/app.constants';
 import { AuthService } from '@/shared/auth/auth.service';
+import { CommonService } from '@/shared/common.service';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +19,7 @@ export class AppComponent {
     private a2HSService: A2HSService,
     private router: Router,
     private authService: AuthService,
+    private commonService: CommonService
   ) {
     this.titleService.setTitle(TREADWILL);
     this.a2HSService.setDeferredPrompt();
@@ -26,6 +28,16 @@ export class AppComponent {
 
     if (user && user.is_active && !url.includes('main')) {
       this.router.navigate([LOGGED_IN_PATH]);
+    }
+  }
+
+  ngOnInit() {
+    if (
+      !this.commonService.isChromeBrowser() &&
+      sessionStorage.getItem(IS_VISITED) === null
+    ) {
+      this.commonService.showBrowserChangeDialog();
+      sessionStorage.setItem(IS_VISITED, 'true');
     }
   }
 
