@@ -101,20 +101,21 @@
 
                   <div class="col-12">
                     <label class="lesser-opacity">
-                      In which browser are you planning to use TreadWill?
+                     Will it be possible for you to use Treadwill in Google Chorme?
                     </label>
-                    <mat-form-field class="w-100" style="margin-top: -20px;">
-                      <mat-label>In which browser are you planning to use TreadWill?</mat-label>
-                      <mat-select #Browser
-                                  required formControlName="browser">
-                        <mat-option [value]="1">Google chrome</mat-option>
-                        <mat-option [value]="-1">Microsoft edge</mat-option>
-                        <mat-option [value]="-1">Firefox</mat-option>
-                        <mat-option [value]="-1">Safari</mat-option>
-                        <mat-option [value]="-1">Opera</mat-option>
-                        <mat-option [value]="-1">Other</mat-option>
-                      </mat-select>
-                    </mat-form-field>
+                    <mat-radio-group formControlName="browser"
+                                      required color="primary">
+                      <mat-radio-button [value]="1" class="mr-5" id="btn19"
+                                        #btn19 [ngClass]="{ 'checkedBtn': btn19.checked , 'unChecked': !btn19.checked}">
+                        Yes
+                      </mat-radio-button>
+                      <mat-radio-button [value]="0" class="ml-4" id="btn20"
+                                        #btn20 [ngClass]="{ 'checkedBtn': btn20.checked , 'unChecked': !btn20.checked}">
+                        No
+                      </mat-radio-button>
+                      <mat-error *ngIf="btn19.checked">Great! We recommend you to use TreadWill in Google Chrome.</mat-error>
+                      <mat-error *ngIf="btn20.checked">We recommend you to use TreadWill in Google Chrome.</mat-error>
+                    </mat-radio-group>
                   </div>
 
                     <div class="col-12 my-2">
