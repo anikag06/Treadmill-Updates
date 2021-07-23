@@ -1,0 +1,58 @@
+@import "styles.scss";
+.title-style{
+  text-align: center;
+  align-content: center;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.option-btn-style{
+  background: #F1F9FF 0% 0% no-repeat padding-box;
+  box-shadow: 0px 2px 4px #1C525829;
+  border: 1px solid #C7D7E3;
+  border-radius: 8px;
+  opacity: 1;
+  text-align: center;
+  justify-content: center;
+  display: block;
+}
+.progress-bar-style{
+
+}
+.progress-text-style{
+  font-size: 12px;
+  color: #707070;
+}
+
+.instruction-style {
+  text-align: center;
+}
+
+.btn-style{
+  font-size: 14px;
+  font-family: Roboto;
+  width: auto;
+  color: white;
+  background-color: #2a3b3d;
+  text-align: center;
+  justify-content: center;
+  margin: 16px 0;
+}
+
+.ques-style{
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.radio-option-style {
+  text-align: center;
+  color: #2a3b3d;
+
+}
+.radio-group-style{
+  display: flex;
+  flex-direction: column;
+}
+.submit-style{
+  text-align: center;
+}

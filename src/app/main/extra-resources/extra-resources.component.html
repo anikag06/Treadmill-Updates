@@ -168,8 +168,8 @@
     <div class = "space-below-section">
     <div>
       <div class = "row no-gutters"> <!-- have to change the code here to make it suitable for view results -->
-        <div class = "each-item" *ngFor = "let questionnaireItem of questionnaireItems">
-          <app-questionnaire [questionnaireItem] = "questionnaireItem" (click) = "questionnaireItemClick(questionnaireItem)"></app-questionnaire>
+        <div class = "each-item">
+          <app-questionnaire isResult = 'true'></app-questionnaire>
         </div>
       </div>
     </div>

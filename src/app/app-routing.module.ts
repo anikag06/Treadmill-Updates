@@ -7,6 +7,7 @@ import { AuthGuard } from './shared/auth/auth.guard';
 import { SignUpComponent } from '@/pre-login/signup/signup.component';
 import { TempLandingPageComponent } from '@/temp-landing-page/temp-landing-page.component';
 import { ResetPasswordComponent } from '@/pre-login/reset-password/reset-password.component';
+import {QuestionnaireContainerComponent} from "@/shared/questionnaire-container/questionnaire-container.component";
 
 export const routes: Routes = [
   { path: '', redirectTo: 'landing', pathMatch: 'full' },
@@ -50,6 +51,13 @@ export const routes: Routes = [
   },
   { path: 'iitk', component: TempLandingPageComponent },
   { path: '**', component: NotFoundComponent },
+  { path: 'questionnaire-container/',
+    loadChildren: () =>
+      import('./shared/questionnaire-container.module').then(
+        m => m.QuestionnaireContainerModule,
+      ),
+  },
+
 ];
 
 @NgModule({

@@ -6,6 +6,6 @@ export class QuestionModel{
     public order: number,
     public question: string,
     public level: number,
-    public option: Options[],
+    public options: Options[],
   ) {}
 }

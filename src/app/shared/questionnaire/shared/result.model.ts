@@ -1,19 +1,14 @@
+import {RefTable} from "@/shared/questionnaire/shared/reference-table.model";
+
 export class Result {
   constructor(
-    public userScore : number,
-    public resultRemark: string,
-    public totalScore: number,
-    public definitionText: string,
+    public user_score : number,
+    public result_remark: string,
+    public total_score: number,
+    public definition: string,
     public disorder: string,
-    public referenceTable: refTable[],
+    public reference_table: RefTable[],
 
   ) {}
 }
 
-export class refTable {
-  constructor(
-    public minValue: number,
-    public maxValue: number,
-    public refRemark: string,
-  ) {}
-}

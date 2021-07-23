@@ -50,7 +50,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { CommonDialogComponent } from './shared/common-dialog/common-dialog.component';
 import { PointsComponent } from '@/main/shared/points/points.component';
 import { GlobalErrorHandler } from '@/shared/global-error-handler';
-import {MatCardModule} from '@angular/material';
+import {MatCardModule, MatTableModule} from '@angular/material';
 
 declare let $: any;
 
@@ -97,6 +97,7 @@ declare let $: any;
     MatButtonModule,
     MatSnackBarModule,
     MatRadioModule,
+    MatTableModule,
     MatTooltipModule,
     MatCardModule,
   ],

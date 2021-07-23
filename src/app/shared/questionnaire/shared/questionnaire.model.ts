@@ -8,6 +8,7 @@ export class QuestionnaireItem {
     public instructions: string,
     public category: string,
     public order: number,
-    public question: QuestionModel[],
+    public questions: QuestionModel[],
+    public image: string,
   ) {}
 }

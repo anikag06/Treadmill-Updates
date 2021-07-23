@@ -160,9 +160,16 @@ export class ExtraResourcesComponent implements OnInit {
            questionnaire_data.results.forEach((element:any) => {
              this.questionnaireItems.push(<QuestionnaireItem>element);
              this.countQuestionnaireItem = this.countQuestionnaireItem + 1;
-             console.log('title', element.title);
+             console.log('title', element);
 
            });
+         });
+
+       this.quesService
+         .getResultHistory(this.user.username)
+         .subscribe((data: any) => {
+           console.log('history data', data);
+           console.log('history data response', data.response);
          });
      // this.extraResourcesService
      //   .getQuestionnaire()
@@ -229,6 +236,7 @@ export class ExtraResourcesComponent implements OnInit {
   questionnaireItemClick(questionnaireItemBeingClicked: QuestionnaireItem) {
     this.router.navigate(['questionnaireItem/', questionnaireItemBeingClicked.id], {
       relativeTo: this.route,
+      state: { questionnaireData: questionnaireItemBeingClicked },
     });
 
      this.extraResourcesService.questionnaireItemClickBehavior.next(

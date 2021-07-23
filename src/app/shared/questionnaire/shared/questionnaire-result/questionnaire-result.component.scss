@@ -1,0 +1,51 @@
+.result-heading{
+  font-weight: bold;
+  font-size: 20px;
+}
+.disclaimer-heading{
+  font-weight: bold;
+  font-size: 20px;
+}
+.ref-heading{
+  font-weight: bold;
+  font-size: 20px;
+}
+.font-14{
+  font-size: 14px;
+}
+.bold-text {
+  font-weight: bold;
+}
+
+.table-style,td, th {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+.table-style tr:nth-child(even) {
+  background-color: #fff;
+
+}
+.table-style tr:nth-child(odd) {
+  background-color: #eee;
+
+}
+.table-style th{
+  background-color: black;
+  color: white;
+}
+.btn-style{
+  font-size: 14px;
+  font-family: Roboto;
+  width: auto;
+  color: white;
+  background-color: #2a3b3d;
+  text-align: center;
+  justify-content: center;
+  margin: 16px 0;
+}
+.email-style{
+  cursor: pointer;
+}
+.print-style{
+  curosr: pointer;
+}

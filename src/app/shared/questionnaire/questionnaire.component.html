@@ -1,11 +1,13 @@
 <div *ngIf = "isResult == 'false'">
-<mat-card class = "card">
+<mat-card class = "ques-card">
   <div class = "preview-img-div">
-    <div class = "preview-img"></div>
+<!--    <img class = "preview-img" src = "assets/shared/loading-gif.gif" ></img>-->
+<!--    <div class = "preview-img">Test text</div>-->
   </div>
-  <mat-card-footer>
-    <mat-card-title>{{questionnaireItem.title}}</mat-card-title>
-    <mat-card-subtitle>{{questionnaireItem.subtitle}}</mat-card-subtitle>
+  <mat-card-footer class = "show-footer-style">
+    <span>{{questionnaireItem.category}}</span>
+    <div class = "bold-text">{{questionnaireItem.title}}<br></div>
+    {{questionnaireItem.subtitle}}
   </mat-card-footer>
 </mat-card>
 </div>
@@ -15,5 +17,8 @@
 
 
 </mat-card>
-
+<span>History</span>
+<div>
+  <a (click) = "viewResultClick()" class = "view-result-style">View result</a>
+</div>
 </div>
