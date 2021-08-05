@@ -70,6 +70,10 @@ $small_logo_height: 40px;
 button {
   outline: none !important;
 }
+.mat-radio-outer-circle {
+  border-color: #2a3b3d;
+  border-width: 0px!important;
+}
 .signup-dialog .mat-dialog-container {
   @include common-dialog-style();
 

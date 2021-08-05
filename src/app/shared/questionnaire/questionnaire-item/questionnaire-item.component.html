@@ -31,58 +31,77 @@
     <p></p>
   <div class = "row">
     <div class = "col-1">
-    <mat-icon *ngIf = "this.questionCount > 1" (click) = "backArrowClick()">arrow_back_ios</mat-icon>
+    <mat-icon *ngIf = "this.questionCount > 1" class = "back-arrow-style" (click) = "backArrowClick()">arrow_back_ios</mat-icon>
     </div>
     <div class = "col-10 ques-style">{{this.ques}}</div>
     <div class = "col-1">
-    <mat-icon *ngIf = "this.questionCount <= this.total_questions" (click) = "forwardArrowClick()">arrow_forward_ios</mat-icon>
+    <mat-icon *ngIf = "this.questionCount <= this.total_questions" class = "forward-arrow-style" (click) = "forwardArrowClick()">arrow_forward_ios</mat-icon>
     </div>
   </div>
     <p></p>
     <p></p>
-  <div class = "row">
+<!--  <div class = "row">-->
 <!--    <div class = "col">{{this.options}}</div>-->
 <!-- option types using if condition -->
     <div *ngFor = "let op of optionsArray">
-    <div  *ngIf = "op.option_type == 'radio'">
+    <div  *ngIf = "op.option_type == 'Radio'">
 <!--      <div class = "col-12">-->
 <!--    <ng-container>-->
+      <div class = "row d-flex justify-content-center" >
     <div class = "btn-group-vertical">
+
     <button mat-raised-button class = "option-btn-style">
+
     <mat-radio-group required class = "radio-group-style">
+
     <mat-radio-button
       class = "radio-option-style"
 
       [value] = "op.option_text"
       (click) = "optionClick(this.questionsArray[this.quesIndex].id, this.questionsArray[this.quesIndex].order, op.id, this.questionCount)">{{op.option_text}}
     </mat-radio-button>
+
+
     </mat-radio-group>
+
     </button>
    </div>
-<!--    </div>-->
+    </div>
+
+
+      <!--    </div>-->
 <!--      <p></p>-->
 <!--    </ng-container>-->
     </div>
       <!-- HERE, USE THE FOR LOOP TO ADD THE OPTIONS. IN THE CLICK SEND THE OPTION ORDER, OPTION ID, AND QUESTION NUMBER -->
-    <div *ngIf = "this.optionType == 'slider'">
-      <div class = "col">
-     <span *ngFor = "let op of scoreArray"  >{{op}}  </span>
-     </div>
-
-      <mat-slider *ngIf = "this.optionType == 'slider'"
+    <div *ngIf = "op.option_type == 'Slider'">
+<!--      <div class = "col">-->
+<!--     <span *ngFor = "let op of scoreArray"  >{{op}}  </span>-->
+<!--     </div>-->
+      <div class = "row d-flex justify-content-center">
+      <mat-slider
         tickLabel
         [value] = "op.option_text"
         color="accent"
         min="1"
-        max="10" (></mat-slider>
+        max="10" ></mat-slider>
+      </div>
     </div>
-    <div *ngIf = "this.optionType == 'text'">
+    <div *ngIf = "op.option_type == 'Text'">
+      <div class = "row d-flex justify-content-center">
       <mat-form-field>
+        <mat-label class = "placeholder">
+          Enter Text
+        </mat-label>
         <input matInput type = "text">
       </mat-form-field>
+      </div>
+<!--      <button class = "btn-style" type = "button" mat-raised-button>-->
+<!--        Send-->
+<!--      </button>-->
     </div>
     </div>
-  </div>
+<!--  </div>-->
 
   </mat-card>
 </div>

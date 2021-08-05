@@ -5,6 +5,13 @@
   font-weight: bold;
   font-size: 24px;
 }
+.back-arrow-style{
+  cursor: pointer;
+}
+
+.forward-arrow-style{
+  cursor: pointer;
+}
 
 .option-btn-style{
   background: #F1F9FF 0% 0% no-repeat padding-box;
@@ -15,6 +22,7 @@
   text-align: center;
   justify-content: center;
   display: block;
+  min-width: 150px;
 }
 .progress-bar-style{
 
@@ -47,6 +55,7 @@
 .radio-option-style {
   text-align: center;
   color: #2a3b3d;
+  width: 100%;
 
 }
 .radio-group-style{

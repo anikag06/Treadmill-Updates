@@ -1,20 +1,20 @@
 <div class="container resources-container px-0"  *ngIf="outlet.isActivated == false">
   <div class = "row" *ngIf = "!this.quesExpand">
-    <div class = "col" (click) = "onVideosTab()">
+    <div class = "col tab-style" (click) = "onVideosTab()">
       Videos
     </div>
-    <div class = "col" (click) = "onReadingTab()">
+    <div class = "col tab-style" (click) = "onReadingTab()">
       Reading
     </div>
-    <div class = "col" (click) = "onQuestionnaireTab()">
+    <div class = "col tab-style" (click) = "onQuestionnaireTab()">
       Questionnaires
     </div>
   </div>
   <div class = "row" *ngIf = "this.quesExpand">
-    <div class = "col" (click) = "onMyListClick()">
+    <div class = "col tab-style" (click) = "onMyListClick()">
       List
     </div>
-    <div class = "col" (click) = "onMyResultsClick()">
+    <div class = "col tab-style" (click) = "onMyResultsClick()">
       My Results
     </div>
   </div>

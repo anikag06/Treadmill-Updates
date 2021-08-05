@@ -25,10 +25,12 @@ export class QuestionnaireResultComponent implements OnInit {
       .subscribe((data: any) => {
         console.log('result data from passing- passing successful', data);
         console.log('result page', data.result);
-        data.result.forEach((element: any) => {
-          this.resultItem.push(<Result>element);
-          //this.refTableArray[element.disorder]
-        })
+        // data.result.forEach((element: any) => {
+        //   this.resultItem.push(<Result>element);
+        //   //this.refTableArray[element.disorder]
+        //   console.log('each result', this.resultItem);
+        // })
+        this.resultItem.push(<Result>data.result);
         // data.result.data.forEach((e: any) => {
         //
         // })

@@ -6,7 +6,7 @@
 
      <div *ngFor = "let resultEachItem of this.resultItem">
         <span class = "bold-text">{{resultEachItem.disorder}} Score:</span><span> {{resultEachItem.user_score}}/{{resultEachItem.total_score}}</span><br>
-          <span class = "font-14">{{resultEachItem.result_remark}}{{resultEachItem.definition}}</span>
+          <span class = "font-14">{{resultEachItem.result_remark}}. {{resultEachItem.definition}}</span>
        </div>
     </div>
 </div>
