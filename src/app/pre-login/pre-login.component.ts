@@ -54,16 +54,16 @@ export class PreLoginComponent implements OnInit {
       this.onLoginClicked();
     }
 
-    this.questionnaireService
-      .getQuestionnaires()
-      .subscribe((questionnaire_data: any) => {
-        questionnaire_data.results.forEach((element:any) => {
-          this.questionnaireItemsPL.push(<QuestionnaireItem>element);
-          this.countQuestionnaireItemPL = this.countQuestionnaireItemPL + 1;
-          console.log('title', element.title);
-
-        });
-      });
+    // this.questionnaireService
+    //   .getQuestionnaires()
+    //   .subscribe((questionnaire_data: any) => {
+    //     questionnaire_data.results.forEach((element:any) => {
+    //       this.questionnaireItemsPL.push(<QuestionnaireItem>element);
+    //       this.countQuestionnaireItemPL = this.countQuestionnaireItemPL + 1;
+    //       console.log('title', element.title);
+    //
+    //     });
+    //   });
   }
 
   onLoginClicked() {
@@ -99,6 +99,6 @@ export class PreLoginComponent implements OnInit {
   }
 
   questionnaireClicked(){
-    this.router.navigate(['questionnaireItem/' ]);
+    this.router.navigate(['questionnaire-list' ]);
   }
 }

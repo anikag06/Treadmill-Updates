@@ -20,15 +20,15 @@ import { SanitizedHtmlPipe } from '@/shared/sanitized-html.pipe';
 import { StepCompletedComponent } from '@/main/resources/shared/step-completed/step-completed.component';
 import {QuestionnaireComponent} from '@/shared/questionnaire/questionnaire.component';
 import {QuestionnaireItemComponent} from '@/shared/questionnaire/questionnaire-item/questionnaire-item.component';
-import {QuestionnaireContainerComponent} from "@/shared/questionnaire-container/questionnaire-container.component";
+// import {QuestionnaireContainerComponent} from "@/shared/questionnaire-container/questionnaire-container.component";
 import {MatProgressBarModule} from '@angular/material';
-import {QuestionnaireResultComponent} from "@/shared/questionnaire/shared/questionnaire-result/questionnaire-result.component";
+import {QuestionnaireResultComponent} from '@/shared/questionnaire/shared/questionnaire-result/questionnaire-result.component';
 
 @NgModule({
   declarations: [
     SlidesVideoComponent,
     QuestionnaireComponent,
-    QuestionnaireContainerComponent,
+    // QuestionnaireContainerComponent,
     SafeUrlPipe,
     CongratsDialogComponent,
     ChatVideoComponent,
@@ -72,7 +72,7 @@ import {QuestionnaireResultComponent} from "@/shared/questionnaire/shared/questi
     SanitizedHtmlPipe,
     StepCompletedComponent,
     QuestionnaireComponent,
-    QuestionnaireContainerComponent,
+    // QuestionnaireContainerComponent,
   ],
   entryComponents: [
     SlidesVideoComponent,

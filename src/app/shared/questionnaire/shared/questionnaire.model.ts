@@ -1,4 +1,4 @@
-import {QuestionModel} from "@/shared/questionnaire/shared/question.model";
+import {QuestionModel} from '@/shared/questionnaire/shared/question.model';
 
 export class QuestionnaireItem {
   constructor(

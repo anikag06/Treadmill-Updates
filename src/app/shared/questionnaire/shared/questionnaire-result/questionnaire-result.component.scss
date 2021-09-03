@@ -2,6 +2,24 @@
   font-weight: bold;
   font-size: 20px;
 }
+.view-result-style{
+  color: #1782FF;
+  cursor: pointer;
+  float: right;
+  font-weight: bold;
+}
+.see-all-icon-down {
+  //transform: rotate(180deg);
+  cursor: pointer;
+  width: 15px;
+  height: 15px;
+}
+.see-all-icon-right {
+  transform: rotate(-90deg);
+  cursor: pointer;
+  width: 15px;
+  height: 15px;
+}
 .disclaimer-heading{
   font-weight: bold;
   font-size: 20px;

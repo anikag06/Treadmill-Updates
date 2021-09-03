@@ -13,23 +13,26 @@ import {QuestionnaireContainerComponent} from "@/shared/questionnaire-container/
 import {QuestionnaireContainerRoutingModule} from "@/shared/questionnaire-container/questionnaire-container-routing.module";
 
 @NgModule({
-  imports: [
-    QuestionnaireContainerRoutingModule,
-    CommonModule,
-    // MaterialModule,
-    SharedModule,
-    MatCardModule,
-    MatDialogModule,
-    MatRippleModule,
-    //  YouTubePlayerModule
-  ],
-  declarations: [
-    QuestionnaireContainerComponent,
+    imports: [
+        QuestionnaireContainerRoutingModule,
+        CommonModule,
+        // MaterialModule,
+        SharedModule,
+        MatCardModule,
+        MatDialogModule,
+        MatRippleModule,
+        //  YouTubePlayerModule
+    ],
+    declarations: [
+        QuestionnaireContainerComponent,
 
-    // SafeUrlPipe,
-    // TrimStringPipe
-  ],
- // providers: [ExtraResourcesService],
-  // exports: [SafeUrlPipe],
+        // SafeUrlPipe,
+        // TrimStringPipe
+    ],
+    exports: [
+        QuestionnaireContainerComponent
+    ],
+// providers: [ExtraResourcesService],
+    // exports: [SafeUrlPipe],
 })
 export class QuestionnaireContainerModule {}

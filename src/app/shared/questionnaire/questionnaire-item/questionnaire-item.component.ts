@@ -110,13 +110,20 @@ export class QuestionnaireItemComponent implements OnInit {
     private authService: AuthService,
 
 
-  ) {
-    // tslint:disable-next-line:no-non-null-assertion
-    this.questionnaireItem = this.router.getCurrentNavigation()!.extras.state!.questionnaireData;
-  }
+  )
+  // {
+  //   // tslint:disable-next-line:no-non-null-assertion
+  //   this.questionnaireItem = this.router.getCurrentNavigation()!.extras.state!.questionnaireData;
+  // }
+  {if (this.router.getCurrentNavigation()!.extras.state !== undefined) {
+  // tslint:disable-next-line:no-non-null-assertion
+  this.questionnaireItem = this.router.getCurrentNavigation()!.extras.state!.questionnaireData;
+} else {
+  this.router.navigate(['/main/extra-resources']).then((r) => {});
+}}
 
   ngOnInit() {
-    this.user = <User>this.authService.isLoggedIn();
+     this.user = <User>this.authService.isLoggedIn();
     console.log('questionnaire new', this.questionnaireItem);
      this.questionnaireItem.questions.forEach((element: any) => {
        this.questionsArray.push(<QuestionModel>element);
@@ -242,13 +249,15 @@ export class QuestionnaireItemComponent implements OnInit {
     }
   }
 
-  submitTestClick(groupOfChoiceArray:[]) {
+  submitTestClick(groupOfChoiceArray: []) {
+    console.log('result page submit');
     //console.log('choice array group after submitting', groupOfChoiceArray);
     //console.log('username', this.user.username, 'id', this.questionnaireItem.id, 'order', this.questionnaireItem.order );
     // this.resultData = 'result';
 
-    if(this.user.username != 'null') {
+    if(this.user.username !== 'null') {
       const ipNull = null;
+      console.log('result page submit');
       this.questionnaireService.postChoicesGetResults(this.questionnaireItem.id, this.user.username, ipNull, this.questionnaireItem.order, groupOfChoiceArray)
         .subscribe((data: any) => {
           console.log('after submit data', data);
@@ -256,8 +265,8 @@ export class QuestionnaireItemComponent implements OnInit {
           this.resultPage = true;
           this.questionnaireService.passResultData(data);
         });
-    }
-    else {
+    } else {
+      console.log('result page submit');
       this.questionnaireService
         .postChoicesGetResults(this.questionnaireItem.id, this.user.username, this.ip_add, this.questionnaireItem.order, groupOfChoiceArray)
         .subscribe((data: any) => {

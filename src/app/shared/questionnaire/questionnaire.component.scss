@@ -6,6 +6,41 @@
   cursor:pointer;
 
 }
+.see-all-icon-down {
+  //transform: rotate(180deg);
+  cursor: pointer;
+  width: 32px;
+  height: 26px;
+  float: right;
+  color: black;
+}
+.see-all-icon-right {
+  transform: rotate(-90deg);
+  cursor: pointer;
+  width: 32px;
+  height: 26px;
+  float: right;
+  color: black;
+}
+.my-result-card{
+  font-weight: bold;
+  width: 80vw;
+  cursor: pointer;
+}
+.hr-style{
+  display: block; margin-before: 0.5em; margin-after: 0.5em; margin-start: auto; margin-end: auto; overflow: hidden; border-style: inset; border-width: 1px;
+}
+.calendar-icon-style{
+  margin-right: 20px;
+}
+.date-font{
+  font-size: 14px;
+  font-weight: normal;
+}
+.history-font{
+  color: #CCA765;
+  font-size: 14px;
+}
 .category-style{
   font-size: 10px;
   background-color: yellow;
@@ -19,7 +54,7 @@
 }
 
 .view-result-style{
-  color: #1a77e2;
+  color: #1782FF;
   cursor: pointer;
   float: right;
 }

@@ -1,83 +1,181 @@
-<mat-card>
-<div class = "row">
-  <div class = "col">
-    <div class = "d-flex justify-content-center result-heading">Result</div>
+<!--<mat-card>-->
+<!--<div class = "row">-->
+<!--  <div class = "col">-->
+<!--    <div class = "d-flex justify-content-center result-heading">Result</div>-->
+<!--&lt;!&ndash;    <div class = "col">&ndash;&gt;-->
+
+<!--     <div *ngFor = "let resultEachItem of this.resultItem">-->
+<!--        <span class = "bold-text">{{resultEachItem.disorder}} Score:</span><span> {{resultEachItem.user_score}}/{{resultEachItem.total_score}}</span><br>-->
+<!--          <span class = "font-14">{{resultEachItem.result_remark}}. {{resultEachItem.definition}}</span>-->
+<!--       </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--  <br>-->
+<!--    <br>-->
+
+<!--  <div class = "row">-->
 <!--    <div class = "col">-->
+<!--    <div class = "ref-heading">Reference Table</div>-->
+<!--&lt;!&ndash;    <div *ngFor = "let resultEachItem of this.resultItem">&ndash;&gt;-->
+<!--&lt;!&ndash;      <mat-table [dataSource]="resultItem">&ndash;&gt;-->
+<!--&lt;!&ndash;        <ng-container>&ndash;&gt;-->
+<!--&lt;!&ndash;          <mat-header-cell *matHeaderCellDef>Score</mat-header-cell>&ndash;&gt;-->
+<!--&lt;!&ndash;          <mat-cell></mat-cell>&ndash;&gt;-->
+<!--&lt;!&ndash;        </ng-container>&ndash;&gt;-->
+<!--&lt;!&ndash;        <ng-container>&ndash;&gt;-->
+<!--&lt;!&ndash;          <mat-header-cell *matHeaderCellDef>Risk Level</mat-header-cell>&ndash;&gt;-->
+<!--&lt;!&ndash;          <mat-cell></mat-cell>&ndash;&gt;-->
+<!--&lt;!&ndash;        </ng-container>&ndash;&gt;-->
+<!--&lt;!&ndash;      </mat-table>&ndash;&gt;-->
+<!--      <table class = "table-style">-->
+<!--        <tr>-->
+<!--          <th>Score</th>-->
+<!--          <th>Risk Level</th>-->
+<!--        </tr>-->
+<!--        <ng-container *ngFor = "let resultEachItem of this.resultItem">-->
+<!--         <tr>-->
+<!--           <td>{{resultEachItem.disorder}}</td>-->
+<!--         </tr>-->
+<!--        <ng-container *ngFor = "let refItem of this.refTableArray">-->
+<!--            <tr *ngFor = "let refEachItem of refItem">-->
+<!--              <td>{{refEachItem.minValue}} - {{refEachItem.maxValue}}</td>-->
+<!--              <td>{{refEachItem.reference_remark}}</td>-->
+<!--            </tr>-->
 
-     <div *ngFor = "let resultEachItem of this.resultItem">
-        <span class = "bold-text">{{resultEachItem.disorder}} Score:</span><span> {{resultEachItem.user_score}}/{{resultEachItem.total_score}}</span><br>
-          <span class = "font-14">{{resultEachItem.result_remark}}. {{resultEachItem.definition}}</span>
-       </div>
-    </div>
-</div>
-  <br>
-    <br>
+<!--        </ng-container>-->
+<!--        </ng-container>-->
 
+<!--      </table>-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+<!--    </div>-->
+<!--  </div>-->
+
+
+<!--    &lt;!&ndash;    <div *ngIf = "this.questionnaireName == 'Level1 cross cutting'">&ndash;&gt;-->
+<!--    &lt;!&ndash;      &ndash;&gt;-->
+<!--    &lt;!&ndash;    </div>&ndash;&gt;-->
+<!--    <p></p>-->
+<!--    <p></p>-->
+
+<!--    <div>-->
+<!--      <span class = "disclaimer-heading">Disclaimer</span><br>-->
+<!--      <span class = "font-14">The results are for information purposes only. The screening does not replace a medical evaluation.</span>-->
+<!--    </div>-->
+<!--  <br>-->
+<!--  <br>-->
+
+<!--    <div><img><a (click) = "expandEmail()" class = "email-style">Email Result</a></div>-->
+<!--    <form *ngIf = "this.showEmailBox">-->
+<!--      <mat-form-field>-->
+<!--        <mat-label class = "placeholder">-->
+<!--          Enter Email-->
+<!--        </mat-label>-->
+<!--        <input-->
+<!--        matInput type = "email" required>-->
+<!--      </mat-form-field>-->
+<!--      <button class = "btn-style"-->
+<!--        type = "button" mat-raised-button>Send</button>-->
+<!--    </form>-->
+<!--    <div><img><a class = "print-style" (click) = "printResult()">Print Result</a></div>-->
+
+
+
+<!--</mat-card>-->
+<span *ngIf = "fromUserResponse">
+<a (click) = "viewResultClick()" *ngIf="!showResultComponent && fromUserResponse" class = "view-result-style">View result <img src = "assets/icons/arrow.svg" class = "see-all-icon-right"></a>
+<a (click) = "viewResultClick()" *ngIf="showResultComponent && fromUserResponse" class = "view-result-style">Hide result <img src = "assets/icons/arrow.svg" class = "see-all-icon-down"></a>
+<!--<a>view result</a>-->
+</span>
+​
+​
+<mat-card *ngIf = "!fromUserResponse || showResultComponent" >
   <div class = "row">
     <div class = "col">
-    <div class = "ref-heading">Reference Table</div>
-<!--    <div *ngFor = "let resultEachItem of this.resultItem">-->
-<!--      <mat-table [dataSource]="resultItem">-->
-<!--        <ng-container>-->
-<!--          <mat-header-cell *matHeaderCellDef>Score</mat-header-cell>-->
-<!--          <mat-cell></mat-cell>-->
-<!--        </ng-container>-->
-<!--        <ng-container>-->
-<!--          <mat-header-cell *matHeaderCellDef>Risk Level</mat-header-cell>-->
-<!--          <mat-cell></mat-cell>-->
-<!--        </ng-container>-->
-<!--      </mat-table>-->
+      <div class = "d-flex justify-content-center result-heading">Result</div>
+      <!--    <div class = "col">-->
+      ​
+      <div *ngFor = "let resultEachItem of this.resultItem">
+        <span class = "bold-text">{{resultEachItem.disorder}} Score:</span><span> {{resultEachItem.user_score}}/{{resultEachItem.total_score}}</span><br>
+        <span class = "font-14">{{resultEachItem.result_remark}}{{resultEachItem.definition}}</span>
+      </div>
+    </div>
+  </div>
+  <br>
+  <br>
+  ​
+  <div class = "row">
+    <div class = "col">
+      <div class = "ref-heading">Reference Table</div>
+      <!--    <div *ngFor = "let resultEachItem of this.resultItem">-->
+      <!--      <mat-table [dataSource]="resultItem">-->
+      <!--        <ng-container>-->
+      <!--          <mat-header-cell *matHeaderCellDef>Score</mat-header-cell>-->
+      <!--          <mat-cell></mat-cell>-->
+      <!--        </ng-container>-->
+      <!--        <ng-container>-->
+      <!--          <mat-header-cell *matHeaderCellDef>Risk Level</mat-header-cell>-->
+      <!--          <mat-cell></mat-cell>-->
+      <!--        </ng-container>-->
+      <!--      </mat-table>-->
       <table class = "table-style">
         <tr>
           <th>Score</th>
           <th>Risk Level</th>
         </tr>
-        <ng-container *ngFor = "let resultEachItem of this.resultItem">
-         <tr>
-           <td>{{resultEachItem.disorder}}</td>
-         </tr>
+        <!--        <ng-container *ngFor = "let resultEachItem of this.resultItem;let i = index">-->
+        <!--         <tr>-->
+        <!--           <td>{{resultEachItem.disorder}}</td>-->
+        <!--         </tr>-->
         <ng-container *ngFor = "let refItem of this.refTableArray">
-            <tr *ngFor = "let refEachItem of refItem">
-              <td>{{refEachItem.minValue}} - {{refEachItem.maxValue}}</td>
-              <td>{{refEachItem.reference_remark}}</td>
-            </tr>
+          <tr>
+            <td>{{refItem[0].disorder}}</td>
 
-        </ng-container>
-        </ng-container>
+          </tr>
 
+<!--          <tr>-->
+          <tr *ngFor = "let refEachItem of refItem">
+            ​
+            <td>{{refEachItem.minValue}} - {{refEachItem.maxValue}}</td>
+            <td>{{refEachItem.reference_remark}}</td>
+          </tr>
+          ​
+        </ng-container>
+        <!--        </ng-container>-->
+        ​
       </table>
-<!--    </div>-->
+      <!--    </div>-->
     </div>
   </div>
-
-
-    <!--    <div *ngIf = "this.questionnaireName == 'Level1 cross cutting'">-->
-    <!--      -->
-    <!--    </div>-->
-    <p></p>
-    <p></p>
-
-    <div>
-      <span class = "disclaimer-heading">Disclaimer</span><br>
-      <span class = "font-14">The results are for information purposes only. The screening does not replace a medical evaluation.</span>
-    </div>
+  ​
+  ​
+  <!--    <div *ngIf = "this.questionnaireName == 'Level1 cross cutting'">-->
+  <!--      -->
+  <!--    </div>-->
+  <p></p>
+  <p></p>
+  ​
+  <div>
+    <span class = "disclaimer-heading">Disclaimer</span><br>
+    <span class = "font-14">The results are for information purposes only. The screening does not replace a medical evaluation.</span>
+  </div>
   <br>
   <br>
-
-    <div><img><a (click) = "expandEmail()" class = "email-style">Email Result</a></div>
-    <form *ngIf = "this.showEmailBox">
-      <mat-form-field>
-        <mat-label class = "placeholder">
-          Enter Email
-        </mat-label>
-        <input
+  ​
+  <div><img><a (click) = "expandEmail()" class = "email-style">Email Result</a></div>
+  <form *ngIf = "this.showEmailBox">
+    <mat-form-field>
+      <mat-label class = "placeholder">
+        Enter Email
+      </mat-label>
+      <input
         matInput type = "email" required>
-      </mat-form-field>
-      <button class = "btn-style"
-        type = "button" mat-raised-button>Send</button>
-    </form>
-    <div><img><a class = "print-style" (click) = "printResult()">Print Result</a></div>
-
-
-
+    </mat-form-field>
+    <button class = "btn-style"
+            type = "button" mat-raised-button>Send</button>
+  </form>
+  <div><img><a class = "print-style" (click) = "printResult()">Print Result</a></div>
+  ​
+  ​
+  ​
 </mat-card>
+

@@ -27,10 +27,10 @@ export const environment = {
   CHAT_HOST: 'ws://6a334368dd91.ngrok.io',
   // CHAT_HOST: 'wss://botv2.treadwill.org:8004',
   // CHATBOT_API: 'https://www.bot.treadwill.org:8002',
-  CHATBOT_API: 'http://6a334368dd91.ngrok.io',
+  CHATBOT_API: 'http://0918405171cb.ngrok.io',
   // CHATBOT_API: 'https://botv2.treadwill.org:8004',
   // API_ENDPOINT: 'https://www.api.treadwill.org',
-  API_ENDPOINT: 'http://6a334368dd91.ngrok.io',
+  API_ENDPOINT: 'http://0918405171cb.ngrok.io',
   firebase: {
     apiKey: 'AIzaSyA2uLe3D1HIF3STgFuP7Spp0-UVwL-kK-c',
     authDomain: 'treadwill-81e2f.firebaseapp.com',

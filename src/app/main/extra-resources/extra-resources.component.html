@@ -10,11 +10,11 @@
       Questionnaires
     </div>
   </div>
-  <div class = "row" *ngIf = "this.quesExpand">
-    <div class = "col tab-style" (click) = "onMyListClick()">
+  <div class = "row no-gutters" *ngIf = "this.quesExpand">
+    <div [ngClass] = "{'col-3 list-tab-style':showMyResults, 'col-3 tab-style-selected': !showMyResults}" (click) = "onMyListClick()">
       List
     </div>
-    <div class = "col tab-style" (click) = "onMyResultsClick()">
+    <div [ngClass] = "{'col-3 list-tab-style':!showMyResults, 'col-3 tab-style-selected': showMyResults}" (click) = "onMyResultsClick()">
       My Results
     </div>
   </div>
@@ -159,17 +159,18 @@
   </div>
 
   <div *ngIf = "this.showMyResults">
-    <div class = "row">
-      <div class = "col">
-        <p class = "heading">Questionnaires</p>
-      </div>
-    </div>
+<!--    <div class = "row">-->
+<!--      <div class = "col">-->
+<!--        <p class = "heading">Questionnaires</p>-->
+<!--      </div>-->
+<!--    </div>-->
 
     <div class = "space-below-section">
     <div>
       <div class = "row no-gutters"> <!-- have to change the code here to make it suitable for view results -->
-        <div class = "each-item">
-          <app-questionnaire isResult = 'true'></app-questionnaire>
+        ​
+        <div *ngFor = "let questionnaireResult of questionnaireResults[0]; let i = index">
+          <app-questionnaire [questionnaireRefList]= "questionnaireRef[i]" [questionnaireResult] = "questionnaireResult" isResult = 'true'></app-questionnaire>
         </div>
       </div>
     </div>

@@ -21,6 +21,7 @@ import { LocalStorageService } from './shared/localstorage.service';
 import { SignUpComponent } from '@/pre-login/signup/signup.component';
 import { QuestionnaireDeprecatedModule } from './questionnaire-deprecated.module'
 import {QuestionnaireModule} from '@/questionnaire.module';
+import {QuestionnaireContainerModule} from '@/questionnaire-container.module';
 import { ContactUsDataService } from './shared/mat-contact-us-dialog/contact-us-data.service';
 import { FcmService } from './shared/fcm.service';
 import { AngularFireModule } from '@angular/fire';
@@ -40,6 +41,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { QuizService } from '@/shared/questionnaire-deprecated/questionnaire-deprecated.service';
 import { QuestionnaireService } from '@/shared/questionnaire/questionnaire.service';
+import {QuestionnaireContainerService} from '@/shared/questionnaire-container/questionnaire-container.service';
 import { TempLandingPageComponent } from '@/temp-landing-page/temp-landing-page.component';
 import { ResetPasswordComponent } from '@/pre-login/reset-password/reset-password.component';
 import { SignupResetCommonComponent } from '@/pre-login/shared/signup-reset-common/signup-reset-common.component';
@@ -51,6 +53,7 @@ import { CommonDialogComponent } from './shared/common-dialog/common-dialog.comp
 import { PointsComponent } from '@/main/shared/points/points.component';
 import { GlobalErrorHandler } from '@/shared/global-error-handler';
 import {MatCardModule, MatTableModule} from '@angular/material';
+// import {QuestionnaireContainerComponent} from '@/shared/questionnaire-container/questionnaire-container.component';
 
 declare let $: any;
 
@@ -70,6 +73,7 @@ declare let $: any;
     SignupResetCommonComponent,
     CommonDialogComponent,
     PointsComponent,
+    // QuestionnaireContainerComponent,
   ],
   imports: [
     BrowserModule,
@@ -84,6 +88,7 @@ declare let $: any;
     AppRoutingModule,
     QuestionnaireDeprecatedModule,
     QuestionnaireModule,
+    QuestionnaireContainerModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireMessagingModule,
     MatFormFieldModule,
@@ -113,6 +118,7 @@ declare let $: any;
     CommonService,
     QuizService,
     QuestionnaireService,
+    QuestionnaireContainerService,
     MatLoginDialogService,
     ResetPasswordService,
     {provide: ErrorHandler, useClass: GlobalErrorHandler},

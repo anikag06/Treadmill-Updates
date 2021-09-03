@@ -39,6 +39,8 @@ export class ExtraResourcesComponent implements OnInit {
   mindfulnessVideoItems: MindfulnessVideoItem[] = [];
   videoCovid19Items: VideoCovid19Item[] = [];
   questionnaireItems: QuestionnaireItem[] = [];
+  questionnaireResults: any[] = [];
+  questionnaireRefList: any[] = [];
   videoClicked!: VideoItem;
   showVideoState = false;
   showMyResults = false;
@@ -61,6 +63,8 @@ export class ExtraResourcesComponent implements OnInit {
   forReadingTab = false;
   forQuestionnaireTab = false;
   quesExpand = false;
+  resultDict = <any>[];
+  questionnaireRef!: any;
 
   @ViewChild('mindfulness', { static: false }) mindfulness!: ElementRef;
   @ViewChild('depression', { static: false }) depression!: ElementRef;
@@ -157,19 +161,23 @@ export class ExtraResourcesComponent implements OnInit {
        this.quesService
          .getQuestionnaires()
          .subscribe((questionnaire_data: any) => {
+           console.log('whole data', questionnaire_data);
            questionnaire_data.results.forEach((element:any) => {
              this.questionnaireItems.push(<QuestionnaireItem>element);
              this.countQuestionnaireItem = this.countQuestionnaireItem + 1;
              console.log('title', element);
-
+​
            });
          });
 
        this.quesService
          .getResultHistory(this.user.username)
          .subscribe((data: any) => {
-           console.log('history data', data);
-           console.log('history data response', data.response);
+           this.questionnaireResults.push(Object.values(data.response.results));
+           console.log('results', this.questionnaireResults[0]);
+           this.questionnaireRefList.push(Object.values(data.response.reference_table));
+           console.log('reflist', this.questionnaireRefList);
+           this.questionnaireRef = this.questionnaireRefList[0];
          });
      // this.extraResourcesService
      //   .getQuestionnaire()
