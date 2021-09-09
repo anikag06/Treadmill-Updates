@@ -19,8 +19,8 @@ import { ErrorDialogComponent } from './shared/error-dialog/error-dialog.compone
 import { NotFoundComponent } from './shared/not-found/not-found.component';
 import { LocalStorageService } from './shared/localstorage.service';
 import { SignUpComponent } from '@/pre-login/signup/signup.component';
-import { QuestionnaireDeprecatedModule } from './questionnaire-deprecated.module'
-import {QuestionnaireModule} from '@/questionnaire.module';
+import { QuestionnaireDeprecatedModule } from './questionnaire-deprecated.module';
+import { QuestionnaireModule } from '@/questionnaire.module';
 import { ContactUsDataService } from './shared/mat-contact-us-dialog/contact-us-data.service';
 import { FcmService } from './shared/fcm.service';
 import { AngularFireModule } from '@angular/fire';
@@ -50,7 +50,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { CommonDialogComponent } from './shared/common-dialog/common-dialog.component';
 import { PointsComponent } from '@/main/shared/points/points.component';
 import { GlobalErrorHandler } from '@/shared/global-error-handler';
-import {MatCardModule, MatTableModule} from '@angular/material';
+import { MatCardModule, MatTableModule } from '@angular/material';
 
 declare let $: any;
 
@@ -102,7 +102,7 @@ declare let $: any;
     MatCardModule,
   ],
   providers: [
-    {provide: LOCALE_ID, useValue: 'en-US'},
+    { provide: LOCALE_ID, useValue: 'en-US' },
     DialogSize,
     MatContactUsDialogService,
     AuthService,
@@ -115,7 +115,7 @@ declare let $: any;
     QuestionnaireService,
     MatLoginDialogService,
     ResetPasswordService,
-    {provide: ErrorHandler, useClass: GlobalErrorHandler},
+    // {provide: ErrorHandler, useClass: GlobalErrorHandler},
   ],
   bootstrap: [AppComponent],
   entryComponents: [
@@ -125,8 +125,6 @@ declare let $: any;
     CommonDialogComponent,
     PointsComponent,
   ],
-  exports: [
-
-  ]
+  exports: [],
 })
 export class AppModule {}

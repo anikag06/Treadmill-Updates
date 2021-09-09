@@ -23,8 +23,8 @@ import { VideoCovid19Item } from '@/main/extra-resources/shared/videoCovid19.mod
 import { UsefulListItem } from '@/main/extra-resources/shared/usefulList.model';
 import { RESOURCES_PAGE, TESTIMONIALS_PAGE, TREADWILL } from '@/app.constants';
 import { Title } from '@angular/platform-browser';
-import {QuestionnaireItem} from '@/shared/questionnaire/shared/questionnaire.model';
-import {QuestionnaireService} from "@/shared/questionnaire/questionnaire.service";
+import { QuestionnaireItem } from '@/shared/questionnaire/shared/questionnaire.model';
+import { QuestionnaireService } from '@/shared/questionnaire/questionnaire.service';
 
 @Component({
   selector: 'app-extra-resources',
@@ -74,12 +74,12 @@ export class ExtraResourcesComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private stepDataService: StepsDataService,
     private authService: AuthService,
-    private quesService: QuestionnaireService,
+    private quesService: QuestionnaireService
   ) {}
 
   ngOnInit() {
     this.user = <User>this.authService.isLoggedIn();
-    this.activatedRoute.params.subscribe(v => {
+    this.activatedRoute.params.subscribe((v) => {
       this.step_id = v.id;
     });
     if (this.step_id) {
@@ -154,37 +154,19 @@ export class ExtraResourcesComponent implements OnInit {
         });
       });
 
-       this.quesService
-         .getQuestionnaires()
-         .subscribe((questionnaire_data: any) => {
-           questionnaire_data.results.forEach((element:any) => {
-             this.questionnaireItems.push(<QuestionnaireItem>element);
-             this.countQuestionnaireItem = this.countQuestionnaireItem + 1;
-             console.log('title', element);
+    this.quesService
+      .getQuestionnaires()
+      .subscribe((questionnaire_data: any) => {
+        questionnaire_data.results.forEach((element: any) => {
+          this.questionnaireItems.push(<QuestionnaireItem>element);
+          this.countQuestionnaireItem = this.countQuestionnaireItem + 1;
+        });
+      });
 
-           });
-         });
-
-       this.quesService
-         .getResultHistory(this.user.username)
-         .subscribe((data: any) => {
-           console.log('history data', data);
-           console.log('history data response', data.response);
-         });
-     // this.extraResourcesService
-     //   .getQuestionnaire()
-     //   .subscribe((qu_data: any) => {
-     //     console.log('title', qu_data);
-     //     qu_data.results.forEach((element: any) => {
-     //       this.questionnaireItems.push(<QuestionnaireItem>element);
-     //       this.countQuestionnaireItem = this.countQuestionnaireItem + 1;
-     //       console.log('title', element.title);
-     //     });
-     // });
+    this.quesService
+      .getResultHistory(this.user.username)
+      .subscribe((data: any) => {});
   }
-
-
-
 
   videoClick(videoBeingClicked: VideoItem) {
     this.router.navigate(['videoItem/', videoBeingClicked.id], {
@@ -199,10 +181,10 @@ export class ExtraResourcesComponent implements OnInit {
       ['mindfulnessVideo/', mindfulnessVideoBeingClicked.id],
       {
         relativeTo: this.route,
-      },
+      }
     );
     this.extraResourcesService.mindfulnessVideoClickBehavior.next(
-      mindfulnessVideoBeingClicked,
+      mindfulnessVideoBeingClicked
     );
   }
 
@@ -211,7 +193,7 @@ export class ExtraResourcesComponent implements OnInit {
       relativeTo: this.route,
     });
     this.extraResourcesService.videoCovid19ClickBehavior.next(
-      videoCovid19BeingClicked,
+      videoCovid19BeingClicked
     );
   }
 
@@ -220,7 +202,7 @@ export class ExtraResourcesComponent implements OnInit {
       relativeTo: this.route,
     });
     this.extraResourcesService.readingItemClickBehavior.next(
-      readingItemBeingClicked,
+      readingItemBeingClicked
     );
   }
 
@@ -229,22 +211,25 @@ export class ExtraResourcesComponent implements OnInit {
       relativeTo: this.route,
     });
     this.extraResourcesService.usefulListItemClickBehavior.next(
-      usefulListItemBeingClicked,
+      usefulListItemBeingClicked
     );
   }
 
   questionnaireItemClick(questionnaireItemBeingClicked: QuestionnaireItem) {
-    this.router.navigate(['questionnaireItem/', questionnaireItemBeingClicked.id], {
-      relativeTo: this.route,
-      state: { questionnaireData: questionnaireItemBeingClicked },
-    });
+    this.router.navigate(
+      ['questionnaireItem/', questionnaireItemBeingClicked.id],
+      {
+        relativeTo: this.route,
+        state: { questionnaireData: questionnaireItemBeingClicked },
+      }
+    );
 
-     this.extraResourcesService.questionnaireItemClickBehavior.next(
-       questionnaireItemBeingClicked,
-     );
-     console.log('data click', questionnaireItemBeingClicked);
-     this.extraResourcesService.sendQuestionnaireItem.emit(questionnaireItemBeingClicked);
-
+    this.extraResourcesService.questionnaireItemClickBehavior.next(
+      questionnaireItemBeingClicked
+    );
+    this.extraResourcesService.sendQuestionnaireItem.emit(
+      questionnaireItemBeingClicked
+    );
   }
 
   changeMindfulnessVideoState() {
@@ -266,7 +251,7 @@ export class ExtraResourcesComponent implements OnInit {
   changeUsefulListState() {
     this.showUsefulListState = !this.showUsefulListState;
   }
-  changeQuesState(){
+  changeQuesState() {
     this.quesExpand = true;
   }
 
@@ -279,19 +264,16 @@ export class ExtraResourcesComponent implements OnInit {
     this.forVideosTab = true;
     this.forReadingTab = false;
     this.forQuestionnaireTab = false;
-
   }
   onReadingTab() {
     this.forVideosTab = false;
     this.forReadingTab = true;
     this.forQuestionnaireTab = false;
-
   }
-  onQuestionnaireTab(){
+  onQuestionnaireTab() {
     this.forVideosTab = false;
     this.forReadingTab = false;
     this.forQuestionnaireTab = true;
-
   }
 
   onMyListClick() {

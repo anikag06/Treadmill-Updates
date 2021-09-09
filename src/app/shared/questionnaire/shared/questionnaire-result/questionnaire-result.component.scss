@@ -1,25 +1,30 @@
 .result-heading{
-  font-weight: bold;
+  //font-weight: bold;
   font-size: 20px;
+  margin-bottom:3rem!important;
+  margin-top:3rem!important;
 }
 .disclaimer-heading{
   font-weight: bold;
   font-size: 20px;
 }
 .ref-heading{
-  font-weight: bold;
   font-size: 20px;
 }
 .font-14{
   font-size: 14px;
+  color: #00000099;
 }
-.bold-text {
-  font-weight: bold;
-}
+//.bold-text {
+//  font-weight: bold;
+//}
 
 .table-style,td, th {
   border: 1px solid black;
   border-collapse: collapse;
+  height: 42px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 .table-style tr:nth-child(even) {
   background-color: #fff;
@@ -41,11 +46,32 @@
   background-color: #2a3b3d;
   text-align: center;
   justify-content: center;
-  margin: 16px 0;
+  margin-left: 30px ;
 }
 .email-style{
   cursor: pointer;
 }
 .print-style{
-  curosr: pointer;
+  cursor: pointer;
+}
+a{
+  position:relative;
+  top:-5px;
+  //text-decoration: underline;
+  margin-left: 1rem;
+}
+mat-icon{
+  cursor: pointer;
+}
+
+.score{
+  font-size: 48px;
+  font-weight: bold;
+}
+.date{
+  opacity: 0.6;
+  font-size: 12px;
+}
+.spinner-border-sm {
+  margin-bottom: 3px;
 }
