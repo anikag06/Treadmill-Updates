@@ -25,6 +25,7 @@ import { RESOURCES_PAGE, TESTIMONIALS_PAGE, TREADWILL } from '@/app.constants';
 import { Title } from '@angular/platform-browser';
 import {QuestionnaireItem} from '@/shared/questionnaire/shared/questionnaire.model';
 import {QuestionnaireService} from "@/shared/questionnaire/questionnaire.service";
+import {MatTooltip} from "@angular/material/tooltip";
 
 @Component({
   selector: 'app-extra-resources',
@@ -39,6 +40,8 @@ export class ExtraResourcesComponent implements OnInit {
   mindfulnessVideoItems: MindfulnessVideoItem[] = [];
   videoCovid19Items: VideoCovid19Item[] = [];
   questionnaireItems: QuestionnaireItem[] = [];
+  todoquestionnaireItems: QuestionnaireItem[] = [];
+  tooltipData!: string;
   questionnaireResults: any[] = [];
   questionnaireRefList: any[] = [];
   videoClicked!: VideoItem;
@@ -54,6 +57,8 @@ export class ExtraResourcesComponent implements OnInit {
   countMindfulVideoItem = 0;
   countVideoCovid19Item = 0;
   countQuestionnaireItem = 0;
+  todocountQuestionnaireItem = 0;
+
   navbarTitle!: string;
   stepGroupSequence!: number;
   stepSequence!: number;
@@ -68,6 +73,8 @@ export class ExtraResourcesComponent implements OnInit {
 
   @ViewChild('mindfulness', { static: false }) mindfulness!: ElementRef;
   @ViewChild('depression', { static: false }) depression!: ElementRef;
+  @ViewChild('tooltip', { static: false }) showToolTip!: MatTooltip;
+
 
   constructor(
     private extraResourcesService: ExtraResourcesService,
@@ -166,9 +173,22 @@ export class ExtraResourcesComponent implements OnInit {
              this.questionnaireItems.push(<QuestionnaireItem>element);
              this.countQuestionnaireItem = this.countQuestionnaireItem + 1;
              console.log('title', element);
-​
+
            });
          });
+
+    this.quesService
+      .getTodoQuestionnaires()
+      .subscribe((questionnaire_data: any) => {
+        console.log('TODO data', questionnaire_data);
+        questionnaire_data.results.forEach((element:any) => {
+          if (element.todo) {
+            this.todoquestionnaireItems.push(<QuestionnaireItem>element.questionnaire);
+            this.todocountQuestionnaireItem = this.todocountQuestionnaireItem + 1;
+          }
+        });
+        console.log('list of todo questionnaires', this.todocountQuestionnaireItem);
+      });
 
        this.quesService
          .getResultHistory(this.user.username)
@@ -242,16 +262,20 @@ export class ExtraResourcesComponent implements OnInit {
   }
 
   questionnaireItemClick(questionnaireItemBeingClicked: QuestionnaireItem) {
-    this.router.navigate(['questionnaireItem/', questionnaireItemBeingClicked.id], {
-      relativeTo: this.route,
-      state: { questionnaireData: questionnaireItemBeingClicked },
-    });
+    // if (this.todocountQuestionnaireItem === 0 ) {
+      this.router.navigate(['questionnaireItem/', questionnaireItemBeingClicked.id], {
+        relativeTo: this.route,
+        state: {questionnaireData: questionnaireItemBeingClicked},
+      });
 
-     this.extraResourcesService.questionnaireItemClickBehavior.next(
-       questionnaireItemBeingClicked,
-     );
-     console.log('data click', questionnaireItemBeingClicked);
-     this.extraResourcesService.sendQuestionnaireItem.emit(questionnaireItemBeingClicked);
+      this.extraResourcesService.questionnaireItemClickBehavior.next(
+        questionnaireItemBeingClicked,
+      );
+      console.log('data click', questionnaireItemBeingClicked);
+      this.extraResourcesService.sendQuestionnaireItem.emit(questionnaireItemBeingClicked);
+    // } else {
+    //   this.tooltipShow();
+    // }
 
   }
 
@@ -308,5 +332,15 @@ export class ExtraResourcesComponent implements OnInit {
 
   onMyResultsClick() {
     this.showMyResults = true;
+  }
+
+  tooltipShow() {
+    if (this.showToolTip.disabled) {
+      this.showToolTip.disabled = false;
+    }
+    this.tooltipData = 'Please complete the Todo questionnaires recommended above to attempt this questionnaire again.';
+    this.showToolTip.showDelay = 100;
+    this.showToolTip.hideDelay = 100;
+    this.showToolTip.toggle();
   }
 }

@@ -1,7 +1,13 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
-import {QUESTIONNAIRE_LIST, QUESTIONNAIRE_RESULT_HISTORY, QUESTIONNAIRE_SUBMIT} from "@/app.constants";
+import {
+  GET_LINK_DATA,
+  QUESTIONNAIRE_LIST,
+  QUESTIONNAIRE_RESULT_HISTORY,
+  QUESTIONNAIRE_SUBMIT,
+  TODOQUESTIONNAIRE_LIST
+} from "@/app.constants";
 import {BehaviorSubject} from "rxjs";
 import {QuestionnaireItem} from "@/shared/questionnaire/shared/questionnaire.model";
 import {Result} from "@/shared/questionnaire/shared/result.model";
@@ -20,6 +26,12 @@ export class QuestionnaireService {
   getQuestionnaires(){
     return this.http.get(
       environment.API_ENDPOINT + QUESTIONNAIRE_LIST
+    );
+  }
+
+  getTodoQuestionnaires(){
+    return this.http.get(
+      environment.API_ENDPOINT + TODOQUESTIONNAIRE_LIST
     );
   }
 
