@@ -85,12 +85,12 @@ export class ExtraResourcesComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private stepDataService: StepsDataService,
     private authService: AuthService,
-    private quesService: QuestionnaireService,
+    private quesService: QuestionnaireService
   ) {}
 
   ngOnInit() {
     this.user = <User>this.authService.isLoggedIn();
-    this.activatedRoute.params.subscribe(v => {
+    this.activatedRoute.params.subscribe((v) => {
       this.step_id = v.id;
     });
     if (this.step_id) {
@@ -211,9 +211,6 @@ export class ExtraResourcesComponent implements OnInit {
      // });
   }
 
-
-
-
   videoClick(videoBeingClicked: VideoItem) {
     this.router.navigate(['videoItem/', videoBeingClicked.id], {
       relativeTo: this.route,
@@ -227,10 +224,10 @@ export class ExtraResourcesComponent implements OnInit {
       ['mindfulnessVideo/', mindfulnessVideoBeingClicked.id],
       {
         relativeTo: this.route,
-      },
+      }
     );
     this.extraResourcesService.mindfulnessVideoClickBehavior.next(
-      mindfulnessVideoBeingClicked,
+      mindfulnessVideoBeingClicked
     );
   }
 
@@ -239,7 +236,7 @@ export class ExtraResourcesComponent implements OnInit {
       relativeTo: this.route,
     });
     this.extraResourcesService.videoCovid19ClickBehavior.next(
-      videoCovid19BeingClicked,
+      videoCovid19BeingClicked
     );
   }
 
@@ -248,7 +245,7 @@ export class ExtraResourcesComponent implements OnInit {
       relativeTo: this.route,
     });
     this.extraResourcesService.readingItemClickBehavior.next(
-      readingItemBeingClicked,
+      readingItemBeingClicked
     );
   }
 
@@ -257,7 +254,7 @@ export class ExtraResourcesComponent implements OnInit {
       relativeTo: this.route,
     });
     this.extraResourcesService.usefulListItemClickBehavior.next(
-      usefulListItemBeingClicked,
+      usefulListItemBeingClicked
     );
   }
 
@@ -298,7 +295,7 @@ export class ExtraResourcesComponent implements OnInit {
   changeUsefulListState() {
     this.showUsefulListState = !this.showUsefulListState;
   }
-  changeQuesState(){
+  changeQuesState() {
     this.quesExpand = true;
   }
 
@@ -311,19 +308,16 @@ export class ExtraResourcesComponent implements OnInit {
     this.forVideosTab = true;
     this.forReadingTab = false;
     this.forQuestionnaireTab = false;
-
   }
   onReadingTab() {
     this.forVideosTab = false;
     this.forReadingTab = true;
     this.forQuestionnaireTab = false;
-
   }
-  onQuestionnaireTab(){
+  onQuestionnaireTab() {
     this.forVideosTab = false;
     this.forReadingTab = false;
     this.forQuestionnaireTab = true;
-
   }
 
   onMyListClick() {

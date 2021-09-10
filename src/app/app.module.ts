@@ -107,7 +107,7 @@ declare let $: any;
     MatCardModule,
   ],
   providers: [
-    {provide: LOCALE_ID, useValue: 'en-US'},
+    { provide: LOCALE_ID, useValue: 'en-US' },
     DialogSize,
     MatContactUsDialogService,
     AuthService,
@@ -121,7 +121,7 @@ declare let $: any;
     QuestionnaireContainerService,
     MatLoginDialogService,
     ResetPasswordService,
-    {provide: ErrorHandler, useClass: GlobalErrorHandler},
+    // {provide: ErrorHandler, useClass: GlobalErrorHandler},
   ],
   bootstrap: [AppComponent],
   entryComponents: [
@@ -131,8 +131,6 @@ declare let $: any;
     CommonDialogComponent,
     PointsComponent,
   ],
-  exports: [
-
-  ]
+  exports: [],
 })
 export class AppModule {}

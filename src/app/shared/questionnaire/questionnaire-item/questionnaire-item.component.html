@@ -122,5 +122,6 @@
 
 <div *ngIf = "this.resultPage && !this.submitPage">
   <app-questionnaire-result [fromUserResponse] = false  ></app-questionnaire-result>
+  <app-questionnaire-result resultData= this.resultData [questionnaireName]='questionnaireItem.title'  ></app-questionnaire-result>
 
 </div>
