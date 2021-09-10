@@ -5,12 +5,13 @@ import {
   QUESTIONNAIRE_LIST,
   QUESTIONNAIRE_RESULT_HISTORY,
   QUESTIONNAIRE_SUBMIT,
-  TODOQUESTIONNAIRE_LIST
+  TODOQUESTIONNAIRE_LIST,
+  QUESTIONNAIRE_EMAIL_RESULT
 } from "@/app.constants";
 import {BehaviorSubject} from "rxjs";
 import {QuestionnaireItem} from "@/shared/questionnaire/shared/questionnaire.model";
 import {Result} from "@/shared/questionnaire/shared/result.model";
-  QUESTIONNAIRE_EMAIL_RESULT,
+
 
 @Injectable({
   providedIn: 'root',

@@ -9,10 +9,10 @@ import { User } from '@/shared/user.model';
 import { AuthService } from '@/shared/auth/auth.service';
 import { MatSnackBar } from '@angular/material';
 
-const pdfMake = require('pdfmake/build/pdfmake');
-const htmlToPdfmake = require('html-to-pdfmake');
-const pdfFonts = require('pdfmake/build/vfs_fonts');
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
+// const pdfMake = require('pdfmake/build/pdfmake');
+// const htmlToPdfmake = require('html-to-pdfmake');
+// const pdfFonts = require('pdfmake/build/vfs_fonts');
+// pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
   selector: 'app-questionnaire-result',
@@ -46,13 +46,6 @@ export class QuestionnaireResultComponent implements OnInit {
     console.log('from user response', this.fromUserResponse);
     this.questionnaireService.sendResultEvent
       .subscribe((data: any) => {
-        // console.log('result data from passing- passing successful', data);
-        // console.log('result page', data.result);
-        // data.result.forEach((element: any) => {
-        //   this.resultItem.push(<Result>element);
-        //   //this.refTableArray[element.disorder]
-        //   console.log('each result', this.resultItem);
-        // })
         data.result.result.forEach((e: any) => {
           this.resultItem.push(e);
           console.log('result item', this.resultItem);
@@ -60,94 +53,71 @@ export class QuestionnaireResultComponent implements OnInit {
         data.result.reference_table.forEach((e: any) => {
           this.refTableArray.push(e);
           console.log('ref item', this.refTableArray);
+          });
         });
-
-       // this.resultItem.push(<Result>data.result); //commented later
-        // data.result.data.forEach((e: any) => {
-        //
-        // })
-        //this.resultItem.push(<Result>data);
-        //commented later
-        // this.resultItem.forEach((e: any) => {
-        //   this.refTableArray.push(<RefTable>e.reference_table);
-        //   console.log('ref array data', this.refTableArray);
-        //   this.disorderArray.push(e.disorder);
-        //   console.log('disorder array', this.disorderArray);
-        //   }
-        // )
-        // console.log('result item', this.resultItem);
-        // console.log('disorder name', this.resultItem[0].reference_table, this.resultItem[0].user_score);
-        // this.resultItem[0].reference_table.forEach((e: any) => {
-        //   console.log('ref table data', e);
-        // })
-        //till here
-        console.log('result data', this.resultData.user_result);
         this.resultData.user_result.forEach((element: any) => {
           this.resultItem.push(element);
           console.log('res item', this.resultItem);
-          //this.refTableArray[element.disorder]
         });
         this.refList.forEach((e: any) => {
           this.refTableArray.push(e);
           console.log('ref array data', this.refTableArray);
         });
-      });
-
   }
 
   expandEmail() {
     this.showEmailBox = !this.showEmailBox;
   }
 
-  public downloadPDF(): void {
-    const DATA = this.pdfTable.nativeElement;
-    // html2canvas(DATA).then((canvas) => {
-    //   const fileWidth = 208;
-    //   const fileHeight = (canvas.height * fileWidth) / canvas.width;
-    //
-    //   const FILEURI = canvas.toDataURL('image/png');
-    //   const PDF = new jsPDF('p', 'mm', 'a4');
-    //   const position = 0;
-    //   PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight);
-    //
-    //   const fileName =
-    //     this.todayDate + '_' + this.questionnaireName + '_Result.pdf';
-    //   PDF.save(fileName);
-    // });
-
-    const options: any = {
-      orientation: 'p',
-      unit: 'pt',
-      format: 'a4',
-    };
-
-    const doc = new jsPDF(options);
-    const pWidth = doc.internal.pageSize.width; // 595.28 is the width of a4
-    // @ts-ignore
-    const srcWidth = document.getElementById('result').scrollWidth;
-    const margin = 18; // narrow margin - 1.27 cm (36);
-    const scale = (pWidth - margin * 2) / srcWidth;
-    const fileName =
-      this.todayDate + '_' + this.questionnaireName + '_Result.pdf';
-    doc
-      .html(DATA, {
-        callback: function (doc: { save: (arg0: string) => void }) {
-          doc.save(fileName);
-        },
-        x: margin,
-        y: margin,
-        html2canvas: {
-          scale: scale,
-        },
-      })
-      .then((r) => {});
-    // const pdfTable = this.pdfTable.nativeElement;
-    //
-    // const html = htmlToPdfmake(DATA.innerHTML);
-    //
-    // const documentDefinition = { content: html };
-    // pdfMake.createPdf(documentDefinition).open();
-  }
+  // public downloadPDF(): void {
+  //   const DATA = this.pdfTable.nativeElement;
+  //   // html2canvas(DATA).then((canvas) => {
+  //   //   const fileWidth = 208;
+  //   //   const fileHeight = (canvas.height * fileWidth) / canvas.width;
+  //   //
+  //   //   const FILEURI = canvas.toDataURL('image/png');
+  //   //   const PDF = new jsPDF('p', 'mm', 'a4');
+  //   //   const position = 0;
+  //   //   PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight);
+  //   //
+  //   //   const fileName =
+  //   //     this.todayDate + '_' + this.questionnaireName + '_Result.pdf';
+  //   //   PDF.save(fileName);
+  //   // });
+  //
+  //   const options: any = {
+  //     orientation: 'p',
+  //     unit: 'pt',
+  //     format: 'a4',
+  //   };
+  //
+  //   const doc = new jsPDF(options);
+  //   const pWidth = doc.internal.pageSize.width; // 595.28 is the width of a4
+  //   // @ts-ignore
+  //   const srcWidth = document.getElementById('result').scrollWidth;
+  //   const margin = 18; // narrow margin - 1.27 cm (36);
+  //   const scale = (pWidth - margin * 2) / srcWidth;
+  //   const fileName =
+  //     this.todayDate + '_' + this.questionnaireName + '_Result.pdf';
+  //   doc
+  //     .html(DATA, {
+  //       callback: function (doc: { save: (arg0: string) => void }) {
+  //         doc.save(fileName);
+  //       },
+  //       x: margin,
+  //       y: margin,
+  //       html2canvas: {
+  //         scale: scale,
+  //       },
+  //     })
+  //     .then((r) => {});
+  //   // const pdfTable = this.pdfTable.nativeElement;
+  //   //
+  //   // const html = htmlToPdfmake(DATA.innerHTML);
+  //   //
+  //   // const documentDefinition = { content: html };
+  //   // pdfMake.createPdf(documentDefinition).open();
+  // }
   viewResultClick() {
     console.log('view result clicked');
     this.showResultComponent = !this.showResultComponent;
