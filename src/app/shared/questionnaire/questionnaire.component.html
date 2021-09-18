@@ -1,8 +1,8 @@
 <div *ngIf="isResult == 'false'" xmlns="http://www.w3.org/1999/html">
 <mat-card class = "ques-card">
   <div class = "preview-img-div">
-<!--   <img class = "preview-img" [src] = "questionnaireItem.image" >-->
-    <img class = "preview-img" src = "../../../../../../../assets/Resources-reading/Depression.svg" >
+   <img class = "preview-img" [src] = "questionnaireItem.image" >
+<!--    <img class = "preview-img" src = "../../../../../../../assets/Resources-reading/Depression.svg" >-->
 <!--    <div class = "preview-img">Test text</div>-->
   </div>
   <mat-card-footer class = "show-footer-style">
@@ -25,14 +25,9 @@
   <div style="width: 70vw">
     <div class = "date-font" *ngFor = "let questionnaireResultData of questionnaireResult; let i=index;">
       <img src = "assets/icons/calender.png" class = "calendar-icon-style">{{questionnaireResultData.date | date: 'MMM d, y, h:mm a'}}
+
       ​
-      <!--    <a (click) = "viewResultClick()" class = "view-result-style">View result</a>-->
-      <!--</div>-->
-      <!--  <div *ngFor="let item of questionnaireResult;">-->
-      <!--{{questionnaireResult.title}}-->
-      <!--  <br/>-->
-      ​
-      <app-questionnaire-result [fromUserResponse] = true [refList]=" questionnaireRefList" [resultData]= questionnaireResultData ></app-questionnaire-result>
+      <app-questionnaire-result [fromResultHistory] = true [refList]=" questionnaireRefList" [resultData]= questionnaireResultData ></app-questionnaire-result>
       <hr class = "hr-style">
     </div>
 
@@ -42,7 +37,3 @@
   <br/>
 
 </div>
-<!--<div>-->
-<!--  <a (click) = "viewResultClick()" class = "view-result-style">View result</a>-->
-<!--</div>-->
-<!--</div>-->

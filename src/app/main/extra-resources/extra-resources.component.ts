@@ -21,7 +21,7 @@ import { User } from '@/shared/user.model';
 import { AuthService } from '@/shared/auth/auth.service';
 import { VideoCovid19Item } from '@/main/extra-resources/shared/videoCovid19.model';
 import { UsefulListItem } from '@/main/extra-resources/shared/usefulList.model';
-import { RESOURCES_PAGE, TESTIMONIALS_PAGE, TREADWILL } from '@/app.constants';
+import {LEVEL1, RESOURCES_PAGE, TESTIMONIALS_PAGE, TREADWILL} from '@/app.constants';
 import { Title } from '@angular/platform-browser';
 import {QuestionnaireItem} from '@/shared/questionnaire/shared/questionnaire.model';
 import {QuestionnaireService} from "@/shared/questionnaire/questionnaire.service";
@@ -172,24 +172,16 @@ export class ExtraResourcesComponent implements OnInit {
            questionnaire_data.results.forEach((element:any) => {
              this.questionnaireItems.push(<QuestionnaireItem>element);
              this.countQuestionnaireItem = this.countQuestionnaireItem + 1;
-             console.log('title', element);
-
            });
          });
 
-    this.quesService
-      .getTodoQuestionnaires()
-      .subscribe((questionnaire_data: any) => {
-        console.log('TODO data', questionnaire_data);
-        questionnaire_data.results.forEach((element:any) => {
-          if (element.todo) {
-            this.todoquestionnaireItems.push(<QuestionnaireItem>element.questionnaire);
-            this.todocountQuestionnaireItem = this.todocountQuestionnaireItem + 1;
-          }
-        });
-        console.log('list of todo questionnaires', this.todocountQuestionnaireItem);
-      });
-
+    this.extraResourcesService.todoBehaviour.subscribe(data => {
+      if (data) {
+        this.todoquestionnaireItems.length = 0;
+        this.getTodoQuestionnaire();
+      }
+    });
+    this.getTodoQuestionnaire();
        this.quesService
          .getResultHistory(this.user.username)
          .subscribe((data: any) => {
@@ -211,7 +203,23 @@ export class ExtraResourcesComponent implements OnInit {
      // });
   }
 
-  videoClick(videoBeingClicked: VideoItem) {
+  getTodoQuestionnaire() {
+    this.quesService
+      .getTodoQuestionnaires()
+      .subscribe((questionnaire_data: any) => {
+        console.log('TODO data', questionnaire_data);
+        questionnaire_data.results.forEach((element:any) => {
+          if (element.todo) {
+            this.todoquestionnaireItems.push(<QuestionnaireItem>element.questionnaire);
+            this.todocountQuestionnaireItem = this.todocountQuestionnaireItem + 1;
+          }
+        });
+        console.log('list of todo questionnaires', this.todocountQuestionnaireItem);
+      });
+  }
+
+
+videoClick(videoBeingClicked: VideoItem) {
     this.router.navigate(['videoItem/', videoBeingClicked.id], {
       relativeTo: this.route,
     });
@@ -259,22 +267,33 @@ export class ExtraResourcesComponent implements OnInit {
   }
 
   questionnaireItemClick(questionnaireItemBeingClicked: QuestionnaireItem) {
-    // if (this.todocountQuestionnaireItem === 0 ) {
-      this.router.navigate(['questionnaireItem/', questionnaireItemBeingClicked.id], {
-        relativeTo: this.route,
-        state: {questionnaireData: questionnaireItemBeingClicked},
-      });
+    if (questionnaireItemBeingClicked.title === LEVEL1) {
+      // attempt questionnaire if todo-list is empty
+      if (this.todocountQuestionnaireItem === 0) {
+        this.navigatetoquestionnaire(questionnaireItemBeingClicked);
+      } else {
+        this.tooltipShow();
+      }
+    } else {
+      this.navigatetoquestionnaire(questionnaireItemBeingClicked);
+    }
+  }
 
-      this.extraResourcesService.questionnaireItemClickBehavior.next(
-        questionnaireItemBeingClicked,
-      );
-      console.log('data click', questionnaireItemBeingClicked);
-      this.extraResourcesService.sendQuestionnaireItem.emit(questionnaireItemBeingClicked);
-    // } else {
-    //   this.tooltipShow();
-    // }
+  navigatetoquestionnaire(questionnaireItemBeingClicked: QuestionnaireItem) {
+    this.router.navigate(['questionnaireItem/', questionnaireItemBeingClicked.id], {
+      relativeTo: this.route,
+      state: {questionnaireData: questionnaireItemBeingClicked},
+    });
+
+    this.extraResourcesService.questionnaireItemClickBehavior.next(
+      questionnaireItemBeingClicked,
+    );
+    console.log('data click', questionnaireItemBeingClicked);
+    this.extraResourcesService.sendQuestionnaireItem.emit(questionnaireItemBeingClicked);
 
   }
+
+
 
   changeMindfulnessVideoState() {
     this.showMindfulnessVideoState = !this.showMindfulnessVideoState;

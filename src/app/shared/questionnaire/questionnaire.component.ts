@@ -31,37 +31,9 @@ export class QuestionnaireComponent implements OnInit {
 
   ngOnInit() {
     this.user = <User>this.authService.isLoggedIn();
-    console.log('title', this.questionnaireResult);
-    console.log('ref', this.questionnaireRefList);
-    console.log(this.questionnaireItem);
-
-
-    // console.log('title', this.questionnaireItem);
-    // this.quesService
-    //   .getResultHistory(this.user.username)
-    //   .subscribe((data: any) => {
-    //     console.log('history data', data);
-    //     console.log('history data response', data.response.results);
-    //     // this.resultsArray.push(data.response.results[]);
-    //      data.response.results.forEach((element: any) => {
-    //        // this.resultsArray.push(<any>element);
-    //     //   console.log('testArray', this.testArray);
-    //      });
-    //   });
-  }
-
-  // viewResultClick(){
-  //   console.log('view result clicked');
-  //   this.showResultComponent = !this.showResultComponent;
-  // }
-  toArray(user_result: any) {
-    return Object.keys(user_result).map(key => user_result[key]);
   }
 
   resultEachCardClick() {
     this.showEachResultCardOnClick = !this.showEachResultCardOnClick;
-
   }
-
-
 }

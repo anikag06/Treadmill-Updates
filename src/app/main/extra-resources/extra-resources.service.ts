@@ -70,6 +70,8 @@ export class ExtraResourcesService {
     QuestionnaireItem
     > = new BehaviorSubject<QuestionnaireItem>(this.questionnaireItemInResource);
   questionnaireItemClickedEvent = this.questionnaireItemClickBehavior.asObservable();
+  todoBehaviour = new BehaviorSubject(false);
+
 
   constructor(
     private http: HttpClient,
@@ -145,5 +147,8 @@ export class ExtraResourcesService {
       resource_video_id: videoId,
       watched: watched,
     });
+  }
+  triggerTodoQuestionnaires() {
+    this.todoBehaviour.next(true);
   }
 }

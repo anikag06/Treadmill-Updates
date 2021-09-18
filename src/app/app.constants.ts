@@ -240,6 +240,8 @@ export const COMMITMENT_OPTIONS = [
 export const PHQ9 = 'PHQ9';
 export const GAD7 = 'GAD7';
 export const SIQ = 'SIQ';
+export const LEVEL1 = 'Level 1 Cross-Cutting Symptom Measure';
+
 
 // questionnaire paths
 export const GET_PHQ_QUESTIONS =

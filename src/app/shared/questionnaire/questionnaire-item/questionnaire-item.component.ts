@@ -99,15 +99,14 @@ export class QuestionnaireItemComponent implements OnInit {
   }
 
   forwardArrowClick() {
-    // not sure if this will work
     if (this.questionCount + 1 > this.total_questions) {
       this.submitPage = true;
+    } else {
+      this.questionCount += 1;
+      this.quesIndex += 1;
+      this.ques = this.questionsArray[this.quesIndex].question; // need to change based on the api
+      this.optionsArray = this.questionsArray[this.quesIndex].options;
     }
-
-    this.questionCount += 1;
-    this.quesIndex += 1;
-    this.ques = this.questionsArray[this.quesIndex].question; // need to change based on the api
-    this.optionsArray = this.questionsArray[this.quesIndex].options;
   }
 
   optionClick(
@@ -146,6 +145,7 @@ export class QuestionnaireItemComponent implements OnInit {
           this.submitPage = false;
           this.resultPage = true;
           this.questionnaireService.passResultData(data);
+          this.extraResourcesService.triggerTodoQuestionnaires();
         });
     } else {
       this.questionnaireService
@@ -160,6 +160,7 @@ export class QuestionnaireItemComponent implements OnInit {
           this.submitPage = false;
           this.resultPage = true;
           this.questionnaireService.passResultData(data);
+          this.extraResourcesService.triggerTodoQuestionnaires();
         });
     }
 

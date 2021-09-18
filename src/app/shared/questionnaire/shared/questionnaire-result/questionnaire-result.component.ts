@@ -8,6 +8,7 @@ import * as moment from 'moment';
 import { User } from '@/shared/user.model';
 import { AuthService } from '@/shared/auth/auth.service';
 import { MatSnackBar } from '@angular/material';
+import {Subscription} from "rxjs";
 
 // const pdfMake = require('pdfmake/build/pdfmake');
 // const htmlToPdfmake = require('html-to-pdfmake');
@@ -21,7 +22,7 @@ import { MatSnackBar } from '@angular/material';
 })
 export class QuestionnaireResultComponent implements OnInit {
   @Input() resultData: any;
-  @Input() fromUserResponse: any;
+  @Input() fromResultHistory: any;
 
   showEmailBox = false;
   resultItem: Result[] = [];
@@ -35,6 +36,7 @@ export class QuestionnaireResultComponent implements OnInit {
   user!: User;
   showResultComponent = false;
   @Input() refList: any;
+  sendResultEventSubscription!: Subscription;
   constructor(
     private questionnaireService: QuestionnaireService,
     private authService: AuthService,
@@ -43,26 +45,38 @@ export class QuestionnaireResultComponent implements OnInit {
 
   ngOnInit() {
     console.log('result data', this.resultData);
-    console.log('from user response', this.fromUserResponse);
-    this.questionnaireService.sendResultEvent
-      .subscribe((data: any) => {
-        data.result.result.forEach((e: any) => {
-          this.resultItem.push(e);
-          console.log('result item', this.resultItem);
+    console.log('from Result history', this.fromResultHistory);
+    if (!this.fromResultHistory) {
+      this.sendResultEventSubscription = this.questionnaireService.sendResultEvent
+        .subscribe((data: any) => {
+          if (data) {
+            data.result.result.forEach((e: any) => {
+              this.resultItem.push(e);
+              console.log('result item', this.resultItem);
+            });
+            data.result.reference_table.forEach((e: any) => {
+              this.refTableArray.push(e);
+              console.log('ref item', this.refTableArray);
+            });
+          }
         });
-        data.result.reference_table.forEach((e: any) => {
-          this.refTableArray.push(e);
-          console.log('ref item', this.refTableArray);
-          });
-        });
-        this.resultData.user_result.forEach((element: any) => {
-          this.resultItem.push(element);
-          console.log('res item', this.resultItem);
-        });
-        this.refList.forEach((e: any) => {
-          this.refTableArray.push(e);
-          console.log('ref array data', this.refTableArray);
-        });
+    }
+    if (this.fromResultHistory) {
+      this.resultData.user_result.forEach((element: any) => {
+        this.resultItem.push(element);
+        console.log('res item', this.resultItem);
+      });
+      this.refList.forEach((e: any) => {
+        this.refTableArray.push(e);
+        console.log('ref array data', this.refTableArray);
+      });
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.sendResultEventSubscription) {
+      this.sendResultEventSubscription.unsubscribe();
+    }
   }
 
   expandEmail() {
