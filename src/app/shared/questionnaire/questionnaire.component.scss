@@ -43,7 +43,8 @@
 }
 .category-style{
   font-size: 10px;
-  background-color: yellow;
+  padding: 4px;
+  opacity:0.8;
 }
 .subtitle-style{
   //font-size: 12px;
@@ -95,7 +96,7 @@
 
 @media screen and (min-width: 2001px) {
   .ques-card {
-    height: 485px;
+    height: 385px;
   }
   .show-footer-style{
     font-size: 20px;
@@ -104,7 +105,7 @@
 }
 @media screen and (max-width: 2000px) {
   .ques-card {
-    height: 485px;
+    height: 385px;
   }
   .show-footer-style{
     font-size: 16px;
@@ -112,7 +113,7 @@
 }
 @media screen and (max-width: 1800px) {
   .ques-card {
-    height: 485px;
+    height: 385px;
   }
   .show-footer-style{
     font-size: 16px;
@@ -121,7 +122,7 @@
 
 @media screen and (max-width: 1500px) {
   .ques-card {
-    height: 485px;
+    height: 385px;
   }
   .show-footer-style{
     font-size: 16px;

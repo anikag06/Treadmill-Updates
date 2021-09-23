@@ -68,6 +68,7 @@ export class ExtraResourcesComponent implements OnInit {
   forReadingTab = false;
   forQuestionnaireTab = false;
   quesExpand = false;
+  todoquesExpand = false;
   resultDict = <any>[];
   questionnaireRef!: any;
 
@@ -191,16 +192,6 @@ export class ExtraResourcesComponent implements OnInit {
            console.log('reflist', this.questionnaireRefList);
            this.questionnaireRef = this.questionnaireRefList[0];
          });
-     // this.extraResourcesService
-     //   .getQuestionnaire()
-     //   .subscribe((qu_data: any) => {
-     //     console.log('title', qu_data);
-     //     qu_data.results.forEach((element: any) => {
-     //       this.questionnaireItems.push(<QuestionnaireItem>element);
-     //       this.countQuestionnaireItem = this.countQuestionnaireItem + 1;
-     //       console.log('title', element.title);
-     //     });
-     // });
   }
 
   getTodoQuestionnaire() {
@@ -316,6 +307,9 @@ videoClick(videoBeingClicked: VideoItem) {
   }
   changeQuesState() {
     this.quesExpand = true;
+  }
+  changeTodoQuesState() {
+    this.todoquesExpand = true;
   }
 
   scrollDown(elem: any) {

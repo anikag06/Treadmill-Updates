@@ -10,7 +10,8 @@
       <div class = "d-flex justify-content-center result-heading">Result</div>
       ​
       <div *ngFor = "let resultEachItem of this.resultItem">
-        <span class = "bold-text">{{resultEachItem.disorder}} Score:</span><span> {{resultEachItem.user_score}}/{{resultEachItem.total_score}}</span><br>
+        <div *ngIf="checkScoreType(resultEachItem.user_score)"><span class = "bold-text" >{{resultEachItem.disorder}} Score:</span><span> {{resultEachItem.user_score}}/{{resultEachItem.total_score}}</span></div>
+        <div *ngIf="!checkScoreType(resultEachItem.user_score)"><span class = "bold-text">{{resultEachItem.disorder}} :</span><span> {{resultEachItem.user_score}}</span></div>
         <span class = "font-14">{{resultEachItem.result_remark}}{{resultEachItem.definition}}</span>
       </div>
     </div>
@@ -27,12 +28,12 @@
           <th>Risk Level</th>
         </tr>
         <ng-container *ngFor = "let refItem of this.refTableArray">
-          <tr class="disorder">
+          <tr class="disorder"  *ngIf="refItem[0].reference_remark !== 'null'">
             <td colspan="2">{{refItem[0].disorder}}</td>
           </tr>
-          <tr class="range" *ngFor = "let refEachItem of refItem">
-            <td>{{refEachItem.minValue}} - {{refEachItem.maxValue}}</td>
-            <td>{{refEachItem.reference_remark}}</td>
+          <tr class="range" *ngFor = "let refEachItem of refItem" >
+            <td *ngIf="refEachItem.reference_remark !== 'null'">{{refEachItem.minValue}} - {{refEachItem.maxValue}}</td>
+            <td *ngIf="refEachItem.reference_remark !== 'null'">{{refEachItem.reference_remark}}</td>
           </tr>
          ​
         </ng-container>

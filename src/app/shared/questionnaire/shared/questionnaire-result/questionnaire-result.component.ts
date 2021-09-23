@@ -79,6 +79,15 @@ export class QuestionnaireResultComponent implements OnInit {
     }
   }
 
+  checkScoreType(score: any) {
+    if ( /^[0-9]+$/.test(score)) {
+      console.log('SCORE', score, 'TRUE');
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   expandEmail() {
     this.showEmailBox = !this.showEmailBox;
   }

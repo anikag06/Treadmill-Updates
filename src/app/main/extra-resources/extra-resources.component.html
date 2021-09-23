@@ -1,22 +1,24 @@
 <div class="container resources-container px-0"  *ngIf="outlet.isActivated == false">
-  <div class = "row" *ngIf = "!this.quesExpand">
-    <div class = "col tab-style" (click) = "onVideosTab()">
+  <div class = "row no-gutters" *ngIf = "!this.quesExpand">
+    <div class="ml-0" [ngClass] = "{'list-tab-style':!forVideosTab, 'tab-style-selected': forVideosTab}" (click) = "onVideosTab()">
       Videos
     </div>
-    <div class = "col tab-style" (click) = "onReadingTab()">
+    <div [ngClass] = "{'list-tab-style':!forReadingTab, 'tab-style-selected': forReadingTab}" (click) = "onReadingTab()">
       Reading
     </div>
-    <div class = "col tab-style" (click) = "onQuestionnaireTab()">
+    <div [ngClass] = "{'list-tab-style':!forQuestionnaireTab, 'tab-style-selected': forQuestionnaireTab}" (click) = "onQuestionnaireTab()">
       Questionnaires
     </div>
   </div>
   <div class = "row no-gutters" *ngIf = "this.quesExpand">
-    <div [ngClass] = "{'col-3 list-tab-style':showMyResults, 'col-3 tab-style-selected': !showMyResults}" (click) = "onMyListClick()">
+    <div class="ml-0" [ngClass] = "{'list-tab-style':showMyResults, 'tab-style-selected': !showMyResults}" (click) = "onMyListClick()">
       List
     </div>
-    <div [ngClass] = "{'col-3 list-tab-style':!showMyResults, 'col-3 tab-style-selected': showMyResults}" (click) = "onMyResultsClick()">
+    <div [ngClass] = "{'list-tab-style':!showMyResults, 'tab-style-selected': showMyResults}" (click) = "onMyResultsClick()">
       My Results
     </div>
+  </div>
+  <div class="line row no-gutters">
   </div>
 
   <div *ngIf = "user.is_exp">
@@ -137,7 +139,7 @@
       </div>
     </div>
     <div class = "space-below-section">
-      <div>
+      <div [ngClass] = "todoquesExpand==true? 'show-all-cards': 'todo-card-hidden'">
         <div class = "row no-gutters" >
           <div class = "each-item" *ngFor = "let questionnaireItem of todoquestionnaireItems">
             <app-questionnaire [questionnaireItem] = "questionnaireItem" isResult = 'false' (click) = "questionnaireItemClick(questionnaireItem)"></app-questionnaire>
@@ -147,7 +149,7 @@
 
       </div>
       <div *ngIf = "todocountQuestionnaireItem > 4">
-        <a class = "see-all" (click) = "changeQuesState()"><img src = "assets/icons/arrow.svg">&nbsp;See all</a>
+        <a class = "see-all" (click) = "changeTodoQuesState()"><img src = "assets/icons/arrow.svg">&nbsp;show more</a>
       </div>
     </div>
 
@@ -159,38 +161,25 @@
   </div>
 
   <div class = "space-below-section">
-    <div>
+    <div [ngClass] = "quesExpand==true? 'show-all-cards': 'reading-card-hidden'">
      <div class = "row no-gutters"><!-- we should call the questionnaires items here only, or pass the data/ otherwise how we will pass the questionnaire data her?-->
        <div class = "each-item" *ngFor = "let questionnaireItem of questionnaireItems">
          <app-questionnaire [questionnaireItem] = "questionnaireItem" isResult = 'false' (click) = "questionnaireItemClick(questionnaireItem)" #tooltip="matTooltip" matTooltipDisabled
                             matTooltip={{tooltipData}}></app-questionnaire>
         </div>
       </div>
-
-<!--      <div class="row no-gutters">-->
-<!--        <div class="each-item" *ngFor = "let usefulListItem of usefulListItems" >-->
-<!--          <app-questionnaire [usefulListItem] = "usefulListItem" (click) = "questionnaireItemClick(usefulListItem)"></app-questionnaire>-->
-<!--        </div>-->
-<!--      </div>-->
-
     </div>
-    <div>
-      <a class = "see-all" (click) = "changeQuesState()"><img src = "assets/icons/arrow.svg">&nbsp;See all</a>
+    <div *ngIf="countQuestionnaireItem > 8">
+      <a class = "see-all" (click) = "changeQuesState()"><img src = "assets/icons/arrow.svg">&nbsp;See all Questionnaires</a>
     </div>
   </div>
 
   </div>
 
   <div *ngIf = "this.showMyResults">
-<!--    <div class = "row">-->
-<!--      <div class = "col">-->
-<!--        <p class = "heading">Questionnaires</p>-->
-<!--      </div>-->
-<!--    </div>-->
-
     <div class = "space-below-section">
     <div>
-      <div class = "row no-gutters"> <!-- have to change the code here to make it suitable for view results -->
+      <div class = "row no-gutters">
         ​
         <div *ngFor = "let questionnaireResult of questionnaireResults[0]; let i = index">
           <app-questionnaire [questionnaireRefList]= "questionnaireRef[i]" [questionnaireResult] = "questionnaireResult" isResult = 'true'></app-questionnaire>

@@ -1,5 +1,5 @@
 <div *ngIf = "this.introPage && !this.resultPage && !this.submitPage">
-  <mat-card>
+  <mat-card [ngStyle]="{ 'max-height': '75vw' }">
   <div class = "row">
     <div class = "col">
       <mat-card-header class = "d-flex justify-content-center">
@@ -20,7 +20,7 @@
 
 <div *ngIf = "!this.introPage && !this.resultPage && !this.submitPage">
   <mat-progress-bar class = "progress-bar-style" [value] = "((this.questionCount)/this.total_questions)*100"></mat-progress-bar>
-  <mat-card>
+  <mat-card [ngStyle]="{ 'max-height': '75vw' }">
     <div class = "row d-flex justify-content-flex-end progress-text-style">
       <div class = "col ">Question {{this.questionCount}} of {{this.total_questions}}</div>
     </div>
@@ -33,7 +33,7 @@
     <div class = "col-1">
     <mat-icon *ngIf = "this.questionCount > 1" class = "back-arrow-style" (click) = "backArrowClick()">arrow_back_ios</mat-icon>
     </div>
-    <div class = "col-10 ques-style">{{this.ques}}</div>
+    <div class = "col-10 ques-style"  [innerHTML]="ques"></div>
     <div class = "col-1">
     <mat-icon *ngIf = "this.questionCount <= this.total_questions" class = "forward-arrow-style" (click) = "forwardArrowClick()">arrow_forward_ios</mat-icon>
     </div>
