@@ -1,17 +1,17 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {environment} from "../../../environments/environment";
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 import {
   QUESTIONNAIRE_LIST,
   QUESTIONNAIRE_RESULT_HISTORY,
   QUESTIONNAIRE_SUBMIT,
   TODOQUESTIONNAIRE_LIST,
-  QUESTIONNAIRE_EMAIL_RESULT
-} from "@/app.constants";
-import {BehaviorSubject} from "rxjs";
-import {QuestionnaireItem} from "@/shared/questionnaire/shared/questionnaire.model";
-import {Result} from "@/shared/questionnaire/shared/result.model";
-
+  QUESTIONNAIRE_EMAIL_RESULT,
+} from '@/app.constants';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { QuestionnaireItem } from '@/shared/questionnaire/shared/questionnaire.model';
+import { Result } from '@/shared/questionnaire/shared/result.model';
+import { catchError, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -28,10 +28,8 @@ export class QuestionnaireService {
     return this.http.get(environment.API_ENDPOINT + QUESTIONNAIRE_LIST);
   }
 
-  getTodoQuestionnaires(){
-    return this.http.get(
-      environment.API_ENDPOINT + TODOQUESTIONNAIRE_LIST
-    );
+  getTodoQuestionnaires() {
+    return this.http.get(environment.API_ENDPOINT + TODOQUESTIONNAIRE_LIST);
   }
 
   getAQuestionnaire(Qid: number) {
@@ -83,5 +81,24 @@ export class QuestionnaireService {
         observe: 'response',
       }
     );
+  }
+
+  getPdf(html: string, qname: string) {
+    const options = {
+      params: new HttpParams({}),
+      responseType: 'blob' as 'json',
+    };
+
+    // @ts-ignore
+    return this.http
+      .post(
+        environment.API_ENDPOINT + '/multi-questionnaire/send-pdf/',
+        {
+          html: html,
+          qname: qname,
+        },
+        options
+      )
+      .pipe(map((response: any) => response as Blob));
   }
 }

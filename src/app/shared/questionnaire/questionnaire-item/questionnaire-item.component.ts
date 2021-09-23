@@ -31,7 +31,7 @@ export class QuestionnaireItemComponent implements OnInit {
   resultData!: string;
   testShow!: string;
   questionnaireIdToSend!: number;
-  questionnaireItem!: QuestionnaireItem;
+  questionnaireItem!: any;
   resultItem: Result[] = [];
   questionsArray: QuestionModel[] = [];
   optionsArray: Options[] = [];
@@ -65,26 +65,40 @@ export class QuestionnaireItemComponent implements OnInit {
     if (this.router.getCurrentNavigation()!.extras.state !== undefined) {
       // tslint:disable-next-line:no-non-null-assertion
       this.questionnaireItem = this.router.getCurrentNavigation()!.extras.state!.questionnaireData;
+      localStorage.setItem('quesData', JSON.stringify(this.questionnaireItem));
     } else {
-      this.router.navigate(['/main/extra-resources']).then((r) => {});
+      this.questionnaireItem = JSON.parse(
+        <string>localStorage.getItem('quesData')
+      );
+      // tslint:disable-next-line:radix
+      this.quesIndex = parseInt(<string>localStorage.getItem('qIndex'));
+      if (this.quesIndex > 1) {
+        this.showTestPage();
+        this.questionCount = this.quesIndex + 1;
+        // this.ques = this.questionsArray[this.quesIndex].question; // need to change based on the api
+        // this.optionsArray = this.questionsArray[this.quesIndex].options;
+      }
     }
+    this.initializeData();
   }
 
-  ngOnInit() {
+  initializeData() {
     this.user = <User>this.authService.isLoggedIn();
     this.questionnaireItem.questions.forEach((element: any) => {
       this.questionsArray.push(<QuestionModel>element);
     });
     this.total_questions = this.questionnaireItem.questions.length;
-    this.ques = this.questionsArray[0].question;
+    this.ques = this.questionsArray[this.quesIndex].question;
     this.questionsArray[this.quesIndex].options.forEach((e: any) => {
       this.optionsArray.push(<Options>e);
     });
 
-    this.choicesArrayGroup = window.localStorage.getItem(CHOICES_GROUP) // this line before the ? is not compulsory to put. If any error, try checking with this, or else remove
-      ? JSON.parse(window.localStorage.getItem(CHOICES_GROUP) || '[]')
+    this.choicesArrayGroup = window.localStorage.getItem(CHOICES_GROUP) // this line before the ? is not compulsory to put.
+      ? // If any error, try checking with this, or else remove
+        JSON.parse(window.localStorage.getItem(CHOICES_GROUP) || '[]')
       : [];
   }
+  ngOnInit() {}
   showTestPage() {
     this.introPage = false;
     this.resultPage = false;
@@ -93,6 +107,7 @@ export class QuestionnaireItemComponent implements OnInit {
   backArrowClick() {
     this.questionCount -= 1;
     this.quesIndex -= 1;
+    // tslint:disable-next-line:max-line-length
     this.ques = this.questionsArray[this.quesIndex].question; // need to change based on the api // can make quesIndex as quesCount because the id might differ, but that wont be equal to the position in the array
 
     this.optionsArray = this.questionsArray[this.quesIndex].options;
@@ -104,6 +119,7 @@ export class QuestionnaireItemComponent implements OnInit {
     } else {
       this.questionCount += 1;
       this.quesIndex += 1;
+      localStorage.setItem('qIndex', String(this.quesIndex));
       this.ques = this.questionsArray[this.quesIndex].question; // need to change based on the api
       this.optionsArray = this.questionsArray[this.quesIndex].options;
     }
@@ -162,16 +178,8 @@ export class QuestionnaireItemComponent implements OnInit {
           this.questionnaireService.passResultData(data);
           this.extraResourcesService.triggerTodoQuestionnaires();
         });
+      localStorage.removeItem('qIndex');
+      localStorage.removeItem('quesData');
     }
-
-    // send the array of scores stored at ls to choice api
-    // maybe have to create a separate function to send text
-    //this.submitPage = false;
-    //this.resultPage = true;
-    //this.questionnaireService.postChoicesGetResults(array to send)
-    // .subscribe((data) => {
-    // data.data.forEach((element: any) => {
-    // this.resultItem.push(<Result>element);
-    // )
   }
 }
