@@ -1,71 +1,108 @@
-<span *ngIf = "fromResultHistory">
-<a (click) = "viewResultClick()" *ngIf="!showResultComponent && fromResultHistory" class = "view-result-style">View result <img src = "assets/icons/arrow.svg" class = "see-all-icon-right"></a>
-<a (click) = "viewResultClick()" *ngIf="showResultComponent && fromResultHistory" class = "view-result-style">Hide result <img src = "assets/icons/arrow.svg" class = "see-all-icon-down"></a>
+<span *ngIf="fromUserResponse">
+  <a
+    (click)="viewResultClick()"
+    *ngIf="!showResultComponent && fromUserResponse"
+    class="view-result-style"
+  >View result <img src="assets/icons/arrow.svg" class="see-all-icon-right"
+  /></a>
+  <a
+    (click)="viewResultClick()"
+    *ngIf="showResultComponent && fromUserResponse"
+    class="view-result-style"
+  >Hide result <img src="assets/icons/arrow.svg" class="see-all-icon-down"
+  /></a>
 </span>
-​
-​
-<mat-card *ngIf = "!fromResultHistory || showResultComponent" >
-  <div class = "row">
-    <div class = "col">
-      <div class = "d-flex justify-content-center result-heading">Result</div>
-      ​
-      <div *ngFor = "let resultEachItem of this.resultItem">
-        <span class = "bold-text">{{resultEachItem.disorder}} Score:</span><span> {{resultEachItem.user_score}}/{{resultEachItem.total_score}}</span><br>
-        <span class = "font-14">{{resultEachItem.result_remark}}{{resultEachItem.definition}}</span>
+
+<mat-card *ngIf="!fromUserResponse || showResultComponent">
+  <div class="container" id="result" #result>
+    <div class="row float-right date mt-2">Date - {{ todayDate }}</div>
+    <div class="row">
+      <div class="col px-0">
+        <div class="d-flex justify-content-center result-heading">
+          <b>{{ questionnaireName }} Result </b>
+        </div>
+        <div *ngFor="let resultEachItem of this.resultItem">
+          <div>
+            <b> {{resultEachItem.disorder }} Score : </b>
+          </div>
+          <br />
+          <div class="score">
+            {{ resultEachItem.user_score }}/{{ resultEachItem.total_score }}
+          </div>
+          <br />
+          <span class="font-14"
+          >{{ resultEachItem.result_remark
+            }}{{ resultEachItem.definition }}</span
+          >
+        </div>
       </div>
     </div>
-  </div>
-  <br>
-  <br>
-  ​
-  <div class = "row">
-    <div class = "col">
-      <div class = "ref-heading">Reference Table</div>
-      <table class = "table-style">
-        <tr>
-          <th>Score</th>
-          <th>Risk Level</th>
-        </tr>
-        <ng-container *ngFor = "let refItem of this.refTableArray">
-          <tr class="disorder">
-            <td colspan="2">{{refItem[0].disorder}}</td>
+    <br />
+    <br />
+    <div class="row">
+      <div class="col">
+        <div class="ref-heading mb-3"><b>Reference Table</b></div>
+        <table class="table-style">
+          <tr>
+            <th>Score</th>
+            <th>Risk Level</th>
           </tr>
-          <tr class="range" *ngFor = "let refEachItem of refItem">
-            <td>{{refEachItem.minValue}} - {{refEachItem.maxValue}}</td>
-            <td>{{refEachItem.reference_remark}}</td>
-          </tr>
-         ​
-        </ng-container>
-        ​
-      </table>
+          <ng-container *ngFor="let refItem of this.refTableArray">
+            <tr>
+              <td>{{ refItem[0].disorder }}</td>
+            </tr>
+
+            <tr></tr>
+            <tr *ngFor="let refEachItem of refItem">
+              <td>{{ refEachItem.minValue }} - {{ refEachItem.maxValue }}</td>
+              <td>{{ refEachItem.reference_remark }}</td>
+            </tr>
+          </ng-container>
+        </table>
+      </div>
+      <br />
+      <br />
+    </div>
+
+    <div [ngStyle]="{ 'margin-top': '4rem' }">
+      <span class="disclaimer-heading">Disclaimer</span><br />
+      <span class="font-14"
+      >The results are for information purposes only. The screening does not
+        replace a medical evaluation.</span
+      >
     </div>
     <br />
     <br />
   </div>
 
-  ​
-  <div>
-    <span class = "disclaimer-heading">Disclaimer</span><br>
-    <span class = "font-14">The results are for information purposes only. The screening does not replace a medical evaluation.</span>
+  <div class="container">
+    <div class="mt-4">
+      <mat-icon> email</mat-icon
+      ><a (click)="expandEmail()" class="email-style">Email Result</a>
+    </div>
+    <form *ngIf="this.showEmailBox">
+      <mat-form-field>
+        <mat-label class="placeholder">
+          Enter Email
+        </mat-label>
+        <input matInput type="email" required />
+      </mat-form-field>
+      <button
+        class="btn-style ml-4"
+        type="button"
+        mat-raised-button
+        (click)="sendEmail()"
+      >
+        <ng-container *ngIf="!showLoading; else loading">Send </ng-container>
+        <ng-template #loading>
+          <span class="spinner-border spinner-border-sm"></span>
+          Sending.. &nbsp;
+        </ng-template>
+      </button>
+    </form>
+    <div class="mt-4">
+      <mat-icon>cloud_download</mat-icon>
+      <a class="print-style" (click)="downloadPDF()">Download Result</a>
+    </div>
   </div>
-  <br>
-  <br>
-  ​
-  <div><img><a (click) = "expandEmail()" class = "email-style">Email Result</a></div>
-  <form *ngIf = "this.showEmailBox">
-    <mat-form-field>
-      <mat-label class = "placeholder">
-        Enter Email
-      </mat-label>
-      <input
-        matInput type = "email" required>
-    </mat-form-field>
-    <button class = "btn-style"
-            type = "button" mat-raised-button>Send</button>
-  </form>
-  <div><img><a class = "print-style" (click) = "printResult()">Print Result</a></div>
-  ​
-  ​
-  ​
 </mat-card>
-

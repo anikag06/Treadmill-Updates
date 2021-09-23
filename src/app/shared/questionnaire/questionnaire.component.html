@@ -25,8 +25,6 @@
   <div style="width: 70vw">
     <div class = "date-font" *ngFor = "let questionnaireResultData of questionnaireResult; let i=index;">
       <img src = "assets/icons/calender.png" class = "calendar-icon-style">{{questionnaireResultData.date | date: 'MMM d, y, h:mm a'}}
-
-      ​
       <app-questionnaire-result [fromResultHistory] = true [refList]=" questionnaireRefList" [resultData]= questionnaireResultData ></app-questionnaire-result>
       <hr class = "hr-style">
     </div>
