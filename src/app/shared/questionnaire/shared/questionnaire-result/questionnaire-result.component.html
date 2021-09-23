@@ -1,37 +1,60 @@
-<span *ngIf="fromUserResponse">
+<span *ngIf="fromResultHistory">
   <a
     (click)="viewResultClick()"
-    *ngIf="!showResultComponent && fromUserResponse"
+    *ngIf="!showResultComponent && fromResultHistory"
     class="view-result-style"
   >View result <img src="assets/icons/arrow.svg" class="see-all-icon-right"
   /></a>
   <a
     (click)="viewResultClick()"
-    *ngIf="showResultComponent && fromUserResponse"
+    *ngIf="showResultComponent && fromResultHistory"
     class="view-result-style"
   >Hide result <img src="assets/icons/arrow.svg" class="see-all-icon-down"
   /></a>
 </span>
 ​
-​
-<mat-card *ngIf = "!fromResultHistory || showResultComponent" >
-  <div class = "row">
-    <div class = "col">
-      <div class = "d-flex justify-content-center result-heading">Result</div>
+​<mat-card *ngIf = "!fromResultHistory || showResultComponent" >
+  <div class="container" id="result" #result>
+    <div class="row float-right date mt-2">Date - {{ todayDate }}</div>
+    <div class = "row">
+      <div class="col px-0">
+      <div class = "d-flex justify-content-center result-heading">
+        <b>{{ questionnaireName }} Result </b>
+      </div>
       ​
       <div *ngFor = "let resultEachItem of this.resultItem">
-        <div *ngIf="checkScoreType(resultEachItem.user_score)"><span class = "bold-text" >{{resultEachItem.disorder}} Score:</span><span> {{resultEachItem.user_score}}/{{resultEachItem.total_score}}</span></div>
-        <div *ngIf="!checkScoreType(resultEachItem.user_score)"><span class = "bold-text">{{resultEachItem.disorder}} :</span><span> {{resultEachItem.user_score}}</span></div>
-        <span class = "font-14">{{resultEachItem.result_remark}}{{resultEachItem.definition}}</span>
+<!--       added score in this format for Fear questionnaire-->
+        <div *ngIf="checkScoreType(resultEachItem.user_score)">
+       <div>
+            <b>{{resultEachItem.disorder}} Score : </b>
+            </div>
+            <br />
+            <div class="score">
+             {{resultEachItem.user_score}}/{{resultEachItem.total_score}}
+             </div>
+        </div>
+     <div *ngIf="!checkScoreType(resultEachItem.user_score)">
+       <div>
+            <b>{{resultEachItem.disorder}} :</b>
+     </div>
+        <div class="score">
+             {{resultEachItem.user_score}}
+            </div>
+     </div>
+       <br />
+        <span class="font-14"
+        >{{ resultEachItem.result_remark
+          }}{{ resultEachItem.definition }}</span
+        >
       </div>
     </div>
   </div>
-  <br>
-  <br>
+  <br />
+  <br />
   ​
   <div class = "row">
     <div class = "col">
-      <div class = "ref-heading">Reference Table</div>
+      <div class = "ref-heading mb-3"><b>Reference Table</b></div>
       <table class = "table-style">
         <tr>
           <th>Score</th>
@@ -47,8 +70,10 @@
           </tr>
          ​
         </ng-container>
-        ​
       </table>
+    </div>
+    <br />
+    <br />
     </div>
 
     <div [ngStyle]="{ 'margin-top': '4rem' }">

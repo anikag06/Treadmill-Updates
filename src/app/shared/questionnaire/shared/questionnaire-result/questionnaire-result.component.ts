@@ -15,7 +15,6 @@ import { Subscription } from 'rxjs';
 })
 export class QuestionnaireResultComponent implements OnInit {
   @Input() resultData: any;
-  @Input() fromUserResponse: any;
   @Input() fromResultHistory: any;
 
   showEmailBox = false;
@@ -70,7 +69,6 @@ export class QuestionnaireResultComponent implements OnInit {
 
   checkScoreType(score: any) {
     if ( /^[0-9]+$/.test(score)) {
-      console.log('SCORE', score, 'TRUE');
       return true;
     } else {
       return false;
