@@ -1,5 +1,4 @@
 .result-heading{
-  //font-weight: bold;
   font-size: 20px;
   margin-bottom:3rem!important;
   margin-top:3rem!important;
@@ -11,7 +10,6 @@
   font-weight: bold;
 }
 .see-all-icon-down {
-  //transform: rotate(180deg);
   cursor: pointer;
   width: 15px;
   height: 15px;
@@ -33,16 +31,13 @@
   font-size: 14px;
   color: #00000099;
 }
-//.bold-text {
-//  font-weight: bold;
-//}
-
 .table-style,td, th {
   border: 1px solid black;
   border-collapse: collapse;
   height: 42px;
   padding-left: 20px;
   padding-right: 20px;
+  text-align: center;
 }
 .table-style tr:nth-child(even) {
   background-color: #fff;
@@ -53,7 +48,7 @@
 
 }
 .table-style th{
-  background-color: #000000DE;
+  background-color: #2a3b3d;
   color: white;
 }
 .btn-style{

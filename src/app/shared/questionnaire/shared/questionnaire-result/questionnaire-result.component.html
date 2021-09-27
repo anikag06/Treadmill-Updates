@@ -1,33 +1,44 @@
-<span *ngIf="fromUserResponse">
+<span *ngIf="fromResultHistory">
   <a
     (click)="viewResultClick()"
-    *ngIf="!showResultComponent && fromUserResponse"
+    *ngIf="!showResultComponent && fromResultHistory"
     class="view-result-style"
   >View result <img src="assets/icons/arrow.svg" class="see-all-icon-right"
   /></a>
   <a
     (click)="viewResultClick()"
-    *ngIf="showResultComponent && fromUserResponse"
+    *ngIf="showResultComponent && fromResultHistory"
     class="view-result-style"
   >Hide result <img src="assets/icons/arrow.svg" class="see-all-icon-down"
   /></a>
 </span>
-
-<mat-card *ngIf="!fromUserResponse || showResultComponent">
+<mat-card *ngIf = "!fromResultHistory || showResultComponent" >
   <div class="container" id="result" #result>
     <div class="row float-right date mt-2">Date - {{ todayDate }}</div>
-    <div class="row">
+    <div class = "row">
       <div class="col px-0">
-        <div class="d-flex justify-content-center result-heading">
+        <div class = "d-flex justify-content-center result-heading">
           <b>{{ questionnaireName }} Result </b>
         </div>
-        <div *ngFor="let resultEachItem of this.resultItem">
-          <div>
-            <b> {{resultEachItem.disorder }} Score : </b>
+
+        <div *ngFor = "let resultEachItem of this.resultItem">
+          <!--       added score in this format for Fear questionnaire-->
+          <div *ngIf="checkScoreType(resultEachItem.user_score)">
+            <div>
+              <b>{{resultEachItem.disorder}} Score : </b>
+            </div>
+            <br />
+            <div class="score">
+              {{resultEachItem.user_score}}/{{resultEachItem.total_score}}
+            </div>
           </div>
-          <br />
-          <div class="score">
-            {{ resultEachItem.user_score }}/{{ resultEachItem.total_score }}
+          <div *ngIf="!checkScoreType(resultEachItem.user_score)">
+            <div>
+              <b>{{resultEachItem.disorder}} :</b>
+            </div>
+            <div class="score">
+              {{resultEachItem.user_score}}
+            </div>
           </div>
           <br />
           <span class="font-14"
@@ -39,23 +50,22 @@
     </div>
     <br />
     <br />
-    <div class="row">
-      <div class="col">
-        <div class="ref-heading mb-3"><b>Reference Table</b></div>
-        <table class="table-style">
+
+    <div class = "row">
+      <div class = "col">
+        <div class = "ref-heading mb-3"><b>Reference Table</b></div>
+        <table class = "table-style">
           <tr>
             <th>Score</th>
             <th>Risk Level</th>
           </tr>
-          <ng-container *ngFor="let refItem of this.refTableArray">
-            <tr>
-              <td>{{ refItem[0].disorder }}</td>
+          <ng-container *ngFor = "let refItem of this.refTableArray">
+            <tr class="disorder"  *ngIf="refItem[0].reference_remark !== 'null'">
+              <td colspan="2">{{refItem[0].disorder}}</td>
             </tr>
-
-            <tr></tr>
-            <tr *ngFor="let refEachItem of refItem">
-              <td>{{ refEachItem.minValue }} - {{ refEachItem.maxValue }}</td>
-              <td>{{ refEachItem.reference_remark }}</td>
+            <tr class="range" *ngFor = "let refEachItem of refItem" >
+              <td *ngIf="refEachItem.reference_remark !== 'null'">{{refEachItem.minValue}} - {{refEachItem.maxValue}}</td>
+              <td *ngIf="refEachItem.reference_remark !== 'null'">{{refEachItem.reference_remark}}</td>
             </tr>
           </ng-container>
         </table>
@@ -85,7 +95,7 @@
         <mat-label class="placeholder">
           Enter Email
         </mat-label>
-        <input matInput type="email" required />
+        <input matInput type="email" [formControl]="email" required />
       </mat-form-field>
       <button
         class="btn-style ml-4"
