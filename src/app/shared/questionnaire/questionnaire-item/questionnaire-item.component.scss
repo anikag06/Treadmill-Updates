@@ -12,7 +12,9 @@
 .forward-arrow-style{
   cursor: pointer;
 }
-
+.ques-page {
+  height: 75vh;
+}
 .option-btn-style{
   background: #F1F9FF 0% 0% no-repeat padding-box;
   box-shadow: 0px 2px 4px #1C525829;
@@ -65,4 +67,11 @@
 }
 .submit-style{
   text-align: center;
+}
+
+
+@media screen and (max-width: 961px) {
+  .ques-page {
+    height: 100vh;
+  }
 }

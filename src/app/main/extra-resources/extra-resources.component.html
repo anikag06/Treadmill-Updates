@@ -1,20 +1,23 @@
 <div class="container resources-container px-0"  *ngIf="outlet.isActivated == false">
-  <div class = "row no-gutters" *ngIf = "!this.quesExpand">
-    <div class="ml-0" [ngClass] = "{'list-tab-style':!forVideosTab, 'tab-style-selected': forVideosTab}" (click) = "onVideosTab()">
+  <div class = "top-nav-tabs no-gutters" *ngIf = "!this.quesExpand">
+
+<!--  <div class = "top-nav-tabs">-->
+    <div class="ml-lg-0 tab-style" [ngClass] = "{'tab-style-selected': forVideosTab}" (click) = "onVideosTab()">
       Videos
     </div>
-    <div [ngClass] = "{'list-tab-style':!forReadingTab, 'tab-style-selected': forReadingTab}" (click) = "onReadingTab()">
-      Reading
+    <div class="tab-style" [ngClass] = "{'tab-style-selected': forReadingTab}" (click) = "onReadingTab()">
+      Reading material
     </div>
-    <div [ngClass] = "{'list-tab-style':!forQuestionnaireTab, 'tab-style-selected': forQuestionnaireTab}" (click) = "onQuestionnaireTab()">
+    <div class="tab-style" [ngClass] = "{'tab-style-selected': forQuestionnaireTab}" (click) = "onQuestionnaireTab()">
       Questionnaires
     </div>
+<!--  </div>-->
   </div>
   <div class = "row no-gutters" *ngIf = "this.quesExpand">
-    <div class="ml-0" [ngClass] = "{'list-tab-style':showMyResults, 'tab-style-selected': !showMyResults}" (click) = "onMyListClick()">
+    <div class="ml-0 tab-style" [ngClass] = "{'tab-style-selected': !showMyResults}" (click) = "onMyListClick()">
       List
     </div>
-    <div [ngClass] = "{'list-tab-style':!showMyResults, 'tab-style-selected': showMyResults}" (click) = "onMyResultsClick()">
+    <div class="tab-style" [ngClass] = "{'tab-style-selected': showMyResults}" (click) = "onMyResultsClick()">
       My Results
     </div>
   </div>
@@ -135,10 +138,10 @@
     <div class = "row" *ngIf = "todocountQuestionnaireItem !== 0">
       <div class = "col">
         <p class = "heading"> Todo Questionnaires</p>
-        <p>Questionnaire recommended for me based on Level1 questionnaire</p>
+        <p class="px-2">Questionnaire recommended for me based on Level1 questionnaire</p>
       </div>
     </div>
-    <div class = "space-below-section">
+    <div class = "">
       <div [ngClass] = "todoquesExpand==true? 'show-all-cards': 'todo-card-hidden'">
         <div class = "row no-gutters" >
           <div class = "each-item" *ngFor = "let questionnaireItem of todoquestionnaireItems">
@@ -148,7 +151,7 @@
 
 
       </div>
-      <div *ngIf = "todocountQuestionnaireItem > 4">
+      <div *ngIf = "todocountQuestionnaireItem > 4 && !todoquesExpand">
         <a class = "see-all" (click) = "changeTodoQuesState()"><img src = "assets/icons/arrow.svg">&nbsp;show more</a>
       </div>
     </div>
@@ -161,7 +164,7 @@
   </div>
 
   <div class = "space-below-section">
-    <div [ngClass] = "quesExpand==true? 'show-all-cards': 'reading-card-hidden'">
+    <div [ngClass] = "quesExpand==true? 'show-all-cards': 'ques-card-hidden'">
      <div class = "row no-gutters"><!-- we should call the questionnaires items here only, or pass the data/ otherwise how we will pass the questionnaire data her?-->
        <div class = "each-item" *ngFor = "let questionnaireItem of questionnaireItems">
          <app-questionnaire [questionnaireItem] = "questionnaireItem" isResult = 'false' (click) = "questionnaireItemClick(questionnaireItem)" #tooltip="matTooltip" matTooltipDisabled
@@ -169,8 +172,8 @@
         </div>
       </div>
     </div>
-    <div *ngIf="countQuestionnaireItem > 8">
-      <a class = "see-all" (click) = "changeQuesState()"><img src = "assets/icons/arrow.svg">&nbsp;See all Questionnaires</a>
+    <div *ngIf="countQuestionnaireItem > 8 && !quesExpand">
+      <a class = "see-all mt-4 " (click) = "changeQuesState()">See all Questionnaires <img src = "assets/questionnaire/arrow right.svg">&nbsp;</a>
     </div>
   </div>
 

@@ -9,23 +9,37 @@
 .see-all-icon-down {
   //transform: rotate(180deg);
   cursor: pointer;
-  width: 32px;
-  height: 26px;
-  float: right;
+  width: 24px;
+  height: 24px;
+  //float: right;
   color: black;
+  position: absolute;
+  top:35%;
+  right:5%;
 }
 .see-all-icon-right {
   transform: rotate(-90deg);
   cursor: pointer;
-  width: 32px;
-  height: 26px;
-  float: right;
+  width: 24px;
+  height: 24px;
+  //float: right;
   color: black;
+  position: absolute;
+  top:35%;
+  right:5%;
+
 }
 .my-result-card{
   font-weight: bold;
   width: 80vw;
   cursor: pointer;
+  margin: 12px 0px;
+  opacity: 87%;
+  position: relative;
+  padding-right: 30px;
+}
+.result-div-style{
+  width: 70vw;
 }
 .hr-style{
   display: block; margin-before: 0.5em; margin-after: 0.5em; margin-start: auto; margin-end: auto; overflow: hidden; border-style: inset; border-width: 1px;
@@ -43,11 +57,14 @@
 }
 .category-style{
   font-size: 10px;
-  padding: 4px;
+  padding: 2px;
   opacity:0.8;
+  border-radius:2px;
+  color:white;
 }
 .subtitle-style{
-  //font-size: 12px;
+  opacity:0.6;
+  font-size: 14px;
 }
 
 .ques-card:hover {
@@ -58,6 +75,22 @@
   color: #1782FF;
   cursor: pointer;
   float: right;
+}
+.giveMeEllipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  /* number of lines to show */
+}
+.giveEllipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  /* number of lines to show */
 }
 
 //
@@ -73,13 +106,13 @@
 
 .show-footer-style{
   font-size: 16px;
-  // margin: 0px;
-  margin-left: 14px;
-  margin-right: 7px;
-  margin-top: 7px;
+   margin: 8px;
+  //margin-left: 14px;
+  //margin-right: 7px;
+  //margin-top: 7px;
   padding-bottom: 6px;
   text-align: left;
-  opacity: 0.6;
+  //opacity: 0.6;
 }
 
 .preview-img-div {
@@ -96,7 +129,7 @@
 
 @media screen and (min-width: 2001px) {
   .ques-card {
-    height: 385px;
+    height: 395px;
   }
   .show-footer-style{
     font-size: 20px;
@@ -105,30 +138,22 @@
 }
 @media screen and (max-width: 2000px) {
   .ques-card {
-    height: 385px;
+    height: 330px;
   }
   .show-footer-style{
     font-size: 16px;
   }
 }
-@media screen and (max-width: 1800px) {
-  .ques-card {
-    height: 385px;
-  }
-  .show-footer-style{
-    font-size: 16px;
-  }
-}
+//@media screen and (min-width: 1800px) {
+//  .ques-card {
+//    height: 300px;
+//  }
+//  .show-footer-style{
+//    font-size: 16px;
+//  }
+//}
 
-@media screen and (max-width: 1500px) {
-  .ques-card {
-    height: 385px;
-  }
-  .show-footer-style{
-    font-size: 16px;
-  }
-}
-@media screen and (width: 1366px) {
+@media screen and  (min-width: 1300px) and (max-width: 1500px) {
   .ques-card {
     height: 320px;
   }
@@ -136,9 +161,17 @@
     font-size: 16px;
   }
 }
+//@media screen and (width: 1366px) {
+//  .ques-card {
+//    height: 300px;
+//  }
+//  .show-footer-style{
+//    font-size: 16px;
+//  }
+//}
 @media screen and (max-width: 1300px) {
   .ques-card {
-    height: 182px;
+    height: 300px;
   }
   .show-footer-style{
     font-size: 16px;
@@ -146,7 +179,7 @@
 }
 @media screen and (max-width: 1200px) {
   .ques-card {
-    height: 165px;
+    height: 285px;
   }
   .show-footer-style{
     font-size: 16px;
@@ -156,7 +189,7 @@
 
 @media screen and (max-width: 991px) {
   .ques-card {
-    height: 150px;
+    height: 285px;
   }
   .show-footer-style{
     font-size: 14px;
@@ -165,10 +198,16 @@
 
 @media screen and (max-width: 768px) {
   .ques-card {
-    height: 158px;
+    height: 285px;
   }
   .show-footer-style{
     font-size: 14px;
+  }
+  .my-result-card{
+    width: 95vw;
+  }
+  .result-div-style{
+    width: 95vw;
   }
 }
 
@@ -178,7 +217,7 @@
     margin: 0px 0px 14px;
     //max-height: 95%;
     //min-height: 95%;
-    height: 185px;
+    height: 285px;
   }
   .show-footer-style{
     font-size: 14px;
@@ -188,16 +227,16 @@
 @media screen and (max-width: 425px) {
   .ques-card {
     margin: 0px 0px 14px;
-    height: 160px;
+    height: 270px;
   }
   .show-footer-style{
     font-size: 14px;
   }
 }
-@media screen and (max-width: 320px) {
-  .ques-card {
-    height: 130px;
-  }
+//@media screen and (max-width: 320px) {
+//  .ques-card {
+//    height: 250px;
+//  }
 
-}
+//}
 

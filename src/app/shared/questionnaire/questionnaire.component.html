@@ -7,22 +7,22 @@
   </div>
   <mat-card-footer class = "show-footer-style">
     <span class = "category-style" [style.background-color]="getBackgroundColor(questionnaireItem.category)">{{questionnaireItem.category}}</span>
-    <div class = "bold-text">{{questionnaireItem.title}}<br></div>
-    <span class = "subtitle-style">{{questionnaireItem.subtitle}}</span>
+    <div class = "bold-text giveMeEllipsis">{{questionnaireItem.title}}<br></div>
+    <span class = "subtitle-style giveEllipsis">{{questionnaireItem.subtitle}}</span>
   </mat-card-footer>
 </mat-card>
 </div>
 
-<div *ngIf = "isResult == 'true'">
+<div class="mt-2 px-2" *ngIf = "isResult == 'true'">
 <mat-card class = "my-result-card"  (click)="resultEachCardClick()">
   {{questionnaireResult[0].title}}<img src = "assets/icons/arrow%20down.png" *ngIf = !this.showEachResultCardOnClick class = "see-all-icon-right">
   <img src = "assets/icons/arrow%20down.png" *ngIf = this.showEachResultCardOnClick class = "see-all-icon-down">
 
 </mat-card>
-<br>
+<!--<br>-->
 <div *ngIf = this.showEachResultCardOnClick >
 <span class = "history-font">History</span>
-  <div style="width: 70vw">
+  <div class="result-div-style">
     <div class = "date-font" *ngFor = "let questionnaireResultData of questionnaireResult; let i=index;">
       <img src = "assets/icons/calender.png" class = "calendar-icon-style">{{questionnaireResultData.date | date: 'MMM d, y, h:mm a'}}      ​
       <app-questionnaire-result [fromResultHistory] = true [refList]=" questionnaireRefList" [resultData]= questionnaireResultData ></app-questionnaire-result>
@@ -32,6 +32,6 @@
 
   </div>
 </div>
-  <br/>
+<!--  <br/>-->
 
 </div>

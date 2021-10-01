@@ -26,6 +26,7 @@ import { Title } from '@angular/platform-browser';
 import {QuestionnaireItem} from '@/shared/questionnaire/shared/questionnaire.model';
 import {QuestionnaireService} from "@/shared/questionnaire/questionnaire.service";
 import {MatTooltip} from "@angular/material/tooltip";
+import {NavbarGoToService} from "@/main/shared/navbar/navbar-go-to.service";
 
 @Component({
   selector: 'app-extra-resources',
@@ -86,8 +87,10 @@ export class ExtraResourcesComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private stepDataService: StepsDataService,
     private authService: AuthService,
-    private quesService: QuestionnaireService
-  ) {}
+    private quesService: QuestionnaireService,
+    private goToService: NavbarGoToService,
+
+) {}
 
   ngOnInit() {
     this.user = <User>this.authService.isLoggedIn();
@@ -306,6 +309,7 @@ videoClick(videoBeingClicked: VideoItem) {
     this.showUsefulListState = !this.showUsefulListState;
   }
   changeQuesState() {
+    this.goToService.settingsPageTitle.emit('Questionnaire');
     this.quesExpand = true;
   }
   changeTodoQuesState() {
