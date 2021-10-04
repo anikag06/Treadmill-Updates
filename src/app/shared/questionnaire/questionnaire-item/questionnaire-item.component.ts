@@ -1,16 +1,20 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { QuestionnaireItem } from '@/shared/questionnaire/shared/questionnaire.model';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { UsefulListItem } from '@/main/extra-resources/shared/usefulList.model';
 import { QuizService } from '@/shared/questionnaire-deprecated/questionnaire-deprecated.service';
-import { environment } from '../../../../environments/environment';
-import { CHOICES_GROUP, GET_PHQ_QUESTIONS } from '@/app.constants';
+import { CHOICES_GROUP } from '@/app.constants';
 import { Quiz } from '@/shared/questionnaire-deprecated/input/quiz';
-import { element } from 'protractor';
 import { Options } from '@/shared/questionnaire/shared/options.model';
 import { QuestionnaireService } from '@/shared/questionnaire/questionnaire.service';
 import { Result } from '@/shared/questionnaire/shared/result.model';
 import { ExtraResourcesService } from '@/main/extra-resources/extra-resources.service';
-import { ActivatedRoute, Route, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { QuestionModel } from '@/shared/questionnaire/shared/question.model';
 import { AuthService } from '@/shared/auth/auth.service';
 import { User } from '@/shared/user.model';
@@ -52,6 +56,7 @@ export class QuestionnaireItemComponent implements OnInit {
   tempOptions = ['never', 'rarely', 'sometimes']; // temporary for coding purpose, once api is made, this will be removed
   scoreArray: Options[] = [];
   questionnaireName = '';
+  selectedIndex!: number;
 
   constructor(
     private quizService: QuizService,
@@ -59,7 +64,8 @@ export class QuestionnaireItemComponent implements OnInit {
     private extraResourcesService: ExtraResourcesService,
     private activateRoutes: ActivatedRoute,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private element: ElementRef
   ) {
     // tslint:disable-next-line:no-non-null-assertion
     if (this.router.getCurrentNavigation()!.extras.state !== undefined) {
@@ -99,6 +105,7 @@ export class QuestionnaireItemComponent implements OnInit {
       : [];
   }
   ngOnInit() {}
+
   showTestPage() {
     this.introPage = false;
     this.resultPage = false;
@@ -116,12 +123,16 @@ export class QuestionnaireItemComponent implements OnInit {
   forwardArrowClick() {
     if (this.questionCount + 1 > this.total_questions) {
       this.submitPage = true;
+    } else if (this.selectedIndex === 10) {
     } else {
       this.questionCount += 1;
       this.quesIndex += 1;
       localStorage.setItem('qIndex', String(this.quesIndex));
+      localStorage.setItem('options', JSON.stringify(this.optionsArray));
+
       this.ques = this.questionsArray[this.quesIndex].question; // need to change based on the api
       this.optionsArray = this.questionsArray[this.quesIndex].options;
+      // this.selectedIndex = 10;
     }
   }
 
@@ -129,12 +140,16 @@ export class QuestionnaireItemComponent implements OnInit {
     quesIdToSend: number,
     quesOrderToSend: number,
     optionIdToSend: number,
-    countOfQuestions: number
+    countOfQuestions: number,
+    option: Options
   ) {
     this.choicesArray = {};
+    // this.selectedIndex = index;
+    option.selected = true;
     this.choicesArray['question_id'] = quesIdToSend; // how will the option id be called?
     this.choicesArray['question_order'] = quesOrderToSend; //how will the order for the questionnaire be called?
     this.choicesArray['option_id'] = optionIdToSend; // how will question id be called?
+    // this.choicesArray['selectedIndex'] = index;
     this.choicesArrayGroup[countOfQuestions - 1] = this.choicesArray;
     window.localStorage.setItem(
       CHOICES_GROUP,
@@ -163,6 +178,8 @@ export class QuestionnaireItemComponent implements OnInit {
           this.questionnaireService.passResultData(data);
           this.extraResourcesService.triggerTodoQuestionnaires();
         });
+      localStorage.removeItem('qIndex');
+      localStorage.removeItem('quesData');
     } else {
       this.questionnaireService
         .postChoicesGetResults(
@@ -181,5 +198,12 @@ export class QuestionnaireItemComponent implements OnInit {
       localStorage.removeItem('qIndex');
       localStorage.removeItem('quesData');
     }
+  }
+  isSelected(index: number) {
+    console.log(this.choicesArrayGroup);
+    if (this.choicesArrayGroup.length > 0) {
+      return this.choicesArrayGroup[this.quesIndex]['selectedIndex'] === index;
+    }
+    return false;
   }
 }

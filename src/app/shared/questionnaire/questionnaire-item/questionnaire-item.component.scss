@@ -14,7 +14,7 @@
 }
 
 .option-btn-style{
-  background: #F1F9FF 0% 0% no-repeat padding-box;
+  //background: #F1F9FF 0% 0% no-repeat padding-box;
   box-shadow: 0px 2px 4px #1C525829;
   border: 1px solid #C7D7E3;
   border-radius: 8px;
@@ -24,6 +24,10 @@
   display: block;
   width: 244px;
   margin-bottom: 10px;
+  text-align: center;
+  white-space:normal !important;
+  word-wrap: break-word;
+  min-height: 82px;
 }
 .progress-bar-style{
 
@@ -55,9 +59,6 @@
 }
 
 .radio-option-style {
-  text-align: center;
-  color: #2a3b3d;
-  width: 100%;
 
 }
 .radio-group-style{
@@ -66,4 +67,14 @@
 }
 .submit-style{
   text-align: center;
+}
+.highlight{ background-color: #2a3b3d }
+.mat-radio-inner-circle{
+  display: none !important;
+}
+.mat-radio-checked .mat-radio-inner-circle{
+  display: none !important;
+}
+.mat-radio-container{
+  display: none;
 }

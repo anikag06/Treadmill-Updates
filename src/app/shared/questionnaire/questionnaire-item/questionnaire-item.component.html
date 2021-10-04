@@ -1,126 +1,159 @@
-<div *ngIf = "this.introPage && !this.resultPage && !this.submitPage">
+<div *ngIf="this.introPage && !this.resultPage && !this.submitPage">
   <mat-card>
-  <div class = "row">
-    <div class = "col">
-      <mat-card-header class = "d-flex justify-content-center">
-      <mat-card-title class = "title-style">{{this.questionnaireItem.title}}</mat-card-title>
-      </mat-card-header>
+    <div class="row">
+      <div class="col">
+        <mat-card-header class="d-flex justify-content-center">
+          <mat-card-title class="title-style">{{
+            this.questionnaireItem.title
+          }}</mat-card-title>
+        </mat-card-header>
+      </div>
     </div>
-  </div>
-  <div class = "row">
-    <div class = "col"><mat-card-content [innerHTML]="questionnaireItem.instructions"  class = "instruction-style"></mat-card-content></div>
-  </div>
-   <div class = "row d-flex justify-content-center">
-    <button class = "btn-style" mat-raised-button (click) = "showTestPage()">Start Test</button>
-   </div>
+    <div class="row">
+      <div class="col">
+        <mat-card-content
+          [innerHTML]="questionnaireItem.instructions"
+          class="instruction-style"
+        ></mat-card-content>
+      </div>
+    </div>
+    <div class="row d-flex justify-content-center">
+      <button class="btn-style" mat-raised-button (click)="showTestPage()">
+        Start Test
+      </button>
+    </div>
   </mat-card>
 </div>
 
-
-
-<div *ngIf = "!this.introPage && !this.resultPage && !this.submitPage">
-  <mat-progress-bar class = "progress-bar-style" [value] = "((this.questionCount)/this.total_questions)*100"></mat-progress-bar>
+<div *ngIf="!this.introPage && !this.resultPage && !this.submitPage">
+  <mat-progress-bar
+    class="progress-bar-style"
+    [value]="(this.questionCount / this.total_questions) * 100"
+  ></mat-progress-bar>
   <mat-card>
-    <div class = "row d-flex justify-content-flex-end progress-text-style">
-      <div class = "col ">Question {{this.questionCount}} of {{this.total_questions}}</div>
+    <div class="row d-flex justify-content-flex-end progress-text-style">
+      <div class="col">
+        Question {{ this.questionCount }} of {{ this.total_questions }}
+      </div>
     </div>
-  <div class = "row d-flex justify-content-center">
-    <div class = "col title-style ">{{this.questionnaireItem.title}}</div>
-  </div>
+    <div class="row d-flex justify-content-center">
+      <div class="col title-style">{{ this.questionnaireItem.title }}</div>
+    </div>
     <p></p>
     <p></p>
-  <div class = "row">
-    <div class = "col-1">
-    <mat-icon *ngIf = "this.questionCount > 1" class = "back-arrow-style" (click) = "backArrowClick()">arrow_back_ios</mat-icon>
+    <div class="row">
+      <div class="col-1">
+        <mat-icon
+          *ngIf="this.questionCount > 1"
+          class="back-arrow-style"
+          (click)="backArrowClick()"
+          >arrow_back_ios</mat-icon
+        >
+      </div>
+      <div class="col-10 ques-style">{{ this.ques }}</div>
+      <div class="col-1">
+        <mat-icon
+          *ngIf="this.questionCount <= this.total_questions"
+          class="forward-arrow-style"
+          (click)="forwardArrowClick()"
+          >arrow_forward_ios</mat-icon
+        >
+      </div>
     </div>
-    <div class = "col-10 ques-style">{{this.ques}}</div>
-    <div class = "col-1">
-    <mat-icon *ngIf = "this.questionCount <= this.total_questions" class = "forward-arrow-style" (click) = "forwardArrowClick()">arrow_forward_ios</mat-icon>
-    </div>
-  </div>
     <p></p>
     <p></p>
-<!--  <div class = "row">-->
-<!--    <div class = "col">{{this.options}}</div>-->
-<!-- option types using if condition -->
-    <div *ngFor = "let op of optionsArray">
-    <div  *ngIf = "op.option_type == 'Radio'">
-<!--      <div class = "col-12">-->
-<!--    <ng-container>-->
-      <div class = "row d-flex justify-content-center" >
-    <div class = "btn-group-vertical">
+    <!--  <div class = "row">-->
+    <!--    <div class = "col">{{this.options}}</div>-->
+    <!-- option types using if condition -->
+    <div *ngFor="let op of optionsArray; let i = index">
+      <div *ngIf="op.option_type == 'Radio'">
+        <!--      <div class = "col-12">-->
+        <!--    <ng-container>-->
+        <div class="row d-flex justify-content-center">
+          <div class="btn-group-vertical">
+            <button
+              mat-raised-button
+              class="option-btn-style"
+              [ngStyle]="
+                op.selected
+                  ? { 'background-color': '#2a3b3d', color: 'white' }
+                  : { 'background-color': '#F1F9FF', color: '#2a3b3d;' }
+              "
+              (click)="
+                optionClick(
+                  this.questionsArray[this.quesIndex].id,
+                  this.questionsArray[this.quesIndex].order,
+                  op.id,
+                  this.questionCount,
+                  op
+                )
+              "
+            >
+              {{ op.option_text }}
+            </button>
+          </div>
+        </div>
 
-    <button mat-raised-button class = "option-btn-style">
-
-    <mat-radio-group required class = "radio-group-style">
-
-    <mat-radio-button
-      class = "radio-option-style"
-
-      [value] = "op.option_text"
-      (click) = "optionClick(this.questionsArray[this.quesIndex].id, this.questionsArray[this.quesIndex].order, op.id, this.questionCount)">{{op.option_text}}
-    </mat-radio-button>
-
-
-    </mat-radio-group>
-
-    </button>
-   </div>
-    </div>
-
-
-      <!--    </div>-->
-<!--      <p></p>-->
-<!--    </ng-container>-->
-    </div>
+        <!--    </div>-->
+        <!--      <p></p>-->
+        <!--    </ng-container>-->
+      </div>
       <!-- HERE, USE THE FOR LOOP TO ADD THE OPTIONS. IN THE CLICK SEND THE OPTION ORDER, OPTION ID, AND QUESTION NUMBER -->
-    <div *ngIf = "op.option_type == 'Slider'">
-<!--      <div class = "col">-->
-<!--     <span *ngFor = "let op of scoreArray"  >{{op}}  </span>-->
-<!--     </div>-->
-      <div class = "row d-flex justify-content-center">
-      <mat-slider
-        tickLabel
-        [value] = "op.option_text"
-        color="accent"
-        min="1"
-        max="10" ></mat-slider>
+      <div *ngIf="op.option_type == 'Slider'">
+        <!--      <div class = "col">-->
+        <!--     <span *ngFor = "let op of scoreArray"  >{{op}}  </span>-->
+        <!--     </div>-->
+        <div class="row d-flex justify-content-center">
+          <mat-slider
+            tickLabel
+            [value]="op.option_text"
+            color="accent"
+            min="1"
+            max="10"
+          ></mat-slider>
+        </div>
+      </div>
+      <div *ngIf="op.option_type == 'Text'">
+        <div class="row d-flex justify-content-center">
+          <mat-form-field>
+            <mat-label class="placeholder">
+              Enter Text
+            </mat-label>
+            <input matInput type="text" />
+          </mat-form-field>
+        </div>
+        <!--      <button class = "btn-style" type = "button" mat-raised-button>-->
+        <!--        Send-->
+        <!--      </button>-->
       </div>
     </div>
-    <div *ngIf = "op.option_type == 'Text'">
-      <div class = "row d-flex justify-content-center">
-      <mat-form-field>
-        <mat-label class = "placeholder">
-          Enter Text
-        </mat-label>
-        <input matInput type = "text">
-      </mat-form-field>
-      </div>
-<!--      <button class = "btn-style" type = "button" mat-raised-button>-->
-<!--        Send-->
-<!--      </button>-->
-    </div>
-    </div>
-<!--  </div>-->
-
+    <!--  </div>-->
   </mat-card>
 </div>
 
-<div *ngIf  = "this.submitPage && !this.resultPage">
+<div *ngIf="this.submitPage && !this.resultPage">
   <mat-card>
-  <div class = "row d-flex justify-content-center">
-    <div class = "col" class = "submit-style">
-      <p>Thank you for your responses.</p>
-      <p>Click on the below button to see the results</p>
-      <div class = "d-flex justify-content-center">
-      <button mat-raised-button class = "btn-style" (click) = "submitTestClick(this.choicesArrayGroup)">Submit Test</button>
+    <div class="row d-flex justify-content-center">
+      <div class="col" class="submit-style">
+        <p>Thank you for your responses.</p>
+        <p>Click on the below button to see the results</p>
+        <div class="d-flex justify-content-center">
+          <button
+            mat-raised-button
+            class="btn-style"
+            (click)="submitTestClick(this.choicesArrayGroup)"
+          >
+            Submit Test
+          </button>
+        </div>
       </div>
     </div>
-  </div>
   </mat-card>
 </div>
 
-<div *ngIf = "this.resultPage && !this.submitPage">
-  <app-questionnaire-result [fromResultHistory] = false [questionnaireName]='questionnaireItem.title'  ></app-questionnaire-result>
-
+<div *ngIf="this.resultPage && !this.submitPage">
+  <app-questionnaire-result
+    [fromResultHistory]="false"
+    [questionnaireName]="questionnaireItem.title"
+  ></app-questionnaire-result>
 </div>

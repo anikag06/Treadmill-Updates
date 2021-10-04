@@ -61,7 +61,7 @@
           </tr>
           <ng-container *ngFor = "let refItem of this.refTableArray">
             <tr class="disorder"  *ngIf="refItem[0].reference_remark !== 'null'">
-              <td colspan="2">{{refItem[0].disorder}}</td>
+              <td class='disorder-data' colspan="2">{{refItem[0].disorder}}</td>
             </tr>
             <tr class="range" *ngFor = "let refEachItem of refItem" >
               <td *ngIf="refEachItem.reference_remark !== 'null'">{{refEachItem.minValue}} - {{refEachItem.maxValue}}</td>
