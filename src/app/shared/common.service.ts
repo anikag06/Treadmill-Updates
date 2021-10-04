@@ -131,6 +131,7 @@ export class CommonService {
     const isEdgeDesktop = /edg/.test(uaString);
     const isEdgeiOS = /edgios/.test(uaString);
     const isEdgeAndroid = /edga/.test(uaString);
+    const isIpad = /crios/.test(uaString);
 
     if (isChrome && isSafari) {
       isSafari = false;
@@ -143,6 +144,10 @@ export class CommonService {
     }
     if (isChrome && isOpera) {
       isChrome = false;
+    }
+    if (isSafari && isIpad) {
+      isChrome = true;
+      isSafari = false;
     }
     return isChrome;
   }
