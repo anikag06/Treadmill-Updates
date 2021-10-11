@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import { QuestionnaireItem } from '@/shared/questionnaire/shared/questionnaire.model';
 import { UsefulListItem } from '@/main/extra-resources/shared/usefulList.model';
 import { QuizService } from '@/shared/questionnaire-deprecated/questionnaire-deprecated.service';
@@ -14,6 +14,8 @@ import { ActivatedRoute, Route, Router } from '@angular/router';
 import { QuestionModel } from '@/shared/questionnaire/shared/question.model';
 import { AuthService } from '@/shared/auth/auth.service';
 import { User } from '@/shared/user.model';
+import { MatSliderChange } from '@angular/material';
+
 
 @Component({
   selector: 'app-questionnaire-item',
@@ -52,7 +54,10 @@ export class QuestionnaireItemComponent implements OnInit {
   tempOptions = ['never', 'rarely', 'sometimes']; // temporary for coding purpose, once api is made, this will be removed
   scoreArray: Options[] = [];
   questionnaireName = '';
-
+  showSlider = false;
+  sliderId!: number;
+  value = 0;
+  textInput!: string;
   constructor(
     private quizService: QuizService,
     private questionnaireService: QuestionnaireService,
@@ -92,13 +97,21 @@ export class QuestionnaireItemComponent implements OnInit {
     this.questionsArray[this.quesIndex].options.forEach((e: any) => {
       this.optionsArray.push(<Options>e);
     });
-
     this.choicesArrayGroup = window.localStorage.getItem(CHOICES_GROUP) // this line before the ? is not compulsory to put.
       ? // If any error, try checking with this, or else remove
         JSON.parse(window.localStorage.getItem(CHOICES_GROUP) || '[]')
       : [];
   }
-  ngOnInit() {}
+  ngOnInit() {
+    console.log('slider', this.showSlider);
+  }
+
+  ngDoCheck() {
+    this.sliderId = this.optionsArray[this.value].id;
+
+    console.log('Docheck',  this.sliderId);
+
+  }
   showTestPage() {
     this.introPage = false;
     this.resultPage = false;
@@ -114,6 +127,7 @@ export class QuestionnaireItemComponent implements OnInit {
   }
 
   forwardArrowClick() {
+    this.value = 0;
     if (this.questionCount + 1 > this.total_questions) {
       this.submitPage = true;
     } else {
@@ -122,6 +136,14 @@ export class QuestionnaireItemComponent implements OnInit {
       localStorage.setItem('qIndex', String(this.quesIndex));
       this.ques = this.questionsArray[this.quesIndex].question; // need to change based on the api
       this.optionsArray = this.questionsArray[this.quesIndex].options;
+      if (this.optionsArray.find(option => option.option_type === 'Text')) {
+        // this.sliderId = this.optionsArray[this.value].id
+        this.showSlider = false;
+        console.log('TEXTBOX VISBLE');
+      } else {
+        this.showSlider = true;
+        console.log('SLIDER VISBLE');
+      }
     }
   }
 
@@ -131,6 +153,8 @@ export class QuestionnaireItemComponent implements OnInit {
     optionIdToSend: number,
     countOfQuestions: number
   ) {
+    console.log('id', this.sliderId);
+    console.log('id:', quesIdToSend, 'order:', quesOrderToSend, 'option id:', optionIdToSend);
     this.choicesArray = {};
     this.choicesArray['question_id'] = quesIdToSend; // how will the option id be called?
     this.choicesArray['question_order'] = quesOrderToSend; //how will the order for the questionnaire be called?
@@ -181,5 +205,27 @@ export class QuestionnaireItemComponent implements OnInit {
       localStorage.removeItem('qIndex');
       localStorage.removeItem('quesData');
     }
+  }
+
+  splitOption(option: any) {
+   let substrings = option.split('-');
+   return substrings;
+  }
+
+  showSliders( quesIdToSend: number,
+               quesOrderToSend: number,
+               optionIdToSend: number,
+               countOfQuestions: number,
+                ) {
+    this.showSlider = true;
+    console.log('id:', quesIdToSend, 'order:', quesOrderToSend, 'option id:', optionIdToSend, 'text input :', this.textInput);
+    this.choicesArray = {};
+    this.choicesArray['question_id'] = quesIdToSend;
+    this.choicesArray['question_order'] = quesOrderToSend;
+    this.choicesArray['option_id'] = optionIdToSend;
+    this.choicesArray['text_input'] = this.textInput;
+  }
+  onInputChange(event: MatSliderChange) {
+  console.log('event', event);
   }
 }

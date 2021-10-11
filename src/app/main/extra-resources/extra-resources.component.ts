@@ -309,7 +309,7 @@ videoClick(videoBeingClicked: VideoItem) {
     this.showUsefulListState = !this.showUsefulListState;
   }
   changeQuesState() {
-    this.goToService.settingsPageTitle.emit('Questionnaire');
+    this.goToService.settingsPageTitle.emit('Questionnaires');
     this.quesExpand = true;
   }
   changeTodoQuesState() {

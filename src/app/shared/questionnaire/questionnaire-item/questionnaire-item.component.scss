@@ -28,11 +28,12 @@
   margin-bottom: 10px;
 }
 .progress-bar-style{
-
+margin-top: 26px;
 }
 .progress-text-style{
   font-size: 12px;
   color: #707070;
+  margin-top:8px;
 }
 
 .instruction-style {
@@ -54,6 +55,11 @@
   font-weight: bold;
   font-size: 20px;
 }
+.ques-style-2{
+  opacity: 60%;
+  font-size: 14px;
+  font-weight: 400;
+}
 
 .radio-option-style {
   text-align: center;
@@ -68,8 +74,54 @@
 .submit-style{
   text-align: center;
 }
-
-
+.mat-slider{
+  width: 80vw;
+}
+.slider-options{
+  display: inline-block;
+  color: #094E8A;
+  opacity: 73%;
+  max-width: 40px;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 8px;
+}
+.slider-numbers{
+  display: block;
+  color: #000000;
+  opacity: 40%;
+  //max-width: 26px;
+  font-size: 14px;
+  //font-weight: 500;
+}
+.vert-line{
+  height: 40px;
+  width: 1px;
+  align-self: center;
+  background-color: #000000;
+  opacity: 40%;
+}
+.text-option {
+  width: 88vw;
+  margin: auto;
+  //border: 1px solid black;
+  }
+.slider{
+  order: 3;
+  display: none;
+}
+.show-slider{
+  order: 3;
+  display: inline-flex;
+  align-self:flex-end;
+}
+.text {
+  order: 1;
+  display: flex;
+}
+.radio{
+  order: 2;
+}
 @media screen and (max-width: 961px) {
   .ques-page {
     height: 100vh;
