@@ -53,10 +53,9 @@ export class QuestionnaireItemComponent implements OnInit {
   choicesArrayGroup: any = [];
   optionType!: string;
   tempNum!: number;
-  tempOptions = ['never', 'rarely', 'sometimes']; // temporary for coding purpose, once api is made, this will be removed
   scoreArray: Options[] = [];
   questionnaireName = '';
-  selectedIndex!: number;
+  selectedIndex = 100;
 
   constructor(
     private quizService: QuizService,
@@ -95,20 +94,42 @@ export class QuestionnaireItemComponent implements OnInit {
     });
     this.total_questions = this.questionnaireItem.questions.length;
     this.ques = this.questionsArray[this.quesIndex].question;
-    this.questionsArray[this.quesIndex].options.forEach((e: any) => {
-      this.optionsArray.push(<Options>e);
-    });
-
     this.choicesArrayGroup = window.localStorage.getItem(CHOICES_GROUP) // this line before the ? is not compulsory to put.
       ? // If any error, try checking with this, or else remove
         JSON.parse(window.localStorage.getItem(CHOICES_GROUP) || '[]')
       : [];
+    // tslint:disable-next-line:prefer-const
+    let choices: number[] = [];
+    if (this.choicesArrayGroup.length > 0) {
+      this.choicesArrayGroup.map((c: any) => {
+        choices.push(c.option_id);
+      });
+    }
+
+    // if (
+    //   localStorage.getItem('testOngoing') !== undefined &&
+    //   localStorage.getItem('testOngoing') === 'yes'
+    // ) {
+    for (let i = 0; i < this.questionsArray.length; i++) {
+      this.questionsArray[i].options.map((e: Options) => {
+        if (choices.length > 0 && choices.includes(e.id)) {
+          e.selected = true;
+        } else {
+          e.selected = false;
+        }
+      });
+    }
+    // }
+    this.questionsArray[this.quesIndex].options.forEach((e: any) => {
+      this.optionsArray.push(<Options>e);
+    });
   }
   ngOnInit() {}
 
   showTestPage() {
     this.introPage = false;
     this.resultPage = false;
+    localStorage.setItem('testOngoing', 'yes');
   }
 
   backArrowClick() {
@@ -123,16 +144,17 @@ export class QuestionnaireItemComponent implements OnInit {
   forwardArrowClick() {
     if (this.questionCount + 1 > this.total_questions) {
       this.submitPage = true;
-    } else if (this.selectedIndex === 10) {
     } else {
       this.questionCount += 1;
       this.quesIndex += 1;
       localStorage.setItem('qIndex', String(this.quesIndex));
-      localStorage.setItem('options', JSON.stringify(this.optionsArray));
+      // localStorage.setItem('options', JSON.stringify(this.optionsArray));
 
       this.ques = this.questionsArray[this.quesIndex].question; // need to change based on the api
       this.optionsArray = this.questionsArray[this.quesIndex].options;
-      // this.selectedIndex = 10;
+      // this.optionsArray.map((e: Options) => {
+      //   e.selected = false;
+      // });
     }
   }
 
@@ -144,7 +166,9 @@ export class QuestionnaireItemComponent implements OnInit {
     option: Options
   ) {
     this.choicesArray = {};
-    // this.selectedIndex = index;
+    this.optionsArray.map((e: Options) => {
+      e.selected = false;
+    });
     option.selected = true;
     this.choicesArray['question_id'] = quesIdToSend; // how will the option id be called?
     this.choicesArray['question_order'] = quesOrderToSend; //how will the order for the questionnaire be called?
@@ -178,8 +202,7 @@ export class QuestionnaireItemComponent implements OnInit {
           this.questionnaireService.passResultData(data);
           this.extraResourcesService.triggerTodoQuestionnaires();
         });
-      localStorage.removeItem('qIndex');
-      localStorage.removeItem('quesData');
+      this.removeLocalData();
     } else {
       this.questionnaireService
         .postChoicesGetResults(
@@ -194,16 +217,15 @@ export class QuestionnaireItemComponent implements OnInit {
           this.resultPage = true;
           this.questionnaireService.passResultData(data);
           this.extraResourcesService.triggerTodoQuestionnaires();
+          this.removeLocalData();
         });
-      localStorage.removeItem('qIndex');
-      localStorage.removeItem('quesData');
     }
   }
-  isSelected(index: number) {
-    console.log(this.choicesArrayGroup);
-    if (this.choicesArrayGroup.length > 0) {
-      return this.choicesArrayGroup[this.quesIndex]['selectedIndex'] === index;
-    }
-    return false;
+  removeLocalData() {
+    localStorage.removeItem('qIndex');
+    localStorage.removeItem('quesData');
+    localStorage.removeItem(CHOICES_GROUP);
+    localStorage.removeItem('testOngoing');
+    localStorage.removeItem('options');
   }
 }

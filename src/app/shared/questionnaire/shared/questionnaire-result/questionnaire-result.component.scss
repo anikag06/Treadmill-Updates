@@ -109,3 +109,11 @@ mat-icon{
   text-align: left;
   height: 26px !important;
 }
+@media screen and (max-width: 500px) {
+  .result-div {
+    width: 100%;
+  }
+  .result-heading{
+    text-align: center;
+  }
+}

@@ -649,3 +649,12 @@ textarea{
     z-index: 1 !important;
   }
 }
+.progress-bar-style .mat-progress-bar-fill::after {
+  background: #2A3B3D;
+}
+.progress-bar-style .mat-progress-bar-buffer{
+background: #cccccc;
+}
+.radio-option-style .mat-radio-container{
+   display: none;
+}

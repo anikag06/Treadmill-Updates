@@ -51,7 +51,7 @@
         >
       </div>
       <div class="col-10 ques-style">{{ this.ques }}</div>
-      <div class="col-1">
+      <div class="col-1 arrow-div">
         <mat-icon
           *ngIf="this.questionCount <= this.total_questions"
           class="forward-arrow-style"
@@ -77,19 +77,25 @@
               [ngStyle]="
                 op.selected
                   ? { 'background-color': '#2a3b3d', color: 'white' }
-                  : { 'background-color': '#F1F9FF', color: '#2a3b3d;' }
-              "
-              (click)="
-                optionClick(
-                  this.questionsArray[this.quesIndex].id,
-                  this.questionsArray[this.quesIndex].order,
-                  op.id,
-                  this.questionCount,
-                  op
-                )
+                  : { 'background-color': '#F1F9FF', color: '#2a3b3d' }
               "
             >
-              {{ op.option_text }}
+              <mat-radio-group required class="">
+                <mat-radio-button
+                  class="radio-option-style"
+                  [value]="op.option_text"
+                  (click)="
+                    optionClick(
+                      this.questionsArray[this.quesIndex].id,
+                      this.questionsArray[this.quesIndex].order,
+                      op.id,
+                      this.questionCount,
+                      op
+                    )
+                  "
+                  >{{ op.option_text }}
+                </mat-radio-button>
+              </mat-radio-group>
             </button>
           </div>
         </div>
