@@ -6,6 +6,7 @@
       <mat-card-title class = "title-style">{{this.questionnaireItem.title}}</mat-card-title>
       </mat-card-header>
     </div>
+  </div>
     <div class="row">
       <div class="col">
         <mat-card-content
@@ -37,11 +38,11 @@
     <p></p>
     <p></p>
   <div class = "row mx-0">
-    <div class = "align-self-center px-0 col-1">
+    <div class = "col-1">
     <mat-icon *ngIf = "this.questionCount > 1" class = "back-arrow-style" (click) = "backArrowClick()">arrow_back_ios</mat-icon>
     </div>
-    <div class = "px-0 col-10 " [innerHTML]="ques"></div>
-    <div class = "align-self-center px-0 col-1">
+    <div class = " col-10 " [innerHTML]="ques"></div>
+    <div class = "arrow-div col-1">
     <mat-icon *ngIf = "this.questionCount <= this.total_questions" class = "forward-arrow-style" (click) = "forwardArrowClick()">arrow_forward_ios</mat-icon>
     </div>
   </div>
@@ -50,27 +51,34 @@
 
     <div class="d-flex flex-wrap justify-content-center">
 
-    <div *ngFor = "let op of optionsArray"  [ngClass]="{ 'radio': op.option_type == 'Radio', 'slider': op.option_type == 'Slider',
+    <div *ngFor = "let op of optionsArray; let i = index"  [ngClass]="{ 'radio': op.option_type == 'Radio', 'slider': op.option_type == 'Slider',
      'show-slider': op.option_type == 'Slider' && showSlider, 'text' :op.option_type == 'Text'}">
+
 <!--      FOR OPTIONS WITH TYPE RADIO-->
     <div  *ngIf = "op.option_type == 'Radio'">
       <div class = "row d-flex justify-content-center" >
     <div class = "btn-group-vertical">
 
-    <button mat-raised-button class = "option-btn-style">
+    <button mat-raised-button class = "option-btn-style"
+            [ngStyle]="op.selected
+                  ? { 'background-color': '#2a3b3d', color: 'white' }
+                  : { 'background-color': '#F1F9FF', color: '#2a3b3d' } ">
 
-    <mat-radio-group required class = "radio-group-style">
-
+    <mat-radio-group required class = "">
     <mat-radio-button
       class = "radio-option-style"
-
       [value] = "op.option_text"
-      (click) = "optionClick(this.questionsArray[this.quesIndex].id, this.questionsArray[this.quesIndex].order, op.id, this.questionCount)">{{op.option_text}}
+      (click) = "
+                optionClick(
+                this.questionsArray[this.quesIndex].id,
+                this.questionsArray[this.quesIndex].order,
+                op.id,
+                this.questionCount,
+                op
+                )"
+                >{{op.option_text}}
     </mat-radio-button>
-
-
     </mat-radio-group>
-
     </button>
    </div>
     </div>
@@ -114,6 +122,8 @@
     </div>
     </div>
     </div>
+
+<!--slider for options with slider    -->
     <div *ngIf="showSlider">
       <div class = "questionnaire-slider ml-4 row" >
         <mat-slider
@@ -127,9 +137,19 @@
          ></mat-slider>
       </div>
     <div class = "d-flex justify-content-end">
-      <button style="margin-top: 16px;" mat-raised-button [disabled]="!value" class="btn-style" (click) = "(optionClick(this.questionsArray[this.quesIndex].id, this.questionsArray[this.quesIndex].order,this.sliderId, this.questionCount))">Next  <img src = "assets/questionnaire/arrow right.svg"> </button>
+      <button style="margin-top: 16px;" mat-raised-button
+              [disabled]="!value"
+              class="btn-style"
+              (click)="(optionClick(
+              this.questionsArray[this.quesIndex].id,
+              this.questionsArray[this.quesIndex].order,
+              this.sliderId,
+              this.questionCount,
+              this.questionsArray[this.quesIndex].options[value]
+              ))">Next  <img src = "assets/questionnaire/arrow right.svg"> </button>
+      </div>
     </div>
-    </div>
+
   </mat-card>
 </div>
 
@@ -140,9 +160,15 @@
       <p>Thank you for your responses.</p>
       <p>Click on the below button to see the results</p>
       <div class = "d-flex justify-content-center">
-      <button mat-raised-button class = "btn-style" (click) = "submitTestClick(this.choicesArrayGroup)">Submit Test</button>
+      <button mat-raised-button
+              class="btn-style"
+              (click)="submitTestClick(this.choicesArrayGroup)
+              ">
+            Submit Test
+      </button>
       </div>
     </div>
+  </div>
   </mat-card>
 </div>
 

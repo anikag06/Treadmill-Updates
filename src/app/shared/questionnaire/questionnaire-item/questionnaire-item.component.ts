@@ -1,5 +1,4 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import { QuestionnaireItem } from '@/shared/questionnaire/shared/questionnaire.model';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { UsefulListItem } from '@/main/extra-resources/shared/usefulList.model';
 import { QuizService } from '@/shared/questionnaire-deprecated/questionnaire-deprecated.service';
 import { CHOICES_GROUP } from '@/app.constants';
@@ -21,7 +20,6 @@ import { MatSliderChange } from '@angular/material';
   styleUrls: ['./questionnaire-item.component.scss'],
 })
 export class QuestionnaireItemComponent implements OnInit {
-  // @Input() questionnaireItem!: QuestionnaireItem; // questionnaire model
   @Input() optionsItem!: Options;
   @Input() usefulItem!: UsefulListItem;
   @Output() quesItemToQues = new EventEmitter<String>();
@@ -80,8 +78,6 @@ export class QuestionnaireItemComponent implements OnInit {
       if (this.quesIndex > 1) {
         this.showTestPage();
         this.questionCount = this.quesIndex + 1;
-        // this.ques = this.questionsArray[this.quesIndex].question; // need to change based on the api
-        // this.optionsArray = this.questionsArray[this.quesIndex].options;
       }
     }
     this.initializeData();
@@ -94,9 +90,6 @@ export class QuestionnaireItemComponent implements OnInit {
     });
     this.total_questions = this.questionnaireItem.questions.length;
     this.ques = this.questionsArray[this.quesIndex].question;
-    this.questionsArray[this.quesIndex].options.forEach((e: any) => {
-      this.optionsArray.push(<Options>e);
-    });
     this.choicesArrayGroup = window.localStorage.getItem(CHOICES_GROUP) // this line before the ? is not compulsory to put.
       ? // If any error, try checking with this, or else remove
         JSON.parse(window.localStorage.getItem(CHOICES_GROUP) || '[]')
@@ -161,7 +154,6 @@ export class QuestionnaireItemComponent implements OnInit {
       this.ques = this.questionsArray[this.quesIndex].question; // need to change based on the api
       this.optionsArray = this.questionsArray[this.quesIndex].options;
       if (this.optionsArray.find(option => option.option_type === 'Text')) {
-        // this.sliderId = this.optionsArray[this.value].id
         this.showSlider = false;
         console.log('TEXTBOX VISBLE');
       } else {
@@ -178,8 +170,6 @@ export class QuestionnaireItemComponent implements OnInit {
     countOfQuestions: number,
     option: Options
   ) {
-    console.log('id', this.sliderId);
-    console.log('id:', quesIdToSend, 'order:', quesOrderToSend, 'option id:', optionIdToSend);
     this.choicesArray = {};
     this.optionsArray.map((e: Options) => {
       e.selected = false;
@@ -234,6 +224,9 @@ export class QuestionnaireItemComponent implements OnInit {
           this.extraResourcesService.triggerTodoQuestionnaires();
           this.removeLocalData();
         });
+    }
+    if (this.showSlider) {
+      this.showSlider = false;
     }
   }
   removeLocalData() {
