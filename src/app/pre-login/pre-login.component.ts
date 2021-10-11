@@ -13,8 +13,8 @@ import {
 } from '@/app.constants';
 
 import { MatLoginDialogComponent } from '@/pre-login/login/mat-login-dialog/mat-login-dialog.component';
-import {QuestionnaireService} from "@/shared/questionnaire/questionnaire.service";
-import {QuestionnaireItem} from "@/shared/questionnaire/shared/questionnaire.model";
+import { QuestionnaireService } from '@/shared/questionnaire/questionnaire.service';
+import { QuestionnaireItem } from '@/shared/questionnaire/shared/questionnaire.model';
 
 @Component({
   selector: 'app-pre-login',
@@ -35,7 +35,7 @@ export class PreLoginComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private questionnaireService: QuestionnaireService,
+    private questionnaireService: QuestionnaireService
   ) {}
 
   ngOnInit() {
@@ -68,7 +68,7 @@ export class PreLoginComponent implements OnInit {
 
   onLoginClicked() {
     this.showLoginSignupDialogService.broadcastLoginClicked(
-      MatLoginDialogComponent,
+      MatLoginDialogComponent
     );
   }
 
@@ -80,9 +80,7 @@ export class PreLoginComponent implements OnInit {
     this.showLoginSignupDialogService.joinStudyClicked();
   }
 
-  onPreLoginQuestionnaireShow() {
-
-  }
+  onPreLoginQuestionnaireShow() {}
 
   onWorkWithUsClicked() {
     const url =
@@ -98,7 +96,7 @@ export class PreLoginComponent implements OnInit {
     this.router.navigate(['trial/terms-and-conditions']);
   }
 
-  questionnaireClicked(){
-    this.router.navigate(['questionnaire-list' ]);
+  questionnaireClicked() {
+    this.router.navigate(['questionnaires']);
   }
 }

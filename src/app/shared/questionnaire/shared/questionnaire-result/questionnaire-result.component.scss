@@ -43,19 +43,23 @@
   height: 42px;
   padding-left: 20px;
   padding-right: 20px;
+  text-align: center;
 }
-.table-style tr:nth-child(even) {
-  background-color: #fff;
-
-}
-.table-style tr:nth-child(odd) {
-  background-color: #eee;
-
+table.table-style{
+  border-radius: 4px 4px 0px 0px;
+  border-style: hidden;
+  box-shadow: 0 0 0 1px #666;
+  border-collapse: collapse;
 }
 .table-style th{
-  background-color: #000000DE;
+  background-color: #2a3b3d;
   color: white;
 }
+
+.table-style td{
+  height: 36px;
+}
+
 .btn-style{
   font-size: 14px;
   font-family: Roboto;
@@ -95,4 +99,21 @@ mat-icon{
 }
 .disorder-name{
   font-weight: 600;
+}
+.disorder{
+  background: #E6E6E6 0% 0% no-repeat padding-box;
+}
+.disorder-data{
+  opacity: 0.4;
+  font-size: 12px;
+  text-align: left;
+  height: 26px !important;
+}
+@media screen and (max-width: 500px) {
+  .result-div {
+    width: 100%;
+  }
+  .result-heading{
+    text-align: center;
+  }
 }

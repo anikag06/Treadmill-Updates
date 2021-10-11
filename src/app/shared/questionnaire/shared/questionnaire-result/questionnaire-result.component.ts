@@ -7,6 +7,7 @@ import { AuthService } from '@/shared/auth/auth.service';
 import { MatSnackBar } from '@angular/material';
 import { saveAs } from 'file-saver';
 import { Subscription } from 'rxjs';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-questionnaire-result',
@@ -23,7 +24,7 @@ export class QuestionnaireResultComponent implements OnInit {
   disorderArray: any = [];
   todayDate = moment().format('DD-MM-YYYY').toString();
   @ViewChild('result', { static: false }) pdfTable!: ElementRef;
-  email = '';
+  email = new FormControl('');
   @Input() questionnaireName!: string;
   showLoading = false;
   user!: User;
@@ -37,6 +38,7 @@ export class QuestionnaireResultComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.user = <User>this.authService.isLoggedIn();
     if (!this.fromResultHistory) {
       this.sendResultEventSubscription = this.questionnaireService.sendResultEvent.subscribe(
         (data: any) => {
@@ -68,7 +70,7 @@ export class QuestionnaireResultComponent implements OnInit {
   }
 
   checkScoreType(score: any) {
-    if ( /^[0-9]+$/.test(score)) {
+    if (/^[0-9]+$/.test(score)) {
       return true;
     } else {
       return false;
@@ -99,12 +101,14 @@ export class QuestionnaireResultComponent implements OnInit {
   sendEmail(): void {
     const html = this.pdfTable.nativeElement.innerHTML;
     this.showLoading = true;
+    let username: any;
+    username = this.user === null ? null : this.user.username;
     this.questionnaireService
       .postEmailResult(
-        this.email,
+        String(this.email.value),
         html,
         this.questionnaireName,
-        this.user.username
+        username
       )
       .subscribe((resp: any) => {
         this.showLoading = false;

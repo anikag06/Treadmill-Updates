@@ -7,14 +7,19 @@ import { AuthGuard } from './shared/auth/auth.guard';
 import { SignUpComponent } from '@/pre-login/signup/signup.component';
 import { TempLandingPageComponent } from '@/temp-landing-page/temp-landing-page.component';
 import { ResetPasswordComponent } from '@/pre-login/reset-password/reset-password.component';
-import {QuestionnaireContainerModule} from '@/questionnaire-container.module';
-import {QuestionnaireContainerComponent} from '@/shared/questionnaire-container/questionnaire-container.component';
+import { QuestionnaireContainerModule } from '@/questionnaire-container.module';
+import { QuestionnaireContainerComponent } from '@/shared/questionnaire-container/questionnaire-container.component';
 
 export const routes: Routes = [
-   { path: '', redirectTo: 'landing', pathMatch: 'full' },
-  { path: 'questionnaire-list', pathMatch: 'full',
-     loadChildren: () => import('./questionnaire-container.module').then(m => m.QuestionnaireContainerModule),
-    },
+  { path: '', redirectTo: 'landing', pathMatch: 'full' },
+  {
+    path: 'questionnaires',
+    pathMatch: 'full',
+    loadChildren: () =>
+      import('./questionnaire-container.module').then(
+        (m) => m.QuestionnaireContainerModule
+      ),
+  },
   {
     path: 'landing',
     component: PreLoginComponent,
@@ -42,7 +47,7 @@ export const routes: Routes = [
 
   {
     path: 'main',
-    loadChildren: () => import('./main/main.module').then(m => m.MainModule),
+    loadChildren: () => import('./main/main.module').then((m) => m.MainModule),
     data: { preload: true },
     canActivateChild: [AuthGuard],
   },
@@ -50,13 +55,11 @@ export const routes: Routes = [
     path: 'trial',
     loadChildren: () =>
       import('./trial-registration/trial-registration.module').then(
-        m => m.TrialRegistrationModule,
+        (m) => m.TrialRegistrationModule
       ),
   },
   { path: 'iitk', component: TempLandingPageComponent },
   { path: '**', component: NotFoundComponent },
-
-
 ];
 
 @NgModule({

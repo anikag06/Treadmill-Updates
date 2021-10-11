@@ -2,15 +2,13 @@ import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} f
 import { QuestionnaireItem } from '@/shared/questionnaire/shared/questionnaire.model';
 import { UsefulListItem } from '@/main/extra-resources/shared/usefulList.model';
 import { QuizService } from '@/shared/questionnaire-deprecated/questionnaire-deprecated.service';
-import { environment } from '../../../../environments/environment';
-import { CHOICES_GROUP, GET_PHQ_QUESTIONS } from '@/app.constants';
+import { CHOICES_GROUP } from '@/app.constants';
 import { Quiz } from '@/shared/questionnaire-deprecated/input/quiz';
-import { element } from 'protractor';
 import { Options } from '@/shared/questionnaire/shared/options.model';
 import { QuestionnaireService } from '@/shared/questionnaire/questionnaire.service';
 import { Result } from '@/shared/questionnaire/shared/result.model';
 import { ExtraResourcesService } from '@/main/extra-resources/extra-resources.service';
-import { ActivatedRoute, Route, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { QuestionModel } from '@/shared/questionnaire/shared/question.model';
 import { AuthService } from '@/shared/auth/auth.service';
 import { User } from '@/shared/user.model';
@@ -51,20 +49,22 @@ export class QuestionnaireItemComponent implements OnInit {
   choicesArrayGroup: any = [];
   optionType!: string;
   tempNum!: number;
-  tempOptions = ['never', 'rarely', 'sometimes']; // temporary for coding purpose, once api is made, this will be removed
   scoreArray: Options[] = [];
   questionnaireName = '';
   showSlider = false;
   sliderId!: number;
   value = 0;
   textInput!: string;
+  selectedIndex = 100;
+
   constructor(
     private quizService: QuizService,
     private questionnaireService: QuestionnaireService,
     private extraResourcesService: ExtraResourcesService,
     private activateRoutes: ActivatedRoute,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private element: ElementRef
   ) {
     // tslint:disable-next-line:no-non-null-assertion
     if (this.router.getCurrentNavigation()!.extras.state !== undefined) {
@@ -101,20 +101,42 @@ export class QuestionnaireItemComponent implements OnInit {
       ? // If any error, try checking with this, or else remove
         JSON.parse(window.localStorage.getItem(CHOICES_GROUP) || '[]')
       : [];
+    // tslint:disable-next-line:prefer-const
+    let choices: number[] = [];
+    if (this.choicesArrayGroup.length > 0) {
+      this.choicesArrayGroup.map((c: any) => {
+        choices.push(c.option_id);
+      });
+    }
+
+    // if (
+    //   localStorage.getItem('testOngoing') !== undefined &&
+    //   localStorage.getItem('testOngoing') === 'yes'
+    // ) {
+    for (let i = 0; i < this.questionsArray.length; i++) {
+      this.questionsArray[i].options.map((e: Options) => {
+        if (choices.length > 0 && choices.includes(e.id)) {
+          e.selected = true;
+        } else {
+          e.selected = false;
+        }
+      });
+    }
+    // }
+    this.questionsArray[this.quesIndex].options.forEach((e: any) => {
+      this.optionsArray.push(<Options>e);
+    });
   }
   ngOnInit() {
-    console.log('slider', this.showSlider);
   }
 
   ngDoCheck() {
     this.sliderId = this.optionsArray[this.value].id;
-
-    console.log('Docheck',  this.sliderId);
-
   }
   showTestPage() {
     this.introPage = false;
     this.resultPage = false;
+    localStorage.setItem('testOngoing', 'yes');
   }
 
   backArrowClick() {
@@ -134,6 +156,8 @@ export class QuestionnaireItemComponent implements OnInit {
       this.questionCount += 1;
       this.quesIndex += 1;
       localStorage.setItem('qIndex', String(this.quesIndex));
+      // localStorage.setItem('options', JSON.stringify(this.optionsArray));
+
       this.ques = this.questionsArray[this.quesIndex].question; // need to change based on the api
       this.optionsArray = this.questionsArray[this.quesIndex].options;
       if (this.optionsArray.find(option => option.option_type === 'Text')) {
@@ -151,14 +175,20 @@ export class QuestionnaireItemComponent implements OnInit {
     quesIdToSend: number,
     quesOrderToSend: number,
     optionIdToSend: number,
-    countOfQuestions: number
+    countOfQuestions: number,
+    option: Options
   ) {
     console.log('id', this.sliderId);
     console.log('id:', quesIdToSend, 'order:', quesOrderToSend, 'option id:', optionIdToSend);
     this.choicesArray = {};
+    this.optionsArray.map((e: Options) => {
+      e.selected = false;
+    });
+    option.selected = true;
     this.choicesArray['question_id'] = quesIdToSend; // how will the option id be called?
     this.choicesArray['question_order'] = quesOrderToSend; //how will the order for the questionnaire be called?
     this.choicesArray['option_id'] = optionIdToSend; // how will question id be called?
+    // this.choicesArray['selectedIndex'] = index;
     this.choicesArrayGroup[countOfQuestions - 1] = this.choicesArray;
     window.localStorage.setItem(
       CHOICES_GROUP,
@@ -187,6 +217,7 @@ export class QuestionnaireItemComponent implements OnInit {
           this.questionnaireService.passResultData(data);
           this.extraResourcesService.triggerTodoQuestionnaires();
         });
+      this.removeLocalData();
     } else {
       this.questionnaireService
         .postChoicesGetResults(
@@ -201,10 +232,16 @@ export class QuestionnaireItemComponent implements OnInit {
           this.resultPage = true;
           this.questionnaireService.passResultData(data);
           this.extraResourcesService.triggerTodoQuestionnaires();
+          this.removeLocalData();
         });
-      localStorage.removeItem('qIndex');
-      localStorage.removeItem('quesData');
     }
+  }
+  removeLocalData() {
+    localStorage.removeItem('qIndex');
+    localStorage.removeItem('quesData');
+    localStorage.removeItem(CHOICES_GROUP);
+    localStorage.removeItem('testOngoing');
+    localStorage.removeItem('options');
   }
 
   splitOption(option: any) {
