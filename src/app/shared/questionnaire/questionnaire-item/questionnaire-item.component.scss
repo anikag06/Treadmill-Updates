@@ -14,7 +14,9 @@
 
 }
 .ques-page {
-  height: 75vh;
+  min-height: 75vh;
+  height: 100%;
+  padding: 16px;
 }
 .option-btn-style{
   //background: #F1F9FF 0% 0% no-repeat padding-box;
@@ -92,36 +94,36 @@ margin-top: 26px;
   display: none;
 }
 .mat-slider{
-  width: 80vw;
+  width: 500px;
 }
 .slider-options{
   display: inline-block;
   color: #094E8A;
   opacity: 73%;
-  max-width: 40px;
+  max-width: 60px;
   font-size: 14px;
   font-weight: 500;
-  margin: 8px;
+  margin: 2%;
+  text-align: center;
+  flex-grow: 2;
 }
 .slider-numbers{
   display: block;
   color: #000000;
   opacity: 40%;
-  //max-width: 26px;
   font-size: 14px;
-  //font-weight: 500;
 }
 .vert-line{
-  height: 40px;
+  height: 20px;
+  margin: 4px;
   width: 1px;
   align-self: center;
   background-color: #000000;
   opacity: 40%;
 }
 .text-option {
-  width: 88vw;
+  width: 550px;
   margin: auto;
-  //border: 1px solid black;
   }
 .slider{
   order: 3;
@@ -139,13 +141,33 @@ margin-top: 26px;
 .radio{
   order: 2;
 }
+.col-width{
+  width:550px;
+}
 @media screen and (max-width: 961px) {
   .ques-page {
-    height: 100vh;
+    min-height: 100vh;
+    height: 100%;
+  }
+  .text-option {
+    width: 400px;
+    margin: auto;
+  }
+  .col-width{
+    width:400px;
+  }
+  .mat-slider{
+    width: 360px;
   }
 }
 
 @media screen and (max-width: 500px) {
+  .ques-page {
+    min-height: 100vh;
+    height: 100%;
+    box-shadow: none;
+    padding: 0;
+  }
   .back-arrow-style {
     font-size: 16px;
     margin-top: 20px;
@@ -154,9 +176,7 @@ margin-top: 26px;
   .forward-arrow-style {
     font-size: 16px;
     margin-top: 20px;
-
   }
-
   .progress-bar-style {
     margin-top: 10px;
     height: 6px;
@@ -166,5 +186,23 @@ margin-top: 26px;
   .arrow-div{
     right: 5px;
     position: absolute;
+  }
+  .text-option {
+    width: 90vw;
+    margin: auto;
+  }
+  .slider-options{
+    font-size: 11px;
+    margin: 6px;
+    max-width: 45px;
+  }
+  .slider-numbers{
+    font-size: 12px;
+  }
+  .col-width{
+    width:90vw;
+  }
+  .mat-slider{
+    width: 81vw;
   }
 }

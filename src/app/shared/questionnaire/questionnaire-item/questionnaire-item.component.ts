@@ -54,6 +54,7 @@ export class QuestionnaireItemComponent implements OnInit {
   value = 0;
   textInput!: string;
   selectedIndex = 100;
+  textboxOption = false;
 
   constructor(
     private quizService: QuizService,
@@ -118,6 +119,7 @@ export class QuestionnaireItemComponent implements OnInit {
     // }
     this.questionsArray[this.quesIndex].options.forEach((e: any) => {
       this.optionsArray.push(<Options>e);
+      this.checkOptionType();
     });
   }
   ngOnInit() {
@@ -153,14 +155,8 @@ export class QuestionnaireItemComponent implements OnInit {
 
       this.ques = this.questionsArray[this.quesIndex].question; // need to change based on the api
       this.optionsArray = this.questionsArray[this.quesIndex].options;
-      if (this.optionsArray.find(option => option.option_type === 'Text')) {
-        this.showSlider = false;
-        console.log('TEXTBOX VISBLE');
-      } else {
-        this.showSlider = true;
-        console.log('SLIDER VISBLE');
-      }
     }
+    this.checkOptionType();
   }
 
   optionClick(
@@ -179,18 +175,19 @@ export class QuestionnaireItemComponent implements OnInit {
     this.choicesArray['question_order'] = quesOrderToSend; //how will the order for the questionnaire be called?
     this.choicesArray['option_id'] = optionIdToSend; // how will question id be called?
     // this.choicesArray['selectedIndex'] = index;
-    this.choicesArrayGroup[countOfQuestions - 1] = this.choicesArray;
+    this.choicesArrayGroup.push(this.choicesArray);
     window.localStorage.setItem(
       CHOICES_GROUP,
       JSON.stringify(this.choicesArrayGroup)
     );
-
+    console.log('CHOICES ARRAY ON OPTION CLICK', this.choicesArrayGroup);
     if (countOfQuestions <= this.total_questions) {
       this.forwardArrowClick();
     }
   }
 
   submitTestClick(groupOfChoiceArray: []) {
+    console.log('on SUBMIT', groupOfChoiceArray);
     if (this.user.username !== null) {
       const ipNull = null;
       this.questionnaireService
@@ -253,9 +250,21 @@ export class QuestionnaireItemComponent implements OnInit {
     this.choicesArray['question_id'] = quesIdToSend;
     this.choicesArray['question_order'] = quesOrderToSend;
     this.choicesArray['option_id'] = optionIdToSend;
-    this.choicesArray['text_input'] = this.textInput;
+    this.choicesArray['option_text'] = this.textInput;
+    this.choicesArrayGroup.push(this.choicesArray);
+    console.log('CHOICES ARRAY', this.choicesArrayGroup);
   }
   onInputChange(event: MatSliderChange) {
   console.log('event', event);
+  }
+
+  checkOptionType() {
+    if (this.optionsArray.find(option => option.option_type === 'Text')) {
+      this.textboxOption = true;
+      this.showSlider = false;
+    } else if (this.optionsArray.find(option => option.option_type === 'Slider')) {
+      this.showSlider = true;
+      this.textboxOption = false;
+    }
   }
 }

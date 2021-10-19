@@ -1,5 +1,7 @@
 <div *ngIf = "this.introPage && !this.resultPage && !this.submitPage">
-  <mat-card class="ques-page">
+  <mat-card class="ques-page" style="margin-top: 30px">
+    <div class="row mx-auto justify-content-center">
+      <div class="col-10 my-auto">
   <div class = "row">
     <div class = "col">
       <mat-card-header class = "d-flex justify-content-center">
@@ -20,13 +22,15 @@
         Start Test
       </button>
     </div>
+      </div>
+    </div>
   </mat-card>
 </div>
 
 
 
 <div *ngIf = "!this.introPage && !this.resultPage && !this.submitPage">
-  <mat-card class="ques-page px-0" style="box-shadow: none">
+  <mat-card class="ques-page" >
     <mat-progress-bar class = "progress-bar-style" [value] = "((this.questionCount)/this.total_questions)*100"></mat-progress-bar>
 
     <div class = "row d-flex justify-content-flex-end progress-text-style">
@@ -49,8 +53,9 @@
     <p></p>
     <p></p>
 
-    <div class="d-flex flex-wrap justify-content-center">
-
+    <div class="col-width mx-auto d-flex justify-content-around flex-wrap"   [ngStyle]="showSlider || textboxOption
+                  ? { 'flex-direction': 'row'}
+                  : { 'flex-direction': 'column'} ">
     <div *ngFor = "let op of optionsArray; let i = index"  [ngClass]="{ 'radio': op.option_type == 'Radio', 'slider': op.option_type == 'Slider',
      'show-slider': op.option_type == 'Slider' && showSlider, 'text' :op.option_type == 'Text'}">
 
@@ -111,9 +116,9 @@
 
 <!--  FOR OPTIONS WITH TYPE SLIDER-->
     <div *ngIf = "op.option_type == 'Slider'">
-      <div class = "flex-column-reverse">
+      <div class = "flex-column-reverse" style="margin-top: 50px;">
 
-        <div *ngIf="splitOption( op.option_text)[1]"  class = "slider-options">{{splitOption( op.option_text)[1]}} </div>
+        <div *ngIf="splitOption( op.option_text)[1]"  class = "d-flex slider-options">{{splitOption( op.option_text)[1]}} </div>
         <div *ngIf="splitOption( op.option_text)[1]" class="vert-line mx-auto "> </div>
         <div class = "slider-numbers text-center ">
         {{splitOption( op.option_text)[0]}}
@@ -123,9 +128,9 @@
     </div>
     </div>
 
-<!--slider for options with slider    -->
-    <div *ngIf="showSlider">
-      <div class = "questionnaire-slider ml-4 row" >
+<!--for showing slider for options with slider    -->
+    <div class="col-width px-0 col-sm-12 col-md-10 mx-auto "*ngIf="showSlider">
+      <div class = "d-flex justify-content-center questionnaire-slider row" >
         <mat-slider
           thumbLabel
           step="1"
@@ -137,7 +142,7 @@
          ></mat-slider>
       </div>
     <div class = "d-flex justify-content-end">
-      <button style="margin-top: 16px;" mat-raised-button
+      <button style="margin-top: 50px;" mat-raised-button
               [disabled]="!value"
               class="btn-style"
               (click)="(optionClick(
@@ -154,7 +159,7 @@
 </div>
 
 <div *ngIf  = "this.submitPage && !this.resultPage">
-  <mat-card class="ques-page">
+  <mat-card class="ques-page" style="margin-top: 30px">
   <div class = "row d-flex justify-content-center">
     <div class = "col" class = "submit-style">
       <p>Thank you for your responses.</p>
