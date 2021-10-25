@@ -73,6 +73,7 @@ import { QuestionnaireResultComponent } from '@/shared/questionnaire/shared/ques
     SanitizedHtmlPipe,
     StepCompletedComponent,
     QuestionnaireComponent,
+    QuestionnaireResultComponent,
     // QuestionnaireContainerComponent,
   ],
   entryComponents: [

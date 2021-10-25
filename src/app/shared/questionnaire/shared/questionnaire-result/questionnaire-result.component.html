@@ -12,7 +12,8 @@
   >Hide result <img src="assets/icons/arrow.svg" class="see-all-icon-down"
   /></a>
 </span>
-<mat-card *ngIf = "!fromResultHistory || showResultComponent" >
+<div class='container-div'>
+<mat-card  *ngIf = "!fromResultHistory || showResultComponent" >
   <div class="container" id="result" #result>
     <div class="row float-right date mt-2">Date - {{ todayDate }}</div>
     <div class = "row result-div">
@@ -27,7 +28,6 @@
             <div>
               <b>{{resultEachItem.disorder}} Score : </b>
             </div>
-            <br />
             <div class="score">
               {{resultEachItem.user_score}}/{{resultEachItem.total_score}}
             </div>
@@ -98,7 +98,7 @@
         <input matInput type="email" [formControl]="email" required />
       </mat-form-field>
       <button
-        class="btn-style ml-4"
+        [ngClass]="showLoading ? 'btn-style ml-2' : 'btn-style-margin'"
         type="button"
         mat-raised-button
         (click)="sendEmail()"
@@ -116,3 +116,4 @@
     </div>
   </div>
 </mat-card>
+</div>

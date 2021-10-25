@@ -1,4 +1,4 @@
-<div *ngIf="this.introPage && !this.resultPage && !this.submitPage">
+<div class='container-div' *ngIf="this.introPage && !this.resultPage && !this.submitPage">
   <mat-card>
     <div class="row">
       <div class="col">
@@ -25,7 +25,7 @@
   </mat-card>
 </div>
 
-<div *ngIf="!this.introPage && !this.resultPage && !this.submitPage">
+<div class='container-div' *ngIf="!this.introPage && !this.resultPage && !this.submitPage">
   <mat-progress-bar
     class="progress-bar-style"
     [value]="(this.questionCount / this.total_questions) * 100"
@@ -137,7 +137,7 @@
   </mat-card>
 </div>
 
-<div *ngIf="this.submitPage && !this.resultPage">
+<div class='container-div' *ngIf="this.submitPage && !this.resultPage">
   <mat-card>
     <div class="row d-flex justify-content-center">
       <div class="col" class="submit-style">

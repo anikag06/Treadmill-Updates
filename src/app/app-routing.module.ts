@@ -9,12 +9,12 @@ import { TempLandingPageComponent } from '@/temp-landing-page/temp-landing-page.
 import { ResetPasswordComponent } from '@/pre-login/reset-password/reset-password.component';
 import { QuestionnaireContainerModule } from '@/questionnaire-container.module';
 import { QuestionnaireContainerComponent } from '@/shared/questionnaire-container/questionnaire-container.component';
+import { QuestionnaireItemComponent } from '@/shared/questionnaire/questionnaire-item/questionnaire-item.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'landing', pathMatch: 'full' },
   {
     path: 'questionnaires',
-    pathMatch: 'full',
     loadChildren: () =>
       import('./questionnaire-container.module').then(
         (m) => m.QuestionnaireContainerModule
@@ -37,7 +37,12 @@ export const routes: Routes = [
     component: SignUpComponent,
     pathMatch: 'prefix',
   },
-
+  {
+    path: 'questionnaireItem/:id',
+    component: QuestionnaireItemComponent,
+    pathMatch: 'prefix',
+    data: { registered_user: false },
+  },
   {
     path: 'reset/password/:unique-code',
     component: ResetPasswordComponent,
