@@ -1,4 +1,4 @@
-<div *ngIf = "this.introPage && !this.resultPage && !this.submitPage">
+<div class='container-div' *ngIf="this.introPage && !this.resultPage && !this.submitPage">
   <mat-card class="ques-page" style="padding-top: 10vh">
     <div class="row mx-auto justify-content-center">
       <div class="col-10 my-auto">
@@ -27,12 +27,9 @@
   </mat-card>
 </div>
 
-
-
-<div *ngIf = "!this.introPage && !this.resultPage && !this.submitPage">
+<div class='container-div' *ngIf="!this.introPage && !this.resultPage && !this.submitPage">
   <mat-card class="ques-page" >
     <mat-progress-bar class = "progress-bar-style" [value] = "((this.questionCount)/this.total_questions)*100"></mat-progress-bar>
-
     <div class = "row d-flex justify-content-flex-end progress-text-style">
       <div class = "col ">Question {{this.questionCount}} of {{this.total_questions}}</div>
     </div>
@@ -158,7 +155,7 @@
   </mat-card>
 </div>
 
-<div *ngIf  = "this.submitPage && !this.resultPage">
+<div class='container-div' *ngIf="this.submitPage && !this.resultPage">
   <mat-card class="ques-page" style="padding-top: 20vh">
   <div class = "row d-flex justify-content-center">
     <div class = "col" class = "submit-style">

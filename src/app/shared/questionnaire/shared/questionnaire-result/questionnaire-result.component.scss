@@ -69,8 +69,23 @@ table.table-style{
   background-color: #2a3b3d;
   text-align: center;
   justify-content: center;
-  margin-left: 30px ;
+  padding: 0px 12px;
+  //margin-left: 30px ;
 }
+.btn-style-margin{
+  font-size: 14px;
+  font-family: Roboto;
+  width: auto;
+  color: white;
+  background-color: #2a3b3d;
+  text-align: center;
+  justify-content: center;
+  margin-left: 16px ;
+  padding: 0px 12px;
+}
+
+
+
 .email-style{
   cursor: pointer;
 }
@@ -117,4 +132,10 @@ mat-icon{
   .result-heading{
     text-align: center;
   }
+}
+
+.container-div{
+  background-color: #faf4ea;
+  //height: 100vh;
+  height: 100vh;
 }

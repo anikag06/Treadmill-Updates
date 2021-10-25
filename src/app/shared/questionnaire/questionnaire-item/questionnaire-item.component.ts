@@ -12,6 +12,8 @@ import { QuestionModel } from '@/shared/questionnaire/shared/question.model';
 import { AuthService } from '@/shared/auth/auth.service';
 import { User } from '@/shared/user.model';
 import { MatSliderChange } from '@angular/material';
+import { HttpClient } from '@angular/common/http';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -55,6 +57,8 @@ export class QuestionnaireItemComponent implements OnInit {
   nextBtn = false;
   textInput!: string;
   selectedIndex = 100;
+  sub!: Subscription;
+  showBackground = false;
   textboxOption = false;
 
   constructor(
@@ -64,7 +68,9 @@ export class QuestionnaireItemComponent implements OnInit {
     private activateRoutes: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
-    private element: ElementRef
+    private element: ElementRef,
+    private http: HttpClient,
+    private route: ActivatedRoute
   ) {
     // tslint:disable-next-line:no-non-null-assertion
     if (this.router.getCurrentNavigation()!.extras.state !== undefined) {
@@ -87,43 +93,46 @@ export class QuestionnaireItemComponent implements OnInit {
 
   initializeData() {
     this.user = <User>this.authService.isLoggedIn();
-    this.questionnaireItem.questions.forEach((element: any) => {
-      this.questionsArray.push(<QuestionModel>element);
-    });
-    this.total_questions = this.questionnaireItem.questions.length;
-    this.ques = this.questionsArray[this.quesIndex].question;
-    this.choicesArrayGroup = window.localStorage.getItem(CHOICES_GROUP) // this line before the ? is not compulsory to put.
-      ? // If any error, try checking with this, or else remove
-        JSON.parse(window.localStorage.getItem(CHOICES_GROUP) || '[]')
-      : [];
-    // tslint:disable-next-line:prefer-const
-    let choices: number[] = [];
-    if (this.choicesArrayGroup.length > 0) {
-      this.choicesArrayGroup.map((c: any) => {
-        choices.push(c.option_id);
+    if (this.questionnaireItem) {
+      this.questionnaireItem.questions.forEach((element: any) => {
+        this.questionsArray.push(<QuestionModel>element);
       });
-    }
-
-    // if (
-    //   localStorage.getItem('testOngoing') !== undefined &&
-    //   localStorage.getItem('testOngoing') === 'yes'
-    // ) {
-    for (let i = 0; i < this.questionsArray.length; i++) {
-      this.questionsArray[i].options.map((e: Options) => {
-        if (choices.length > 0 && choices.includes(e.id)) {
-          e.selected = true;
-        } else {
-          e.selected = false;
-        }
+      this.total_questions = this.questionnaireItem.questions.length;
+      this.ques = this.questionsArray[this.quesIndex].question;
+      this.choicesArrayGroup = window.localStorage.getItem(CHOICES_GROUP) // this line before the ? is not compulsory to put.
+        ? // If any error, try checking with this, or else remove
+          JSON.parse(window.localStorage.getItem(CHOICES_GROUP) || '[]')
+        : [];
+      // tslint:disable-next-line:prefer-const
+      let choices: number[] = [];
+      if (this.choicesArrayGroup.length > 0) {
+        this.choicesArrayGroup.map((c: any) => {
+          choices.push(c.option_id);
+        });
+      }
+      for (let i = 0; i < this.questionsArray.length; i++) {
+        this.questionsArray[i].options.map((e: Options) => {
+          if (choices.length > 0 && choices.includes(e.id)) {
+            e.selected = true;
+          } else {
+            e.selected = false;
+          }
+        });
+      }
+      // }
+      this.questionsArray[this.quesIndex].options.forEach((e: any) => {
+        this.optionsArray.push(<Options>e);
       });
+    } else {
+      if (this.user) {
+        this.router.navigate(['/main/extra-resources']);
+      } else {
+        this.router.navigate(['questionnaires']);
+      }
     }
-    // }
-    this.questionsArray[this.quesIndex].options.forEach((e: any) => {
-      this.optionsArray.push(<Options>e);
-      this.checkOptionType();
-    });
   }
   ngOnInit() {
+    this.getIPAddress();
     this.questionnaireName = this.questionnaireItem.title;
   }
 
@@ -194,8 +203,7 @@ export class QuestionnaireItemComponent implements OnInit {
   }
 
   submitTestClick(groupOfChoiceArray: []) {
-    console.log('on SUBMIT', groupOfChoiceArray);
-    if (this.user.username !== null) {
+    if (this.user !== undefined) {
       const ipNull = null;
       this.questionnaireService
         .postChoicesGetResults(
@@ -216,7 +224,7 @@ export class QuestionnaireItemComponent implements OnInit {
       this.questionnaireService
         .postChoicesGetResults(
           this.questionnaireItem.id,
-          this.user.username,
+          null,
           this.ip_add,
           this.questionnaireItem.order,
           groupOfChoiceArray
@@ -239,6 +247,18 @@ export class QuestionnaireItemComponent implements OnInit {
     localStorage.removeItem(CHOICES_GROUP);
     localStorage.removeItem('testOngoing');
     localStorage.removeItem('options');
+  }
+
+  getIPAddress() {
+    this.http.get('http://api.ipify.org/?format=json').subscribe((res: any) => {
+      this.ip_add = res.ip;
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.sub) {
+      this.sub.unsubscribe();
+    }
   }
 
   splitOption(option: any) {

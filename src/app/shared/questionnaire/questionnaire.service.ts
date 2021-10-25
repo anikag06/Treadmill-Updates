@@ -38,7 +38,7 @@ export class QuestionnaireService {
 
   postChoicesGetResults(
     questionnaire_id: number,
-    username: string,
+    username: any,
     ip_address: any,
     questionnaire_order: number,
     choices: []
