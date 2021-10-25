@@ -241,6 +241,8 @@ export const PHQ9 = 'PHQ9';
 export const GAD7 = 'GAD7';
 export const SIQ = 'SIQ';
 export const LEVEL1 = 'Level 1 Cross-Cutting Symptom Measure';
+export const FEAR_QUESTIONNAIRE = 'Fear questionnaire';
+
 
 
 // questionnaire paths

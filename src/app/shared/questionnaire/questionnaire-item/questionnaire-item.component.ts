@@ -1,7 +1,7 @@
 import {Component, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { UsefulListItem } from '@/main/extra-resources/shared/usefulList.model';
 import { QuizService } from '@/shared/questionnaire-deprecated/questionnaire-deprecated.service';
-import { CHOICES_GROUP } from '@/app.constants';
+import {CHOICES_GROUP, FEAR_QUESTIONNAIRE} from '@/app.constants';
 import { Quiz } from '@/shared/questionnaire-deprecated/input/quiz';
 import { Options } from '@/shared/questionnaire/shared/options.model';
 import { QuestionnaireService } from '@/shared/questionnaire/questionnaire.service';
@@ -51,7 +51,8 @@ export class QuestionnaireItemComponent implements OnInit {
   questionnaireName = '';
   showSlider = false;
   sliderId!: number;
-  value = 0;
+  value = 4;
+  nextBtn = false;
   textInput!: string;
   selectedIndex = 100;
   textboxOption = false;
@@ -123,10 +124,15 @@ export class QuestionnaireItemComponent implements OnInit {
     });
   }
   ngOnInit() {
+    this.questionnaireName = this.questionnaireItem.title;
   }
 
+
   ngDoCheck() {
+  if (this.questionnaireName === FEAR_QUESTIONNAIRE) {
     this.sliderId = this.optionsArray[this.value].id;
+    console.log('slider id', this.sliderId);
+  }
   }
   showTestPage() {
     this.introPage = false;
@@ -144,7 +150,8 @@ export class QuestionnaireItemComponent implements OnInit {
   }
 
   forwardArrowClick() {
-    this.value = 0;
+    this.value = 4;
+    this.nextBtn = false;
     if (this.questionCount + 1 > this.total_questions) {
       this.submitPage = true;
     } else {
@@ -255,6 +262,7 @@ export class QuestionnaireItemComponent implements OnInit {
     console.log('CHOICES ARRAY', this.choicesArrayGroup);
   }
   onInputChange(event: MatSliderChange) {
+    this.nextBtn = true;
   console.log('event', event);
   }
 

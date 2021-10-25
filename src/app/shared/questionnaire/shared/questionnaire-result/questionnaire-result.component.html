@@ -12,50 +12,64 @@
   >Hide result <img src="assets/icons/arrow.svg" class="see-all-icon-down"
   /></a>
 </span>
+<div class='container-div'>
 <mat-card *ngIf = "!fromResultHistory || showResultComponent" >
   <div class="container" id="result" #result>
     <div class="row float-right date mt-2">Date - {{ todayDate }}</div>
     <div class = "row result-div">
       <div class="col px-0">
         <div class = "d-flex justify-content-center result-heading">
-          <b>{{ questionnaireName }} Result </b>
+          <b>{{questionnaireName}} Result </b>
         </div>
-
+<!--For questionnaires with only one score-->
+        <div *ngIf="!subscores">
         <div *ngFor = "let resultEachItem of this.resultItem">
-          <!--       added score in this format for Fear questionnaire-->
-          <div *ngIf="checkScoreType(resultEachItem.user_score)">
-            <div>
-              <b>{{resultEachItem.disorder}} Score : </b>
-            </div>
-            <br />
+            <div class="mt-4" style="font-size: 16px">
+              <b>{{resultEachItem.disorder}} score: </b>
             <div class="score">
               {{resultEachItem.user_score}}/{{resultEachItem.total_score}}
             </div>
           </div>
-          <div *ngIf="!checkScoreType(resultEachItem.user_score)">
-            <div>
-              <b>{{resultEachItem.disorder}} :</b>
-            </div>
-            <div class="score">
-              {{resultEachItem.user_score}}
+          <span class="font-14"
+                *ngIf="resultEachItem.result_remark !== 'null'" >{{resultEachItem.result_remark}}&nbsp;
+          </span>
+          <span class="font-14"
+          >{{resultEachItem.definition}}</span
+          >
+        </div>
+        </div>
+<!--For Questionnaires with subscores-->
+        <div *ngIf="subscores">
+        <div *ngFor = "let resultEachItem of this.resultItem">
+          <div *ngIf="checkScoreType(resultEachItem.user_score)">
+            <div class="mt-4" style="font-size: 16px">
+              <b>{{resultEachItem.disorder}} score:
+                {{resultEachItem.user_score}}/{{resultEachItem.total_score}}</b>
             </div>
           </div>
-          <br />
+          <div *ngIf="!checkScoreType(resultEachItem.user_score)">
+            <div class="mt-4" style="font-size: 16px">
+              <b>{{resultEachItem.disorder}}:
+                {{resultEachItem.user_score}}</b>
+            </div>
+          </div>
           <span class="font-14"
-          >{{ resultEachItem.result_remark
-            }}{{ resultEachItem.definition }}</span
+                *ngIf="resultEachItem.result_remark !== 'null'" >{{resultEachItem.result_remark}}&nbsp;
+          </span
           >
+          <span class="font-14" >{{resultEachItem.definition}}</span
+          >
+        </div>
         </div>
       </div>
     </div>
-  </div>
   <br />
   <br />
   ​
 
-
-    <div class = "row">
-      <div class = "col">
+<!--For reference table-->
+    <div class = "row" *ngIf="questionnaireName !== 'Fear questionnaire'">
+      <div class = "col px-sm-3 px-0">
         <div class = "ref-heading mb-3"><b>Reference Table</b></div>
         <table class = "table-style">
           <tr>
@@ -66,7 +80,7 @@
             <tr class="disorder"  *ngIf="refItem[0].reference_remark !== 'null'">
               <td class='disorder-data' colspan="2">{{refItem[0].disorder}}</td>
             </tr>
-            <tr class="range" *ngFor = "let refEachItem of refItem" >
+            <tr class="font-14" *ngFor = "let refEachItem of refItem" >
               <td *ngIf="refEachItem.reference_remark !== 'null'">{{refEachItem.minValue}} - {{refEachItem.maxValue}}</td>
               <td *ngIf="refEachItem.reference_remark !== 'null'">{{refEachItem.reference_remark}}</td>
             </tr>
@@ -75,7 +89,16 @@
       </div>
       <br />
       <br />
-<!--    </div>-->
+    </div>
+
+
+<!--  No reference table for fear questionnaire-->
+  <div class = "row" *ngIf="questionnaireName === 'Fear questionnaire'">
+    <div class = "col px-sm-3 px-0">
+      <div class = "ref-heading mb-3"><b>Reference remark</b></div>
+      <div class="font-14">A higher score indicates higher avoidance or troublesome levels. Compare the scores with previous scores(if taken the test before).</div>
+    </div>
+  </div>
 
     <div [ngStyle]="{ 'margin-top': '4rem' }">
       <span class="disclaimer-heading">Disclaimer</span><br />
@@ -101,7 +124,7 @@
         <input matInput type="email" [formControl]="email" required />
       </mat-form-field>
       <button
-        class="btn-style ml-4"
+        [ngClass]="showLoading ? 'btn-style ml-2' : 'btn-style-margin'"
         type="button"
         mat-raised-button
         (click)="sendEmail()"
@@ -109,7 +132,7 @@
         <ng-container *ngIf="!showLoading; else loading">Send </ng-container>
         <ng-template #loading>
           <span class="spinner-border spinner-border-sm"></span>
-          Sending.. &nbsp;
+          Sending.. &nbsp;&nbsp;
         </ng-template>
       </button>
     </form>
@@ -119,3 +142,4 @@
     </div>
   </div>
 </mat-card>
+</div>

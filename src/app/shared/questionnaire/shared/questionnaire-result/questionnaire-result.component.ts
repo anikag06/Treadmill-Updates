@@ -22,6 +22,7 @@ export class QuestionnaireResultComponent implements OnInit {
   resultItem: Result[] = [];
   refTableArray: any = [];
   disorderArray: any = [];
+  subscores!: boolean;
   todayDate = moment().format('DD-MM-YYYY').toString();
   @ViewChild('result', { static: false }) pdfTable!: ElementRef;
   email = new FormControl('');
@@ -46,6 +47,11 @@ export class QuestionnaireResultComponent implements OnInit {
             data.result.result.forEach((e: any) => {
               this.resultItem.push(e);
             });
+            if ( data.result.result.length > 1) {
+              this.subscores = true;
+            } else {
+              this.subscores = false;
+            }
             data.result.reference_table.forEach((e: any) => {
               this.refTableArray.push(e);
             });
@@ -54,12 +60,19 @@ export class QuestionnaireResultComponent implements OnInit {
       );
     }
     if (this.fromResultHistory) {
+      console.log('result data', this.resultData.title[0]);
       this.resultData.user_result.forEach((element: any) => {
         this.resultItem.push(element);
       });
+      if (this.resultData.user_result.length > 1) {
+        this.subscores = true;
+      } else {
+        this.subscores = false;
+      }
       this.refList.forEach((e: any) => {
         this.refTableArray.push(e);
       });
+      this.questionnaireName = this.resultData.title[0];
     }
   }
 
