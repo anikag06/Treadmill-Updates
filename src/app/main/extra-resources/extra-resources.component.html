@@ -1,4 +1,4 @@
-<div class="container resources-container px-0"  *ngIf="outlet.isActivated == false">
+<div class="container resources-container px-0"  *ngIf="outlet.isActivated == false" [ngStyle]="{'background-color': changeBackground? '#faf4ea':'', 'margin-bottom': changeBackground? '-20px' : '0'}">
   <div class = "top-nav-tabs no-gutters" *ngIf = "!this.quesExpand">
 
 <!--  <div class = "top-nav-tabs">-->
@@ -137,8 +137,8 @@
   <div *ngIf = "!this.showMyResults"> <!-- shows the list of questionnaires -->
     <div class = "row" *ngIf = "todocountQuestionnaireItem !== 0">
       <div class = "col">
-        <p class = "heading"> Todo Questionnaires</p>
-        <p class="px-2">Questionnaire recommended for me based on Level1 questionnaire</p>
+        <p class = "heading"> Recommended Level 2 Questionnaires</p>
+        <p class="px-2">Questionnaires recommended for me based on Level 1 Questionnaire</p>
       </div>
     </div>
     <div class = "">

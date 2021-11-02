@@ -59,6 +59,7 @@ export class ExtraResourcesComponent implements OnInit {
   countVideoCovid19Item = 0;
   countQuestionnaireItem = 0;
   todocountQuestionnaireItem = 0;
+  changeBackground = false;
 
   navbarTitle!: string;
   stepGroupSequence!: number;
@@ -335,6 +336,7 @@ videoClick(videoBeingClicked: VideoItem) {
     this.forVideosTab = false;
     this.forReadingTab = false;
     this.forQuestionnaireTab = true;
+    this.changeBackground = true;
   }
 
   onMyListClick() {
