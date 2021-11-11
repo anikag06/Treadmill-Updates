@@ -4,8 +4,8 @@ import { VideoItemComponent } from '@/main/extra-resources/videos/video-item/vid
 import { ReadingItemComponent } from '@/main/extra-resources/reading-material/reading-item/reading-item.component';
 import { NgModule } from '@angular/core';
 import { ExtraResourcesComponent } from '@/main/extra-resources/extra-resources.component';
-import {QuestionnaireItemComponent} from '@/shared/questionnaire/questionnaire-item/questionnaire-item.component';
-import {QuestionnaireComponent} from '@/shared/questionnaire/questionnaire.component';
+import { QuestionnaireItemComponent } from '@/shared/questionnaire/questionnaire-item/questionnaire-item.component';
+import { QuestionnaireComponent } from '@/shared/questionnaire/questionnaire.component';
 
 export const extraResourcesRoutes: Routes = [
   {
@@ -19,8 +19,11 @@ export const extraResourcesRoutes: Routes = [
       { path: 'mindfulnessVideo/:id', component: VideoItemComponent },
       { path: 'videoCovid19/:id', component: VideoItemComponent },
       { path: 'usefulList/:id', component: ReadingItemComponent },
-      {path: 'questionnaireItem/:id', component: QuestionnaireItemComponent},
-
+      {
+        path: 'questionnaireItem/:id',
+        component: QuestionnaireItemComponent,
+        data: { registered_user: true },
+      },
     ],
   },
   {

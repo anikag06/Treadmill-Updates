@@ -1,3 +1,5 @@
+<app-custom-nav *ngIf="!registered_user"> </app-custom-nav>
+
 <div class='container-div' *ngIf="this.introPage && !this.resultPage && !this.submitPage">
   <mat-card class="ques-page" style="padding-top: 10vh">
     <div class="row mx-auto justify-content-center">
@@ -177,6 +179,7 @@
 <div *ngIf="this.resultPage && !this.submitPage">
   <app-questionnaire-result
     [fromResultHistory]="false"
+    [registered_user]="registered_user"
     [questionnaireName]="questionnaireItem.title"
   ></app-questionnaire-result>
 </div>

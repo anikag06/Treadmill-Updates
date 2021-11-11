@@ -23,6 +23,7 @@ import { QuestionnaireItemComponent } from '@/shared/questionnaire/questionnaire
 // import {QuestionnaireContainerComponent} from "@/shared/questionnaire-container/questionnaire-container.component";
 import { MatProgressBarModule } from '@angular/material';
 import { QuestionnaireResultComponent } from '@/shared/questionnaire/shared/questionnaire-result/questionnaire-result.component';
+import { CustomNavComponent } from '@/shared/questionnaire/shared/custom-nav/custom-nav.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { QuestionnaireResultComponent } from '@/shared/questionnaire/shared/ques
     StepCompletedComponent,
     QuestionnaireItemComponent,
     QuestionnaireResultComponent,
+    CustomNavComponent,
   ],
   imports: [
     CommonModule,
@@ -74,6 +76,7 @@ import { QuestionnaireResultComponent } from '@/shared/questionnaire/shared/ques
     StepCompletedComponent,
     QuestionnaireComponent,
     QuestionnaireResultComponent,
+    CustomNavComponent,
     // QuestionnaireContainerComponent,
   ],
   entryComponents: [

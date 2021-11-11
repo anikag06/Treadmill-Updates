@@ -59,6 +59,7 @@ export class QuestionnaireItemComponent implements OnInit {
   selectedIndex = 100;
   sub!: Subscription;
   showBackground = false;
+  registered_user = true;
   textboxOption = false;
 
   constructor(
@@ -89,6 +90,9 @@ export class QuestionnaireItemComponent implements OnInit {
       }
     }
     this.initializeData();
+    this.sub = this.route.data.subscribe(
+      (v) => (this.registered_user = v.registered_user)
+    );
   }
 
   initializeData() {

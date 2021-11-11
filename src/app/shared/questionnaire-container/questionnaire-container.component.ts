@@ -3,6 +3,7 @@ import { QuestionnaireService } from '@/shared/questionnaire/questionnaire.servi
 import { QuestionnaireItem } from '@/shared/questionnaire/shared/questionnaire.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuestionnaireContainerService } from '@/shared/questionnaire-container/questionnaire-container.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-questionnaire-container',
@@ -12,6 +13,9 @@ import { QuestionnaireContainerService } from '@/shared/questionnaire-container/
 export class QuestionnaireContainerComponent implements OnInit {
   questionnaireItems: QuestionnaireItem[] = [];
   countQuestionnaireItem = 0;
+  loggedIn = false;
+  sub!: Subscription;
+  registered_user = true;
   constructor(
     private questionnaireService: QuestionnaireService,
     private router: Router,
@@ -30,6 +34,10 @@ export class QuestionnaireContainerComponent implements OnInit {
           console.log('title', element);
         });
       });
+
+    this.sub = this.route.data.subscribe(
+      (v) => (this.registered_user = v.registered_user)
+    );
   }
   questionnaireItemClick(questionnaireItemBeingClicked: QuestionnaireItem) {
     this.router.navigate(
@@ -47,5 +55,11 @@ export class QuestionnaireContainerComponent implements OnInit {
     this.questionnaireContainerService.sendQuestionnaireItem.emit(
       questionnaireItemBeingClicked
     );
+  }
+
+  ngOnDestroy() {
+    if (this.sub) {
+      this.sub.unsubscribe();
+    }
   }
 }

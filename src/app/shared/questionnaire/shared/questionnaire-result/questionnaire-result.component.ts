@@ -17,7 +17,7 @@ import { FormControl } from '@angular/forms';
 export class QuestionnaireResultComponent implements OnInit {
   @Input() resultData: any;
   @Input() fromResultHistory: any;
-
+  @Input() registered_user: any;
   showEmailBox = false;
   resultItem: Result[] = [];
   refTableArray: any = [];
