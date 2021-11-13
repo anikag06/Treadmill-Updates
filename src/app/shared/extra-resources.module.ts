@@ -10,16 +10,18 @@ import { ExtraResourcesService } from '@/main/extra-resources/extra-resources.se
 import { MatCardModule, MatDialogModule } from '@angular/material';
 import { SharedModule } from '@/shared/shared.module';
 import { MatRippleModule } from '@angular/material/core';
+import {QuestionnaireContainerModule} from "@/questionnaire-container.module";
 
 @NgModule({
-  imports: [
-    ExtraResourcesRoutingModule,
-    CommonModule,
-    SharedModule,
-    MatCardModule,
-    MatDialogModule,
-    MatRippleModule,
-  ],
+    imports: [
+        ExtraResourcesRoutingModule,
+        CommonModule,
+        SharedModule,
+        MatCardModule,
+        MatDialogModule,
+        MatRippleModule,
+        QuestionnaireContainerModule,
+    ],
   declarations: [
     ExtraResourcesComponent,
     VideosComponent,

@@ -1,9 +1,13 @@
 .heading{
   font-size: 20px;
   margin-bottom: 12px;
-  font-family: Roboto ;
-  font-weight: initial;
+  font-weight: 500;
   margin-top: 24px;
+}
+.sub-heading {
+  font-size: 20px;
+  font-weight: 500;
+  margin-top:20px;
 }
 .end-space{
   padding-bottom: 48px;
@@ -19,19 +23,27 @@
 .see-all-icon {
   transform: rotate(180deg);
 }
+.no-width {
+  width: 0;
+}
 
 @media only screen and (min-width: 1801px){
   .each-item{
     // padding: 0px 32px 0px 32px;
     padding: 0px 32px 0px 0px;
-    width: 25%;
+    //width: 33vw;
+    width:25%;
     margin-top: 16px;
     margin-bottom: 16px;
+    //max-width: 325px;
   }
 
   .heading{
-    font-size: 24px;
+    font-size: 32px;
     //padding-left: 5px;
+  }
+  .sub-heading {
+    font-size: 24px;
   }
   .see-all{
     padding-right: 2%;
@@ -48,13 +60,15 @@
   .each-item{
     //padding: 0px 16px 32px;
     padding: 0px 27px 0px 5px;
-    width: 25%;
+    //width: 33vw;
+    width:25%;
     margin-top: 16px;
     margin-bottom: 16px;
+    //max-width: 240px;
   }
 
   .heading{
-    font-size: 24px;
+    font-size: 32px;
     // padding-left: 5px;
   }
   .see-all{
@@ -73,13 +87,15 @@
   .each-item{
     // padding: 0px 16px 32px;
     padding: 0px 27px 0px 5px;
-    width: 25%;
+    width:25%;
+    //width: 33vw;
     margin-top: 16px;
     margin-bottom: 16px;
+    //max-width: 240px;
   }
 
   .heading{
-    font-size: 24px;
+    font-size: 32px;
     padding-left: 5px;
   }
   .see-all{
@@ -105,13 +121,13 @@
   .each-item{
     // padding: 0px 10px 32px;
     padding: 0px 15px 0px 5px;
-    width: 25%;
+    width: 33vw;
     margin-top: 16px;
     margin-bottom: 16px;
   }
 
   .heading{
-    font-size: 24px;
+    font-size: 32px;
     padding-left: 5px;
   }
   .see-all{
@@ -130,6 +146,7 @@
   .each-item{
     padding: 0px 7px 14px;
     width: 25%;
+    //width: 33vw;
     margin-top: 0px;
     margin-bottom: 0px;
   }
@@ -153,6 +170,7 @@
   .each-item{
     padding: 0px 7px 14px;
     width: 25%;
+    //width: 33vw;
     margin-top: 0px;
     margin-bottom: 0px;
   }
@@ -179,6 +197,7 @@
   .each-item{
     padding: 0px 7px 14px;
     width: 50%;
+    //width: 50vw;
     margin-top: 0px;
     margin-bottom: 0px;
   }
@@ -201,6 +220,7 @@
   .each-item{
     padding: 0px 7px 14px;
     width: 50%;
+    //width: 50vw;
     margin-top: 0px;
     margin-bottom: 0px;
   }
@@ -229,8 +249,16 @@
 
 .container-div{
   background-color: #faf4ea;
-  height: 100vh;
   overflow-x: hidden;
 }
-
-
+.main-div{
+  font-family: Roboto ;
+  max-width: 1032px;
+  height: 100vh;
+  margin: auto;
+}
+.full-div{
+  font-family: Roboto ;
+  height:100%;
+  margin: auto;
+}

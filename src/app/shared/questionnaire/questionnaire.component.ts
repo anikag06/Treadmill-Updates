@@ -19,7 +19,7 @@ export class QuestionnaireComponent implements OnInit {
   @Input() usefulListItem!: UsefulListItem;
   @Input() questionnaireResult!: any;
   @Input() questionnaireRefList!: any;
-
+  @Input() isList!: string;
   @Input() isResult!: string;
   user!: User;
   showEachResultCardOnClick = false;

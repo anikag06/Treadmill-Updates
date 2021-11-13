@@ -16,6 +16,7 @@ export class QuestionnaireContainerComponent implements OnInit {
   loggedIn = false;
   sub!: Subscription;
   registered_user = true;
+  categoryList = ['Mood disorder', 'Eating disorder', 'Substance abuse disorder', 'Anxiety disorder', 'Substance abuse disorder', 'General mental health disorder', 'Sleep disorder']
   constructor(
     private questionnaireService: QuestionnaireService,
     private router: Router,
@@ -40,6 +41,7 @@ export class QuestionnaireContainerComponent implements OnInit {
     );
   }
   questionnaireItemClick(questionnaireItemBeingClicked: QuestionnaireItem) {
+    if (!this.registered_user) {
     this.router.navigate(
       ['questionnaireItem/', questionnaireItemBeingClicked.id],
       {
@@ -47,6 +49,15 @@ export class QuestionnaireContainerComponent implements OnInit {
         state: { questionnaireData: questionnaireItemBeingClicked },
       }
     );
+    } else {
+      this.router.navigate(
+        ['questionnaireItem/', questionnaireItemBeingClicked.id],
+        {
+          relativeTo: this.route,
+          state: { questionnaireData: questionnaireItemBeingClicked },
+        }
+      );
+    }
 
     this.questionnaireContainerService.questionnaireItemClickBehavior.next(
       questionnaireItemBeingClicked

@@ -2,30 +2,40 @@
 <app-custom-nav *ngIf="!registered_user"> </app-custom-nav>
 
 <div class="container-div">
-  <div class="row">
-    <div class="col">
+  <div [ngClass]="registered_user? 'full-div': 'main-div'" >
+  <div class="row mx-0" *ngIf="!registered_user">
+    <div class="col px-0">
       <p class="heading">Questionnaires</p>
+      <p class="px-2 px-lg-1">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+        It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
     </div>
   </div>
 
   <div class="space-below-section">
     <div>
+      <div *ngFor="let category of categoryList; let i = index">
+        <div class="row mx-0">
+          <div class="col px-2 px-lg-1">
+            <p class="sub-heading mb-0">{{category}}</p>
+          </div>
+        </div>
       <div class="row no-gutters">
-        <!-- we should call the questionnaires items here only, or pass the data/ otherwise how we will pass the questionnaire data her?-->
-        <div
-          class="each-item"
+
+        <div [ngClass]="questionnaireItem.category=== category? 'each-item':'no-width'"
           *ngFor="let questionnaireItem of questionnaireItems"
         >
+          <div *ngIf="questionnaireItem.category=== category" >
           <app-questionnaire
             [questionnaireItem]="questionnaireItem"
             isResult="false"
+            isList="true"
             (click)="questionnaireItemClick(questionnaireItem)"
           ></app-questionnaire>
         </div>
       </div>
+      </div>
     </div>
-    <!--  <div>-->
-    <!--    <a class = "see-all" (click) = "changeQuesState()"><img src = "assets/icons/arrow.svg">&nbsp;See all</a>-->
-    <!--  </div>-->
+    </div>
+    </div>
   </div>
 </div>

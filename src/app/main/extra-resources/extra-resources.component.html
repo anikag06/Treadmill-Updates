@@ -145,7 +145,7 @@
       <div [ngClass] = "todoquesExpand==true? 'show-all-cards': 'todo-card-hidden'">
         <div class = "row no-gutters" >
           <div class = "each-item" *ngFor = "let questionnaireItem of todoquestionnaireItems">
-            <app-questionnaire [questionnaireItem] = "questionnaireItem" isResult = 'false' (click) = "questionnaireItemClick(questionnaireItem)"></app-questionnaire>
+            <app-questionnaire [questionnaireItem] = "questionnaireItem" isResult = 'false' isList="false" (click) = "questionnaireItemClick(questionnaireItem)"></app-questionnaire>
           </div>
         </div>
 
@@ -164,14 +164,15 @@
   </div>
 
   <div class = "space-below-section">
-    <div [ngClass] = "quesExpand==true? 'show-all-cards': 'ques-card-hidden'">
+    <div [ngClass] = "quesExpand==true? 'show-all-cards': 'ques-card-hidden'" *ngIf="!quesExpand">
      <div class = "row no-gutters"><!-- we should call the questionnaires items here only, or pass the data/ otherwise how we will pass the questionnaire data her?-->
        <div class = "each-item" *ngFor = "let questionnaireItem of questionnaireItems">
-         <app-questionnaire [questionnaireItem] = "questionnaireItem" isResult = 'false' (click) = "questionnaireItemClick(questionnaireItem)" #tooltip="matTooltip" matTooltipDisabled
+         <app-questionnaire [questionnaireItem] = "questionnaireItem" isResult = 'false' isList="false" (click) = "questionnaireItemClick(questionnaireItem)" #tooltip="matTooltip" matTooltipDisabled
                             matTooltip={{tooltipData}}></app-questionnaire>
         </div>
       </div>
     </div>
+    <app-questionnaire-container *ngIf="quesExpand"></app-questionnaire-container>
     <div *ngIf="countQuestionnaireItem > 8 && !quesExpand">
       <a class = "see-all mt-4 " (click) = "changeQuesState()">See all Questionnaires <img src = "assets/questionnaire/arrow right.svg">&nbsp;</a>
     </div>

@@ -24,6 +24,7 @@ import { QuestionnaireItemComponent } from '@/shared/questionnaire/questionnaire
 import { MatProgressBarModule } from '@angular/material';
 import { QuestionnaireResultComponent } from '@/shared/questionnaire/shared/questionnaire-result/questionnaire-result.component';
 import { CustomNavComponent } from '@/shared/questionnaire/shared/custom-nav/custom-nav.component';
+import {RouterModule} from "@angular/router";
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { CustomNavComponent } from '@/shared/questionnaire/shared/custom-nav/cus
     OwlNativeDateTimeModule,
     MatProgressBarModule,
     ReactiveFormsModule,
+    RouterModule,
   ],
   exports: [
     SlidesVideoComponent,
