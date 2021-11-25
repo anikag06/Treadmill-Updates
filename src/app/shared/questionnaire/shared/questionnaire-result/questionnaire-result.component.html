@@ -14,9 +14,9 @@
 </span>
 <div class='container-div'>
 <mat-card *ngIf = "!fromResultHistory || showResultComponent" >
-  <div class="container" id="result" #result>
+  <div class="container px-0" id="result" #result>
     <div class="row float-right date mt-2">Date - {{ todayDate }}</div>
-    <div class = "row result-div">
+    <div class = "row mx-0 result-div">
       <div class="col px-0">
         <div class = "d-flex justify-content-center result-heading">
           <b>{{questionnaireName}} Result </b>
@@ -25,7 +25,8 @@
         <div *ngIf="!subscores">
         <div *ngFor = "let resultEachItem of this.resultItem">
             <div class="mt-4" style="font-size: 16px">
-              <b>{{resultEachItem.disorder}} score: </b>
+<!--              <b>{{resultEachItem.disorder}} score: </b>-->
+              Your total score is
             <div class="score">
               {{resultEachItem.user_score}}/{{resultEachItem.total_score}}
             </div>
@@ -33,8 +34,8 @@
           <span class="font-14"
                 *ngIf="resultEachItem.result_remark !== 'null'" >{{resultEachItem.result_remark}}&nbsp;
           </span>
-          <span class="font-14"
-          >{{resultEachItem.definition}}</span
+          <p class="font-14" *ngIf="resultEachItem.definition !== 'none'"
+          >{{resultEachItem.definition}}</p
           >
         </div>
         </div>
@@ -57,18 +58,18 @@
                 *ngIf="resultEachItem.result_remark !== 'null'" >{{resultEachItem.result_remark}}&nbsp;
           </span
           >
-          <span class="font-14" >{{resultEachItem.definition}}</span
+          <p class="font-14"  *ngIf="resultEachItem.definition !== 'none'" >{{resultEachItem.definition}}</p
           >
         </div>
         </div>
       </div>
     </div>
   <br />
-  <br />
+<!--  <br />-->
   ​
 
 <!--For reference table-->
-    <div class = "row" *ngIf="questionnaireName !== 'Fear questionnaire'">
+    <div class = "mx-0 row" *ngIf="questionnaireName !== 'Fear Questionnaire' && questionnaireName !== 'Mood Disorder Questionnaire'">
       <div class = "col px-sm-3 px-0">
         <div class = "ref-heading mb-3"><b>Reference Table</b></div>
         <table class = "table-style">
@@ -88,17 +89,32 @@
         </table>
       </div>
       <br />
-      <br />
+<!--      <br />-->
     </div>
 
 
-<!--  No reference table for fear questionnaire-->
-  <div class = "row" *ngIf="questionnaireName === 'Fear questionnaire'">
+<!--  No reference table for fear questionnaire -->
+  <div class = "mx-0 row" *ngIf="questionnaireName === 'Fear Questionnaire'">
     <div class = "col px-sm-3 px-0">
       <div class = "ref-heading mb-3"><b>Reference remark</b></div>
       <div class="font-14">A higher score indicates higher avoidance or troublesome levels. Compare the scores with previous scores(if taken the test before).</div>
     </div>
   </div>
+    <!--  No reference table for Mood Disorder Questionnaire-->
+    <div class = "mx-0 row" *ngIf="questionnaireName === 'Mood Disorder Questionnaire'">
+      <div class = "col px-sm-3 px-0">
+        <div class = "ref-heading mb-3"><b>Reference remark</b></div>
+        <div class="font-14">Further medical assessment for bipolar
+          disorder is clearly warranted if patient:
+          <p class="mb-0">Answers Yes to 7 or more of the events
+          from question 1 to 13 </p>
+          <b>AND</b>
+          <p class="mb-0">Answers Yes to question 14 </p>
+          <b>AND</b>
+          <p class="mb-0">Answers Moderate problem or Serious
+          problem to question 15 </p></div>
+      </div>
+    </div>
 
     <div [ngStyle]="{ 'margin-top': '4rem' }">
       <span class="disclaimer-heading">Disclaimer</span><br />
@@ -108,10 +124,10 @@
       >
     </div>
     <br />
-    <br />
+<!--    <br />-->
   </div>
 
-  <div class="container">
+  <div class="container px-0">
     <div class="mt-4">
       <mat-icon> email</mat-icon
       ><a (click)="expandEmail()" class="email-style">Email Result</a>

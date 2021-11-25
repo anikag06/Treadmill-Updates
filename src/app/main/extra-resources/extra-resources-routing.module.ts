@@ -11,7 +11,10 @@ export const extraResourcesRoutes: Routes = [
   {
     path: '',
     component: ExtraResourcesComponent,
-    data: { title: 'Resources' },
+    data: {
+      title: 'Resources',
+      registered_user: true,
+    },
     children: [
       { path: 'videos', component: VideosComponent },
       { path: 'videoItem/:id', component: VideoItemComponent },

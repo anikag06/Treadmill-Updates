@@ -138,7 +138,8 @@
     <div class = "row" *ngIf = "todocountQuestionnaireItem !== 0">
       <div class = "col">
         <p class = "heading"> Recommended Level 2 Questionnaires</p>
-        <p class="px-2">Questionnaires recommended for me based on Level 1 Questionnaire</p>
+        <p class="px-2">Questionnaires recommended for me based on attempt of Level 1 Cross-Cutting
+          Symptom Measure Questionnaire</p>
       </div>
     </div>
     <div class = "">
@@ -172,7 +173,8 @@
         </div>
       </div>
     </div>
-    <app-questionnaire-container *ngIf="quesExpand"></app-questionnaire-container>
+    <app-questionnaire-container *ngIf="quesExpand" (questionnaireItemClicked) ="questionnaireItemClick($event)" #tooltip="matTooltip" matTooltipDisabled
+                                 matTooltip={{tooltipData}}></app-questionnaire-container>
     <div *ngIf="countQuestionnaireItem > 8 && !quesExpand">
       <a class = "see-all mt-4 " (click) = "changeQuesState()">See all Questionnaires <img src = "assets/questionnaire/arrow right.svg">&nbsp;</a>
     </div>

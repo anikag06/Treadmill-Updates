@@ -175,8 +175,10 @@ export class ExtraResourcesComponent implements OnInit {
          .subscribe((questionnaire_data: any) => {
            console.log('whole data', questionnaire_data);
            questionnaire_data.results.forEach((element:any) => {
-             this.questionnaireItems.push(<QuestionnaireItem>element);
-             this.countQuestionnaireItem = this.countQuestionnaireItem + 1;
+             if (element.level !== 2) {
+               this.questionnaireItems.push(<QuestionnaireItem>element);
+               this.countQuestionnaireItem = this.countQuestionnaireItem + 1;
+             }
            });
          });
 
@@ -351,7 +353,7 @@ videoClick(videoBeingClicked: VideoItem) {
     if (this.showToolTip.disabled) {
       this.showToolTip.disabled = false;
     }
-    this.tooltipData = 'Please complete the Todo questionnaires recommended above to attempt this questionnaire again.';
+    this.tooltipData = 'Please complete the recommended Level 2 questionnaires listed above to attempt this questionnaire again.';
     this.showToolTip.showDelay = 100;
     this.showToolTip.hideDelay = 100;
     this.showToolTip.toggle();

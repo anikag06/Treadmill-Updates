@@ -60,6 +60,7 @@ export class QuestionnaireItemComponent implements OnInit {
   sub!: Subscription;
   showBackground = false;
   registered_user = true;
+  showLoading = false;
   textboxOption = false;
 
   constructor(
@@ -207,6 +208,7 @@ export class QuestionnaireItemComponent implements OnInit {
   }
 
   submitTestClick(groupOfChoiceArray: []) {
+    this.showLoading = true;
     if (this.user !== undefined) {
       const ipNull = null;
       this.questionnaireService
@@ -220,6 +222,7 @@ export class QuestionnaireItemComponent implements OnInit {
         .subscribe((data: any) => {
           this.submitPage = false;
           this.resultPage = true;
+          this.showLoading = false;
           this.questionnaireService.passResultData(data);
           this.extraResourcesService.triggerTodoQuestionnaires();
         });
@@ -236,6 +239,7 @@ export class QuestionnaireItemComponent implements OnInit {
         .subscribe((data: any) => {
           this.submitPage = false;
           this.resultPage = true;
+          this.showLoading = false;
           this.questionnaireService.passResultData(data);
           this.extraResourcesService.triggerTodoQuestionnaires();
           this.removeLocalData();

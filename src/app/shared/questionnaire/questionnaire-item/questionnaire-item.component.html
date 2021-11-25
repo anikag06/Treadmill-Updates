@@ -166,9 +166,12 @@
       <div class = "d-flex justify-content-center">
       <button mat-raised-button
               class="btn-style"
-              (click)="submitTestClick(this.choicesArrayGroup)
-              ">
-            Submit Test
+              (click)="submitTestClick(this.choicesArrayGroup)"
+              [disabled]="showLoading"
+              >
+
+        <span class="spinner-border spinner-border-sm" *ngIf="showLoading"></span>
+        <span *ngIf="!showLoading" > Submit test</span>
       </button>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { QuestionnaireService } from '@/shared/questionnaire/questionnaire.service';
 import { QuestionnaireItem } from '@/shared/questionnaire/shared/questionnaire.model';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -16,7 +16,8 @@ export class QuestionnaireContainerComponent implements OnInit {
   loggedIn = false;
   sub!: Subscription;
   registered_user = true;
-  categoryList = ['Mood disorder', 'Eating disorder', 'Substance abuse disorder', 'Anxiety disorder', 'Substance abuse disorder', 'General mental health disorder', 'Sleep disorder']
+  categoryList = ['Mood disorder', 'Eating disorder', 'Substance abuse disorder', 'Anxiety disorder', 'Substance abuse disorder', 'General mental health disorder'];
+  @Output() questionnaireItemClicked = new EventEmitter();
   constructor(
     private questionnaireService: QuestionnaireService,
     private router: Router,
@@ -30,9 +31,11 @@ export class QuestionnaireContainerComponent implements OnInit {
       .subscribe((questionnaire_data: any) => {
         console.log('subscribing happening from ques service');
         questionnaire_data.results.forEach((element: any) => {
-          this.questionnaireItems.push(<QuestionnaireItem>element);
-          this.countQuestionnaireItem = this.countQuestionnaireItem + 1;
-          console.log('title', element);
+          if (element.level !== 2) {
+            this.questionnaireItems.push(<QuestionnaireItem>element);
+            this.countQuestionnaireItem = this.countQuestionnaireItem + 1;
+            console.log('title', element);
+          }
         });
       });
 
@@ -50,13 +53,14 @@ export class QuestionnaireContainerComponent implements OnInit {
       }
     );
     } else {
-      this.router.navigate(
-        ['questionnaireItem/', questionnaireItemBeingClicked.id],
-        {
-          relativeTo: this.route,
-          state: { questionnaireData: questionnaireItemBeingClicked },
-        }
-      );
+      this.questionnaireItemClicked.emit(questionnaireItemBeingClicked);
+      // this.router.navigate(
+      //   ['questionnaireItem/', questionnaireItemBeingClicked.id],
+      //   {
+      //     relativeTo: this.route,
+      //     state: { questionnaireData: questionnaireItemBeingClicked },
+      //   }
+      // );
     }
 
     this.questionnaireContainerService.questionnaireItemClickBehavior.next(
