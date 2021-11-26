@@ -7,7 +7,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { VideoItem } from '@/main/extra-resources/shared/video.model';
-import { Observable } from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 import { ReadingItem } from '@/main/extra-resources/shared/reading.model';
 import { ExtraResourcesService } from '@/main/extra-resources/extra-resources.service';
 import { element } from 'protractor';
@@ -73,6 +73,7 @@ export class ExtraResourcesComponent implements OnInit {
   todoquesExpand = false;
   resultDict = <any>[];
   questionnaireRef!: any;
+  todoBehaviorSub!: Subscription;
 
   @ViewChild('mindfulness', { static: false }) mindfulness!: ElementRef;
   @ViewChild('depression', { static: false }) depression!: ElementRef;
@@ -182,7 +183,7 @@ export class ExtraResourcesComponent implements OnInit {
            });
          });
 
-    this.extraResourcesService.todoBehaviour.subscribe(data => {
+    this.todoBehaviorSub = this.extraResourcesService.todoBehaviour.subscribe(data => {
       if (data) {
         this.todoquestionnaireItems.length = 0;
         this.getTodoQuestionnaire();
@@ -200,6 +201,12 @@ export class ExtraResourcesComponent implements OnInit {
          });
   }
 
+  ngOnDestroy() {
+    if (this.todoBehaviorSub) {
+      this.todoBehaviorSub.unsubscribe();
+    }
+  }
+
   getTodoQuestionnaire() {
     this.quesService
       .getTodoQuestionnaires()
@@ -211,6 +218,9 @@ export class ExtraResourcesComponent implements OnInit {
             this.todocountQuestionnaireItem = this.todocountQuestionnaireItem + 1;
           }
         });
+        if (this.todoquestionnaireItems.length === 0) {
+          this.todocountQuestionnaireItem = 0;
+        }
         console.log('list of todo questionnaires', this.todocountQuestionnaireItem);
       });
   }
@@ -328,11 +338,17 @@ videoClick(videoBeingClicked: VideoItem) {
     this.forVideosTab = true;
     this.forReadingTab = false;
     this.forQuestionnaireTab = false;
+    if (this.changeBackground) {
+      this.changeBackground = false;
+    }
   }
   onReadingTab() {
     this.forVideosTab = false;
     this.forReadingTab = true;
     this.forQuestionnaireTab = false;
+    if (this.changeBackground) {
+      this.changeBackground = false;
+    }
   }
   onQuestionnaireTab() {
     this.forVideosTab = false;

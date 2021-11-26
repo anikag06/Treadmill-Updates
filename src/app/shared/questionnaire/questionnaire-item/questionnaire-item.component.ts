@@ -37,7 +37,7 @@ export class QuestionnaireItemComponent implements OnInit {
   optionsArray: Options[] = [];
   total_questions!: number;
   // title!: string;
-  questionnaireI: Quiz = new Quiz(null); // need to change the data type once the api is made to questionnaire model
+  questionnaireI: Quiz = new Quiz(null);
   questionCount = 1;
   ques!: string;
   quesIndex = 0;
@@ -158,8 +158,7 @@ export class QuestionnaireItemComponent implements OnInit {
     this.questionCount -= 1;
     this.quesIndex -= 1;
     // tslint:disable-next-line:max-line-length
-    this.ques = this.questionsArray[this.quesIndex].question; // need to change based on the api // can make quesIndex as quesCount because the id might differ, but that wont be equal to the position in the array
-
+    this.ques = this.questionsArray[this.quesIndex].question;
     this.optionsArray = this.questionsArray[this.quesIndex].options;
   }
 
@@ -192,9 +191,9 @@ export class QuestionnaireItemComponent implements OnInit {
       e.selected = false;
     });
     option.selected = true;
-    this.choicesArray['question_id'] = quesIdToSend; // how will the option id be called?
-    this.choicesArray['question_order'] = quesOrderToSend; //how will the order for the questionnaire be called?
-    this.choicesArray['option_id'] = optionIdToSend; // how will question id be called?
+    this.choicesArray['question_id'] = quesIdToSend;
+    this.choicesArray['question_order'] = quesOrderToSend;
+    this.choicesArray['option_id'] = optionIdToSend;
     // this.choicesArray['selectedIndex'] = index;
     this.choicesArrayGroup.push(this.choicesArray);
     window.localStorage.setItem(

@@ -139,7 +139,7 @@
       <div class = "col">
         <p class = "heading"> Recommended Level 2 Questionnaires</p>
         <p class="px-2">Questionnaires recommended for me based on attempt of Level 1 Cross-Cutting
-          Symptom Measure Questionnaire</p>
+          Symptom Measure Questionnaire.</p>
       </div>
     </div>
     <div class = "">
@@ -166,7 +166,7 @@
 
   <div class = "space-below-section">
     <div [ngClass] = "quesExpand==true? 'show-all-cards': 'ques-card-hidden'" *ngIf="!quesExpand">
-     <div class = "row no-gutters"><!-- we should call the questionnaires items here only, or pass the data/ otherwise how we will pass the questionnaire data her?-->
+     <div class = "row no-gutters">
        <div class = "each-item" *ngFor = "let questionnaireItem of questionnaireItems">
          <app-questionnaire [questionnaireItem] = "questionnaireItem" isResult = 'false' isList="false" (click) = "questionnaireItemClick(questionnaireItem)" #tooltip="matTooltip" matTooltipDisabled
                             matTooltip={{tooltipData}}></app-questionnaire>

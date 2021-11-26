@@ -23,7 +23,7 @@ export class QuestionnaireResultComponent implements OnInit {
   refTableArray: any = [];
   disorderArray: any = [];
   subscores!: boolean;
-  todayDate = moment().format('DD-MM-YYYY').toString();
+  resultDate = moment().format('DD-MM-YYYY').toString();
   @ViewChild('result', { static: false }) pdfTable!: ElementRef;
   email = new FormControl('');
   @Input() questionnaireName!: string;
@@ -60,6 +60,9 @@ export class QuestionnaireResultComponent implements OnInit {
       );
     }
     if (this.fromResultHistory) {
+      this.resultDate = moment(this.resultData.date[0])
+        .format('DD-MM-YY')
+        .toString();
       console.log('result data', this.resultData.title[0]);
       this.resultData.user_result.forEach((element: any) => {
         this.resultItem.push(element);
@@ -102,7 +105,7 @@ export class QuestionnaireResultComponent implements OnInit {
         const blob = new Blob([response], { type: 'application/pdf' });
         const pdfUrl = URL.createObjectURL(blob);
         const fileName =
-          this.todayDate + '_' + this.questionnaireName + '_Result.pdf';
+          this.resultDate + '_' + this.questionnaireName + '_Result.pdf';
         saveAs(blob, fileName);
       });
   }

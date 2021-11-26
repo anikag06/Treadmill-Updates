@@ -15,7 +15,8 @@
 <div class='container-div'>
 <mat-card *ngIf = "!fromResultHistory || showResultComponent" >
   <div class="container px-0" id="result" #result>
-    <div class="row float-right date mt-2">Date - {{ todayDate }}</div>
+    <div class="row mx-0 float-right date mt-2">Date - {{ resultDate }}</div>
+
     <div class = "row mx-0 result-div">
       <div class="col px-0">
         <div class = "d-flex justify-content-center result-heading">
@@ -70,7 +71,7 @@
 
 <!--For reference table-->
     <div class = "mx-0 row" *ngIf="questionnaireName !== 'Fear Questionnaire' && questionnaireName !== 'Mood Disorder Questionnaire'">
-      <div class = "col px-sm-3 px-0">
+      <div class = "col px-0">
         <div class = "ref-heading mb-3"><b>Reference Table</b></div>
         <table class = "table-style">
           <tr>
@@ -95,24 +96,24 @@
 
 <!--  No reference table for fear questionnaire -->
   <div class = "mx-0 row" *ngIf="questionnaireName === 'Fear Questionnaire'">
-    <div class = "col px-sm-3 px-0">
+    <div class = "col px-0">
       <div class = "ref-heading mb-3"><b>Reference remark</b></div>
       <div class="font-14">A higher score indicates higher avoidance or troublesome levels. Compare the scores with previous scores(if taken the test before).</div>
     </div>
   </div>
     <!--  No reference table for Mood Disorder Questionnaire-->
     <div class = "mx-0 row" *ngIf="questionnaireName === 'Mood Disorder Questionnaire'">
-      <div class = "col px-sm-3 px-0">
+      <div class = "col px-0">
         <div class = "ref-heading mb-3"><b>Reference remark</b></div>
         <div class="font-14">Further medical assessment for bipolar
           disorder is clearly warranted if patient:
-          <p class="mb-0">Answers Yes to 7 or more of the events
+          <p class="mb-0">answers <b>"Yes"</b> to 7 or more of the events
           from question 1 to 13 </p>
           <b>AND</b>
-          <p class="mb-0">Answers Yes to question 14 </p>
+          <p class="mb-0">answers <b>"Yes"</b> to question 14 </p>
           <b>AND</b>
-          <p class="mb-0">Answers Moderate problem or Serious
-          problem to question 15 </p></div>
+          <p class="mb-0">answers <b>"Moderate problem"</b> or <b>"Serious
+            problem"</b> to question 15 </p></div>
       </div>
     </div>
 
