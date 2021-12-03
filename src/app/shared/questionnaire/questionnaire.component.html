@@ -1,7 +1,7 @@
 <div *ngIf="isResult == 'false'" xmlns="http://www.w3.org/1999/html">
 <mat-card class = "ques-card">
   <div class = "preview-img-div">
-   <img class = "preview-img" [src] = "questionnaireItem.image" >
+   <img class = "preview-img" [src] = "questionnaireItem.image"  (load)="imageLoaded()">
 <!--    <img class = "preview-img" src = "../../../../../../../assets/Resources-reading/Depression.svg" >-->
 <!--    <div class = "preview-img">Test text</div>-->
   </div>

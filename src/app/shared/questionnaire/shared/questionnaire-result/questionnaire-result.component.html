@@ -26,7 +26,6 @@
         <div *ngIf="!subscores">
         <div *ngFor = "let resultEachItem of this.resultItem">
             <div class="mt-4" style="font-size: 16px">
-<!--              <b>{{resultEachItem.disorder}} score: </b>-->
               Your total score is
             <div class="score">
               {{resultEachItem.user_score}}/{{resultEachItem.total_score}}
@@ -55,10 +54,10 @@
                 {{resultEachItem.user_score}}</b>
             </div>
           </div>
-          <span class="font-14"
-                *ngIf="resultEachItem.result_remark !== 'null'" >{{resultEachItem.result_remark}}&nbsp;
-          </span
-          >
+          <span class="result-remark font-14"
+                *ngIf="resultEachItem.result_remark !== 'null'" >{{resultEachItem.result_remark}}
+            <a (click)="gotoListPage()" *ngIf="questionnaireName === LEVEL1 && resultEachItem.result_remark.includes('LEVEL')" >in the Recommended Level 2 Questionnaires section.</a>
+          </span>
           <p class="font-14"  *ngIf="resultEachItem.definition !== 'none'" >{{resultEachItem.definition}}</p
           >
         </div>

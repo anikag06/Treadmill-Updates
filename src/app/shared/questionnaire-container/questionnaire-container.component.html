@@ -13,6 +13,7 @@
 
   <div class="space-below-section">
     <div>
+      <div [ngStyle]="{display: !loaded ? 'none' : 'block'}">
       <div *ngFor="let category of categoryList; let i = index">
         <div class="row mx-0">
           <div class="col px-2 px-lg-1">
@@ -29,12 +30,21 @@
             [questionnaireItem]="questionnaireItem"
             isResult="false"
             isList="true"
+            (removeLoading)="removeLoading()"
             (click)="questionnaireItemClick(questionnaireItem)"
           ></app-questionnaire>
         </div>
       </div>
       </div>
     </div>
+      </div>
+
+      <div class="col" [ngStyle]="{display: loaded ? 'none' : 'block'}">
+      <div class="text-center loader">
+        <img src="assets/shared/loading-gif.gif" alt="loader" width="80">
+      </div>
+    </div>
+
     </div>
     </div>
   </div>

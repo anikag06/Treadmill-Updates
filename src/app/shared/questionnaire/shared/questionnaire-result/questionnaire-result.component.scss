@@ -38,7 +38,7 @@
 //}
 
 .table-style,td, th {
-  border-bottom: 1px solid  #EAEAEA;;
+  border-bottom: 1px solid  #EAEAEA;
   border-collapse: collapse;
   height: 42px;
   padding-left: 14px;
@@ -55,7 +55,7 @@ table.table-style{
   min-width:312px;
 }
 .table-style th{
-  border: 1px solid  #EAEAEA;
+  //border: 1px solid  #EAEAEA;
   background-color: #2a3b3d;
   color: white;
 }
@@ -87,7 +87,11 @@ table.table-style{
   padding: 0px 12px;
 }
 
-
+.result-remark a{
+  position:initial;
+  margin-left: 0 !important;
+  text-decoration: underline;
+}
 
 .email-style{
   cursor: pointer;

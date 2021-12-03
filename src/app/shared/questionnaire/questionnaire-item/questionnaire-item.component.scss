@@ -168,7 +168,7 @@ margin-top: 26px;
     min-height: 100vh;
     height: 100%;
     box-shadow: none;
-    padding: 0;
+    padding: 9px;
   }
   .back-arrow-style {
     font-size: 16px;
@@ -216,4 +216,5 @@ margin-top: 26px;
   background-color: #faf4ea;
   height: 100%;
   min-height: 100vh;
+  overflow-x: hidden;
 }

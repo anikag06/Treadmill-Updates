@@ -105,6 +105,9 @@ i {
   .ques-card-hidden{
     height: 730px;
   }
+  .todo-card-hidden{
+    height: 360px;
+  }
   .each-item{
    // padding: 0px 32px 0px 32px;
     padding: 0px 32px 0px 0px;
@@ -141,6 +144,9 @@ i {
   }
   .ques-card-hidden{
     height:720px;
+  }
+  .todo-card-hidden{
+    height: 360px;
   }
   .each-item{
     //padding: 0px 16px 32px;
@@ -180,6 +186,9 @@ i {
   .ques-card-hidden{
     height: 705px;
   }
+  .todo-card-hidden{
+    height: 350px;
+  }
   .each-item{
     // padding: 0px 16px 32px;
     padding: 0px 27px 0px 5px;
@@ -213,6 +222,9 @@ i {
   .ques-card-hidden{
     height: 680px;
   }
+  .todo-card-hidden{
+    height: 340px;
+  }
   .space-below-section{
     padding-bottom: 47px;
   }
@@ -232,6 +244,9 @@ i {
   }
   .ques-card-hidden{
     height:680px;
+  }
+  .todo-card-hidden{
+    height: 340px;
   }
   .each-item{
     // padding: 0px 10px 32px;
@@ -271,6 +286,9 @@ i {
   .ques-card-hidden{
     height: 620px;
   }
+  .todo-card-hidden{
+    height: 310px;
+  }
   .each-item{
     padding: 0px 7px 14px;
     width: 25%;
@@ -308,8 +326,9 @@ i {
   .ques-card-hidden{
     height: 600px;
   }
-
-
+  .todo-card-hidden{
+    height: 300px;
+  }
   .each-item{
     padding: 0px 7px 14px;
     width: 25%;
@@ -387,6 +406,9 @@ i {
   .ques-card-hidden{
     height: 600px;
   }
+  .todo-card-hidden{
+    height: 300px;
+  }
   .see-all{
     padding-left: 82% ;
   }
@@ -414,7 +436,7 @@ i {
   .reading-card-hidden{
     height: 350px;
   }
-  .ques-card-hidden{
+  .ques-card-hidden, .todo-card-hidden{
     height:585px;
   }
 
@@ -432,7 +454,7 @@ i {
     padding-bottom: 27px;
   }
   .end-space{
-    padding-bottom: 90px;
+    padding-bottom: 110px;
   }
 }
 @media screen and (max-width: 320px) {
@@ -443,7 +465,7 @@ i {
   .reading-card-hidden{
     height: 302px;
   }
-  .ques-card-hidden{
+  .ques-card-hidden, .todo-card-hidden{
     height:585px;
   }
   .see-all {

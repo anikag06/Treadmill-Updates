@@ -187,18 +187,16 @@ export class ExtraResourcesComponent implements OnInit {
       if (data) {
         this.todoquestionnaireItems.length = 0;
         this.getTodoQuestionnaire();
+        this.questionnaireResults.length = 0;
+        this.questionnaireRefList.length = 0;
+        this.getResults();
       }
     });
     this.getTodoQuestionnaire();
-       this.quesService
-         .getResultHistory(this.user.username)
-         .subscribe((data: any) => {
-           this.questionnaireResults.push(Object.values(data.response.results));
-           console.log('results', this.questionnaireResults[0]);
-           this.questionnaireRefList.push(Object.values(data.response.reference_table));
-           console.log('reflist', this.questionnaireRefList);
-           this.questionnaireRef = this.questionnaireRefList[0];
-         });
+    this.getResults();
+    this.quesService.openListPage.subscribe( () => {
+      this.onMyListClick();
+    });
   }
 
   ngOnDestroy() {
@@ -206,15 +204,26 @@ export class ExtraResourcesComponent implements OnInit {
       this.todoBehaviorSub.unsubscribe();
     }
   }
+  getResults() {
+    this.quesService
+      .getResultHistory(this.user.username)
+      .subscribe((data: any) => {
+        this.questionnaireResults.push(Object.values(data.response.results));
+        console.log('GOT results', this.questionnaireResults);
+        this.questionnaireRefList.push(Object.values(data.response.reference_table));
+        console.log('reflist', this.questionnaireRefList);
+        this.questionnaireRef = this.questionnaireRefList[0];
+      });
+  }
 
   getTodoQuestionnaire() {
     this.quesService
-      .getTodoQuestionnaires()
+      .getTodoQuestionnaires(this.user.username)
       .subscribe((questionnaire_data: any) => {
         console.log('TODO data', questionnaire_data);
-        questionnaire_data.results.forEach((element:any) => {
+        questionnaire_data.result.forEach((element:any) => {
           if (element.todo) {
-            this.todoquestionnaireItems.push(<QuestionnaireItem>element.questionnaire);
+            this.todoquestionnaireItems.push(<QuestionnaireItem>element.todoquestionnaires.questionnaire);
             this.todocountQuestionnaireItem = this.todocountQuestionnaireItem + 1;
           }
         });

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {QuestionnaireItem} from '@/shared/questionnaire/shared/questionnaire.model';
 import {UsefulListItem} from '@/main/extra-resources/shared/usefulList.model';
 import {QuestionModel} from '@/shared/questionnaire/shared/question.model';
@@ -21,6 +21,7 @@ export class QuestionnaireComponent implements OnInit {
   @Input() questionnaireRefList!: any;
   @Input() isList!: string;
   @Input() isResult!: string;
+  @Output() removeLoading = new EventEmitter();
   user!: User;
   showEachResultCardOnClick = false;
   showResultComponent = false;
@@ -51,5 +52,8 @@ export class QuestionnaireComponent implements OnInit {
     } else if (category === 'Sleep disorder') {
       return '#D89E74';
     }
+  }
+  imageLoaded () {
+    this.removeLoading.emit();
   }
 }

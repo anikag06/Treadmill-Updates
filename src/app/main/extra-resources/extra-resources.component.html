@@ -141,8 +141,6 @@
         <p class="px-2">Questionnaires recommended for me based on attempt of Level 1 Cross-Cutting
           Symptom Measure Questionnaire.</p>
       </div>
-    </div>
-    <div class = "">
       <div [ngClass] = "todoquesExpand==true? 'show-all-cards': 'todo-card-hidden'">
         <div class = "row no-gutters" >
           <div class = "each-item" *ngFor = "let questionnaireItem of todoquestionnaireItems">
@@ -185,7 +183,9 @@
   <div *ngIf = "this.showMyResults">
     <div class = "space-below-section">
     <div>
-      <div class = "row no-gutters">
+      <div class=" row mx-2 mt-2" *ngIf="this.questionnaireResults[0].length == 0"> Please attempt the Questionnaires to see results here.</div>
+
+      <div class = "row no-gutters" *ngIf="this.questionnaireResults[0].length != 0">
         ​
         <div *ngFor = "let questionnaireResult of questionnaireResults[0]; let i = index">
           <app-questionnaire [questionnaireRefList]= "questionnaireRef[i]" [questionnaireResult] = "questionnaireResult" isResult = 'true'></app-questionnaire>

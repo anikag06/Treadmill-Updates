@@ -1,4 +1,4 @@
-import { Injectable, EventEmitter } from '@angular/core';
+import {Injectable, EventEmitter, Output} from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import {
@@ -21,6 +21,7 @@ export class QuestionnaireService {
   sendResultBehavior: BehaviorSubject<any> = new BehaviorSubject<any>(
     this.resultData
   );
+ openListPage = new EventEmitter();
   sendResultEvent = this.sendResultBehavior.asObservable();
   constructor(private http: HttpClient) {}
 
@@ -28,8 +29,8 @@ export class QuestionnaireService {
     return this.http.get(environment.API_ENDPOINT + QUESTIONNAIRE_LIST);
   }
 
-  getTodoQuestionnaires() {
-    return this.http.get(environment.API_ENDPOINT + TODOQUESTIONNAIRE_LIST);
+  getTodoQuestionnaires(username: string) {
+    return this.http.get(environment.API_ENDPOINT + TODOQUESTIONNAIRE_LIST + username + '/');
   }
 
   getAQuestionnaire(Qid: number) {

@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import { Result } from '@/shared/questionnaire/shared/result.model';
 import { QuestionnaireService } from '@/shared/questionnaire/questionnaire.service';
 import * as moment from 'moment';
@@ -8,6 +8,9 @@ import { MatSnackBar } from '@angular/material';
 import { saveAs } from 'file-saver';
 import { Subscription } from 'rxjs';
 import { FormControl } from '@angular/forms';
+import {Location} from "@angular/common";
+import {LEVEL1} from "@/app.constants";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-questionnaire-result',
@@ -31,12 +34,15 @@ export class QuestionnaireResultComponent implements OnInit {
   user!: User;
   showResultComponent = false;
   @Input() refList: any;
+  LEVEL1 = LEVEL1
   sendResultEventSubscription!: Subscription;
   constructor(
     private questionnaireService: QuestionnaireService,
     private authService: AuthService,
-    public snackBar: MatSnackBar
-  ) {}
+    public snackBar: MatSnackBar,
+    private router: Router,
+
+) {}
 
   ngOnInit() {
     this.user = <User>this.authService.isLoggedIn();
@@ -139,5 +145,9 @@ export class QuestionnaireResultComponent implements OnInit {
           });
         }
       });
+  }
+  gotoListPage() {
+    this.router.navigate(['/main/extra-resources']);
+    this.questionnaireService.openListPage.emit();
   }
 }

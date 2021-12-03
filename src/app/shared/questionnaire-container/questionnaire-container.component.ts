@@ -15,8 +15,10 @@ export class QuestionnaireContainerComponent implements OnInit {
   countQuestionnaireItem = 0;
   loggedIn = false;
   sub!: Subscription;
+  // loaded = false;
+  loaded = true;  // make this true once images added
   registered_user = true;
-  categoryList = ['Mood disorder', 'Eating disorder', 'Substance abuse disorder', 'Anxiety disorder', 'Substance abuse disorder', 'General mental health disorder'];
+  categoryList = ['Mood disorder', 'Eating disorder', 'Anxiety disorder', 'Substance abuse disorder', 'General mental health disorder'];
   @Output() questionnaireItemClicked = new EventEmitter();
   constructor(
     private questionnaireService: QuestionnaireService,
@@ -54,13 +56,6 @@ export class QuestionnaireContainerComponent implements OnInit {
     );
     } else {
       this.questionnaireItemClicked.emit(questionnaireItemBeingClicked);
-      // this.router.navigate(
-      //   ['questionnaireItem/', questionnaireItemBeingClicked.id],
-      //   {
-      //     relativeTo: this.route,
-      //     state: { questionnaireData: questionnaireItemBeingClicked },
-      //   }
-      // );
     }
 
     this.questionnaireContainerService.questionnaireItemClickBehavior.next(
@@ -72,6 +67,9 @@ export class QuestionnaireContainerComponent implements OnInit {
     );
   }
 
+  removeLoading() {
+    this.loaded = true;
+  }
   ngOnDestroy() {
     if (this.sub) {
       this.sub.unsubscribe();
