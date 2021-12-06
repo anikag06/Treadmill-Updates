@@ -33,8 +33,15 @@ export class QuestionnaireResultComponent implements OnInit {
   showLoading = false;
   user!: User;
   showResultComponent = false;
+  // makePdf = false;
   @Input() refList: any;
-  LEVEL1 = LEVEL1
+  LEVEL1 = LEVEL1;
+  footer = "<div class=\"row justify-content-center\">" +
+          "<div class=\"col-12 mt-lg-3 font-roboto-normal text-center text-muted text-copyright\">" +
+          "https://www.treadwill.org/" +
+          "<p>&copy; TreadWill. All rights reserved.</p>" +
+          "</div>" +
+          "</div>";
   sendResultEventSubscription!: Subscription;
   constructor(
     private questionnaireService: QuestionnaireService,
@@ -104,7 +111,8 @@ export class QuestionnaireResultComponent implements OnInit {
   }
 
   public downloadPDF(): void {
-    const html = this.pdfTable.nativeElement.innerHTML;
+    // this.makePdf = true;
+    const html = this.pdfTable.nativeElement.innerHTML + this.footer;
     this.questionnaireService
       .getPdf(html, this.questionnaireName)
       .subscribe((response: Blob) => {
@@ -121,7 +129,8 @@ export class QuestionnaireResultComponent implements OnInit {
   }
 
   sendEmail(): void {
-    const html = this.pdfTable.nativeElement.innerHTML;
+    // this.makePdf = true;
+    const html = this.pdfTable.nativeElement.innerHTML + this.footer;
     this.showLoading = true;
     let username: any;
     username = this.user === null ? null : this.user.username;
@@ -134,6 +143,7 @@ export class QuestionnaireResultComponent implements OnInit {
       )
       .subscribe((resp: any) => {
         this.showLoading = false;
+        // this.makePdf = false;
         this.showEmailBox = !this.showEmailBox;
         if (resp.status === 200) {
           this.snackBar.open('Email Sent Successfully', 'OK', {

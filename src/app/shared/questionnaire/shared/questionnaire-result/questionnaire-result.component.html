@@ -15,6 +15,16 @@
 <div class='container-div'>
 <mat-card *ngIf = "!fromResultHistory || showResultComponent" >
   <div class="container px-0" id="result" #result>
+<!--    treadwill logo for pdf copy-->
+
+<!--<div *ngIf="makePdf" class="row mx-auto">-->
+<!--    <img-->
+<!--      src="assets/shared/logo_full.svg"-->
+<!--      class="center"-->
+<!--      alt="treadwill_logo"-->
+<!--    />-->
+<!--</div>-->
+
     <div class="row mx-0 float-right date mt-2">Date - {{ resultDate }}</div>
 
     <div class = "row mx-0 result-div">
@@ -125,6 +135,14 @@
     </div>
     <br />
 <!--    <br />-->
+<!--    Treadwill footer -->
+<!--    <div class="row justify-content-center" *ngIf="makePdf">-->
+<!--      <div class="col-12 mt-lg-3 font-roboto-normal text-center text-muted text-copyright">-->
+<!--        https://www.treadwill.org/-->
+<!--        <p>&copy; TreadWill. All rights reserved.</p>-->
+<!--      </div>-->
+<!--    </div>-->
+
   </div>
 
   <div class="container px-0">
