@@ -78,6 +78,7 @@ export class ExtraResourcesComponent implements OnInit {
   @ViewChild('mindfulness', { static: false }) mindfulness!: ElementRef;
   @ViewChild('depression', { static: false }) depression!: ElementRef;
   @ViewChild('tooltip', { static: false }) showToolTip!: MatTooltip;
+  @ViewChild('recomList', { static: false }) recomList!: ElementRef;
 
 
   constructor(
@@ -195,6 +196,7 @@ export class ExtraResourcesComponent implements OnInit {
     this.getTodoQuestionnaire();
     this.getResults();
     this.quesService.openListPage.subscribe( () => {
+      this.onScrollToTop(this.recomList);
       this.onMyListClick();
     });
   }
@@ -382,5 +384,11 @@ videoClick(videoBeingClicked: VideoItem) {
     this.showToolTip.showDelay = 100;
     this.showToolTip.hideDelay = 100;
     this.showToolTip.toggle();
+  }
+  onScrollToTop(elem: any) {
+    setTimeout(() => {
+      console.log('SCROLL TOP');
+      elem.nativeElement.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
   }
 }

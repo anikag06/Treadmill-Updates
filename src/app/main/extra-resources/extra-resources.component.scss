@@ -436,8 +436,11 @@ i {
   .reading-card-hidden{
     height: 350px;
   }
-  .ques-card-hidden, .todo-card-hidden{
+  .ques-card-hidden{
     height:585px;
+  }
+  .todo-card-hidden{
+    height:290px;
   }
 
   .each-item{
@@ -465,8 +468,11 @@ i {
   .reading-card-hidden{
     height: 302px;
   }
-  .ques-card-hidden, .todo-card-hidden{
+  .ques-card-hidden{
     height:585px;
+  }
+  .todo-card-hidden{
+    height:300px;
   }
   .see-all {
     padding-left: 80% ;

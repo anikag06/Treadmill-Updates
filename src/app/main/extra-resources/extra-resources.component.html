@@ -135,20 +135,22 @@
 
   <div *ngIf = "this.forQuestionnaireTab">
   <div *ngIf = "!this.showMyResults"> <!-- shows the list of questionnaires -->
-    <div class = "row" *ngIf = "todocountQuestionnaireItem !== 0">
+    <div *ngIf = "todocountQuestionnaireItem !== 0" >
+    <div class = "row" #recomList>
       <div class = "col">
         <p class = "heading"> Recommended Level 2 Questionnaires</p>
         <p class="px-2">Questionnaires recommended for me based on attempt of Level 1 Cross-Cutting
           Symptom Measure Questionnaire.</p>
       </div>
+    </div>
+
+
       <div [ngClass] = "todoquesExpand==true? 'show-all-cards': 'todo-card-hidden'">
         <div class = "row no-gutters" >
           <div class = "each-item" *ngFor = "let questionnaireItem of todoquestionnaireItems">
             <app-questionnaire [questionnaireItem] = "questionnaireItem" isResult = 'false' isList="false" (click) = "questionnaireItemClick(questionnaireItem)"></app-questionnaire>
           </div>
         </div>
-
-
       </div>
       <div *ngIf = "todocountQuestionnaireItem > 4 && !todoquesExpand">
         <a class = "see-all" (click) = "changeTodoQuesState()"><img src = "assets/icons/arrow.svg">&nbsp;show more</a>

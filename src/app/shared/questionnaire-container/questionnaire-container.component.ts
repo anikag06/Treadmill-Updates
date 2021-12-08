@@ -15,8 +15,8 @@ export class QuestionnaireContainerComponent implements OnInit {
   countQuestionnaireItem = 0;
   loggedIn = false;
   sub!: Subscription;
-  // loaded = false;
-  loaded = true;  // make this true once images added
+  loaded = false;
+  // loaded = true;  // make this true once images added
   registered_user = true;
   categoryList = ['Mood disorder', 'Eating disorder', 'Anxiety disorder', 'Substance abuse disorder', 'General mental health disorder'];
   @Output() questionnaireItemClicked = new EventEmitter();

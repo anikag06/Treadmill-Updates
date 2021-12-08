@@ -58,6 +58,8 @@ table.table-style{
   //border: 1px solid  #EAEAEA;
   background-color: #2a3b3d;
   color: white;
+  font-size:14px;
+  font-weight: 500;
 }
 
 .table-style td{
@@ -101,7 +103,7 @@ table.table-style{
 }
 a{
   position:relative;
-  top: -5px;
+  top: -6px;
   margin-left: 1rem;
 }
 mat-icon{
@@ -129,6 +131,7 @@ mat-icon{
   opacity: 0.4;
   font-size: 12px;
   text-align: left;
+  font-weight: 500;
   height: 26px !important;
 }
 @media screen and (max-width: 575px) {
@@ -146,7 +149,17 @@ mat-icon{
 .container-div{
   background-color: #faf4ea;
   //height: 100vh;
+  overflow-x: hidden;
 }
 .text-copyright {
   font-size: 11px;
+}
+.header {
+  background-color: #2A3B3D;
+  justify-content: center;
+  padding: 12px;
+  img {
+    width: 40%;
+    max-width: 120px;
+  }
 }

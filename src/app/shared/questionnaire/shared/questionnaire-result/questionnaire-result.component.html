@@ -13,11 +13,11 @@
   /></a>
 </span>
 <div class='container-div'>
-<mat-card *ngIf = "!fromResultHistory || showResultComponent" >
+<mat-card *ngIf = "!fromResultHistory || showResultComponent" class="pt-0">
   <div class="container px-0" id="result" #result>
 <!--    treadwill logo for pdf copy-->
 
-<!--<div *ngIf="makePdf" class="row mx-auto">-->
+<!--<div class="row header">-->
 <!--    <img-->
 <!--      src="assets/shared/logo_full.svg"-->
 <!--      class="center"-->
@@ -66,7 +66,7 @@
           </div>
           <span class="result-remark font-14"
                 *ngIf="resultEachItem.result_remark !== 'null'" >{{resultEachItem.result_remark}}
-            <a (click)="gotoListPage()" *ngIf="questionnaireName === LEVEL1 && resultEachItem.result_remark.includes('LEVEL')" >in the Recommended Level 2 Questionnaires section.</a>
+            <a (click)="gotoListPage()" *ngIf="questionnaireName === LEVEL1 && resultEachItem.result_remark.includes('suggested')" >in the Recommended Questionnaires section.</a>
           </span>
           <p class="font-14"  *ngIf="resultEachItem.definition !== 'none'" >{{resultEachItem.definition}}</p
           >
@@ -114,15 +114,9 @@
     <div class = "mx-0 row" *ngIf="questionnaireName === 'Mood Disorder Questionnaire'">
       <div class = "col px-0">
         <div class = "ref-heading mb-3"><b>Reference remark</b></div>
-        <div class="font-14">Further medical assessment for bipolar
-          disorder is clearly warranted if patient:
-          <p class="mb-0">answers <b>"Yes"</b> to 7 or more of the events
-          from question 1 to 13 </p>
-          <b>AND</b>
-          <p class="mb-0">answers <b>"Yes"</b> to question 14 </p>
-          <b>AND</b>
-          <p class="mb-0">answers <b>"Moderate problem"</b> or <b>"Serious
-            problem"</b> to question 15 </p></div>
+        <div class="font-14">Bipolar disorder is a complex illness, and an accurate, thorough diagnosis can only be made through
+          a personal evaluation by your doctor.</div>
+
       </div>
     </div>
 
@@ -134,9 +128,9 @@
       >
     </div>
     <br />
-<!--    <br />-->
+    <br />
 <!--    Treadwill footer -->
-<!--    <div class="row justify-content-center" *ngIf="makePdf">-->
+<!--    <div class="row justify-content-center">-->
 <!--      <div class="col-12 mt-lg-3 font-roboto-normal text-center text-muted text-copyright">-->
 <!--        https://www.treadwill.org/-->
 <!--        <p>&copy; TreadWill. All rights reserved.</p>-->

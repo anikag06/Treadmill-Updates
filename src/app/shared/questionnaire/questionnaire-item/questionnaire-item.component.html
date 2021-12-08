@@ -35,13 +35,13 @@
     <div class = "row d-flex justify-content-flex-end progress-text-style">
       <div class = "col ">Question {{this.questionCount}} of {{this.total_questions}}</div>
     </div>
-    <div class="row d-flex justify-content-center">
+    <div class="row mt-4 d-flex justify-content-center">
       <div class="col title-style">{{ this.questionnaireItem.title }}</div>
     </div>
     <p></p>
     <p></p>
   <div class = "row mx-0">
-    <div class = "col-1">
+    <div class = "col-1 px-0">
     <mat-icon *ngIf = "this.questionCount > 1" class = "back-arrow-style" (click) = "backArrowClick()">arrow_back_ios</mat-icon>
     </div>
     <div class = " col-10 " [innerHTML]="ques"></div>
@@ -66,12 +66,8 @@
     <button mat-raised-button class = "option-btn-style"
             [ngStyle]="op.selected
                   ? { 'background-color': '#2a3b3d', color: 'white' }
-                  : { 'background-color': '#F1F9FF', color: '#2a3b3d' } ">
+                  : { 'background-color': '#F1F9FF', color: '#2a3b3d' } "
 
-    <mat-radio-group required class = "">
-    <mat-radio-button
-      class = "radio-option-style"
-      [value] = "op.option_text"
       (click) = "
                 optionClick(
                 this.questionsArray[this.quesIndex].id,
@@ -81,8 +77,7 @@
                 op
                 )"
                 >{{op.option_text}}
-    </mat-radio-button>
-    </mat-radio-group>
+
     </button>
    </div>
     </div>

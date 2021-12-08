@@ -42,6 +42,14 @@ export class QuestionnaireResultComponent implements OnInit {
           "<p>&copy; TreadWill. All rights reserved.</p>" +
           "</div>" +
           "</div>";
+  header = "<div class=\"row header\">" +
+          "<img " +
+          "src=\"assets/shared/logo_full.svg\"" +
+          "class=\"center\"" +
+          "alt=\"treadwill_logo\" >"  +
+          "</div>";
+
+
   sendResultEventSubscription!: Subscription;
   constructor(
     private questionnaireService: QuestionnaireService,
@@ -112,7 +120,7 @@ export class QuestionnaireResultComponent implements OnInit {
 
   public downloadPDF(): void {
     // this.makePdf = true;
-    const html = this.pdfTable.nativeElement.innerHTML + this.footer;
+    const html = this.header + this.pdfTable.nativeElement.innerHTML + this.footer;
     this.questionnaireService
       .getPdf(html, this.questionnaireName)
       .subscribe((response: Blob) => {
