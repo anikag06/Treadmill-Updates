@@ -14,6 +14,7 @@ import { User } from '@/shared/user.model';
 import { MatSliderChange } from '@angular/material';
 import { HttpClient } from '@angular/common/http';
 import { Subscription } from 'rxjs';
+import {QuestionnaireItem} from '@/shared/questionnaire/shared/questionnaire.model';
 
 
 @Component({
@@ -31,15 +32,17 @@ export class QuestionnaireItemComponent implements OnInit {
   resultData!: string;
   testShow!: string;
   questionnaireIdToSend!: number;
-  questionnaireItem!: any;
+  // questionnaireItem!: any;
+  questionnaireItem: QuestionnaireItem = new QuestionnaireItem('', '', 0, '', '', 0, [], '');
   resultItem: Result[] = [];
   questionsArray: QuestionModel[] = [];
+
   optionsArray: Options[] = [];
   total_questions!: number;
   // title!: string;
   questionnaireI: Quiz = new Quiz(null);
   questionCount = 1;
-  ques!: string;
+  ques = '';
   quesIndex = 0;
   options!: any;
   introPage = true;
@@ -75,22 +78,33 @@ export class QuestionnaireItemComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     // tslint:disable-next-line:no-non-null-assertion
-    if (this.router.getCurrentNavigation()!.extras.state !== undefined) {
-      // tslint:disable-next-line:no-non-null-assertion
-      this.questionnaireItem = this.router.getCurrentNavigation()!.extras.state!.questionnaireData;
-      localStorage.setItem('quesData', JSON.stringify(this.questionnaireItem));
-    } else {
-      this.questionnaireItem = JSON.parse(
-        <string>localStorage.getItem('quesData')
-      );
-      // tslint:disable-next-line:radix
-      this.quesIndex = parseInt(<string>localStorage.getItem('qIndex'));
-      if (this.quesIndex > 1) {
-        this.showTestPage();
-        this.questionCount = this.quesIndex + 1;
+    if (this.router.getCurrentNavigation() !== null) {
+      console.log('not null', this.router.getCurrentNavigation());
+      if (this.router.getCurrentNavigation()!.extras.state !== undefined) {
+        // tslint:disable-next-line:no-non-null-assertion
+        console.log('extras.state', this.router.getCurrentNavigation());
+        this.questionnaireItem = this.router.getCurrentNavigation()!.extras.state!.questionnaireData;
+        window.localStorage.setItem('quesData', JSON.stringify(this.questionnaireItem));
+        this.initializeData();
+      } else {
+        this.questionnaireItem = JSON.parse(
+          <string>window.localStorage.getItem('quesData')
+        );
+        // tslint:disable-next-line:radix
+        this.quesIndex = parseInt(<string>localStorage.getItem('qIndex'));
+        if (this.quesIndex > 1) {
+          this.showTestPage();
+          this.questionCount = this.quesIndex + 1;
+        } else {
+          this.quesIndex = 0;
+        }
+        console.log('local storage', this.questionnaireItem, this.quesIndex );
+        this.initializeData();
       }
     }
-    this.initializeData();
+    // else {
+    //   this.initializeData();
+    // }
     this.sub = this.route.data.subscribe(
       (v) => (this.registered_user = v.registered_user)
     );
@@ -98,11 +112,16 @@ export class QuestionnaireItemComponent implements OnInit {
 
   initializeData() {
     this.user = <User>this.authService.isLoggedIn();
+    console.log('initialize data', this.questionnaireItem);
     if (this.questionnaireItem) {
+      console.log('IF QUESTIONNAIRE ITEM', this.questionnaireItem);
       this.questionnaireItem.questions.forEach((element: any) => {
         this.questionsArray.push(<QuestionModel>element);
+        // console.log('title', this.questionnaireItem.title,  this.questionsArray);
+
       });
       this.total_questions = this.questionnaireItem.questions.length;
+      console.log('QUESTION ARRAY', this.quesIndex);
       this.ques = this.questionsArray[this.quesIndex].question;
       this.choicesArrayGroup = window.localStorage.getItem(CHOICES_GROUP) // this line before the ? is not compulsory to put.
         ? // If any error, try checking with this, or else remove
@@ -128,16 +147,23 @@ export class QuestionnaireItemComponent implements OnInit {
       this.questionsArray[this.quesIndex].options.forEach((e: any) => {
         this.optionsArray.push(<Options>e);
       });
+      console.log('initialize data Questionnaire data', this.questionnaireItem);
     } else {
+      console.log('no QUESTIONNAIRE ITEM');
       if (this.user) {
-        this.router.navigate(['/main/extra-resources']);
+        console.log('user', this.resultPage, this.introPage);
+        this.router.navigate(['/']);
+        // this.router.navigate(['/main/extra-resources']);
       } else {
+        console.log('not user');
         this.router.navigate(['questionnaires']);
       }
     }
   }
   ngOnInit() {
     this.getIPAddress();
+  }
+  ngAfterViewInit() {
     this.questionnaireName = this.questionnaireItem.title;
   }
 
@@ -163,10 +189,13 @@ export class QuestionnaireItemComponent implements OnInit {
   }
 
   forwardArrowClick() {
+    console.log('CHOICES ARRAY length', this.choicesArrayGroup.length);
     this.value = 4;
     this.nextBtn = false;
     if (this.questionCount + 1 > this.total_questions) {
-      this.submitPage = true;
+      if (this.choicesArrayGroup.length >= this.total_questions) {
+        this.submitPage = true;
+      }
     } else {
       this.questionCount += 1;
       this.quesIndex += 1;
@@ -218,7 +247,7 @@ export class QuestionnaireItemComponent implements OnInit {
           this.questionnaireItem.order,
           groupOfChoiceArray
         )
-        .subscribe((data: any) => {
+        .subscribe((data: any) => {console.log('Data', data);
           this.submitPage = false;
           this.resultPage = true;
           this.showLoading = false;

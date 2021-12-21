@@ -186,6 +186,7 @@ export class ExtraResourcesComponent implements OnInit {
 
     this.todoBehaviorSub = this.extraResourcesService.todoBehaviour.subscribe(data => {
       if (data) {
+        console.log('TODO SUB')
         this.todoquestionnaireItems.length = 0;
         this.getTodoQuestionnaire();
         this.questionnaireResults.length = 0;
@@ -222,6 +223,8 @@ export class ExtraResourcesComponent implements OnInit {
     this.quesService
       .getTodoQuestionnaires(this.user.username)
       .subscribe((questionnaire_data: any) => {
+        this.todoquestionnaireItems.length = 0;
+        this.todocountQuestionnaireItem = 0
         console.log('TODO data', questionnaire_data);
         questionnaire_data.result.forEach((element:any) => {
           if (element.todo) {

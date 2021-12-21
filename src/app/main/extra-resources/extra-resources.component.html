@@ -139,7 +139,7 @@
     <div class = "row" #recomList>
       <div class = "col">
         <p class = "heading"> Recommended Level 2 Questionnaires</p>
-        <p class="px-2">Questionnaires recommended for me based on attempt of Level 1 Cross-Cutting
+        <p class="px-2 px-xl-0">Questionnaires recommended for me based on attempt of Level 1 Cross-Cutting
           Symptom Measure Questionnaire.</p>
       </div>
     </div>
@@ -152,7 +152,7 @@
           </div>
         </div>
       </div>
-      <div *ngIf = "todocountQuestionnaireItem > 4 && !todoquesExpand">
+      <div *ngIf = "todocountQuestionnaireItem > 2 && !todoquesExpand">
         <a class = "see-all" (click) = "changeTodoQuesState()"><img src = "assets/icons/arrow.svg">&nbsp;show more</a>
       </div>
     </div>
