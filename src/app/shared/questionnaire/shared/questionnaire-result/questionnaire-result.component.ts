@@ -8,9 +8,9 @@ import { MatSnackBar } from '@angular/material';
 import { saveAs } from 'file-saver';
 import { Subscription } from 'rxjs';
 import { FormControl } from '@angular/forms';
-import {Location} from "@angular/common";
-import {LEVEL1} from "@/app.constants";
-import {Router} from "@angular/router";
+import {Location} from '@angular/common';
+import {LEVEL1} from '@/app.constants';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-questionnaire-result',
@@ -36,18 +36,18 @@ export class QuestionnaireResultComponent implements OnInit {
   // makePdf = false;
   @Input() refList: any;
   LEVEL1 = LEVEL1;
-  footer = "<div class=\"row justify-content-center\">" +
-          "<div class=\"col-12 mt-lg-3 font-roboto-normal text-center text-muted text-copyright\">" +
-          "https://www.treadwill.org/" +
-          "<p>&copy; TreadWill. All rights reserved.</p>" +
-          "</div>" +
-          "</div>";
-  header = "<div class=\"row header\">" +
-          "<img " +
-          "src=\"assets/shared/logo_full.svg\"" +
-          "class=\"center\"" +
-          "alt=\"treadwill_logo\" >"  +
-          "</div>";
+  // footer = '<div class=\'row justify-content-center\'>' +
+  //         '<div class=\'col-12 mt-lg-3 font-roboto-normal text-center text-muted text-copyright\'>' +
+  //         'https://www.treadwill.org/' +
+  //         '<p>&copy; TreadWill. All rights reserved.</p>' +
+  //         '</div>' +
+  //         '</div>';
+  // header = '<div class=\'row header\'>' +
+  //         '<img ' +
+  //         'src=\'http://localhost:4200/assets/shared/logo_full.svg\'' +
+  //         'class=\'center\'' +
+  //         'alt=\'treadwill_logo\' >'  +
+  //         '</div>';
 
 
   sendResultEventSubscription!: Subscription;
@@ -120,7 +120,8 @@ export class QuestionnaireResultComponent implements OnInit {
 
   public downloadPDF(): void {
     // this.makePdf = true;
-    const html = this.header + this.pdfTable.nativeElement.innerHTML + this.footer;
+    // const html = this.header + this.pdfTable.nativeElement.innerHTML + this.footer;
+    const html = this.pdfTable.nativeElement.innerHTML;
     this.questionnaireService
       .getPdf(html, this.questionnaireName)
       .subscribe((response: Blob) => {
