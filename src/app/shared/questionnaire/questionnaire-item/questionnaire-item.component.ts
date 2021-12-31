@@ -34,6 +34,8 @@ export class QuestionnaireItemComponent implements OnInit {
   questionnaireIdToSend!: number;
   // questionnaireItem!: any;
   questionnaireItem: QuestionnaireItem = new QuestionnaireItem('', '', 0, '', '', 0, [], '');
+  oldQuestionnaireItem: QuestionnaireItem = new QuestionnaireItem('', '', 0, '', '', 0, [], '');
+
   resultItem: Result[] = [];
   questionsArray: QuestionModel[] = [];
 
@@ -79,11 +81,20 @@ export class QuestionnaireItemComponent implements OnInit {
   ) {
     // tslint:disable-next-line:no-non-null-assertion
     if (this.router.getCurrentNavigation() !== null) {
-      console.log('not null', this.router.getCurrentNavigation());
+      console.log('not null', this.router.getCurrentNavigation())
       if (this.router.getCurrentNavigation()!.extras.state !== undefined) {
         // tslint:disable-next-line:no-non-null-assertion
         console.log('extras.state', this.router.getCurrentNavigation());
         this.questionnaireItem = this.router.getCurrentNavigation()!.extras.state!.questionnaireData;
+        this.oldQuestionnaireItem = JSON.parse(
+          <string>window.localStorage.getItem('quesData'));
+        if (this.oldQuestionnaireItem) {
+          console.log('SAME QUESTIONNAIRE', this.oldQuestionnaireItem.id);
+          if (this.oldQuestionnaireItem.id !== this.questionnaireItem.id) {
+            this.removeLocalData();
+          }
+        }
+
         window.localStorage.setItem('quesData', JSON.stringify(this.questionnaireItem));
         this.initializeData();
       } else {
@@ -224,6 +235,13 @@ export class QuestionnaireItemComponent implements OnInit {
     this.choicesArray['question_order'] = quesOrderToSend;
     this.choicesArray['option_id'] = optionIdToSend;
     // this.choicesArray['selectedIndex'] = index;
+    // check if this question id already in list
+    for (let i = 0 ; i < this.choicesArrayGroup.length; i++ ) {
+      if (this.choicesArrayGroup[i].question_id === this.choicesArray['question_id']) {
+       this.choicesArrayGroup.splice(i, 1)
+        console.log('array', this.choicesArrayGroup[i]);
+      }
+    }
     this.choicesArrayGroup.push(this.choicesArray);
     window.localStorage.setItem(
       CHOICES_GROUP,
