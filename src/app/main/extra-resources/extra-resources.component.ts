@@ -383,7 +383,7 @@ videoClick(videoBeingClicked: VideoItem) {
     if (this.showToolTip.disabled) {
       this.showToolTip.disabled = false;
     }
-    this.tooltipData = 'Please complete the recommended Level 2 questionnaires listed above to attempt this questionnaire again.';
+    this.tooltipData = 'Please complete the recommended questionnaires listed above to attempt this questionnaire again.';
     this.showToolTip.showDelay = 100;
     this.showToolTip.hideDelay = 100;
     this.showToolTip.toggle();
