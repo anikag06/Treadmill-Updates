@@ -15,16 +15,6 @@
 <div class='container-div'>
 <mat-card *ngIf = "!fromResultHistory || showResultComponent" class="pt-0">
   <div class="container px-0" id="result" #result>
-<!--    treadwill logo for pdf copy-->
-
-<!--<div class="row header">-->
-<!--    <img-->
-<!--      src="assets/shared/logo_full.svg"-->
-<!--      class="center"-->
-<!--      alt="treadwill_logo"-->
-<!--    />-->
-<!--</div>-->
-
     <div class="row mx-0 float-right date mt-2">Date - {{ resultDate }}</div>
 
     <div class = "row mx-0 result-div">
@@ -64,10 +54,22 @@
                 {{resultEachItem.user_score}}</b>
             </div>
           </div>
+
+          <div *ngIf="questionnaireName !== LEVEL1 ">
           <span class="result-remark font-14"
                 *ngIf="resultEachItem.result_remark !== 'null'" >{{resultEachItem.result_remark}}
-            <a (click)="gotoListPage()" *ngIf="questionnaireName === LEVEL1 && resultEachItem.result_remark.includes('suggested')" >in the Recommended Questionnaires section.</a>
           </span>
+          </div>
+          <div *ngIf="questionnaireName === LEVEL1 ">
+          <span class="result-remark font-14"
+                *ngIf="this.user" >{{resultEachItem.result_remark}}
+                        <a (click)="gotoListPage()" *ngIf="resultEachItem.result_remark.includes('suggested')" >in the Recommended Questionnaires section.</a>
+          </span>
+            <span class="result-remark font-14"
+                  *ngIf="!this.user" > {{ getUnregisteredUserRemark(resultEachItem.result_remark)}}
+          </span>
+          </div>
+
           <p class="font-14"  *ngIf="resultEachItem.definition !== 'none'" >{{resultEachItem.definition}}</p
           >
         </div>

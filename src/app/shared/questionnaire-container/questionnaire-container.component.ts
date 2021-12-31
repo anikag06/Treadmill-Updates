@@ -16,7 +16,6 @@ export class QuestionnaireContainerComponent implements OnInit {
   loggedIn = false;
   sub!: Subscription;
   loaded = false;
-  // loaded = true;  // make this true once images added
   registered_user = true;
   categoryList = ['General mental health disorder', 'Mood disorder', 'Eating disorder', 'Anxiety disorder', 'Substance abuse disorder'];
   @Output() questionnaireItemClicked = new EventEmitter();
@@ -31,12 +30,10 @@ export class QuestionnaireContainerComponent implements OnInit {
     this.questionnaireService
       .getQuestionnaires()
       .subscribe((questionnaire_data: any) => {
-        console.log('subscribing happening from ques service');
         questionnaire_data.results.forEach((element: any) => {
           if (element.level !== 2) {
             this.questionnaireItems.push(<QuestionnaireItem>element);
             this.countQuestionnaireItem = this.countQuestionnaireItem + 1;
-            console.log('title', element);
           }
         });
       });
