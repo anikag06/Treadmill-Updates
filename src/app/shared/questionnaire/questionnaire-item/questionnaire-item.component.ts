@@ -126,6 +126,7 @@ export class QuestionnaireItemComponent implements OnInit {
     console.log('initialize data', this.questionnaireItem);
     if (this.questionnaireItem) {
       console.log('IF QUESTIONNAIRE ITEM', this.questionnaireItem);
+      this.questionnaireName = this.questionnaireItem.title;
       this.questionnaireItem.questions.forEach((element: any) => {
         this.questionsArray.push(<QuestionModel>element);
         // console.log('title', this.questionnaireItem.title,  this.questionsArray);
@@ -140,6 +141,7 @@ export class QuestionnaireItemComponent implements OnInit {
         : [];
       // tslint:disable-next-line:prefer-const
       let choices: number[] = [];
+      if (this.questionnaireName !== FEAR_QUESTIONNAIRE) {
       if (this.choicesArrayGroup.length > 0) {
         this.choicesArrayGroup.map((c: any) => {
           choices.push(c.option_id);
@@ -154,7 +156,29 @@ export class QuestionnaireItemComponent implements OnInit {
           }
         });
       }
+      }
+      // else if (this.questionnaireName === FEAR_QUESTIONNAIRE) {
+      //   this.showSlider = true;
+      //   console.log('STORED CHOICES', this.choicesArrayGroup);
+      //   this.choicesArrayGroup.map((c: any) => {
+      //     choices.push(c.option_id);
+      //   });
+      //   console.log('option CHOICES', choices);
+      //   for (let i = 0; i < this.questionsArray.length; i++) {
+      //     this.questionsArray[i].options.map((e: Options) => {
+      //       console.log('stored questions array', choices, e);
+      //       if (choices.length > 0 && choices.includes(e.id)) {
+      //         // e.selected = true;
+      //         if (e.option_type === 'Slider') {
+      //           this.value = +e.score;
+      //         } else if (e.option_type === 'text') {
+      //           this.textInput = '';
+      //         }
+      //       }
+      //     });
+      //   }
       // }
+
       this.questionsArray[this.quesIndex].options.forEach((e: any) => {
         this.optionsArray.push(<Options>e);
       });
@@ -182,7 +206,6 @@ export class QuestionnaireItemComponent implements OnInit {
   ngDoCheck() {
   if (this.questionnaireName === FEAR_QUESTIONNAIRE) {
     this.sliderId = this.optionsArray[this.value].id;
-    console.log('slider id', this.sliderId);
   }
   }
   showTestPage() {
@@ -197,6 +220,7 @@ export class QuestionnaireItemComponent implements OnInit {
     // tslint:disable-next-line:max-line-length
     this.ques = this.questionsArray[this.quesIndex].question;
     this.optionsArray = this.questionsArray[this.quesIndex].options;
+    this.nextBtn = false;
   }
 
   forwardArrowClick() {
@@ -235,11 +259,23 @@ export class QuestionnaireItemComponent implements OnInit {
     this.choicesArray['question_order'] = quesOrderToSend;
     this.choicesArray['option_id'] = optionIdToSend;
     // this.choicesArray['selectedIndex'] = index;
-    // check if this question id already in list
+    // check if this question id already in list except for fear questionnaire
+    if (this.questionnaireName  !== FEAR_QUESTIONNAIRE) {
     for (let i = 0 ; i < this.choicesArrayGroup.length; i++ ) {
       if (this.choicesArrayGroup[i].question_id === this.choicesArray['question_id']) {
-       this.choicesArrayGroup.splice(i, 1)
+       this.choicesArrayGroup.splice(i, 1);
         console.log('array', this.choicesArrayGroup[i]);
+       }
+      }
+    } else  if (this.questionnaireName  === FEAR_QUESTIONNAIRE) {
+      for (let i = 0 ; i < this.choicesArrayGroup.length; i++ ) {
+        // tslint:disable-next-line:max-line-length
+        if (this.choicesArrayGroup[i].question_id === this.choicesArray['question_id'] ) {
+          console.log('CHOICES ARRAY', i,  this.choicesArray);
+          if (!this.choicesArrayGroup[i].option_text && !this.choicesArray['option_text']) {
+            this.choicesArrayGroup.splice(i, 1);
+          }
+        }
       }
     }
     this.choicesArrayGroup.push(this.choicesArray);
@@ -332,11 +368,21 @@ export class QuestionnaireItemComponent implements OnInit {
     this.choicesArray['question_order'] = quesOrderToSend;
     this.choicesArray['option_id'] = optionIdToSend;
     this.choicesArray['option_text'] = this.textInput;
+    for (let i = 0 ; i < this.choicesArrayGroup.length; i++ ) {
+      if (this.choicesArrayGroup[i].question_id === this.choicesArray['question_id']) {
+        if (this.choicesArrayGroup[i].option_id === this.choicesArray['option_id']) {
+          this.choicesArrayGroup.splice(i, 1);
+        }
+      }
+    }
     this.choicesArrayGroup.push(this.choicesArray);
+    this.nextBtn = true;
     console.log('CHOICES ARRAY', this.choicesArrayGroup);
   }
   onInputChange(event: MatSliderChange) {
-    this.nextBtn = true;
+    if (this.textInput) {
+      this.nextBtn = true;
+    }
   console.log('event', event);
   }
 
