@@ -61,7 +61,7 @@ describe('treadwill Flow Experimental Group', () => {
     fp.reload();
   });
 
-  it(
+  xit(
     'Should click first Module and run its step',
     () => {
       fp.navigateToDashboard();

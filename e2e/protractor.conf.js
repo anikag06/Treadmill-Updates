@@ -13,6 +13,8 @@ exports.config = {
     test2: [ './src/**/flow.e2e-spec.ts'], // only experimental with username hardcoded
     test3: [ './src/**/flow-control.e2e-spec.ts'], // only control with username hardcoded
     test4: [ './src/**/chatbot.e2e-spec.ts'], // for chatbot with username hardcoded
+    test5: [ './src/**/questionnaire.e2e-spec.ts'], // for questionnaires with username hardcoded
+
 
   },
   multiCapabilities: [
@@ -25,8 +27,7 @@ exports.config = {
   }
   ],
   directConnect: true,
-  // baseUrl: 'http://localhost:4200/',
-  baseUrl: 'https://version2.treadwill.org/',
+  baseUrl: 'http://treadwillstaging.loca.lt/',
   framework: 'jasmine',
   jasmineNodeOpts: {
     showColors: true,
