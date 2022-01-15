@@ -7,6 +7,7 @@ describe('treadwill questionnaires', () => {
   let page: AppPage;
   let fp: FlowPage;
   let quesPage: QuestionnairePage;
+  let num: number;
   beforeEach(() => {
     page = new AppPage();
     fp = new FlowPage();
@@ -18,7 +19,7 @@ describe('treadwill questionnaires', () => {
 
   // seperate suit for fear questionnaire
 
-  xit('should check for registered users', () => {
+  it('should check for registered users', () => {
     page.navigateTo();
     browser.waitForAngularEnabled(false);
     browser.sleep(1000);
@@ -35,7 +36,7 @@ describe('treadwill questionnaires', () => {
     browser.sleep(2000);
   });
 
-  it('should check for unregistered users', () => {
+  xit('should check for unregistered users', () => {
     page.navigateTo();
     browser.waitForAngularEnabled(false);
     browser.sleep(2000);
@@ -50,7 +51,7 @@ describe('treadwill questionnaires', () => {
     browser.sleep(2000);
   });
 
-  xit('should go to resources page and select questionnaires tab', () => {
+  it('should go to resources page and select questionnaires tab', () => {
     fp.clickBurgerBtn('button.hamburger-button');
     browser.sleep(2000);
     const resourcesBtn = element(
@@ -71,8 +72,14 @@ describe('treadwill questionnaires', () => {
     browser.sleep(3000);
     quesPage.clickBtn('Start test');
     browser.sleep(3000);
-    quesPage.getTotalQuestions();
-    for (let i = 0; i < quesPage.num; i++) {
+  });
+
+  it('should find number of questions', async () => {
+    browser.sleep(3000);
+   await quesPage.getTotalQuestions();
+    browser.sleep(5000);
+    num = await quesPage.num;
+    for (let i = 0; i < num; i++) {
       browser.sleep(2000);
       quesPage.selectOption();
     }
@@ -89,6 +96,13 @@ describe('treadwill questionnaires', () => {
       ).isPresent(),
     ).toBe(true);
     browser.sleep(2000);
+  });
+  it('should click on download and email results', () => {
+    browser.sleep(2000);
+    quesPage.clickEmailSend();
+    browser.sleep(2000);
+    quesPage.clickDownload();
+    // quesPage.waitFileExists(fileAbsPath);
   });
 
   afterEach(async () => {});

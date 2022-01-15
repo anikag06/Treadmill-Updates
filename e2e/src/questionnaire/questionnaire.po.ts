@@ -27,7 +27,19 @@ export class QuestionnairePage {
   }
 
   clickAnyQuestionnaire() {
-    element(by.css('mat-card.ques-card.mat-card')).click();
+    // element(by.css('mat-card.ques-card.mat-card')).get(2).click();
+    const allOptions = element.all(by.css('mat-card.ques-card.mat-card'));
+    browser.sleep(2000);
+    allOptions
+      .count()
+      .then(function(numberOfItems: number) {
+        return Math.floor(Math.random() * numberOfItems);
+      })
+      .then(function(randomNumber: any) {
+        browser.sleep(2000);
+        allOptions.get(randomNumber).click();
+        console.log('Radio button clicked', randomNumber);
+      });
   }
 
   clickBtn(btn: any) {
@@ -65,25 +77,33 @@ export class QuestionnairePage {
       browser.sleep(2000);
     // });
     }
-  async  getTotalQuestions() {
-    // @ts-ignore
-    this.quesString = await this.getTotalQuestionsArray();
-    this.num = await this.getTotalQuestionNum(this.quesString);
-    // return +num;
-  }
-   getTotalQuestionsArray() {
+   async getTotalQuestions() {
     const el = element(
-      by.css('.progress-text-style'),
-    );
-    browser.wait(this.EC.presenceOf(el)).then(() => {
-     const totalQues =  el.getText();
-     return  totalQues;
-    });
+      by.css('.progress-text-style'));
+    browser.wait(this.EC.visibilityOf(el), 1 * 60 * 1000);
+     this.quesString = await el.getText();
+     const arr = this.quesString.split(' ');
+     console.log('number', arr);
+     this.num = +arr.slice(-1)[0];
+     return this.num;
   }
-  async getTotalQuestionNum(totalQues: string) {
-    const arr = await totalQues.split('');
-    const num = await arr[-1];
-    console.log('number', num);
-    return +num;
+  clickEmailSend() {
+    const el = element(by.css('a.email-style'));
+    browser.wait(this.EC.visibilityOf(el), 1 * 60 * 1000);
+    el.click();
+    const blank = element(by.css('input'));
+    blank.sendKeys('l.goyal18@gmail.com');
+    const emailBtn = element(by.cssContainingText('button.mat-raised-button', 'Send'));
+    emailBtn.click();
+    browser.wait(this.EC.invisibilityOf(emailBtn), 1 * 60 * 1000);
+  }
+  clickDownload() {
+    const el = element(by.css('a.print-style'));
+    browser.wait(this.EC.visibilityOf(el), 1 * 60 * 1000);
+    el.click();
+
+    const emailBtn = element(by.cssContainingText('button.mat-raised-button', 'Send'));
+    emailBtn.click();
+    browser.wait(this.EC.invisibilityOf(emailBtn), 1 * 60 * 1000);
   }
 }
