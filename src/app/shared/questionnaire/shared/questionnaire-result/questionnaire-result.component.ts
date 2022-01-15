@@ -136,7 +136,12 @@ export class QuestionnaireResultComponent implements OnInit {
     const html = this.header + this.pdfTable.nativeElement.innerHTML + this.footer;
     this.showLoading = true;
     let username: any;
-    username = this.user === null ? null : this.user.username;
+    if (this.user) {
+      username = this.user.username;
+    } else {
+      username = null;
+    }
+    // username = this.user === null ? null : this.user.username;
     this.questionnaireService
       .postEmailResult(
         String(this.email.value),
