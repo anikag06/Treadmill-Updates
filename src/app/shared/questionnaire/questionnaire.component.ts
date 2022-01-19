@@ -39,17 +39,17 @@ export class QuestionnaireComponent implements OnInit {
     this.showEachResultCardOnClick = !this.showEachResultCardOnClick;
   }
   getBackgroundColor(category: string) {
-    if (category === 'Anxiety disorder') {
+    if (category === 'Anxiety problems') {
       return '#DFB264';
-    } else if (category === 'Mood disorder') {
+    } else if (category === 'Mood problems') {
       return '#90AAF2';
-    } else if (category === 'Eating disorder') {
+    } else if (category === 'Eating probelms') {
       return '#C091CB';
-    } else if (category === 'Substance abuse disorder') {
+    } else if (category === 'Substance abuse problems') {
       return '#FFA3A3';
-    } else if (category === 'General mental health disorder') {
+    } else if (category === 'General mental health problems') {
       return '#73C0D8';
-    } else if (category === 'Sleep disorder') {
+    } else if (category === 'Sleep problems') {
       return '#D89E74';
     }
   }

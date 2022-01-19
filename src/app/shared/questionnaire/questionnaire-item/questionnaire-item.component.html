@@ -44,7 +44,7 @@
     <div class = "col-1 px-0">
     <mat-icon *ngIf = "this.questionCount > 1" class = "back-arrow-style" (click) = "backArrowClick()">arrow_back_ios</mat-icon>
     </div>
-    <div class = " col-10 " [innerHTML]="ques"></div>
+    <div class = " col-10 text-center " [innerHTML]="ques"></div>
     <div class = "arrow-div col-1">
     <mat-icon *ngIf = "this.questionCount <= this.total_questions" class = "forward-arrow-style" (click) = "forwardArrowClick()">arrow_forward_ios</mat-icon>
     </div>

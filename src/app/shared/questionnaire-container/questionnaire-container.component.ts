@@ -4,6 +4,7 @@ import { QuestionnaireItem } from '@/shared/questionnaire/shared/questionnaire.m
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuestionnaireContainerService } from '@/shared/questionnaire-container/questionnaire-container.service';
 import { Subscription } from 'rxjs';
+import {CATEGORY_LIST} from '@/app.constants';
 
 @Component({
   selector: 'app-questionnaire-container',
@@ -17,7 +18,7 @@ export class QuestionnaireContainerComponent implements OnInit {
   sub!: Subscription;
   loaded = false;
   registered_user = true;
-  categoryList = ['General mental health disorder', 'Mood disorder', 'Eating disorder', 'Anxiety disorder', 'Substance abuse disorder'];
+  categoryList = CATEGORY_LIST;
   @Output() questionnaireItemClicked = new EventEmitter();
   constructor(
     private questionnaireService: QuestionnaireService,
