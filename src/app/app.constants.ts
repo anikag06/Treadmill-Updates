@@ -261,6 +261,11 @@ export const QUESTIONNAIRE_RESULT_HISTORY = '/multi-questionnaire/results/';
 export const QUESTIONNAIRE_EMAIL_RESULT = '/multi-questionnaire/send-result/';
 export const CHOICES_GROUP = 'choices';
 // multi-questionarrie/
+
+export const CATEGORY_LIST = ['General mental health problems', 'Mood problems', 'Eating problems', 'Anxiety problems', 'Substance abuse problems'];
+
+
+
 // FORMS
 export const RECOMMENDED = 'recommended';
 export const WORRY_PROBLEM = 'worry';
