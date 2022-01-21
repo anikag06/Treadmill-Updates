@@ -8,6 +8,7 @@ describe('treadwill questionnaires', () => {
   let fp: FlowPage;
   let quesPage: QuestionnairePage;
   let num: number;
+
   beforeEach(() => {
     page = new AppPage();
     fp = new FlowPage();
@@ -19,24 +20,27 @@ describe('treadwill questionnaires', () => {
 
   // seperate suit for fear questionnaire
 
-  it('should check for registered users', () => {
+  xit('should check for registered users', () => {
     page.navigateTo();
     browser.waitForAngularEnabled(false);
     browser.sleep(1000);
     page.clickLoginLink();
     browser.sleep(2500);
     // username is hardcoded here
-    page.fillLoginForm('abc_185', 'test123');
-    browser.sleep(4000);
+    page.fillLoginForm('abc_185', 't3st12e');
+    browser.sleep(10000);
+    browser.wait(page.EC.visibilityOf(element(
+      by.css('mat-drawer-content.dashboard-mat-drawer-content .mat-drawer-content'),
+    )), 1 * 60 * 1000);
     expect(
       element(
-        by.className('dashboard-mat-drawer-content mat-drawer-content'),
+        by.css('mat-drawer-content.dashboard-mat-drawer-content .mat-drawer-content'),
       ).isPresent(),
     ).toBe(true);
     browser.sleep(2000);
   });
 
-  xit('should check for unregistered users', () => {
+  it('should check for unregistered users', () => {
     page.navigateTo();
     browser.waitForAngularEnabled(false);
     browser.sleep(2000);
@@ -51,7 +55,7 @@ describe('treadwill questionnaires', () => {
     browser.sleep(2000);
   });
 
-  it('should go to resources page and select questionnaires tab', () => {
+  xit('should go to resources page and select questionnaires tab', () => {
     fp.clickBurgerBtn('button.hamburger-button');
     browser.sleep(2000);
     const resourcesBtn = element(
@@ -70,6 +74,7 @@ describe('treadwill questionnaires', () => {
     browser.sleep(3000);
     quesPage.clickAnyQuestionnaire();
     browser.sleep(3000);
+    quesPage.getQuestnName();
     quesPage.clickBtn('Start test');
     browser.sleep(3000);
   });
@@ -92,17 +97,18 @@ describe('treadwill questionnaires', () => {
     browser.sleep(2000);
     expect(
       element(
-        by.className('result-div'),
-      ).isPresent(),
+        by.css('.result-div')).isPresent(),
     ).toBe(true);
     browser.sleep(2000);
   });
-  it('should click on download and email results', () => {
+  it('should click on email results', () => {
     browser.sleep(2000);
     quesPage.clickEmailSend();
     browser.sleep(2000);
+  });
+  it('should click on download', () => {
     quesPage.clickDownload();
-    // quesPage.waitFileExists(fileAbsPath);
+    browser.sleep(2000);
   });
 
   afterEach(async () => {});

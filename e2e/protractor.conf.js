@@ -22,7 +22,12 @@ exports.config = {
     'browserName': 'chrome',
       'chromeOptions': {
         'prefs': {
-          'profile.managed_default_content_settings.notifications': 1}
+          'profile.managed_default_content_settings.notifications': 1,
+          download: {
+            prompt_for_download: false,
+            default_directory: '../Downloads/',
+          }
+        }
       }
   }
   ],
