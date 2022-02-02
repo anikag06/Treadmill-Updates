@@ -9,7 +9,8 @@ export class QuestionnairePage {
   quesName!: string;
 
   num!: number;
-
+  quesOrder = 8;
+  optionOrder = 2;
   // navigateTo() {
   //   return browser.get('/Resources') as Promise<any>;
   // }
@@ -30,18 +31,22 @@ export class QuestionnairePage {
   }
 
   clickAnyQuestionnaire() {
+    const seeAllBtn = element(by.cssContainingText('a.see-all', 'See all Questionnaires'));
+    browser.wait(this.EC.visibilityOf(seeAllBtn), 1 * 60 * 1000);
+    seeAllBtn.click();
     const allOptions = element.all(by.css('mat-card.ques-card.mat-card'));
-    browser.sleep(2000);
-    allOptions
-      .count()
-      .then(function(numberOfItems: number) {
-        return Math.floor(Math.random() * numberOfItems);
-      })
-      .then(function(randomNumber: any) {
-        browser.sleep(2000);
-        allOptions.get(randomNumber).click();
-        console.log('Radio button clicked', randomNumber);
-      });
+    browser.sleep(5000);
+    // allOptions
+    //   .count()
+    //   .then(function(numberOfItems: number) {
+    //     return Math.floor(Math.random() * numberOfItems);
+    //   })
+    //   .then(function(randomNumber: any) {
+    //     browser.sleep(2000);
+    //     // allOptions.get(randomNumber).click();
+    //     allOptions.get(this.quesOrder).click();
+    //   });
+    allOptions.get(this.quesOrder).click();
     // browser.wait(this.EC.presenceOf(element(by.css('mat-card.ques-card.mat-card')))).then( () => {
     //   const questn = element(by.css('mat-card-footer.show-footer-style.mat-card-footer')).element(by.cssContainingText('div.bold-text.giveMeEllipsis', 'Adult ADHD Self-Report Scale (ASRS-v1.1)'));
     //   browser.sleep(2000);
@@ -63,10 +68,13 @@ export class QuestionnairePage {
     });
   }
 
-  selectOption() {
+  selectOption(num: number) {
     browser.wait(this.EC.presenceOf(element(by.css('.btn-group-vertical')))).then(
       () => {
-    element(by.css('.option-btn-style')).click();
+        const allOptions = element.all(by.css('.option-btn-style'));
+        browser.sleep(2000);
+        console.log('num', num);
+        allOptions.get(num).click();
       });
   }
   checkPageLoaded() {
@@ -100,6 +108,7 @@ export class QuestionnairePage {
      const arr = this.quesString.split(' ');
      console.log('number', arr);
      this.num = +arr.slice(-1)[0];
+     console.log('number', this.num);
      return this.num;
   }
   clickEmailSend() {
@@ -128,5 +137,54 @@ export class QuestionnairePage {
       expect(filename).toContain('\'18-01-22_\' + this.quesName + \'_Result.pdf\'');
     });
 
+  }
+  clickBackButton() {
+    const el = element(by.css('button.back-button.mat-icon-button'));
+    browser.wait(this.EC.visibilityOf(el), 1 * 60 * 1000);
+    el.click();
+  }
+  async checkScore() {
+    const el = element(
+      by.css('div.score'));
+    browser.wait(this.EC.visibilityOf(el), 1 * 60 * 1000);
+    const score = await el.getText();
+    console.log('score', score);
+    return score;
+  }
+  writeInput() {
+    const el = element(by.css('div.questionnaire-text.text-option'));
+    browser.wait(this.EC.visibilityOf(el), 1 * 60 * 1000).then(() => {
+      const blank = element(by.css('textarea'));
+      blank.sendKeys('Phobia1');
+      browser.sleep(2000);
+    });
+    console.log('WRITE INPUT');
+    const contBtn = element(by.cssContainingText('button.mat-raised-button', 'Continue'));
+    contBtn.click();
+    browser.sleep(2000);
+  }
+
+    slideInput() {
+    const matSlider = element(by.css('mat-slider.mat-slider'));
+      browser.wait(this.EC.visibilityOf(matSlider), 1 * 60 * 1000).then(() => {
+        browser.actions().dragAndDrop(
+          matSlider,
+          {x: 10, y: 0}
+        ).perform();
+        console.log('SLIDE INPUT');
+        const nextBtn = element(by.cssContainingText('button.mat-raised-button', 'Next'));
+        browser.wait(this.EC.visibilityOf(nextBtn), 1 * 60 * 1000).then(() => {
+          nextBtn.click();
+        });
+      });
+    // browser.sleep(2000);
+
+    // browser.sleep(2000);
+
+  }
+  clickBackArrow() {
+    const el = element(by.css('mat-icon.back-arrow-style.mat-icon'));
+    browser.wait(this.EC.visibilityOf(el), 1 * 60 * 1000);
+    el.click();
   }
 }
