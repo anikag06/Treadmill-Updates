@@ -81,7 +81,7 @@
   ​
 
 <!--For reference table-->
-    <div class = "mx-0 row" *ngIf="questionnaireName !== 'Fear Questionnaire' && questionnaireName !== 'Mood Disorder Questionnaire'">
+    <div class = "mx-0 row" *ngIf="questionnaireName !== FEARQ && questionnaireName !== MOOD_DISORDER">
       <div class = "col px-0">
         <div class = "ref-heading mb-3"><b>Reference Table</b></div>
         <table class = "table-style">
@@ -106,14 +106,14 @@
 
 
 <!--  No reference table for fear questionnaire -->
-  <div class = "mx-0 row" *ngIf="questionnaireName === 'Fear Questionnaire'">
+  <div class = "mx-0 row" *ngIf="questionnaireName === FEARQ">
     <div class = "col px-0">
       <div class = "ref-heading mb-3"><b>Reference remark</b></div>
       <div class="font-14">A higher score indicates higher avoidance or troublesome levels. Compare the scores with previous scores (if taken the test before).</div>
     </div>
   </div>
     <!--  No reference table for Mood Disorder Questionnaire-->
-    <div class = "mx-0 row" *ngIf="questionnaireName === 'Mood Disorder Questionnaire'">
+    <div class = "mx-0 row" *ngIf="questionnaireName === MOOD_DISORDER">
       <div class = "col px-0">
         <div class = "ref-heading mb-3"><b>Reference remark</b></div>
         <div class="font-14">Bipolar disorder is a complex illness, and an accurate, thorough diagnosis can only be made through

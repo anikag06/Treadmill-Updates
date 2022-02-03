@@ -242,6 +242,7 @@ export const GAD7 = 'GAD7';
 export const SIQ = 'SIQ';
 export const LEVEL1 = 'Level 1 Cross-Cutting Symptom Measure';
 export const FEAR_QUESTIONNAIRE = 'Fear Questionnaire';
+export const MOOD_DISORDER = 'Mood Disorder Questionnaire';
 
 
 

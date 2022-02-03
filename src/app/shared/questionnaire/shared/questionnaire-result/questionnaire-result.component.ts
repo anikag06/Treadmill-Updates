@@ -8,7 +8,7 @@ import { MatSnackBar } from '@angular/material';
 import { saveAs } from 'file-saver';
 import { Subscription } from 'rxjs';
 import { FormControl } from '@angular/forms';
-import {LEVEL1} from '@/app.constants';
+import {FEAR_QUESTIONNAIRE, LEVEL1, MOOD_DISORDER} from '@/app.constants';
 import {Router} from '@angular/router';
 
 @Component({
@@ -34,6 +34,8 @@ export class QuestionnaireResultComponent implements OnInit {
   showResultComponent = false;
   @Input() refList: any;
   LEVEL1 = LEVEL1;
+  FEARQ = FEAR_QUESTIONNAIRE;
+  MOOD_DISORDER = MOOD_DISORDER;
   footer = '<div class=\'row justify-content-center\'>' +
           '<div class=\'col-12 mt-lg-3 font-roboto-normal text-center text-muted text-copyright\'>' +
           '<p>https://www.treadwill.org/</p>' +
