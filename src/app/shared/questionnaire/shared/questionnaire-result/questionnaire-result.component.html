@@ -168,7 +168,12 @@
     </form>
     <div class="mt-4">
       <mat-icon>cloud_download</mat-icon>
-      <a class="print-style" (click)="downloadPDF()">Download Result</a>
+      <a class="print-style" (click)="downloadPDF()" *ngIf="showDownload; else downloading">Download Result </a>
+      <ng-template #downloading>
+        <a class="print-style" >Downloading..
+        <span class="spinner-border spinner-border-sm"></span> </a>
+        &nbsp;&nbsp;
+      </ng-template>
     </div>
   </div>
 </mat-card>

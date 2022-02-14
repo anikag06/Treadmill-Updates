@@ -32,6 +32,7 @@ export class QuestionnaireResultComponent implements OnInit {
   showLoading = false;
   user!: User;
   showResultComponent = false;
+  showDownload = true;
   @Input() refList: any;
   LEVEL1 = LEVEL1;
   FEARQ = FEAR_QUESTIONNAIRE;
@@ -118,6 +119,7 @@ export class QuestionnaireResultComponent implements OnInit {
   }
 
   public downloadPDF(): void {
+    this.showDownload = false;
     const html = this.header + this.pdfTable.nativeElement.innerHTML + this.footer;
     this.questionnaireService
       .getPdf(html, this.questionnaireName)
@@ -126,6 +128,7 @@ export class QuestionnaireResultComponent implements OnInit {
         const pdfUrl = URL.createObjectURL(blob);
         const fileName =
           this.resultDate + '_' + this.questionnaireName + '_Result.pdf';
+        this.showDownload = true;
         saveAs(blob, fileName);
       });
   }

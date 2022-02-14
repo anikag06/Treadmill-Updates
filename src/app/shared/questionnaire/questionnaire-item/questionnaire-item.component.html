@@ -42,11 +42,11 @@
     <p></p>
   <div class = "row mx-0">
     <div class = "col-1 px-0">
-    <mat-icon *ngIf = "this.questionCount > 1" class = "back-arrow-style" (click) = "backArrowClick()">arrow_back_ios</mat-icon>
+    <mat-icon *ngIf = "this.questionCount > 1 && this.showBackArrow" class = "back-arrow-style" (click) = "backArrowClick()">arrow_back_ios</mat-icon>
     </div>
     <div class = " col-10 text-center " [innerHTML]="ques"></div>
     <div class = "arrow-div col-1 px-0">
-    <mat-icon *ngIf = "this.questionCount <= this.total_questions" class = "forward-arrow-style" (click) = "forwardArrowClick()">arrow_forward_ios</mat-icon>
+    <mat-icon *ngIf = "this.quesIndex < this.choicesArrayGroup.length - this.textInputArrayGroup.length " class = "forward-arrow-style" (click) = "forwardArrowClick()"  >arrow_forward_ios</mat-icon>
     </div>
   </div>
     <p></p>
@@ -131,10 +131,12 @@
           min="0"
           max="8"
           aria-label="units"
-          [(ngModel)]="value"
+          [(value)]="rating"
           (change)="onInputChange($event)"
          ></mat-slider>
+        <div class="slider-numbers mt-4 px-2"> (4 is the default value, please select a value as per your answer)</div>
       </div>
+
     <div class = "d-flex justify-content-end">
       <button style="margin-top:50px;margin-bottom: 75px" mat-raised-button
               [disabled]="!nextBtn"
@@ -144,7 +146,7 @@
               this.questionsArray[this.quesIndex].order,
               this.sliderId,
               this.questionCount,
-              this.questionsArray[this.quesIndex].options[value]
+              this.questionsArray[this.quesIndex].options[rating]
               ))">Next  <img src = "assets/questionnaire/arrow right white.svg"> </button>
       </div>
     </div>

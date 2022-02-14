@@ -82,11 +82,11 @@ export class PreLoginComponent implements OnInit {
 
   onPreLoginQuestionnaireShow() {}
 
-  onWorkWithUsClicked() {
-    const url =
-      'https://docs.google.com/forms/d/e/1FAIpQLSfVDBSuxgghsD2SX4VWkOA2AHCotfhkOx0Qbhrci9PRLh-IPg/viewform?usp=send_form';
-    window.open(url, '_blank');
-  }
+  // onWorkWithUsClicked() {
+  //   const url =
+  //     'https://docs.google.com/forms/d/e/1FAIpQLSfVDBSuxgghsD2SX4VWkOA2AHCotfhkOx0Qbhrci9PRLh-IPg/viewform?usp=send_form';
+  //   window.open(url, '_blank');
+  // }
 
   onPrivacyPolicyClick() {
     this.router.navigate(['trial/privacy-policy']);

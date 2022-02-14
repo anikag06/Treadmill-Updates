@@ -1,7 +1,7 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import { UsefulListItem } from '@/main/extra-resources/shared/usefulList.model';
 import { QuizService } from '@/shared/questionnaire-deprecated/questionnaire-deprecated.service';
-import {CHOICES_GROUP, FEAR_QUESTIONNAIRE} from '@/app.constants';
+import {CHOICES_GROUP, FEAR_QUESTIONNAIRE, TEXT_INPUT_GROUP, AUDITQ} from '@/app.constants';
 import { Quiz } from '@/shared/questionnaire-deprecated/input/quiz';
 import { Options } from '@/shared/questionnaire/shared/options.model';
 import { QuestionnaireService } from '@/shared/questionnaire/questionnaire.service';
@@ -26,23 +26,17 @@ export class QuestionnaireItemComponent implements OnInit {
   @Input() optionsItem!: Options;
   @Input() usefulItem!: UsefulListItem;
   @Output() quesItemToQues = new EventEmitter<String>();
-  // var ipNull = null;
   ip_add = null;
   user!: User;
   resultData!: string;
   testShow!: string;
   questionnaireIdToSend!: number;
-  // questionnaireItem!: any;
   questionnaireItem: QuestionnaireItem = new QuestionnaireItem('', '', 0, '', '', 0, [], '');
   oldQuestionnaireItem: QuestionnaireItem = new QuestionnaireItem('', '', 0, '', '', 0, [], '');
-
-  resultItem: Result[] = [];
   questionsArray: QuestionModel[] = [];
 
   optionsArray: Options[] = [];
   total_questions!: number;
-  // title!: string;
-  questionnaireI: Quiz = new Quiz(null);
   questionCount = 1;
   ques = '';
   quesIndex = 0;
@@ -52,22 +46,23 @@ export class QuestionnaireItemComponent implements OnInit {
   submitPage = false;
   choicesArray: any = {};
   choicesArrayGroup: any = [];
-  optionType!: string;
-  tempNum!: number;
-  scoreArray: Options[] = [];
+  textInputArrayGroup: any = [];
   questionnaireName = '';
   showSlider = false;
   sliderId!: number;
-  value = 4;
+  rating = 4;
   nextBtn = false;
   textInput!: string;
   selectedIndex = 100;
   sub!: Subscription;
-  showBackground = false;
   registered_user = true;
   showLoading = false;
   textboxOption = false;
-
+  AUDITQ = AUDITQ;
+  skipQuestions = false;
+  // oldQuestionsArray: QuestionModel[] = [];
+  auditQuestionScore!: number;
+  showBackArrow = true;
   constructor(
     private quizService: QuizService,
     private questionnaireService: QuestionnaireService,
@@ -109,7 +104,7 @@ export class QuestionnaireItemComponent implements OnInit {
         } else {
           this.quesIndex = 0;
         }
-        console.log('local storage', this.questionnaireItem, this.quesIndex );
+        console.log('local storage', this.questionnaireItem, this.quesIndex);
         this.initializeData();
       }
     }
@@ -137,47 +132,54 @@ export class QuestionnaireItemComponent implements OnInit {
       this.ques = this.questionsArray[this.quesIndex].question;
       this.choicesArrayGroup = window.localStorage.getItem(CHOICES_GROUP) // this line before the ? is not compulsory to put.
         ? // If any error, try checking with this, or else remove
-          JSON.parse(window.localStorage.getItem(CHOICES_GROUP) || '[]')
+        JSON.parse(window.localStorage.getItem(CHOICES_GROUP) || '[]')
         : [];
       // tslint:disable-next-line:prefer-const
       let choices: number[] = [];
       if (this.questionnaireName !== FEAR_QUESTIONNAIRE) {
-      if (this.choicesArrayGroup.length > 0) {
+        if (this.choicesArrayGroup.length > 0) {
+          this.choicesArrayGroup.map((c: any) => {
+            choices.push(c.option_id);
+          });
+        }
+        for (let i = 0; i < this.questionsArray.length; i++) {
+          this.questionsArray[i].options.map((e: Options) => {
+            if (choices.length > 0 && choices.includes(e.id)) {
+              e.selected = true;
+            } else {
+              e.selected = false;
+            }
+          });
+        }
+      } else if (this.questionnaireName === FEAR_QUESTIONNAIRE) {
+        this.textInputArrayGroup = window.localStorage.getItem(TEXT_INPUT_GROUP)
+          ? // If any error, try checking with this, or else remove
+          JSON.parse(window.localStorage.getItem(TEXT_INPUT_GROUP) || '[]')
+          : [];
+        if (this.choicesArrayGroup.length > 0) {
+          this.sliderPosition();
+          this.showSlider = true;
+        }
+        console.log('STORED CHOICES', this.choicesArrayGroup);
         this.choicesArrayGroup.map((c: any) => {
           choices.push(c.option_id);
         });
+
+        console.log('option CHOICES', choices);
+        // for (let i = 0; i < this.questionsArray.length; i++) {
+        //   this.questionsArray[i].options.map((e: Options) => {
+        //     if (choices.length > 0 && choices.includes(e.id)) {
+        //       // e.selected = true;
+        //       if (e.option_type === 'Slider') {
+        //         this.rating = +e.score;
+        //         console.log('stored questions array', choices, e.score);
+        //       } else if (e.option_type === 'text') {
+        //         this.textInput = '';
+        //       }
+        //     }
+        //   });
+        // }
       }
-      for (let i = 0; i < this.questionsArray.length; i++) {
-        this.questionsArray[i].options.map((e: Options) => {
-          if (choices.length > 0 && choices.includes(e.id)) {
-            e.selected = true;
-          } else {
-            e.selected = false;
-          }
-        });
-      }
-      }
-      // else if (this.questionnaireName === FEAR_QUESTIONNAIRE) {
-      //   this.showSlider = true;
-      //   console.log('STORED CHOICES', this.choicesArrayGroup);
-      //   this.choicesArrayGroup.map((c: any) => {
-      //     choices.push(c.option_id);
-      //   });
-      //   console.log('option CHOICES', choices);
-      //   for (let i = 0; i < this.questionsArray.length; i++) {
-      //     this.questionsArray[i].options.map((e: Options) => {
-      //       console.log('stored questions array', choices, e);
-      //       if (choices.length > 0 && choices.includes(e.id)) {
-      //         // e.selected = true;
-      //         if (e.option_type === 'Slider') {
-      //           this.value = +e.score;
-      //         } else if (e.option_type === 'text') {
-      //           this.textInput = '';
-      //         }
-      //       }
-      //     });
-      //   }
-      // }
 
       this.questionsArray[this.quesIndex].options.forEach((e: any) => {
         this.optionsArray.push(<Options>e);
@@ -195,19 +197,23 @@ export class QuestionnaireItemComponent implements OnInit {
       }
     }
   }
+
   ngOnInit() {
     this.getIPAddress();
   }
+
   ngAfterViewInit() {
     this.questionnaireName = this.questionnaireItem.title;
   }
 
 
   ngDoCheck() {
-  if (this.questionnaireName === FEAR_QUESTIONNAIRE) {
-    this.sliderId = this.optionsArray[this.value].id;
+    if (this.questionnaireName === FEAR_QUESTIONNAIRE) {
+      this.sliderId = this.optionsArray[this.rating].id;
+      // console.log('SLIDER ID', this.sliderId);
+    }
   }
-  }
+
   showTestPage() {
     this.introPage = false;
     this.resultPage = false;
@@ -221,27 +227,59 @@ export class QuestionnaireItemComponent implements OnInit {
     this.ques = this.questionsArray[this.quesIndex].question;
     this.optionsArray = this.questionsArray[this.quesIndex].options;
     this.nextBtn = false;
+    this.checkOptionType();
+    this.sliderPosition();
   }
 
   forwardArrowClick() {
-    console.log('CHOICES ARRAY length', this.choicesArrayGroup.length);
-    this.value = 4;
+
     this.nextBtn = false;
     if (this.questionCount + 1 > this.total_questions) {
-      if (this.choicesArrayGroup.length >= this.total_questions) {
+      // if (this.choicesArrayGroup.length >= this.total_questions) {
+        console.log('CHOICES ARRAY GROUP', this.choicesArrayGroup);
         this.submitPage = true;
-      }
+      // }
     } else {
-      this.questionCount += 1;
-      this.quesIndex += 1;
+      if (!this.skipQuestions) {
+        this.questionCount += 1;
+        this.quesIndex += 1;
+      }
+      this.skipQuestions = false;
       localStorage.setItem('qIndex', String(this.quesIndex));
       // localStorage.setItem('options', JSON.stringify(this.optionsArray));
 
       this.ques = this.questionsArray[this.quesIndex].question; // need to change based on the api
       this.optionsArray = this.questionsArray[this.quesIndex].options;
+      this.checkOptionType();
+      this.rating = 4;
+      this.sliderPosition();
     }
-    this.checkOptionType();
+  // }
+}
+sliderPosition() {
+  console.log('CHOICES ARRAY GROUP', this.choicesArrayGroup[this.choicesArrayGroup.length - 1].question_order, this.quesIndex, this.textInputArrayGroup);
+  if (this.questionnaireName === FEAR_QUESTIONNAIRE) {
+    for (let i = 0; i < this.textInputArrayGroup.length; i++) {
+      if (this.textInputArrayGroup[i].question_order === this.quesIndex + 1 && this.textInputArrayGroup[i].option_text) {
+        console.log('question index , score', this.quesIndex + 1, this.textInputArrayGroup[i].option_text);
+        this.textInput = this.textInputArrayGroup[i].option_text;
+        this.showSlider = true;
+      }
+    }
+
+    // if (this.choicesArrayGroup[this.choicesArrayGroup.length - 1].question_order === this.quesIndex) {
+    //   this.rating = 4;
+    // } else {
+    for (let i = 0; i < this.choicesArrayGroup.length; i++) {
+      if (this.choicesArrayGroup[i].question_order === this.quesIndex + 1 && !this.choicesArrayGroup[i].option_text) {
+        console.log('question index , score', this.quesIndex + 1, this.choicesArrayGroup[i].slider_value);
+        this.showSlider = true;
+        this.rating = +this.choicesArrayGroup[i].slider_value;
+       }
+    }
+   // }
   }
+}
 
   optionClick(
     quesIdToSend: number,
@@ -258,10 +296,32 @@ export class QuestionnaireItemComponent implements OnInit {
     this.choicesArray['question_id'] = quesIdToSend;
     this.choicesArray['question_order'] = quesOrderToSend;
     this.choicesArray['option_id'] = optionIdToSend;
+    if (this.questionnaireName  === FEAR_QUESTIONNAIRE) {
+      this.choicesArray['slider_value'] = this.rating;
+    }
+    this.skipQuestions = false;
+    console.log('questionCount', this.questionCount, 'countOfQuestions', countOfQuestions,);
+    if (this.questionnaireName  === AUDITQ && countOfQuestions === 1) {
+      if (+option.score === 0) {
+        this.skipQuestions = true;
+        this.skipAuditQuestions(countOfQuestions);
+      }
+    } else if (this.questionnaireName  === AUDITQ && countOfQuestions === 2 && !this.skipQuestions) {
+      if (+option.score === 0) {
+        this.auditQuestionScore = 0;
+      }
+    } else if (this.questionnaireName === AUDITQ && countOfQuestions === 3 && !this.skipQuestions) {
+        if (+option.score === 0 && this.auditQuestionScore === 0) {
+          this.skipAuditQuestions(countOfQuestions);
+        }
+      }
+
+
     // this.choicesArray['selectedIndex'] = index;
     // check if this question id already in list except for fear questionnaire
     if (this.questionnaireName  !== FEAR_QUESTIONNAIRE) {
     for (let i = 0 ; i < this.choicesArrayGroup.length; i++ ) {
+      console.log('CAG', this.choicesArrayGroup[i]);
       if (this.choicesArrayGroup[i].question_id === this.choicesArray['question_id']) {
        this.choicesArrayGroup.splice(i, 1);
         console.log('array', this.choicesArrayGroup[i]);
@@ -335,6 +395,7 @@ export class QuestionnaireItemComponent implements OnInit {
     localStorage.removeItem('qIndex');
     localStorage.removeItem('quesData');
     localStorage.removeItem(CHOICES_GROUP);
+    localStorage.removeItem(TEXT_INPUT_GROUP);
     localStorage.removeItem('testOngoing');
     localStorage.removeItem('options');
   }
@@ -375,24 +436,52 @@ export class QuestionnaireItemComponent implements OnInit {
         }
       }
     }
+    for (let i = 0 ; i < this.textInputArrayGroup.length; i++ ) {
+      if (this.textInputArrayGroup[i].question_id === this.choicesArray['question_id']) {
+        // if (this.choicesArrayGroup[i].option_id === this.choicesArray['option_id']) {
+          this.textInputArrayGroup.splice(i, 1);
+        // }
+      }
+    }
+    this.textInputArrayGroup.push(this.choicesArray);
+    window.localStorage.setItem(
+      TEXT_INPUT_GROUP,
+      JSON.stringify(this.textInputArrayGroup)
+    );
     this.choicesArrayGroup.push(this.choicesArray);
-    this.nextBtn = true;
+
+    // this.nextBtn = true;
     console.log('CHOICES ARRAY', this.choicesArrayGroup);
   }
   onInputChange(event: MatSliderChange) {
-    if (this.textInput) {
+    // if (this.textInput) {
       this.nextBtn = true;
-    }
+    // }
   console.log('event', event);
   }
 
   checkOptionType() {
     if (this.optionsArray.find(option => option.option_type === 'Text')) {
+      console.log('option type', this.optionsArray);
       this.textboxOption = true;
       this.showSlider = false;
     } else if (this.optionsArray.find(option => option.option_type === 'Slider')) {
       this.showSlider = true;
       this.textboxOption = false;
+    }
+  }
+  skipAuditQuestions(countOfQuestions: number) {
+    if (countOfQuestions === 1) {
+      //jump to question 9
+      this.quesIndex += 8;
+      this.questionCount += 8;
+      this.skipQuestions = true;
+      this.showBackArrow = false;
+    } else if (countOfQuestions === 3) {
+      this.quesIndex += 6;
+      this.questionCount += 6;
+      this.skipQuestions = true;
+      this.showBackArrow = false;
     }
   }
 }

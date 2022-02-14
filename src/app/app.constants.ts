@@ -243,6 +243,7 @@ export const SIQ = 'SIQ';
 export const LEVEL1 = 'Level 1 Cross-Cutting Symptom Measure';
 export const FEAR_QUESTIONNAIRE = 'Fear Questionnaire';
 export const MOOD_DISORDER = 'Mood Disorder Questionnaire';
+export const AUDITQ = 'Alcohol Use Disorders Identification Test';
 
 
 
@@ -261,6 +262,7 @@ export const QUESTIONNAIRE_SUBMIT = '/multi-questionnaire/questionnaire-user-res
 export const QUESTIONNAIRE_RESULT_HISTORY = '/multi-questionnaire/results/';
 export const QUESTIONNAIRE_EMAIL_RESULT = '/multi-questionnaire/send-result/';
 export const CHOICES_GROUP = 'choices';
+export const TEXT_INPUT_GROUP = 'text_input';
 // multi-questionarrie/
 
 export const CATEGORY_LIST = ['General mental health problems', 'Mood problems', 'Eating problems', 'Anxiety problems', 'Substance abuse problems'];
