@@ -453,6 +453,7 @@ img.emoji {
 body {
   /* Disables pull-to-refresh but allows overscroll glow effects. */
   overscroll-behavior-y: auto;
+
 }
 textarea{
   min-height: 20px !important;
@@ -724,4 +725,12 @@ background: #cccccc;
     padding: 6px;
 
   }
+}
+
+@media all and (max-device-width: 480px) {
+    html,body { 
+    text-size-adjust:none;
+    -webkit-text-size-adjust:none;
+    -moz-text-size-adjust:none;
+     }
 }
