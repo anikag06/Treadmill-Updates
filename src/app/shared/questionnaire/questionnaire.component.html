@@ -6,8 +6,8 @@
 <!--    <div class = "preview-img">Test text</div>-->
   </div>
   <mat-card-footer class = "show-footer-style">
-    <span *ngIf="isList==='false'" class = "category-style" [style.background-color]="getBackgroundColor(questionnaireItem.category)">{{questionnaireItem.category}}</span>
-    <div class = "bold-text giveMeEllipsis">{{questionnaireItem.title}}<br></div>
+    <div *ngIf="isList==='false'" class = "category-style" [style.background-color]="getBackgroundColor(questionnaireItem.category)">{{questionnaireItem.category}}</div>
+    <div class = "bold-text mt-1 giveMeEllipsis">{{questionnaireItem.title}}<br></div>
     <span class = "subtitle-style giveEllipsis">{{questionnaireItem.subtitle}}</span>
   </mat-card-footer>
 </mat-card>
