@@ -1,11 +1,6 @@
-<!--<div-->
-<!--  *ngIf="!removeChat"-->
-<!--  appNavbarFlow-->
-<!--  appClickChatbotOutside-->
-<!--  (clickOutside)="onClickOutside()"-->
-<!--&gt;-->
- <div
+<div
   *ngIf="!removeChat"
+  appNavbarFlow
   appClickChatbotOutside
   (clickOutside)="onClickOutside()"
 >
@@ -26,7 +21,6 @@
   <app-chat-window
     *ngIf="!chatwindowClosed"
     [chatWindowClosed]="chatwindowClosed"
-    [chatMinimised]="chatMinimised"
     [overlayOpen]="overlayOpen"
     [currentDateTime]="currentDateTime"
     (chatWindowClosedEmitter)="updateChatWindow($event)"

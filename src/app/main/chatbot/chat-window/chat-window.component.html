@@ -1,8 +1,6 @@
 <div
   class="container chat-window"
-  style="top:46px"
   [@openClose]="chatWindowClosed ? 'closed' : openingStyle()"
-  *ngIf="!chatMinimised"
 >
   <div class="chat-header">
     <img
@@ -11,29 +9,19 @@
       alt=""
     />
     <h3>WillBot</h3>
-    <div class="float-right">
-    <button
-      id="minimise_chatbot"
-      mat-icon-button
-      class="minimise-icon"
-      (click)="minimiseChat()"
-    >
-      <mat-icon>keyboard_arrow_down</mat-icon>
-    </button>
     <button
       id="close_chatbot"
       mat-icon-button
       class="close-icon"
       (click)="close()"
     >
-      <mat-icon>close</mat-icon>
+      <mat-icon>keyboard_arrow_down</mat-icon>
     </button>
   </div>
-</div>
   <div
     class="chat-frame-container"
     [ngStyle]="{
-      height: mobileView ? 'calc( ' + getFrameHeight() + 'px - 92px)' : '490px'
+      height: mobileView ? 'calc( ' + getFrameHeight() + 'px - 46px)' : '490px'
     }"
     #frameContainer
   >
@@ -295,37 +283,6 @@
           </button>
         </div>
       </form>
-    </div>
-  </div>
-</div>
-<div
-  class="container chat-window"
-  style="top:90vh"
-  *ngIf="chatMinimised"
->
-  <div class="chat-header">
-    <img
-      class="chatbot-screen-img"
-      src="assets/chatbot/on_chat_screen.svg"
-      alt=""
-    />
-    <h3>WillBot</h3>
-    <div class="float-right">
-      <button
-        id="maximise_chatbot"
-        mat-icon-button
-        class="maximise-icon"
-        (click)="maximiseChat()"
-      >
-        <mat-icon>keyboard_arrow_up</mat-icon>
-      </button>
-      <button
-        mat-icon-button
-        class="close-icon"
-        (click)="close()"
-      >
-        <mat-icon>close</mat-icon>
-      </button>
     </div>
   </div>
 </div>

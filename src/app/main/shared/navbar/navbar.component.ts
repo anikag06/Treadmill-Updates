@@ -217,11 +217,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
     hostViewContainerRef.createComponent(navbarFLowComponentFactory);
     this.notificationService.closeNavFlow.subscribe(() => {
       setTimeout(() => {
-        // if (!this.overlayService.showChatbot) {
+        if (!this.overlayService.showChatbot) {
           this.overlayService.overlayClose.emit();
           this.overlayService.showFlow = false;
           hostViewContainerRef.clear();
-        // }
+        }
       }, 500);
     });
   }
