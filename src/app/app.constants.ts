@@ -143,6 +143,7 @@ export const FFG_MUSIC = '/api/v1/games/face-game/music/';
 
 export const NEW_CHAT = 'new_chat';
 export const RESUME_CHAT = 'resume_chat';
+export const MAXIMISE_CHAT = 'maximise_chat';
 export const REPLY_CURRENT = 'reply_current';
 export const UNSPLASH_URL = 'https://api.unsplash.com';
 export const GIPHY_URL = 'https://api.giphy.com/v1/gifs/';

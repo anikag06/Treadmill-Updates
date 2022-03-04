@@ -43,10 +43,10 @@ export class NavbarFlowComponent implements OnInit {
 
   ngOnInit() {
     this.notificationService.closeNavFlow.subscribe(() => {
-      if (!this.overlayService.showChatbot) {
+      // if (!this.overlayService.showChatbot) {
         this.isFlowVisible = false;
         this.overlayService.showFlow = false;
-      }
+      // }
     });
   }
   ngAfterViewInit() {

@@ -43,6 +43,7 @@ export class ChatbotComponent implements OnInit {
   popupYPosition!: number;
   clickOutsideComponent!: any;
   timer!: any;
+  chatMinimised = false;
 
   constructor(
     private router: Router,
@@ -71,39 +72,43 @@ export class ChatbotComponent implements OnInit {
 
   toggleChat() {
     this.chatwindowClosed = !this.chatwindowClosed;
-    this.overlayService.overlayOpen.emit();
+    if (this.chatMinimised) {
+      this.chatMinimised = false;
+    }
+
+    // this.overlayService.overlayOpen.emit();
 
     this.currentDateTime = Date.now();
-    this.overlayOpen = true;
-    this.overlayService.showFlow = false;
+    // this.overlayOpen = true;
+    // this.overlayService.showFlow = false;
     this.overlayService.showChatbot = true;
-    const navbarFLowComponentFactory = this.componentFactoryResolver.resolveComponentFactory(
-      CustomOverlayComponent,
-    );
-    const hostViewContainerRef = this.flowHost.viewContainerRef;
-    hostViewContainerRef.clear();
-    hostViewContainerRef.createComponent(navbarFLowComponentFactory);
-    this.overlayService.closeChatbotOverlay.subscribe(() => {
-      hostViewContainerRef.clear();
-      if (!this.flowOpen) {
-        this.overlayService.overlayClose.emit();
-      }
-      this.overlayService.showChatbot = false;
-      this.overlayOpen = false;
-    });
+    // const navbarFLowComponentFactory = this.componentFactoryResolver.resolveComponentFactory(
+    //   CustomOverlayComponent,
+    // );
+    // const hostViewContainerRef = this.flowHost.viewContainerRef;
+    // hostViewContainerRef.clear();
+    // hostViewContainerRef.createComponent(navbarFLowComponentFactory);
+    // this.overlayService.closeChatbotOverlay.subscribe(() => {
+    //   hostViewContainerRef.clear();
+      // if (!this.flowOpen) {
+        // this.overlayService.overlayClose.emit();
+      // }
+      // this.overlayService.showChatbot = false;
+      // this.overlayOpen = false;
+    // });
     if (this.introService.getChatbotIntro()) {
       this.introService.exitChatbotIntro();
     }
 
     setTimeout(() => {
-      this.chatbotService.showOutsideModal = true;
+      // this.chatbotService.showOutsideModal = true;
     }, 500);
   }
 
   updateChatWindow(event: boolean) {
     this.chatwindowClosed = event;
-    this.clickOutsideComponent.destroy();
-    this.chatbotService.modalExist = false;
+    // this.clickOutsideComponent.destroy();
+    // this.chatbotService.modalExist = false;
     clearTimeout(this.timer);
   }
 
@@ -122,30 +127,33 @@ export class ChatbotComponent implements OnInit {
   }
 
   onClickOutside() {
-    if (
-      !this.chatbotService.chatBotModalClicked &&
-      !this.chatbotService.modalExist &&
-      !this.chatwindowClosed &&
-      this.chatbotService.showOutsideModal &&
-      !this.mobileView
-    ) {
-      const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
-        ChatbotClickOutsideComponent,
-      );
-      this.clickOutsideComponent = this.clickOutsideRef.createComponent(
-        componentFactory,
-      );
-      this.clickOutsideComponent.instance.xPosition = this.popupXPosition;
-      this.clickOutsideComponent.instance.yPosition = this.popupYPosition;
-
-      this.chatbotService.modalExist = true;
-      this.timer = setTimeout(() => {
-        this.clickOutsideComponent.destroy();
-        this.chatbotService.chatBotModalClicked = false;
-        this.chatbotService.modalExist = false;
-        // this.chatbotService.showOutsideModal = false;
-      }, this.CLICK_OUTSIDE_DURATION);
-    }
+    console.log('CLICKED OUTSIDE MINIMISE CHATBOT');
+    this.chatMinimised = true;
+    this.chatbotService.chatMinimiseEmitter.emit(true);
+    // if (
+    //   !this.chatbotService.chatBotModalClicked &&
+    //   !this.chatbotService.modalExist &&
+    //   !this.chatwindowClosed &&
+    //   this.chatbotService.showOutsideModal &&
+    //   !this.mobileView
+    // ) {
+    //   const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
+    //     ChatbotClickOutsideComponent,
+    //   );
+    //   this.clickOutsideComponent = this.clickOutsideRef.createComponent(
+    //     componentFactory,
+    //   );
+    //   this.clickOutsideComponent.instance.xPosition = this.popupXPosition;
+    //   this.clickOutsideComponent.instance.yPosition = this.popupYPosition;
+    //
+    //   this.chatbotService.modalExist = true;
+    //   this.timer = setTimeout(() => {
+    //     this.clickOutsideComponent.destroy();
+    //     this.chatbotService.chatBotModalClicked = false;
+    //     this.chatbotService.modalExist = false;
+    //     // this.chatbotService.showOutsideModal = false;
+    //   }, this.CLICK_OUTSIDE_DURATION);
+    // }
   }
   @HostListener('document:click', ['$event'])
   clickout(event: MouseEvent) {
