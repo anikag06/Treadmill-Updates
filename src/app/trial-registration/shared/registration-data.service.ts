@@ -11,7 +11,7 @@ import {
   REGISTRATION_SIQ_RESPONSE,
   GET_COUNTRY_LIST,
   GET_TIMEZONE,
-  GET_PARTICIPANT_COUNT,
+  GET_PARTICIPANT_COUNT, AIIMS_EMAIL_REGISTRATION,
 } from '@/app.constants';
 import { RegistrationStepTwoForm } from '../registration-step-two/step-two-form-data.model';
 import { RegistrationQuestionnaireScore } from '../registration-step-three/resgistration-step-three-response.model';
@@ -30,6 +30,13 @@ export class RegistrationDataService {
     const sendData = { email: emailID };
     return this.http.post(
       environment.API_ENDPOINT + EMAIL_REGISTRATION,
+      sendData,
+    );
+  }
+  storeAiimsEmailID(emailID: any) {
+    const sendData = { email: emailID };
+    return this.http.post(
+      environment.API_ENDPOINT + AIIMS_EMAIL_REGISTRATION,
       sendData,
     );
   }

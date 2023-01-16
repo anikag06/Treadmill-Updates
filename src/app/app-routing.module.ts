@@ -7,6 +7,7 @@ import { AuthGuard } from './shared/auth/auth.guard';
 import { SignUpComponent } from '@/pre-login/signup/signup.component';
 import { TempLandingPageComponent } from '@/temp-landing-page/temp-landing-page.component';
 import { ResetPasswordComponent } from '@/pre-login/reset-password/reset-password.component';
+import {AiimsRegistrationComponent} from '@/trial-registration/aiims-registration/aiims-registration.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'landing', pathMatch: 'full' },
@@ -49,6 +50,7 @@ export const routes: Routes = [
       ),
   },
   { path: 'iitk', redirectTo: 'trial/trial-registration' },
+  { path: 'aiimsr532925',  redirectTo: 'trial/trial-registration/aiims' },
   { path: '**', component: NotFoundComponent },
 ];
 

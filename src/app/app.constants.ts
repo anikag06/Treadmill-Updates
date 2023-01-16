@@ -378,6 +378,8 @@ export const GET_COUNTRY_LIST = '/api/v1/user/get-country-list/';
 export const GET_TIMEZONE = '/api/v1/trial-iitk/get-timezone-list/';
 // trial registration steps
 export const EMAIL_REGISTRATION = '/api/v1/trial-iitk/register-participant/';
+export const AIIMS_EMAIL_REGISTRATION = '/api/v1/trial-iitk/register-aiims-participant/';
+
 export const REGISTRATION_STEP_TWO =
   '/api/v1/trial-iitk/participant-information/';
 export const REGISTRATION_PHQ_RESPONSE =

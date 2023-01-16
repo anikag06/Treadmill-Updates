@@ -15,6 +15,7 @@ import { StepLastPageComponent } from './information-pages/step-last-page/step-l
 import { ReregistrationComponent } from '@/trial-registration/reregistration/reregistration.component';
 import { WaitlistComponent } from '@/trial-registration/waitlist/waitlist.component';
 import { RegistrationStepOneNextComponent } from '@/trial-registration/registration-step-one-next/registration-step-one-next.component';
+import {AiimsRegistrationComponent} from '@/trial-registration/aiims-registration/aiims-registration.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,10 @@ const routes: Routes = [
     path: 'trial-registration/step-1',
     component: RegistrationStepOneNextComponent,
     canActivate: [TrialActivateGuard],
+  },
+  {
+    path: 'trial-registration/aiims',
+    component: AiimsRegistrationComponent,
   },
 
   {
