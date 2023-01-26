@@ -88,7 +88,7 @@ export class AiimsRegistrationComponent implements OnInit {
                 this.authService.activateChild(true);
                 const stepNumber = res_data.data.next_step;
                 const navigation_step =
-                  REGISTRATION_PATH + '/step-' + stepNumber;
+                  REGISTRATION_PATH + '/aiims' + '/step-' + stepNumber;
 
                 if (stepNumber === 3) {
                   this.questionnaireService.questionnaire_name =

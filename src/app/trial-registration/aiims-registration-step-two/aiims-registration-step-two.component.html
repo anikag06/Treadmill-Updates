@@ -1,0 +1,118 @@
+<div *ngIf="showPage else desktopMessage">
+
+  <div class="container-fluid w-100 small-font">
+    <app-trial-pages-header [stepNumber]="stepNo"></app-trial-pages-header>
+
+<!--    <div class="row my-4">-->
+<!--      <div class="col-12 m-medium" >-->
+<!--        Thank you for your interest. First we need to check if you are eligible to take part in the study.-->
+<!--      </div>-->
+<!--      <div class="col-12 my-2 less-opacity">-->
+<!--        The information you provide will be handled with strict confidentiality.<br><br>-->
+<!--        Note: if you accidentally lose your progress, you can continue the registration process by entering your email address at the first page.-->
+<!--      </div>-->
+<!--    </div>-->
+    <div class="row">
+      <div class="col-12  m-medium">
+        <b> Please fill the form </b>
+      </div>
+
+      <div class="col-12">
+        <form class="w-100" [formGroup]="stepTwoForm">
+          <div class="row my-3">
+            <div class="col-6">
+              <mat-form-field class="w-100">
+                <input matInput
+                       formControlName="age"
+                       placeholder="Age"
+                       type="number"
+                       required>
+              </mat-form-field>
+            </div>
+
+            <div class="col-6">
+              <mat-form-field class="w-100">
+                <mat-label>Gender</mat-label>
+                <mat-select #Gender formControlName="gender" required>
+                  <mat-option value="male">Male</mat-option>
+                  <mat-option value="female">Female</mat-option>
+                  <mat-option value="other">Other</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="col-12">
+              <mat-form-field class="w-100">
+                <mat-label>Education Qualification</mat-label>
+                <mat-select #Education required
+                            formControlName="education">
+                  <mat-option [value]="1">Not completed school</mat-option>
+                  <mat-option [value]="2">Completed school</mat-option>
+                  <mat-option [value]="3">Completed undergraduate</mat-option>
+                  <mat-option [value]="4">Completed postgraduate</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="col-12">
+              <mat-form-field class="w-100">
+                <mat-label>Occupation</mat-label>
+                <mat-select #Profession
+                            required formControlName="profession">
+                  <mat-option [value]="1">Undergraduate student</mat-option>
+                  <mat-option [value]="1">Coaching after college</mat-option>
+                  <mat-option [value]="2">Postgraduate student</mat-option>
+                  <mat-option [value]="3">Working professional</mat-option>
+                  <mat-option [value]="3">Self-employed</mat-option>
+                  <mat-option [value]="3">Freelancer</mat-option>
+                  <mat-option [value]="3">Volunteer</mat-option>
+                  <mat-option [value]="-1">Housewife</mat-option>
+                  <mat-option [value]="-1">Unemployed</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+         </div>
+
+          <div class="col-12 my-3 px-0">
+            <mat-error *ngIf="showErrorMsg"> Select all the fields. </mat-error>
+            <button type="button" class="w-100 form-elements" mat-raised-button
+                    color="primary" (click)="stepDataSubmit()" *ngIf="!showLoading"> Submit </button>
+            <button class="w-100 form-elements" color="primary" *ngIf="showLoading" type="button" mat-raised-button >
+              <span class="spinner-border spinner-border-sm"></span>
+              &nbsp; Loading..
+            </button>
+          </div>
+
+        </form>
+<!--        <div class="container-fluid w-100 small-font">-->
+
+          <div class="row mt-4">
+            <div class="col">
+              <p class="largest-font">Consent</p>
+              <div class="medium-font">
+                Please see if these terms are acceptable to you.
+              </div>
+            </div>
+          </div>
+
+
+<!--        </div>-->
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-5 mx-0">
+    <app-trial-pages-footer class="w-100"></app-trial-pages-footer>
+  </div>
+</div>
+<ng-template #desktopMessage>
+  <div>
+    <!--    Open this link on your mobile.-->
+    <app-qr-code></app-qr-code>
+  </div>
+</ng-template>
