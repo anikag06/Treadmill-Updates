@@ -11,7 +11,7 @@ import {
   REGISTRATION_SIQ_RESPONSE,
   GET_COUNTRY_LIST,
   GET_TIMEZONE,
-  GET_PARTICIPANT_COUNT, AIIMS_EMAIL_REGISTRATION,
+  GET_PARTICIPANT_COUNT, AIIMS_EMAIL_REGISTRATION, AIIMS_REGISTRATION_STEP_TWO, REGISTRATION_CONSENT_AIIMS,
 } from '@/app.constants';
 import { RegistrationStepTwoForm } from '../registration-step-two/step-two-form-data.model';
 import { RegistrationQuestionnaireScore } from '../registration-step-three/resgistration-step-three-response.model';
@@ -23,6 +23,7 @@ import { RegistrationStepFourForm } from '../registration-step-four/step-four-co
 export class RegistrationDataService {
   participationID!: number;
   isWaitList!: boolean;
+  aiimsUser!: boolean;
 
   constructor(private http: HttpClient) {}
 
@@ -56,6 +57,13 @@ export class RegistrationDataService {
     );
   }
 
+  saveStepTwoAIIMSForm(stepTwoData: RegistrationStepTwoForm) {
+    return this.http.put(
+      environment.API_ENDPOINT + AIIMS_REGISTRATION_STEP_TWO,
+      stepTwoData,
+    );
+  }
+
   savePHQData(phqResponse: RegistrationQuestionnaireScore) {
     return this.http.post(
       environment.API_ENDPOINT + REGISTRATION_PHQ_RESPONSE,
@@ -83,6 +91,13 @@ export class RegistrationDataService {
       consentFormData,
     );
   }
+  saveConsentDataAiims(consentFormData: any) {
+    return this.http.put(
+      environment.API_ENDPOINT + REGISTRATION_CONSENT_AIIMS,
+      consentFormData,
+    );
+  }
+
 
   getCountryList() {
     return this.http.get(environment.API_ENDPOINT + GET_COUNTRY_LIST);

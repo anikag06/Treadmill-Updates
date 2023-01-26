@@ -16,6 +16,10 @@ import { ReregistrationComponent } from '@/trial-registration/reregistration/rer
 import { WaitlistComponent } from '@/trial-registration/waitlist/waitlist.component';
 import { RegistrationStepOneNextComponent } from '@/trial-registration/registration-step-one-next/registration-step-one-next.component';
 import {AiimsRegistrationComponent} from '@/trial-registration/aiims-registration/aiims-registration.component';
+import {AiimsRegistrationStepTwoComponent} from '@/trial-registration/aiims-registration-step-two/aiims-registration-step-two.component';
+import {
+  AiimsRegistrationStepThreeComponent
+} from '@/trial-registration/aiims-registration-step-three/aiims-registration-step-three.component';
 
 const routes: Routes = [
   {
@@ -27,6 +31,14 @@ const routes: Routes = [
     path: 'trial-registration/step-1',
     component: RegistrationStepOneNextComponent,
     canActivate: [TrialActivateGuard],
+  },
+  {
+    path: 'trial-registration/aiims/step-2',
+    component: AiimsRegistrationStepTwoComponent,
+  },
+  {
+    path: 'trial-registration/aiims/step-3',
+    component: AiimsRegistrationStepThreeComponent,
   },
   {
     path: 'trial-registration/aiims',

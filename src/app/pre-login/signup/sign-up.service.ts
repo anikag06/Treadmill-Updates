@@ -6,7 +6,7 @@ import {
   GET_SIGNUP_MAIL,
   SIGN_UP_PATH,
   USERNAME_AVAILABLE,
-  VERIFY_PARTICIPANT,
+  VERIFY_PARTICIPANT, VERIFY_PARTICIPANT_AIIMS,
 } from '@/app.constants';
 import { SignUpData } from '@/pre-login/signup/signup-data.interface';
 
@@ -26,6 +26,12 @@ export class SignUpService {
   isParticipantValid(uniqueLink: string): Observable<any> {
     return this.http.get(
       environment.API_ENDPOINT + VERIFY_PARTICIPANT + uniqueLink + '/',
+      this.httpOptions,
+    );
+  }
+  isParticipantValidAiims(uniqueLink: string): Observable<any> {
+    return this.http.get(
+      environment.API_ENDPOINT + VERIFY_PARTICIPANT_AIIMS + uniqueLink + '/',
       this.httpOptions,
     );
   }

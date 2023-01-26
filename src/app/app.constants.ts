@@ -76,6 +76,8 @@ export const TOKEN_REFRESH_PATH = '/api/v1/user/access-token/refresh/';
 export const LOGIN_PATH = '/api/v1/user/login/';
 export const SIGN_UP_PATH = '/api/v1/user/registration/';
 export const VERIFY_PARTICIPANT = '/api/v1/trial-iitk/verify-sign-up-link/';
+export const VERIFY_PARTICIPANT_AIIMS = '/api/v1/trial-aiims/verify-sign-up-link/';
+
 export const GET_SIGNUP_MAIL = '/api/v1/trial-iitk/get-sign-up-mail/';
 
 export const PHQ_NINE_SCORE = '/api/v1/questionnaire/phq-user-scores/';
@@ -378,10 +380,12 @@ export const GET_COUNTRY_LIST = '/api/v1/user/get-country-list/';
 export const GET_TIMEZONE = '/api/v1/trial-iitk/get-timezone-list/';
 // trial registration steps
 export const EMAIL_REGISTRATION = '/api/v1/trial-iitk/register-participant/';
-export const AIIMS_EMAIL_REGISTRATION = '/api/v1/trial-iitk/register-aiims-participant/';
+export const AIIMS_EMAIL_REGISTRATION = '/api/v1/trial-aiims/register-aiims-participant/';
 
 export const REGISTRATION_STEP_TWO =
   '/api/v1/trial-iitk/participant-information/';
+export const AIIMS_REGISTRATION_STEP_TWO = '/api/v1/trial-aiims/participant-information/';
+
 export const REGISTRATION_PHQ_RESPONSE =
   '/api/v1/questionnaire/trial-phq-user-response/';
 export const REGISTRATION_GAD_RESPONSE =
@@ -389,6 +393,8 @@ export const REGISTRATION_GAD_RESPONSE =
 export const REGISTRATION_SIQ_RESPONSE =
   '/api/v1/questionnaire/trial-siq-user-response/';
 export const REGISTRATION_CONSENT = '/api/v1/trial-iitk/participant-consent/';
+export const REGISTRATION_CONSENT_AIIMS = '/api/v1/trial-aiims/participant-consent/';
+
 // number of participants left
 export const GET_PARTICIPANT_COUNT = '/api/v1/trial-iitk/participant-count/';
 // wait-list followup questionaire
