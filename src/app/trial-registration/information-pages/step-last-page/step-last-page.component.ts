@@ -21,20 +21,33 @@ export class StepLastPageComponent implements OnInit {
   participationID!: number;
   msgReceived = 'Email sent.';
   action = 'Ok';
+  aiimsUser = false;
 
   ngOnInit() {
     this.participationID = this.registrationDataService.participationID;
+    this.aiimsUser = this.registrationDataService.aiimsUser;
   }
   contactUsClicked() {
     this.showContactUsService.contactUsClicked();
   }
   resendEmail() {
-    this.signUpService
-      .resendSignupLink(this.participationID)
-      .subscribe(response => {
-        this.snackBar.open(this.msgReceived, this.action, {
-          duration: 4000,
+    if (!this.aiimsUser) {
+      this.signUpService
+        .resendSignupLink(this.participationID)
+        .subscribe(response => {
+          this.snackBar.open(this.msgReceived, this.action, {
+            duration: 4000,
+          });
         });
-      });
+    } else {
+      this.signUpService
+        .resendSignupLinkAiims(this.participationID)
+        .subscribe(response => {
+          this.snackBar.open(this.msgReceived, this.action, {
+            duration: 4000,
+          });
+        });
+    }
   }
 }
+

@@ -33,19 +33,6 @@ const routes: Routes = [
     canActivate: [TrialActivateGuard],
   },
   {
-    path: 'trial-registration/aiims/step-2',
-    component: AiimsRegistrationStepTwoComponent,
-  },
-  {
-    path: 'trial-registration/aiims/step-3',
-    component: AiimsRegistrationStepThreeComponent,
-  },
-  {
-    path: 'trial-registration/aiims',
-    component: AiimsRegistrationComponent,
-  },
-
-  {
     path: 'trial-registration/step-2',
     component: RegistrationStepTwoComponent,
     canActivate: [TrialActivateGuard],
@@ -64,6 +51,23 @@ const routes: Routes = [
     path: 'trial-registration/step-5',
     component: StepLastPageComponent,
     canActivate: [TrialActivateGuard],
+  },
+  {
+    path: 'registration/step-2',
+    component: AiimsRegistrationStepTwoComponent,
+  },
+  {
+    path: 'registration/step-3',
+    component: AiimsRegistrationStepThreeComponent,
+  },
+  {
+    path: 'registration/step-4',
+    component: StepLastPageComponent,
+    canActivate: [TrialActivateGuard],
+  },
+  {
+    path: 'registration',
+    component: AiimsRegistrationComponent,
   },
   {
     path: 'trial-registration/:unique_code',

@@ -5,7 +5,7 @@ import {TrialAuthService} from '@/trial-registration/shared/trial-auth.service';
 import {Router} from '@angular/router';
 import {RegistrationDataService} from '@/trial-registration/shared/registration-data.service';
 import {QuizService} from '@/shared/questionnaire/questionnaire.service';
-import {INELIGIBLE_FOR_TRIAL, REGISTRATION_PATH} from '@/app.constants';
+import {AIIMS_REGISTRATION_PATH, INELIGIBLE_FOR_TRIAL, REGISTRATION_PATH} from '@/app.constants';
 import {RegistrationStepFourForm} from '@/trial-registration/registration-step-four/step-four-consent.model';
 import {MatDialog, MatDialogRef} from '@angular/material';
 import {CommonDialogComponent} from '@/shared/common-dialog/common-dialog.component';
@@ -199,7 +199,7 @@ export class AiimsRegistrationStepTwoComponent implements OnInit {
             this.authService.activateChild(true);
 
             const stepNumber = res_data.next_step;
-            const navigation_step = REGISTRATION_PATH + '/aiims' + '/step-' + stepNumber;
+            const navigation_step = AIIMS_REGISTRATION_PATH + '/step-' + stepNumber;
             if (stepNumber === 3) {
               this.questionnaireService.questionnaire_name =
                 res_data.next_questionnaire;

@@ -79,6 +79,8 @@ export const VERIFY_PARTICIPANT = '/api/v1/trial-iitk/verify-sign-up-link/';
 export const VERIFY_PARTICIPANT_AIIMS = '/api/v1/trial-aiims/verify-sign-up-link/';
 
 export const GET_SIGNUP_MAIL = '/api/v1/trial-iitk/get-sign-up-mail/';
+export const GET_SIGNUP_MAIL_AIIMS = '/api/v1/trial-aiims/get-sign-up-mail/';
+
 
 export const PHQ_NINE_SCORE = '/api/v1/questionnaire/phq-user-scores/';
 export const GAD_SEVEN_SCORE = '/api/v1/questionnaire/gad-user-scores/';
@@ -373,6 +375,8 @@ export const BELIEF_CHANGE_FORM_NAME = 'Change a belief';
 // trial registration pages
 export const INELIGIBLE_FOR_TRIAL = '/trial/thankyou';
 export const REGISTRATION_PATH = '/trial/trial-registration';
+export const AIIMS_REGISTRATION_PATH = '/aiims532925/registration';
+
 
 // country list api
 export const GET_COUNTRY_LIST = '/api/v1/user/get-country-list/';

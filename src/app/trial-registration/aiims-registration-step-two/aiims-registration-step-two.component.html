@@ -1,17 +1,16 @@
 <div *ngIf="showPage else desktopMessage">
 
   <div class="container-fluid w-100 small-font">
-    <app-trial-pages-header [stepNumber]="stepNo"></app-trial-pages-header>
+    <app-trial-pages-header [aiimsPage]="true" [stepNumber]="stepNo"></app-trial-pages-header>
 
-<!--    <div class="row my-4">-->
-<!--      <div class="col-12 m-medium" >-->
-<!--        Thank you for your interest. First we need to check if you are eligible to take part in the study.-->
-<!--      </div>-->
-<!--      <div class="col-12 my-2 less-opacity">-->
-<!--        The information you provide will be handled with strict confidentiality.<br><br>-->
-<!--        Note: if you accidentally lose your progress, you can continue the registration process by entering your email address at the first page.-->
-<!--      </div>-->
-<!--    </div>-->
+    <div class="row my-4">
+      <div class="col-12 m-medium" >
+       Thank you for your interest.
+      </div>
+      <div class="col-12 my-2 less-opacity">
+        Note: if you accidentally lose your progress, you can continue the registration process by entering your email address at the first page.
+      </div>
+    </div>
     <div class="row">
       <div class="col-12  m-medium">
         <b> Please fill the form </b>
@@ -85,22 +84,6 @@
           </div>
 
         </form>
-<!--        <div class="container-fluid w-100 small-font">-->
-
-          <div class="row mt-4">
-            <div class="col">
-              <p class="largest-font">Consent</p>
-              <div class="medium-font">
-                Please see if these terms are acceptable to you.
-              </div>
-            </div>
-          </div>
-
-
-<!--        </div>-->
-
-
-
 
       </div>
     </div>

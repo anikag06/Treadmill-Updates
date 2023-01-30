@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
 import {
-  GET_SIGNUP_MAIL,
+  GET_SIGNUP_MAIL, GET_SIGNUP_MAIL_AIIMS,
   SIGN_UP_PATH,
   USERNAME_AVAILABLE,
   VERIFY_PARTICIPANT, VERIFY_PARTICIPANT_AIIMS,
@@ -51,6 +51,10 @@ export class SignUpService {
   resendSignupLink(id: number): Observable<any> {
     return this.http.get(environment.API_ENDPOINT + GET_SIGNUP_MAIL + id + '/');
   }
+  resendSignupLinkAiims(id: number): Observable<any> {
+    return this.http.get(environment.API_ENDPOINT + GET_SIGNUP_MAIL_AIIMS + id + '/');
+  }
+
 
   usernameAvailabilityCheck(username: string) {
     return this.http.get(
