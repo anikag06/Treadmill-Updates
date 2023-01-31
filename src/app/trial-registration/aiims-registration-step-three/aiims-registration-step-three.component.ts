@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {INELIGIBLE_FOR_TRIAL, REGISTRATION_PATH} from '@/app.constants';
+import {AIIMS_REGISTRATION_PATH, INELIGIBLE_FOR_TRIAL, REGISTRATION_PATH} from '@/app.constants';
 import {CommonDialogComponent} from '@/shared/common-dialog/common-dialog.component';
 import {TrialAuthService} from '@/trial-registration/shared/trial-auth.service';
 import {Router} from '@angular/router';
@@ -79,14 +79,10 @@ export class AiimsRegistrationStepThreeComponent implements OnInit {
 
   ngOnInit() {
     const smallDevice = window.matchMedia('(max-width: 767px)').matches;
+    this.registrationDataService.aiimsUser = true;
     if (smallDevice) {
       this.showPage = true;
     }
-    this.aiimsUser = this.registrationDataService.aiimsUser;
-    // this.questionnaireSubmitEmitter.subscribe((data: boolean) => {
-    //   console.log('data consent  submit', data);
-    //   this.consentSubmit();
-    // });
     const notificationStatus = Notification.permission;
     if (notificationStatus === 'denied') {
       this.errorMessage =
@@ -148,7 +144,8 @@ export class AiimsRegistrationStepThreeComponent implements OnInit {
         if (this.userEligible) {
           this.authService.activateChild(true);
           const stepNumber = res_data.next_step;
-          const navigation_step = REGISTRATION_PATH + '/step-' + stepNumber;
+          // const navigation_step = AIIMS_REGISTRATION_PATH + '/step-' + stepNumber;
+          const navigation_step = AIIMS_REGISTRATION_PATH + '/step-' + 4;
           this.router.navigate([navigation_step]);
           this.dialogRef.componentInstance.data = { loading: false };
         } else {
@@ -180,14 +177,14 @@ export class AiimsRegistrationStepThreeComponent implements OnInit {
     this.a2hsService.getDeferredPrompt().subscribe(deferredPrompt => {
       console.log('ADD TO HOME SCREEN', deferredPrompt);
       this.addingToHomescreen = false;
-      // if (!deferredPrompt) {
-      //   return;
-      // }
-      // deferredPrompt.prompt();
-      // deferredPrompt.userChoice.then((choiceResult: any) => {
-      //   console.log('ADD TO HOME SCREEN', choiceResult);
-      //
-      //   if (choiceResult.outcome === 'accepted') {
+      if (!deferredPrompt) {
+        return;
+      }
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then((choiceResult: any) => {
+        console.log('ADD TO HOME SCREEN', choiceResult);
+
+        if (choiceResult.outcome === 'accepted') {
       // this.stepFourFormData.agreement_consent = 1;
       this.allowedToHomeScreen = 1;
       this.dialogRef = this.dialog.open(CommonDialogComponent, {
@@ -201,10 +198,10 @@ export class AiimsRegistrationStepThreeComponent implements OnInit {
       this.step4DataSubmit();
       // no matter the outcome, the prompt cannot be reused ON MOBILE
       // for 3 months or until browser cache is cleared?
-      // } else {
-      //   const deferredPromptRejected = true;
-      // }
-      // });
+      } else {
+        const deferredPromptRejected = true;
+      }
+      });
     });
     // } else {
     //   this.addingToHomescreen = false;

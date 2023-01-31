@@ -76,7 +76,7 @@ export const TOKEN_REFRESH_PATH = '/api/v1/user/access-token/refresh/';
 export const LOGIN_PATH = '/api/v1/user/login/';
 export const SIGN_UP_PATH = '/api/v1/user/registration/';
 export const VERIFY_PARTICIPANT = '/api/v1/trial-iitk/verify-sign-up-link/';
-export const VERIFY_PARTICIPANT_AIIMS = '/api/v1/trial-aiims/verify-sign-up-link/';
+// export const VERIFY_PARTICIPANT_AIIMS = '/api/v1/trial-aiims/verify-sign-up-link/';
 
 export const GET_SIGNUP_MAIL = '/api/v1/trial-iitk/get-sign-up-mail/';
 export const GET_SIGNUP_MAIL_AIIMS = '/api/v1/trial-aiims/get-sign-up-mail/';
