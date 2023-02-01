@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, Input, EventEmitter, Output} from '@angular/core';
 import { Quiz } from './input/quiz';
 import { QuesUserResponseArray } from './input/response';
 import { QuizService } from './questionnaire.service';
@@ -28,7 +28,7 @@ import {
   GAD7,
   SIQ,
   PHQ9,
-  DEFAULT_PATH,
+  DEFAULT_PATH, AIIMS_REGISTRATION_PATH,
 } from '@/app.constants';
 import { AuthService } from '../auth/auth.service';
 import {
@@ -169,6 +169,7 @@ export class QuestionnaireComponent implements OnInit {
   showLoading = false;
   // tslint:disable-next-line:max-line-length
   iswaitList = false;
+  aiimsUser = false;
   constructor(
     private quizService: QuizService,
     private flowService: FlowService,
@@ -648,6 +649,7 @@ export class QuestionnaireComponent implements OnInit {
     }
   }
   phqNextStep(excluded: boolean, questionnaireName: string, user: boolean) {
+    console.log('PHQ NEXT STEP', excluded, questionnaireName, user);
     if (excluded) {
       this.quizService.questionnaireActive = false;
       this.trialAuthService.activateChild(true);
@@ -703,15 +705,26 @@ export class QuestionnaireComponent implements OnInit {
       this.registrationDataService
         .saveGADData(registration_gad)
         .subscribe((res_data: any) => {
+          // for aiims registration
+          this.aiimsUser =  this.registrationDataService.aiimsUser;
+
           this.submitting = false;
           const userEligible = !res_data.data.excluded;
+          console.log('EMIT CONSENT PAGE', res_data);
           this.registrationDataService.participationID =
             res_data.data.participant_id;
           if (userEligible && !this.iswaitList) {
             this.trialAuthService.activateChild(true);
             const stepNumber = res_data.data.next_step;
-            const navigation_step = REGISTRATION_PATH + '/step-' + stepNumber;
-            this.router.navigate([navigation_step]);
+            // for iitk trial
+            if (!this.aiimsUser) {
+              const navigation_step = REGISTRATION_PATH + '/step-' + stepNumber;
+              this.router.navigate([navigation_step]);
+            } else {
+              // for aiims trial
+              // const navigation_step = AIIMS_REGISTRATION_PATH + '/step-' + 4;
+              // this.router.navigate([navigation_step]);
+            }
           } else if (userEligible && this.iswaitList) {
             this.quizService.questionnaire_active.emit(false);
           } else {

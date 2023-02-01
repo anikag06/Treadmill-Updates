@@ -115,12 +115,7 @@ export class AiimsRegistrationStepThreeComponent implements OnInit {
     this.participationID = this.registrationDataService.participationID;
   }
 
-  consentSubmit(event: any) {
-    console.log('questionnaireSubmitEmitter TRIGGERED', event);
-    this.notificationsPermission();
-  }
-
-  step4DataSubmit() {
+   step4DataSubmit() {
     console.log('SUBMIT DATA');
     // if (this.consentForm.valid) {
     this.showLoading = true;
