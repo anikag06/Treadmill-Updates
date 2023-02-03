@@ -8,7 +8,8 @@
       <app-questionnaire class="w-100"
                          [fromFlow]="false"
                          [stepId]="null"
-                         [fromTrialRegistration]="true">
+                         [fromTrialRegistration]="true"
+                         (questionnaireSubmitEmitter)="consentSubmit($event)">
 
       </app-questionnaire>
     </div>
