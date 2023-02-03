@@ -5,6 +5,7 @@ import { RegistrationDataService } from '@/trial-registration/shared/registratio
 import { MatContactUsDialogService } from '@/shared/mat-contact-us-dialog/mat-contact-us-dialog.service';
 import { SignUpService } from '@/pre-login/signup/sign-up.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-step-last-page',
@@ -17,6 +18,7 @@ export class StepLastPageComponent implements OnInit {
     private showContactUsService: MatContactUsDialogService,
     private signUpService: SignUpService,
     private snackBar: MatSnackBar,
+    private router: Router,
   ) {}
   participationID!: number;
   msgReceived = 'Email sent.';
@@ -25,7 +27,9 @@ export class StepLastPageComponent implements OnInit {
 
   ngOnInit() {
     this.participationID = this.registrationDataService.participationID;
-    this.aiimsUser = this.registrationDataService.aiimsUser;
+    if (this.router.url.includes('/aiims532925/')) {
+      this.aiimsUser = true;
+    }
   }
   contactUsClicked() {
     this.showContactUsService.contactUsClicked();

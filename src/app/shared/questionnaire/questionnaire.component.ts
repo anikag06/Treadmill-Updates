@@ -105,6 +105,7 @@ import { ConclusionService } from '@/main/resources/conclusion/conclusion.servic
 export class QuestionnaireComponent implements OnInit {
   @Input() fromFlow!: boolean;
   @Input() fromTrialRegistration!: boolean;
+  @Output() questionnaireSubmitEmitter = new EventEmitter();
   @Input() stepId!: number;
 
   quiz: Quiz = new Quiz(null);
@@ -721,6 +722,7 @@ export class QuestionnaireComponent implements OnInit {
               const navigation_step = REGISTRATION_PATH + '/step-' + stepNumber;
               this.router.navigate([navigation_step]);
             } else {
+              this.questionnaireSubmitEmitter.emit();
               // for aiims trial
               // const navigation_step = AIIMS_REGISTRATION_PATH + '/step-' + 4;
               // this.router.navigate([navigation_step]);
