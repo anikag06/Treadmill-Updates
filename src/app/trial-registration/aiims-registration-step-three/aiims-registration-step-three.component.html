@@ -4,7 +4,7 @@
 
     <app-trial-pages-header [aiimsPage]="true" [stepNumber]="stepNo"></app-trial-pages-header>
 
-    <div class="row mt-0" *ngIf="!aiimsUser">
+    <div class="row mt-0" *ngIf="!showPrompt">
       <app-questionnaire class="w-100"
                          [fromFlow]="false"
                          [stepId]="null"
@@ -13,111 +13,11 @@
 
       </app-questionnaire>
     </div>
+    <div class="m-medium row mx-1 my-3" *ngIf="showPrompt">
+      Please accept the notifications to install Treadwill app to your home screen.
+    </div>
   </div>
-  <div class="row mt-0" *ngIf="aiimsUser">
 
-
-<!--  <form [formGroup]="consentForm">-->
-<!--    <div class="row">-->
-
-
-<!--      <div class="col-12 my-1">-->
-<!--        <label class="my-3 lesser-opacity"-->
-<!--        >Notifications are an essential part of this program. Please accept-->
-<!--          to allow notifications.</label-->
-<!--        >-->
-<!--        <br />-->
-<!--        <mat-radio-group-->
-<!--          (change)="notificationsPermission()"-->
-<!--          formControlName="notificationsInfo"-->
-<!--          color="primary"-->
-<!--          required-->
-<!--        >-->
-<!--          <ng-container *ngIf="!updatingPermissions; else loading">-->
-<!--            <mat-radio-button-->
-<!--              [value]="1"-->
-<!--              class="mr-5"-->
-<!--              #btn13-->
-<!--              [ngClass]="{-->
-<!--                  checkedBtn: btn13.checked,-->
-<!--                  unChecked: !btn13.checked-->
-<!--                }"-->
-<!--            >-->
-<!--              Accept</mat-radio-button-->
-<!--            >-->
-<!--          </ng-container>-->
-<!--          <ng-template #loading>-->
-<!--            <div class="mr-5 d-inline-block loading">-->
-<!--              <span class="spinner-border spinner-border-custom"></span>-->
-<!--              Accept-->
-<!--            </div>-->
-<!--          </ng-template>-->
-
-<!--        </mat-radio-group>-->
-<!--      </div>-->
-<!--      <div-->
-<!--        class="col-12"-->
-<!--        [ngStyle]="{ display: showHelp && !userDeclined ? 'block' : 'none' }"-->
-<!--      >-->
-<!--        <div class="error-msg px-3 py-2">-->
-<!--          {{ errorMessage }}-->
-<!--        </div>-->
-
-<!--        <div class="troubleshoot py-3 px-3">-->
-<!--          <div>-->
-<!--            <span [innerHTML]="notificationHelp"></span>-->
-<!--            <a-->
-<!--              [href]="notificationLink"-->
-<!--              target="_blank"-->
-<!--              class="anchorify-blue"-->
-<!--            >{{ notificationLink }}</a-->
-<!--            >-->
-<!--          </div>-->
-
-<!--          <div class="py-3">-->
-<!--            Still facing issues?-->
-<!--            <a class="anchorify-blue" (click)="onContactUsClicked()"-->
-<!--            >Contact us.</a-->
-<!--            >-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-
-<!--      <div class="col-12 my-1">-->
-<!--        <label class="my-3 lesser-opacity"-->
-<!--        >For the purpose of this study, it is required that you add-->
-<!--          TreadWill to your home screen. Please accept to add TreadWill to-->
-<!--          your home screen.-->
-<!--        </label-->
-<!--        >-->
-<!--        <br />-->
-<!--        <mat-radio-group-->
-<!--          (change)="homeScreenPermission()"-->
-<!--          formControlName="homeScreenInfo"-->
-<!--          color="primary"-->
-<!--          required-->
-<!--        >-->
-<!--          <mat-radio-button-->
-<!--            [value]="1"-->
-<!--            class="mr-5"-->
-<!--            #btn15-->
-<!--            [ngClass]="{-->
-<!--                checkedBtn: btn15.checked,-->
-<!--                unChecked: !btn15.checked-->
-<!--              }"-->
-<!--          >-->
-<!--            Accept</mat-radio-button-->
-<!--          >-->
-<!--        </mat-radio-group>-->
-<!--        <br />-->
-<!--        <mat-hint class="hint"-->
-<!--        >To activate this Accept button, you'll need to accept the other-->
-<!--          conditions first.</mat-hint-->
-<!--        >-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </form>-->
-  </div>
 
 
 </div>

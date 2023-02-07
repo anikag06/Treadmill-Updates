@@ -62,6 +62,7 @@ export class AiimsRegistrationStepThreeComponent implements OnInit {
   otherOptionSelected = false;
   showErrorMsg = false;
   placeholder_tz!: any;
+  showPrompt = false;
 
 
   constructor(
@@ -121,6 +122,7 @@ export class AiimsRegistrationStepThreeComponent implements OnInit {
   }
 
   step4DataSubmit() {
+
     console.log('SUBMIT DATA');
     // if (this.consentForm.valid) {
     this.showLoading = true;
@@ -171,6 +173,7 @@ export class AiimsRegistrationStepThreeComponent implements OnInit {
   }
 
   homeScreenPermission() {
+    this.showPrompt = true;
     console.log('homescreen permission');
     this.addingToHomescreen = true;
     // if (this.consentForm.value.homeScreenInfo) {
