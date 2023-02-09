@@ -724,8 +724,8 @@ export class QuestionnaireComponent implements OnInit {
             } else {
               this.questionnaireSubmitEmitter.emit();
               // for aiims trial
-              // const navigation_step = AIIMS_REGISTRATION_PATH + '/step-' + 4;
-              // this.router.navigate([navigation_step]);
+              const navigation_step = AIIMS_REGISTRATION_PATH + '/step-' + stepNumber;
+              this.router.navigate([navigation_step]);
             }
           } else if (userEligible && this.iswaitList) {
             this.quizService.questionnaire_active.emit(false);

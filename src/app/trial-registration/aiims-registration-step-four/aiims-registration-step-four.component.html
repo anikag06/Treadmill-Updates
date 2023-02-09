@@ -4,16 +4,6 @@
 
     <app-trial-pages-header [aiimsPage]="true" [stepNumber]="stepNo"></app-trial-pages-header>
 
-<!--    <div class="row mt-0" *ngIf="!showPrompt">-->
-<!--      <app-questionnaire class="w-100"-->
-<!--                         [fromFlow]="false"-->
-<!--                         [stepId]="null"-->
-<!--                         [fromTrialRegistration]="true"-->
-<!--                         (questionnaireSubmitEmitter)="consentSubmit($event)">-->
-
-<!--      </app-questionnaire>-->
-<!--    </div>-->
-
     <div  *ngIf="showHelp">
       <div class="m-medium row mx-1 my-3"
            [ngStyle]="{ display: showHelp && !userDeclined ? 'block' : 'none' }"

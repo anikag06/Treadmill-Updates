@@ -91,8 +91,8 @@ export class AiimsRegistrationComponent implements OnInit {
                   AIIMS_REGISTRATION_PATH + '/step-' + stepNumber;
 
                 if (stepNumber === 3) {
-                  this.questionnaireService.questionnaire_name =
-                    res_data.data.next_questionnaire;
+                    this.questionnaireService.questionnaire_name =
+                      res_data.data.next_questionnaire;
                   this.router.navigate([navigation_step]);
                 } else {
                   this.router.navigate([navigation_step]);

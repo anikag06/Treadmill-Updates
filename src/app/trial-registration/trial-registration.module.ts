@@ -30,6 +30,7 @@ import { RegistrationStepOneNextComponent } from './registration-step-one-next/r
 import { AiimsRegistrationComponent } from './aiims-registration/aiims-registration.component';
 import { AiimsRegistrationStepTwoComponent } from './aiims-registration-step-two/aiims-registration-step-two.component';
 import { AiimsRegistrationStepThreeComponent } from './aiims-registration-step-three/aiims-registration-step-three.component';
+import { AiimsRegistrationStepFourComponent } from './aiims-registration-step-four/aiims-registration-step-four.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { AiimsRegistrationStepThreeComponent } from './aiims-registration-step-t
     AiimsRegistrationComponent,
     AiimsRegistrationStepTwoComponent,
     AiimsRegistrationStepThreeComponent,
+    AiimsRegistrationStepFourComponent,
   ],
   imports: [
     FormsModule,

@@ -20,6 +20,7 @@ import {AiimsRegistrationStepTwoComponent} from '@/trial-registration/aiims-regi
 import {
   AiimsRegistrationStepThreeComponent
 } from '@/trial-registration/aiims-registration-step-three/aiims-registration-step-three.component';
+import {AiimsRegistrationStepFourComponent} from '@/trial-registration/aiims-registration-step-four/aiims-registration-step-four.component';
 
 const routes: Routes = [
   {
@@ -55,14 +56,21 @@ const routes: Routes = [
   {
     path: 'registration/step-2',
     component: AiimsRegistrationStepTwoComponent,
+    canActivate: [TrialActivateGuard],
   },
   {
     path: 'registration/step-3',
     component: AiimsRegistrationStepThreeComponent,
+    canActivate: [TrialActivateGuard],
+  },
+  {
+    path: 'registration/step-5',
+    component: StepLastPageComponent,
+    canActivate: [TrialActivateGuard],
   },
   {
     path: 'registration/step-4',
-    component: StepLastPageComponent,
+    component: AiimsRegistrationStepFourComponent,
     canActivate: [TrialActivateGuard],
   },
   {

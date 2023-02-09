@@ -84,144 +84,113 @@ export class AiimsRegistrationStepThreeComponent implements OnInit {
     if (smallDevice) {
       this.showPage = true;
     }
-    const notificationStatus = Notification.permission;
-    if (notificationStatus === 'denied') {
-      this.errorMessage =
-        'It looks like you have blocked notifications in your browser.';
-      this.notificationHelp =
-        'See how to allow notifications.See under the heading <b>Allow or block notifications from all sites</b> in ';
-    }
-    const dateNow = new Date();
-    const dateTime = dateNow.toJSON();
-    this.starting_time = dateTime.replace('Z', '').replace('T', ' ');
 
-    this.participationID = this.registrationDataService.participationID;
-    this.fcmService.permit.subscribe(permit => {
-      this.notificationsAllowed = permit ? 1 : 0;
-      this.consentForm.controls['notificationsInfo'].setValue(
-        this.notificationsAllowed,
-      );
-      this.updatingPermissions = false;
-      this.showHelp = this.notificationsAllowed === 0;
-      this.changeDetector.detectChanges();
-    });
-    this.starting_time = dateTime.replace('Z', '').replace('T', ' ');
-    this.placeholder_tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    this.registrationDataService.getCountryList().subscribe((data: any) => {
-      this.country_data = data;
-    });
-    this.registrationDataService.getTimeZoneData().subscribe((data: any) => {
-      this.timezone_data = data;
-    });
-    this.participationID = this.registrationDataService.participationID;
-  }
-
-  consentSubmit($event: any) {
-    console.log('questionnaireSubmitEmitter TRIGGERED', event);
-    this.notificationsPermission();
-  }
-
-  step4DataSubmit() {
-
-    console.log('SUBMIT DATA');
-    // if (this.consentForm.valid) {
-    this.showLoading = true;
-    const dateNow = new Date();
-    const dateTime = dateNow.toJSON();
-    this.completion_time = dateTime.replace('Z', '').replace('T', ' ');
-
-    this.stepFourFormData.participant_id = this.registrationDataService.participationID;
-    this.stepFourFormData.started_at = this.starting_time;
-    this.stepFourFormData.completed_at = this.completion_time;
-
-    console.log('consent submited', this.stepFourFormData);
-    this.registrationDataService
-      .saveConsentDataAiims(this.stepFourFormData)
-      .subscribe((res_data: any) => {
-        console.log('consent submited');
-        this.showLoading = false;
-        this.userEligible = !res_data.excluded;
-        this.registrationDataService.participationID =
-          res_data.participant_id;
-        if (this.userEligible) {
-          this.authService.activateChild(true);
-          const stepNumber = res_data.next_step;
-          // const navigation_step = AIIMS_REGISTRATION_PATH + '/step-' + stepNumber;
-          const navigation_step = AIIMS_REGISTRATION_PATH + '/step-' + 4;
-          this.router.navigate([navigation_step]);
-          this.dialogRef.componentInstance.data = { loading: false };
-        } else {
-          this.router.navigate([INELIGIBLE_FOR_TRIAL]);
-        }
-      });
+    // const notificationStatus = Notification.permission;
+    // if (notificationStatus === 'denied') {
+    //   console.log('NOTIFICATION STATUS IS DENIED');
+    //   this.showHelp = true;
+    //   this.errorMessage =
+    //     'It looks like you have blocked notifications in your browser.';
+    //   this.notificationHelp =
+    //     'See how to allow notifications.See under the heading <b>Allow or block notifications from all sites</b> in ';
     // }
-  }
-
-  notificationsPermission() {
-    console.log('notification permission');
-    this.updatingPermissions = true;
-    // this.notificationsAllowed = 0;
-    // if (this.consentForm.value.notificationsInfo) {
-    this.fcmService.participantRequestPermission(this.participationID);
-    this.userDeclined = false;
-    // } else {
+    // const dateNow = new Date();
+    // const dateTime = dateNow.toJSON();
+    // this.starting_time = dateTime.replace('Z', '').replace('T', ' ');
+    //
+    // this.participationID = this.registrationDataService.participationID;
+    // this.fcmService.permit.subscribe(permit => {
+    //   this.notificationsAllowed = permit ? 1 : 0;
+    //   this.consentForm.controls['notificationsInfo'].setValue(
+    //     this.notificationsAllowed,
+    //   );
     //   this.updatingPermissions = false;
-    //   this.userDeclined = true;
-    // }
-    // this.activateSubmitButton();
-    this.homeScreenPermission();
+    //   this.showHelp = this.notificationsAllowed === 0;
+    //   this.changeDetector.detectChanges();
+    // });
+    // this.starting_time = dateTime.replace('Z', '').replace('T', ' ');
+    // this.placeholder_tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    // this.registrationDataService.getCountryList().subscribe((data: any) => {
+    //   this.country_data = data;
+    // });
+    // this.registrationDataService.getTimeZoneData().subscribe((data: any) => {
+    //   this.timezone_data = data;
+    // });
+    // this.participationID = this.registrationDataService.participationID;
+    // // this.notificationsPermission();
   }
 
-  homeScreenPermission() {
-    this.showPrompt = true;
-    console.log('homescreen permission');
-    this.addingToHomescreen = true;
-    // if (this.consentForm.value.homeScreenInfo) {
-    this.a2hsService.getDeferredPrompt().subscribe(deferredPrompt => {
-      console.log('ADD TO HOME SCREEN', deferredPrompt);
-      this.addingToHomescreen = false;
-      if (!deferredPrompt) {
-        return;
-      }
-      deferredPrompt.prompt();
-      deferredPrompt.userChoice.then((choiceResult: any) => {
-        console.log('ADD TO HOME SCREEN', choiceResult);
+  // consentSubmit($event: any) {
+  //   console.log('questionnaireSubmitEmitter TRIGGERED', event);
+  //   this.notificationsPermission();
+  // }
 
-        if (choiceResult.outcome === 'accepted') {
-      // this.stepFourFormData.agreement_consent = 1;
-      this.allowedToHomeScreen = 1;
-      this.dialogRef = this.dialog.open(CommonDialogComponent, {
-        data: {
-          loading: true,
-        },
-        disableClose: true,
-        minWidth: '90vw',
-        autoFocus: false,
-      });
-      this.step4DataSubmit();
-      // no matter the outcome, the prompt cannot be reused ON MOBILE
-      // for 3 months or until browser cache is cleared?
-      } else {
-        const deferredPromptRejected = true;
-      }
-      });
-    });
-    // } else {
-    //   this.addingToHomescreen = false;
-    // }
-  }
 
-  activateSubmitButton() {
-    if (
-      this.notificationsAllowed
-    ) {
-      this.allowSubmit = true;
-      this.consentForm.controls['homeScreenInfo'].enable();
-    } else {
-      this.consentForm.controls['homeScreenInfo'].disable();
-    }
-    this.changeDetector.detectChanges();
-  }
-
+  // notificationsPermission() {
+  //   console.log('notification permission');
+  //   this.updatingPermissions = true;
+  //   // this.notificationsAllowed = 0;
+  //   // if (this.consentForm.value.notificationsInfo) {
+  //   this.fcmService.participantRequestPermission(this.participationID);
+  //   this.userDeclined = false;
+  //   // } else {
+  //   //   this.updatingPermissions = false;
+  //   //   this.userDeclined = true;
+  //   // }
+  //   // this.activateSubmitButton();
+  //     this.homeScreenPermission();
+  // }
+  //
+  // homeScreenPermission() {
+  //   this.showPrompt = true;
+  //   console.log('homescreen permission');
+  //   this.addingToHomescreen = true;
+  //   // if (this.consentForm.value.homeScreenInfo) {
+  //   this.a2hsService.getDeferredPrompt().subscribe(deferredPrompt => {
+  //     console.log('ADD TO HOME SCREEN', deferredPrompt);
+  //     this.addingToHomescreen = false;
+  //     if (!deferredPrompt) {
+  //       return;
+  //     }
+  //     deferredPrompt.prompt();
+  //     deferredPrompt.userChoice.then((choiceResult: any) => {
+  //       console.log('ADD TO HOME SCREEN', choiceResult);
+  //
+  //       if (choiceResult.outcome === 'accepted') {
+  //     // this.stepFourFormData.agreement_consent = 1;
+  //     this.allowedToHomeScreen = 1;
+  //     this.dialogRef = this.dialog.open(CommonDialogComponent, {
+  //       data: {
+  //         loading: true,
+  //       },
+  //       disableClose: true,
+  //       minWidth: '90vw',
+  //       autoFocus: false,
+  //     });
+  //     this.step4DataSubmit();
+  //     // no matter the outcome, the prompt cannot be reused ON MOBILE
+  //     // for 3 months or until browser cache is cleared?
+  //     } else {
+  //       const deferredPromptRejected = true;
+  //     }
+  //     });
+  //   });
+  //   // } else {
+  //   //   this.addingToHomescreen = false;
+  //   // }
+  // }
+  //
+  // activateSubmitButton() {
+  //   if (
+  //     this.notificationsAllowed
+  //   ) {
+  //     this.allowSubmit = true;
+  //     this.consentForm.controls['homeScreenInfo'].enable();
+  //   } else {
+  //     this.consentForm.controls['homeScreenInfo'].disable();
+  //   }
+  //   this.changeDetector.detectChanges();
+  // }
+  //
 
 }
