@@ -118,13 +118,7 @@ export class AiimsRegistrationStepFourComponent implements OnInit {
     this.notificationsPermission();
   }
 
-  // consentSubmit($event: any) {
-  //   console.log('questionnaireSubmitEmitter TRIGGERED', event);
-  //   this.notificationsPermission();
-  // }
-
   step4DataSubmit() {
-
     console.log('SUBMIT DATA');
     // if (this.consentForm.valid) {
     this.showLoading = true;
@@ -159,7 +153,6 @@ export class AiimsRegistrationStepFourComponent implements OnInit {
   }
 
   notificationsPermission() {
-    console.log('notification permission');
     this.updatingPermissions = true;
     // this.notificationsAllowed = 0;
     // if (this.consentForm.value.notificationsInfo) {
@@ -182,14 +175,12 @@ export class AiimsRegistrationStepFourComponent implements OnInit {
     this.addingToHomescreen = true;
     // if (this.consentForm.value.homeScreenInfo) {
     this.a2hsService.getDeferredPrompt().subscribe(deferredPrompt => {
-      console.log('ADD TO HOME SCREEN', deferredPrompt);
       this.addingToHomescreen = false;
       if (!deferredPrompt) {
         return;
       }
       deferredPrompt.prompt();
       deferredPrompt.userChoice.then((choiceResult: any) => {
-        console.log('ADD TO HOME SCREEN', choiceResult);
 
         if (choiceResult.outcome === 'accepted') {
           // this.stepFourFormData.agreement_consent = 1;
@@ -207,8 +198,6 @@ export class AiimsRegistrationStepFourComponent implements OnInit {
           // for 3 months or until browser cache is cleared?
         } else {
           const deferredPromptRejected = true;
-          this.homeScreenPermission();
-          this.changeDetector.detectChanges();
         }
       });
     });
