@@ -61,6 +61,7 @@ export class AiimsRegistrationStepFourComponent implements OnInit {
   showErrorMsg = false;
   placeholder_tz!: any;
   showPrompt = false;
+  showOkButton = false;
 
 
   constructor(
@@ -85,7 +86,6 @@ export class AiimsRegistrationStepFourComponent implements OnInit {
 
     const notificationStatus = Notification.permission;
     if (notificationStatus === 'denied') {
-      console.log('NOTIFICATION STATUS IS DENIED');
       this.showHelp = true;
       this.errorMessage =
         'It looks like you have blocked notifications in your browser.';
@@ -119,7 +119,6 @@ export class AiimsRegistrationStepFourComponent implements OnInit {
   }
 
   step4DataSubmit() {
-    console.log('SUBMIT DATA');
     // if (this.consentForm.valid) {
     this.showLoading = true;
     const dateNow = new Date();
@@ -130,11 +129,9 @@ export class AiimsRegistrationStepFourComponent implements OnInit {
     this.stepFourFormData.started_at = this.starting_time;
     this.stepFourFormData.completed_at = this.completion_time;
 
-    console.log('consent submited', this.stepFourFormData);
     this.registrationDataService
       .saveConsentDataAiims(this.stepFourFormData)
       .subscribe((res_data: any) => {
-        console.log('consent submited');
         this.showLoading = false;
         this.userEligible = !res_data.excluded;
         this.registrationDataService.participationID =
@@ -171,7 +168,6 @@ export class AiimsRegistrationStepFourComponent implements OnInit {
 
   homeScreenPermission() {
     this.showPrompt = true;
-    console.log('homescreen permission');
     this.addingToHomescreen = true;
     // if (this.consentForm.value.homeScreenInfo) {
     this.a2hsService.getDeferredPrompt().subscribe(deferredPrompt => {
@@ -193,11 +189,13 @@ export class AiimsRegistrationStepFourComponent implements OnInit {
             minWidth: '90vw',
             autoFocus: false,
           });
+          this.showOkButton = false;
           this.step4DataSubmit();
           // no matter the outcome, the prompt cannot be reused ON MOBILE
           // for 3 months or until browser cache is cleared?
         } else {
           const deferredPromptRejected = true;
+          this.showOkButton = true;
         }
       });
     });

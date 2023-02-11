@@ -79,7 +79,6 @@ export class AiimsRegistrationComponent implements OnInit {
           .storeAiimsEmailID(this.emailForm.value.email)
           .subscribe(
             (res_data: any) => {
-              console.log('RESPONSE DATA', res_data);
               this.showLoading = false;
               this.registrationDataService.participationID =
                 res_data.data.participant_id;

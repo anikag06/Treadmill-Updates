@@ -105,7 +105,6 @@ import { ConclusionService } from '@/main/resources/conclusion/conclusion.servic
 export class QuestionnaireComponent implements OnInit {
   @Input() fromFlow!: boolean;
   @Input() fromTrialRegistration!: boolean;
-  @Output() questionnaireSubmitEmitter = new EventEmitter();
   @Input() stepId!: number;
 
   quiz: Quiz = new Quiz(null);
@@ -650,7 +649,6 @@ export class QuestionnaireComponent implements OnInit {
     }
   }
   phqNextStep(excluded: boolean, questionnaireName: string, user: boolean) {
-    console.log('PHQ NEXT STEP', excluded, questionnaireName, user);
     if (excluded) {
       this.quizService.questionnaireActive = false;
       this.trialAuthService.activateChild(true);
@@ -711,7 +709,6 @@ export class QuestionnaireComponent implements OnInit {
 
           this.submitting = false;
           const userEligible = !res_data.data.excluded;
-          console.log('EMIT CONSENT PAGE', res_data);
           this.registrationDataService.participationID =
             res_data.data.participant_id;
           if (userEligible && !this.iswaitList) {
@@ -722,7 +719,6 @@ export class QuestionnaireComponent implements OnInit {
               const navigation_step = REGISTRATION_PATH + '/step-' + stepNumber;
               this.router.navigate([navigation_step]);
             } else {
-              this.questionnaireSubmitEmitter.emit();
               // for aiims trial
               const navigation_step = AIIMS_REGISTRATION_PATH + '/step-' + stepNumber;
               this.router.navigate([navigation_step]);

@@ -182,7 +182,6 @@ export class AiimsRegistrationStepTwoComponent implements OnInit {
       this.stepTwoFormData.browser = this.stepTwoForm.value.browser;
       // this.stepTwoFormData.country = this.stepTwoForm.value.country;
       this.stepTwoFormData.country = 1;
-      console.log('TIME ZONE', this.stepTwoForm.value.timezone);
       this.stepTwoFormData.time_zone = 'Asia/Calcutta';
       this.stepTwoFormData.started_at = this.starting_time;
       this.stepTwoFormData.completed_at = this.completion_time;
@@ -190,7 +189,6 @@ export class AiimsRegistrationStepTwoComponent implements OnInit {
       this.registrationDataService
         .saveStepTwoAIIMSForm(this.stepTwoFormData)
         .subscribe((res_data: any) => {
-          console.log('AIIMS RESPONSE DATA STEP 2', res_data);
           this.showLoading = false;
           this.userEligible = !res_data.excluded;
           this.registrationDataService.participationID =

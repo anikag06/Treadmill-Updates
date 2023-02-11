@@ -32,8 +32,10 @@
         </div>
       </div>
     </div>
-    <div class="m-medium row mx-1 my-3" *ngIf="showPrompt" (click)="homeScreenPermission()" >
+    <div class="m-medium row mx-1 my-3" *ngIf="showPrompt" >
       You must press the install button, if you wish to continue with the program.
+      <button type="button" class="form-elements my-3 mx-auto" style="width:96px" mat-raised-button
+              color="primary" (click)="homeScreenPermission()"  *ngIf="showOkButton"> Ok </button>
     </div>
   </div>
 
