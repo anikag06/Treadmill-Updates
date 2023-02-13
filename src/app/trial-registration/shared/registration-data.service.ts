@@ -9,9 +9,15 @@ import {
   REGISTRATION_GAD_RESPONSE,
   REGISTRATION_CONSENT,
   REGISTRATION_SIQ_RESPONSE,
+  AIIMS_REGISTRATION_PHQ_RESPONSE,
   GET_COUNTRY_LIST,
   GET_TIMEZONE,
-  GET_PARTICIPANT_COUNT, AIIMS_EMAIL_REGISTRATION, AIIMS_REGISTRATION_STEP_TWO, REGISTRATION_CONSENT_AIIMS,
+  GET_PARTICIPANT_COUNT,
+  AIIMS_EMAIL_REGISTRATION,
+  AIIMS_REGISTRATION_STEP_TWO,
+  REGISTRATION_CONSENT_AIIMS,
+  AIIMS_REGISTRATION_GAD_RESPONSE,
+  AIIMS_REGISTRATION_SIQ_RESPONSE,
 } from '@/app.constants';
 import { RegistrationStepTwoForm } from '../registration-step-two/step-two-form-data.model';
 import { RegistrationQuestionnaireScore } from '../registration-step-three/resgistration-step-three-response.model';
@@ -70,6 +76,13 @@ export class RegistrationDataService {
       phqResponse,
     );
   }
+  saveAiimsPHQData(phqResponse: RegistrationQuestionnaireScore) {
+    console.log('aiims user phq');
+    return this.http.post(
+      environment.API_ENDPOINT + AIIMS_REGISTRATION_PHQ_RESPONSE,
+      phqResponse,
+    );
+  }
 
   saveSIQData(siqResponse: RegistrationQuestionnaireScore) {
     return this.http.post(
@@ -77,7 +90,19 @@ export class RegistrationDataService {
       siqResponse,
     );
   }
+  saveAiimsSIQData(siqResponse: RegistrationQuestionnaireScore) {
+    return this.http.post(
+      environment.API_ENDPOINT + AIIMS_REGISTRATION_SIQ_RESPONSE,
+      siqResponse,
+    );
+  }
 
+  saveAiimsGADData(gadResponse: RegistrationQuestionnaireScore) {
+    return this.http.post(
+      environment.API_ENDPOINT + AIIMS_REGISTRATION_GAD_RESPONSE,
+      gadResponse,
+    );
+  }
   saveGADData(gadResponse: RegistrationQuestionnaireScore) {
     return this.http.post(
       environment.API_ENDPOINT + REGISTRATION_GAD_RESPONSE,

@@ -396,6 +396,14 @@ export const REGISTRATION_GAD_RESPONSE =
   '/api/v1/questionnaire/trial-gad-user-response/';
 export const REGISTRATION_SIQ_RESPONSE =
   '/api/v1/questionnaire/trial-siq-user-response/';
+
+export const AIIMS_REGISTRATION_PHQ_RESPONSE =
+  '/api/v1/questionnaire/aiims-trial-phq-user-response/';
+export const AIIMS_REGISTRATION_GAD_RESPONSE =
+  '/api/v1/questionnaire/aiims-trial-gad-user-response/';
+export const AIIMS_REGISTRATION_SIQ_RESPONSE =
+  '/api/v1/questionnaire/aiims-trial-siq-user-response/';
+
 export const REGISTRATION_CONSENT = '/api/v1/trial-iitk/participant-consent/';
 export const REGISTRATION_CONSENT_AIIMS = '/api/v1/trial-aiims/participant-consent/';
 

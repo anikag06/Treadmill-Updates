@@ -636,16 +636,29 @@ export class QuestionnaireComponent implements OnInit {
         phq_response.user_response,
       );
       registration_phq.participant_id = this.registrationDataService.participationID;
-
-      this.registrationDataService
-        .savePHQData(registration_phq)
-        .subscribe((res_data: any) => {
-          this.phqNextStep(
-            res_data.data.excluded,
-            res_data.data.next_questionnaire,
-            false,
-          );
-        });
+      this.aiimsUser =  this.registrationDataService.aiimsUser;
+      if (!this.aiimsUser) {
+        this.registrationDataService
+          .savePHQData(registration_phq)
+          .subscribe((res_data: any) => {
+            this.phqNextStep(
+              res_data.data.excluded,
+              res_data.data.next_questionnaire,
+              false,
+            );
+          });
+      } else {
+        // FOR AIIMS USER
+        this.registrationDataService
+          .saveAiimsPHQData(registration_phq)
+          .subscribe((res_data: any) => {
+            this.phqNextStep(
+              res_data.data.excluded,
+              res_data.data.next_questionnaire,
+              false,
+            );
+          });
+      }
     }
   }
   phqNextStep(excluded: boolean, questionnaireName: string, user: boolean) {
@@ -700,35 +713,44 @@ export class QuestionnaireComponent implements OnInit {
       );
       registration_gad.participant_id = this.registrationDataService.participationID;
       this.iswaitList = this.registrationDataService.isWaitList;
-
-      this.registrationDataService
-        .saveGADData(registration_gad)
-        .subscribe((res_data: any) => {
-          // for aiims registration
-          this.aiimsUser =  this.registrationDataService.aiimsUser;
-
-          this.submitting = false;
-          const userEligible = !res_data.data.excluded;
-          this.registrationDataService.participationID =
-            res_data.data.participant_id;
-          if (userEligible && !this.iswaitList) {
-            this.trialAuthService.activateChild(true);
-            const stepNumber = res_data.data.next_step;
-            // for iitk trial
-            if (!this.aiimsUser) {
-              const navigation_step = REGISTRATION_PATH + '/step-' + stepNumber;
-              this.router.navigate([navigation_step]);
+      this.aiimsUser =  this.registrationDataService.aiimsUser;
+      if (!this.aiimsUser) {
+        this.registrationDataService
+          .saveGADData(registration_gad)
+          .subscribe((res_data: any) => {
+            this.submitting = false;
+            const userEligible = !res_data.data.excluded;
+            this.registrationDataService.participationID =
+              res_data.data.participant_id;
+            if (userEligible && !this.iswaitList) {
+              this.trialAuthService.activateChild(true);
+              const stepNumber = res_data.data.next_step;
+                const navigation_step = REGISTRATION_PATH + '/step-' + stepNumber;
+                this.router.navigate([navigation_step]);
+            } else if (userEligible && this.iswaitList) {
+              this.quizService.questionnaire_active.emit(false);
             } else {
-              // for aiims trial
-              const navigation_step = AIIMS_REGISTRATION_PATH + '/step-' + stepNumber;
-              this.router.navigate([navigation_step]);
+              this.moveToThankYouPage();
             }
-          } else if (userEligible && this.iswaitList) {
-            this.quizService.questionnaire_active.emit(false);
-          } else {
-            this.moveToThankYouPage();
-          }
-        });
+          });
+      } else {
+        // FOR AIIMS USER
+        this.registrationDataService
+          .saveAiimsGADData(registration_gad)
+          .subscribe((res_data: any) => {
+            // for aiims registration
+            this.submitting = false;
+            const userEligible = !res_data.data.excluded;
+            this.registrationDataService.participationID =
+              res_data.data.participant_id;
+            if (userEligible && !this.iswaitList) {
+              this.trialAuthService.activateChild(true);
+              const stepNumber = res_data.data.next_step;
+              const navigation_step = AIIMS_REGISTRATION_PATH + '/step-' + stepNumber;
+                this.router.navigate([navigation_step]);
+              }
+          });
+      }
     }
   }
 
@@ -757,16 +779,29 @@ export class QuestionnaireComponent implements OnInit {
         siq_response.user_response,
       );
       registration_siq.participant_id = this.registrationDataService.participationID;
-
-      this.registrationDataService
-        .saveSIQData(registration_siq)
-        .subscribe((res_data: any) => {
-          this.siqNextStep(
-            res_data.data.excluded,
-            res_data.data.next_questionnaire,
-            false,
-          );
-        });
+      this.aiimsUser =  this.registrationDataService.aiimsUser;
+      if (!this.aiimsUser) {
+        this.registrationDataService
+          .saveSIQData(registration_siq)
+          .subscribe((res_data: any) => {
+            this.siqNextStep(
+              res_data.data.excluded,
+              res_data.data.next_questionnaire,
+              false,
+            );
+          });
+      } else {
+        // FOR AIIMS USER
+        this.registrationDataService
+          .saveAiimsSIQData(registration_siq)
+          .subscribe((res_data: any) => {
+            this.siqNextStep(
+              res_data.data.excluded,
+              res_data.data.next_questionnaire,
+              false,
+            );
+          });
+      }
     }
   }
   siqNextStep(excluded: boolean, questionnaireName: string, user: boolean) {
