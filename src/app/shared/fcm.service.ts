@@ -70,6 +70,36 @@ export class FcmService {
     );
   }
 
+  //for aiims user
+  aiimsParticipantRequestPermission(part_id: number) {
+    this.afMessaging.requestPermission
+      .pipe(mergeMapTo(this.afMessaging.tokenChanges))
+      .subscribe(
+        token => {
+          if (token) {
+            this.aiimsParticipantUpdateToken(part_id, token).subscribe(data => {
+              this.permit.next(true);
+            });
+          }
+        },
+        error => {
+          if (error.code === 'messaging/token-unsubscribe-failed') {
+            this.participantRequestPermission(part_id);
+          } else {
+            this.permit.next(false);
+          }
+        },
+      );
+  }
+  aiimsParticipantUpdateToken(part_id: number, token: string) {
+    return this.http.post(
+      environment.API_ENDPOINT +
+      '/api/v1/notifications/aiims-store-device-registration/',
+      { participant_id: part_id, registration_id: token },
+    );
+  }
+
+
   listenForNewMessage() {
     this.afMessaging.messages.subscribe(message => {
       // emit signal for notification message

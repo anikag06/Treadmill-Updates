@@ -25,7 +25,7 @@ export class AiimsRegistrationStepFourComponent implements OnInit {
   allowSubmit = false;
   showLoading = false;
   userDeclined = false;
-  aiimsUser = false;
+  aiimsUser = true;
 
   consentForm = new FormGroup({
     notificationsInfo: new FormControl(),
@@ -160,7 +160,7 @@ export class AiimsRegistrationStepFourComponent implements OnInit {
     this.updatingPermissions = true;
     // this.notificationsAllowed = 0;
     // if (this.consentForm.value.notificationsInfo) {
-    this.fcmService.participantRequestPermission(this.participationID);
+    this.fcmService.aiimsParticipantRequestPermission(this.participationID);
     this.userDeclined = false;
     // } else {
     //   this.updatingPermissions = false;
