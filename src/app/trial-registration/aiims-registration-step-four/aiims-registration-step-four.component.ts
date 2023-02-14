@@ -61,7 +61,7 @@ export class AiimsRegistrationStepFourComponent implements OnInit {
   showErrorMsg = false;
   placeholder_tz!: any;
   showPrompt = false;
-  showOkButton = false;
+  showOkButton = true;
 
 
   constructor(
@@ -86,11 +86,13 @@ export class AiimsRegistrationStepFourComponent implements OnInit {
 
     const notificationStatus = Notification.permission;
     if (notificationStatus === 'denied') {
-      this.showHelp = true;
+      // this.showHelp = true;
       this.errorMessage =
         'It looks like you have blocked notifications in your browser.';
       this.notificationHelp =
         'See how to allow notifications.See under the heading <b>Allow or block notifications from all sites</b> in ';
+    } else {
+     this.homeScreenPermission();
     }
     const dateNow = new Date();
     const dateTime = dateNow.toJSON();
@@ -99,9 +101,13 @@ export class AiimsRegistrationStepFourComponent implements OnInit {
     this.participationID = this.registrationDataService.participationID;
     this.fcmService.permit.subscribe(permit => {
       this.notificationsAllowed = permit ? 1 : 0;
+      console.log('NOTIFICATIONS ALLOWED', permit, this.notificationsAllowed);
       this.consentForm.controls['notificationsInfo'].setValue(
         this.notificationsAllowed,
       );
+      if (this.notificationsAllowed) {
+        this.showPrompt = true;
+      }
       this.updatingPermissions = false;
       this.showHelp = this.notificationsAllowed === 0;
       this.changeDetector.detectChanges();
@@ -150,6 +156,7 @@ export class AiimsRegistrationStepFourComponent implements OnInit {
   }
 
   notificationsPermission() {
+    console.log('permissions, showHelp', this.showHelp);
     this.updatingPermissions = true;
     // this.notificationsAllowed = 0;
     // if (this.consentForm.value.notificationsInfo) {
@@ -160,10 +167,9 @@ export class AiimsRegistrationStepFourComponent implements OnInit {
     //   this.userDeclined = true;
     // }
     // this.activateSubmitButton();
-    if (!this.showHelp) {
-      this.homeScreenPermission();
-    }
-
+    // if (this.notificationsAllowed) {
+    //   this.homeScreenPermission();
+    // }
   }
 
   homeScreenPermission() {
@@ -215,6 +221,8 @@ export class AiimsRegistrationStepFourComponent implements OnInit {
     }
     this.changeDetector.detectChanges();
   }
-
+  onContactUsClicked() {
+    this.showContactUsService.contactUsClicked();
+  }
 
 }
