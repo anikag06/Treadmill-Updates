@@ -42,7 +42,7 @@ export class AiimsRegistrationStepTwoComponent implements OnInit {
     gender: new FormControl('', [Validators.required]),
     education: new FormControl(null, [Validators.required]),
     profession: new FormControl(null, [Validators.required]),
-    // browser: new FormControl(null, [Validators.required]),
+    browser: new FormControl(null, [Validators.required]),
     // country: new FormControl(null, [Validators.required]),
     // timezone: new FormControl(null, [Validators.required]),
     // knowEnglish: new FormControl(null, [Validators.required]),
@@ -79,38 +79,13 @@ export class AiimsRegistrationStepTwoComponent implements OnInit {
     null,
     null,
   );
-  // stepFourFormData = new RegistrationStepFourForm(
-  //   0,
-  //   1,
-  //   1,
-  //   1,
-  //   1,
-  //   1,
-  //   1,
-  //   null,
-  //   null,
-  // );
 
 
   participationID = 0;
   starting_time!: any;
   completion_time!: any;
   showPage = false;
-  notificationCheckboxText =
-    'Notifications are an essential part of this program. Please accept to allow notifications.';
-  a2hsCheckboxText =
-    'For the purpose of this study, it is required that you add TreadWill to your home screen. Please accept to add TreadWill to your home screen. <b>By adding TreadWill, you also agree to Sign Up for TreadWill.</b>';
-  allowedToHomeScreen = 0;
-  notificationsAllowed!: number;
-  addingToHomescreen = false;
-  updatingPermissions = false;
-  dialogRef!: MatDialogRef<CommonDialogComponent>;
-  errorMessage = 'Oops! You blocked notifications from TreadWill.';
-  notificationHelp =
-    'No problem, you can still allow notifications. See under the heading <b>Allow or block notifications from some sites</b> in ';
-  notificationLink =
-    'https://support.google.com/chrome/answer/3220216?co=GENIE.Platform%3DAndroid&hl=en&oco=1';
-  showHelp = false;
+
   country_data!: any;
   timezone_data!: any;
   otherOptionSelected = false;
@@ -134,27 +109,13 @@ export class AiimsRegistrationStepTwoComponent implements OnInit {
     if (smallDevice) {
       this.showPage = true;
     }
-    const notificationStatus = Notification.permission;
-    if (notificationStatus === 'denied') {
-      this.errorMessage =
-        'It looks like you have blocked notifications in your browser.';
-      this.notificationHelp =
-        'See how to allow notifications.See under the heading <b>Allow or block notifications from all sites</b> in ';
-    }
+
     const dateNow = new Date();
     const dateTime = dateNow.toJSON();
     this.starting_time = dateTime.replace('Z', '').replace('T', ' ');
 
     this.participationID = this.registrationDataService.participationID;
-    this.fcmService.permit.subscribe(permit => {
-      this.notificationsAllowed = permit ? 1 : 0;
-      this.consentForm.controls['notificationsInfo'].setValue(
-        this.notificationsAllowed,
-      );
-      this.updatingPermissions = false;
-      this.showHelp = this.notificationsAllowed === 0;
-      this.changeDetector.detectChanges();
-    });
+
     this.starting_time = dateTime.replace('Z', '').replace('T', ' ');
     this.placeholder_tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
     this.registrationDataService.getCountryList().subscribe((data: any) => {
