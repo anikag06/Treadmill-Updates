@@ -84,7 +84,7 @@ export class FcmService {
         },
         error => {
           if (error.code === 'messaging/token-unsubscribe-failed') {
-            this.participantRequestPermission(part_id);
+            this.aiimsParticipantRequestPermission(part_id);
           } else {
             this.permit.next(false);
           }

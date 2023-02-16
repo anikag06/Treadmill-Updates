@@ -92,7 +92,7 @@ export class AiimsRegistrationStepFourComponent implements OnInit {
       this.notificationHelp =
         'See how to allow notifications.See under the heading <b>Allow or block notifications from all sites</b> in ';
     } else {
-     this.homeScreenPermission();
+     // this.homeScreenPermission();
     }
     const dateNow = new Date();
     const dateTime = dateNow.toJSON();
@@ -101,16 +101,13 @@ export class AiimsRegistrationStepFourComponent implements OnInit {
     this.participationID = this.registrationDataService.participationID;
     this.fcmService.permit.subscribe(permit => {
       this.notificationsAllowed = permit ? 1 : 0;
-      console.log('NOTIFICATIONS ALLOWED', permit, this.notificationsAllowed);
       this.consentForm.controls['notificationsInfo'].setValue(
         this.notificationsAllowed,
       );
-      if (this.notificationsAllowed) {
-        this.showPrompt = true;
-      }
       this.updatingPermissions = false;
       this.showHelp = this.notificationsAllowed === 0;
       this.changeDetector.detectChanges();
+      // this.activateSubmitButton();
     });
     this.starting_time = dateTime.replace('Z', '').replace('T', ' ');
     this.placeholder_tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -156,7 +153,6 @@ export class AiimsRegistrationStepFourComponent implements OnInit {
   }
 
   notificationsPermission() {
-    console.log('permissions, showHelp', this.showHelp);
     this.updatingPermissions = true;
     // this.notificationsAllowed = 0;
     // if (this.consentForm.value.notificationsInfo) {
@@ -173,7 +169,7 @@ export class AiimsRegistrationStepFourComponent implements OnInit {
   }
 
   homeScreenPermission() {
-    this.showPrompt = true;
+    // this.showPrompt = true;
     this.addingToHomescreen = true;
     // if (this.consentForm.value.homeScreenInfo) {
     this.a2hsService.getDeferredPrompt().subscribe(deferredPrompt => {
@@ -214,15 +210,20 @@ export class AiimsRegistrationStepFourComponent implements OnInit {
     if (
       this.notificationsAllowed
     ) {
-      this.allowSubmit = true;
-      this.consentForm.controls['homeScreenInfo'].enable();
-    } else {
-      this.consentForm.controls['homeScreenInfo'].disable();
+    //   this.allowSubmit = true;
+    //   this.consentForm.controls['homeScreenInfo'].enable();
+    // } else {
+    //   this.consentForm.controls['homeScreenInfo'].disable();
+      this.showPrompt = true;
     }
     this.changeDetector.detectChanges();
   }
   onContactUsClicked() {
     this.showContactUsService.contactUsClicked();
+  }
+
+  onSettingsUpdate() {
+    window.location.reload();
   }
 
 }
