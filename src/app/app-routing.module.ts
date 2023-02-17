@@ -51,13 +51,12 @@ export const routes: Routes = [
   },
   { path: 'iitk', redirectTo: 'trial/trial-registration' },
   {
-    path: 'aiims532925',
+    path: 'aiims532',
     loadChildren: () =>
       import('./trial-registration/trial-registration.module').then(
         m => m.TrialRegistrationModule,
       ),
   },
-  // { path: 'aiimsr532925',  redirectTo: 'trial/trial-registration/aiims' },
   { path: '**', component: NotFoundComponent },
 ];
 

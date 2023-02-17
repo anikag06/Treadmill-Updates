@@ -6,6 +6,7 @@ import { MatContactUsDialogService } from '@/shared/mat-contact-us-dialog/mat-co
 import { SignUpService } from '@/pre-login/signup/sign-up.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {Router} from '@angular/router';
+import {AIIMS_REGISTRATION_PATH} from '@/app.constants';
 
 @Component({
   selector: 'app-step-last-page',
@@ -27,7 +28,7 @@ export class StepLastPageComponent implements OnInit {
 
   ngOnInit() {
     this.participationID = this.registrationDataService.participationID;
-    if (this.router.url.includes('/aiims532925/')) {
+    if (this.router.url.includes(AIIMS_REGISTRATION_PATH)) {
       this.aiimsUser = true;
     }
   }

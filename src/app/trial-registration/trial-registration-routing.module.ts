@@ -55,27 +55,27 @@ const routes: Routes = [
     canActivate: [TrialActivateGuard],
   },
   {
-    path: 'registration/step-2',
+    path: 'r/step-2',
     component: AiimsRegistrationStepTwoComponent,
     canActivate: [AiimsTrialActivateGuard],
   },
   {
-    path: 'registration/step-3',
+    path: 'r/step-3',
     component: AiimsRegistrationStepThreeComponent,
     canActivate: [AiimsTrialActivateGuard],
   },
   {
-    path: 'registration/step-5',
+    path: 'r/step-5',
     component: StepLastPageComponent,
     canActivate: [AiimsTrialActivateGuard],
   },
   {
-    path: 'registration/step-4',
+    path: 'r/step-4',
     component: AiimsRegistrationStepFourComponent,
     canActivate: [AiimsTrialActivateGuard],
   },
   {
-    path: 'registration',
+    path: 'r',
     component: AiimsRegistrationComponent,
   },
   {
