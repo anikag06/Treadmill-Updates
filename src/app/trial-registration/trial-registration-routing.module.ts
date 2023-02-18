@@ -15,13 +15,12 @@ import { StepLastPageComponent } from './information-pages/step-last-page/step-l
 import { ReregistrationComponent } from '@/trial-registration/reregistration/reregistration.component';
 import { WaitlistComponent } from '@/trial-registration/waitlist/waitlist.component';
 import { RegistrationStepOneNextComponent } from '@/trial-registration/registration-step-one-next/registration-step-one-next.component';
-import {AiimsRegistrationComponent} from '@/trial-registration/aiims-registration/aiims-registration.component';
-import {AiimsRegistrationStepTwoComponent} from '@/trial-registration/aiims-registration-step-two/aiims-registration-step-two.component';
+import {AiimsRegistrationStepTwoComponent} from '@/trial-aiims-registration/aiims-registration-step-two/aiims-registration-step-two.component';
 import {
   AiimsRegistrationStepThreeComponent
-} from '@/trial-registration/aiims-registration-step-three/aiims-registration-step-three.component';
-import {AiimsRegistrationStepFourComponent} from '@/trial-registration/aiims-registration-step-four/aiims-registration-step-four.component';
-import {AiimsTrialActivateGuard} from '@/trial-registration/shared/aiims-trial-activate.guard';
+} from '@/trial-aiims-registration/aiims-registration-step-three/aiims-registration-step-three.component';
+import {AiimsRegistrationStepFourComponent} from '@/trial-aiims-registration/aiims-registration-step-four/aiims-registration-step-four.component';
+import {AiimsTrialActivateGuard} from '@/trial-aiims-registration/aiims-trial-activate.guard';
 
 const routes: Routes = [
   {
@@ -54,30 +53,30 @@ const routes: Routes = [
     component: StepLastPageComponent,
     canActivate: [TrialActivateGuard],
   },
-  {
-    path: 'r/step-2',
-    component: AiimsRegistrationStepTwoComponent,
-    canActivate: [AiimsTrialActivateGuard],
-  },
-  {
-    path: 'r/step-3',
-    component: AiimsRegistrationStepThreeComponent,
-    canActivate: [AiimsTrialActivateGuard],
-  },
-  {
-    path: 'r/step-5',
-    component: StepLastPageComponent,
-    canActivate: [AiimsTrialActivateGuard],
-  },
-  {
-    path: 'r/step-4',
-    component: AiimsRegistrationStepFourComponent,
-    canActivate: [AiimsTrialActivateGuard],
-  },
-  {
-    path: 'r',
-    component: AiimsRegistrationComponent,
-  },
+  // {
+  //   path: 'step-2',
+  //   component: AiimsRegistrationStepTwoComponent,
+  //   canActivate: [AiimsTrialActivateGuard],
+  // },
+  // {
+  //   path: 'step-3',
+  //   component: AiimsRegistrationStepThreeComponent,
+  //   canActivate: [AiimsTrialActivateGuard],
+  // },
+  // {
+  //   path: 'step-4',
+  //   component: AiimsRegistrationStepFourComponent,
+  //   canActivate: [AiimsTrialActivateGuard],
+  // },
+  // {
+  //   path: 'step-5',
+  //   component: StepLastPageComponent,
+  //   canActivate: [AiimsTrialActivateGuard],
+  // },
+  // {
+  //   path: 'r',
+  //   component: AiimsRegistrationComponent,
+  // },
   {
     path: 'trial-registration/:unique_code',
     component: ReregistrationComponent,

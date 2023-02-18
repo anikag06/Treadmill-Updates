@@ -6,15 +6,15 @@ import {MatContactUsDialogService} from '@/shared/mat-contact-us-dialog/mat-cont
 import {RegistrationDataService} from '@/trial-registration/shared/registration-data.service';
 import {QuizService} from '@/shared/questionnaire/questionnaire.service';
 import {A2HSService} from '@/shared/a2hs.service';
-import {AIIMS_REGISTRATION_PATH, INELIGIBLE_FOR_TRIAL, REGISTRATION_PATH} from '@/app.constants';
+import {AIIMS_REGISTRATION_PATH, INELIGIBLE_FOR_TRIAL} from '@/app.constants';
+import {TrialAiimsRegistrationService} from '@/trial-aiims-registration/trial-aiims-registration.service';
 
 @Component({
-  selector: 'app-aiims-registration',
-  templateUrl: './aiims-registration.component.html',
-  styleUrls: ['./aiims-registration.component.scss']
+  selector: 'app-trial-aiims-registration',
+  templateUrl: './trial-aiims-registration.component.html',
+  styleUrls: ['./trial-aiims-registration.component.scss']
 })
-export class AiimsRegistrationComponent implements OnInit {
-
+export class TrialAiimsRegistrationComponent implements OnInit {
   @ViewChild('stepOneDiv', { static: false }) stepOneDiv!: ElementRef;
 
   stepNo = 1;
@@ -49,7 +49,7 @@ export class AiimsRegistrationComponent implements OnInit {
     private router: Router,
     private authService: TrialAuthService,
     private showContactUsService: MatContactUsDialogService,
-    private registrationDataService: RegistrationDataService,
+    private aiimsRegistrationDataService: TrialAiimsRegistrationService,
     private questionnaireService: QuizService,
     private a2hsService: A2HSService,
   ) {}
@@ -60,13 +60,6 @@ export class AiimsRegistrationComponent implements OnInit {
     if (smallDevice) {
       this.showRegistrationContent = true;
     }
-    this.registrationDataService
-      .getNumParticpantsLeft()
-      .subscribe((data: any) => {
-        if (data) {
-          this.remainingParticipants = data.data.no_participant_left;
-        }
-      });
   }
 
   emailSubmit() {
@@ -75,30 +68,30 @@ export class AiimsRegistrationComponent implements OnInit {
       this.showLoading = true;
       // check if modern email service provider
       if (this.checkEmailService(this.emailForm.value.email)) {
-        this.registrationDataService
+        this.aiimsRegistrationDataService
           .storeAiimsEmailID(this.emailForm.value.email)
           .subscribe(
             (res_data: any) => {
               this.showLoading = false;
-              this.registrationDataService.participationID =
+              this.aiimsRegistrationDataService.participationID =
                 res_data.data.participant_id;
               this.userEligible = !res_data.data.excluded;
               if (this.userEligible) {
                 this.authService.activateChild(true);
                 const stepNumber = res_data.data.next_step;
                 const navigation_step =
-                  AIIMS_REGISTRATION_PATH + '/step-' + stepNumber;
+                  AIIMS_REGISTRATION_PATH + 'r/step-' + stepNumber;
 
                 if (stepNumber === 3) {
-                    this.questionnaireService.questionnaire_name =
-                      res_data.data.next_questionnaire;
+                  this.questionnaireService.questionnaire_name =
+                    res_data.data.next_questionnaire;
                   this.router.navigate([navigation_step]);
                 } else {
                   this.router.navigate([navigation_step]);
                 }
               } else {
                 // this.authService.activateChild(true);
-                this.router.navigate([INELIGIBLE_FOR_TRIAL]);
+                // this.router.navigate([INELIGIBLE_FOR_TRIAL]);
               }
             },
             err => {

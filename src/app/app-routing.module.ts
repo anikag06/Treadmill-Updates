@@ -7,9 +7,11 @@ import { AuthGuard } from './shared/auth/auth.guard';
 import { SignUpComponent } from '@/pre-login/signup/signup.component';
 import { TempLandingPageComponent } from '@/temp-landing-page/temp-landing-page.component';
 import { ResetPasswordComponent } from '@/pre-login/reset-password/reset-password.component';
-import {AiimsRegistrationComponent} from '@/trial-registration/aiims-registration/aiims-registration.component';
+import {TrialAiimsRegistrationComponent} from '@/trial-aiims-registration/trial-aiims-registration/trial-aiims-registration.component';
+import {TrialAiimsRegistrationRoutingModule} from '@/trial-aiims-registration/trial-aiims-registration-routing.module';
 
 export const routes: Routes = [
+
   { path: '', redirectTo: 'landing', pathMatch: 'full' },
   {
     path: 'landing',
@@ -52,9 +54,14 @@ export const routes: Routes = [
   { path: 'iitk', redirectTo: 'trial/trial-registration' },
   {
     path: 'aiims532',
+    component: TrialAiimsRegistrationComponent,
+    pathMatch: 'full',
+  },
+  {
+    path: 'aiims532/r',
     loadChildren: () =>
-      import('./trial-registration/trial-registration.module').then(
-        m => m.TrialRegistrationModule,
+      import('./trial-aiims-registration/trial-aiims-registration.module').then(
+        m => m.TrialAiimsRegistrationModule,
       ),
   },
   { path: '**', component: NotFoundComponent },
@@ -63,5 +70,6 @@ export const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
+
 })
 export class AppRoutingModule {}

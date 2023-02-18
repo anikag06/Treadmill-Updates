@@ -27,10 +27,6 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthHeaderInterceptor } from '@/main/auth-header.interceptor';
 import { TrialsAuthHeaderInterceptor } from '@/trial-registration/shared/trials-auth-header-interceptor';
 import { RegistrationStepOneNextComponent } from './registration-step-one-next/registration-step-one-next.component';
-import { AiimsRegistrationComponent } from './aiims-registration/aiims-registration.component';
-import { AiimsRegistrationStepTwoComponent } from './aiims-registration-step-two/aiims-registration-step-two.component';
-import { AiimsRegistrationStepThreeComponent } from './aiims-registration-step-three/aiims-registration-step-three.component';
-import { AiimsRegistrationStepFourComponent } from './aiims-registration-step-four/aiims-registration-step-four.component';
 
 @NgModule({
   declarations: [
@@ -49,10 +45,6 @@ import { AiimsRegistrationStepFourComponent } from './aiims-registration-step-fo
     ReregistrationComponent,
     WaitlistComponent,
     RegistrationStepOneNextComponent,
-    AiimsRegistrationComponent,
-    AiimsRegistrationStepTwoComponent,
-    AiimsRegistrationStepThreeComponent,
-    AiimsRegistrationStepFourComponent,
   ],
   imports: [
     FormsModule,

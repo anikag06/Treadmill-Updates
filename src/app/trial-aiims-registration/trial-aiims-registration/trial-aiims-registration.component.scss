@@ -1,0 +1,72 @@
+
+.largest-font {
+  font-size: 30px;
+  letter-spacing: 0.29px;
+  font-family: "Roboto";
+}
+#top-logo{
+  background: #2A3B3D 0% 0% no-repeat padding-box;
+  min-height: 100px;
+  max-height: 110px;
+}
+.log-img{
+  max-width: 175px;
+  margin-left: 1rem;
+  height: 70px;
+}
+.text-property {
+  color: #7B9092;
+  font-size: 14px;
+  text-align: right;
+}
+.bar{
+  height: 4px;
+  background-color: #F5BB56;
+}
+
+.btn-outline-warning {
+  color: #F5BB56 !important;
+  border-color: #F5BB56 !important;
+}
+.btn-outline-warning:hover{
+  color: black !important;
+  background-color: #F5BB56 !important;
+  border-color: #F5BB56 !important;
+}
+
+
+
+
+.form-elements{
+  min-height: 48px;
+}
+
+.ng-untouched  {
+  border: 0px;
+}
+.ng-touched .ng-invalid:not(form)  {
+  border: 1px solid red; /* red */
+}
+
+.input-box {
+  box-shadow: 0px 1px 3px #00000029;
+  border-radius: 4px;
+  opacity: 1;
+}
+
+.s-medium {
+  font-size: 14px;
+  letter-spacing: 0.29px;
+  font-weight: bold;
+  font-family: "Roboto";
+}
+.opacity-80 {
+  opacity: 0.80;
+}
+.remaining_participants {
+  height: 90px;
+  background-color: #FFF7E8;
+  margin-top:70px;
+  color:#00000099;
+  text-align: center;
+}

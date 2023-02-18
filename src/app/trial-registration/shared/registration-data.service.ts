@@ -29,7 +29,7 @@ import { RegistrationStepFourForm } from '../registration-step-four/step-four-co
 export class RegistrationDataService {
   participationID!: number;
   isWaitList!: boolean;
-  aiimsUser!: boolean;
+  // aiimsUser!: boolean;
 
   constructor(private http: HttpClient) {}
 
@@ -40,13 +40,13 @@ export class RegistrationDataService {
       sendData,
     );
   }
-  storeAiimsEmailID(emailID: any) {
-    const sendData = { email: emailID };
-    return this.http.post(
-      environment.API_ENDPOINT + AIIMS_EMAIL_REGISTRATION,
-      sendData,
-    );
-  }
+  // storeAiimsEmailID(emailID: any) {
+  //   const sendData = { email: emailID };
+  //   return this.http.post(
+  //     environment.API_ENDPOINT + AIIMS_EMAIL_REGISTRATION,
+  //     sendData,
+  //   );
+  // }
 
   storeEncryptedEmailID(encrypted_email: any) {
     const sendData = { encrypted_email: encrypted_email };
@@ -63,12 +63,12 @@ export class RegistrationDataService {
     );
   }
 
-  saveStepTwoAIIMSForm(stepTwoData: RegistrationStepTwoForm) {
-    return this.http.put(
-      environment.API_ENDPOINT + AIIMS_REGISTRATION_STEP_TWO,
-      stepTwoData,
-    );
-  }
+  // saveStepTwoAIIMSForm(stepTwoData: RegistrationStepTwoForm) {
+  //   return this.http.put(
+  //     environment.API_ENDPOINT + AIIMS_REGISTRATION_STEP_TWO,
+  //     stepTwoData,
+  //   );
+  // }
 
   savePHQData(phqResponse: RegistrationQuestionnaireScore) {
     return this.http.post(
@@ -76,13 +76,12 @@ export class RegistrationDataService {
       phqResponse,
     );
   }
-  saveAiimsPHQData(phqResponse: RegistrationQuestionnaireScore) {
-    console.log('aiims user phq');
-    return this.http.post(
-      environment.API_ENDPOINT + AIIMS_REGISTRATION_PHQ_RESPONSE,
-      phqResponse,
-    );
-  }
+  // saveAiimsPHQData(phqResponse: RegistrationQuestionnaireScore) {
+  //   return this.http.post(
+  //     environment.API_ENDPOINT + AIIMS_REGISTRATION_PHQ_RESPONSE,
+  //     phqResponse,
+  //   );
+  // }
 
   saveSIQData(siqResponse: RegistrationQuestionnaireScore) {
     return this.http.post(
@@ -90,19 +89,19 @@ export class RegistrationDataService {
       siqResponse,
     );
   }
-  saveAiimsSIQData(siqResponse: RegistrationQuestionnaireScore) {
-    return this.http.post(
-      environment.API_ENDPOINT + AIIMS_REGISTRATION_SIQ_RESPONSE,
-      siqResponse,
-    );
-  }
+  // saveAiimsSIQData(siqResponse: RegistrationQuestionnaireScore) {
+  //   return this.http.post(
+  //     environment.API_ENDPOINT + AIIMS_REGISTRATION_SIQ_RESPONSE,
+  //     siqResponse,
+  //   );
+  // }
 
-  saveAiimsGADData(gadResponse: RegistrationQuestionnaireScore) {
-    return this.http.post(
-      environment.API_ENDPOINT + AIIMS_REGISTRATION_GAD_RESPONSE,
-      gadResponse,
-    );
-  }
+  // saveAiimsGADData(gadResponse: RegistrationQuestionnaireScore) {
+  //   return this.http.post(
+  //     environment.API_ENDPOINT + AIIMS_REGISTRATION_GAD_RESPONSE,
+  //     gadResponse,
+  //   );
+  // }
   saveGADData(gadResponse: RegistrationQuestionnaireScore) {
     return this.http.post(
       environment.API_ENDPOINT + REGISTRATION_GAD_RESPONSE,
@@ -116,12 +115,12 @@ export class RegistrationDataService {
       consentFormData,
     );
   }
-  saveConsentDataAiims(consentFormData: any) {
-    return this.http.put(
-      environment.API_ENDPOINT + REGISTRATION_CONSENT_AIIMS,
-      consentFormData,
-    );
-  }
+  // saveConsentDataAiims(consentFormData: any) {
+  //   return this.http.put(
+  //     environment.API_ENDPOINT + REGISTRATION_CONSENT_AIIMS,
+  //     consentFormData,
+  //   );
+  // }
 
 
   getCountryList() {

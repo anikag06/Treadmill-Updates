@@ -10,11 +10,11 @@ import {AIIMS_REGISTRATION_PATH} from '@/app.constants';
 import {TrialAiimsRegistrationService} from '@/trial-aiims-registration/trial-aiims-registration.service';
 
 @Component({
-  selector: 'app-step-last-page',
-  templateUrl: './step-last-page.component.html',
-  styleUrls: ['./step-last-page.component.scss'],
+  selector: 'app-aiims-step-last-page',
+  templateUrl: './aiims-step-last-page.component.html',
+  styleUrls: ['./aiims-step-last-page.component.scss'],
 })
-export class StepLastPageComponent implements OnInit {
+export class AiimsStepLastPageComponent implements OnInit {
   constructor(
     private registrationDataService: RegistrationDataService,
     private aiimsRegistrationDataService: TrialAiimsRegistrationService,
@@ -30,32 +30,22 @@ export class StepLastPageComponent implements OnInit {
 
   ngOnInit() {
     this.participationID = this.registrationDataService.participationID;
-    // if (this.router.url.includes(AIIMS_REGISTRATION_PATH)) {
-    //   this.aiimsUser = true;
-    //   this.participationID = this.aiimsRegistrationDataService.participationID;
-    // }
+    if (this.router.url.includes(AIIMS_REGISTRATION_PATH)) {
+      this.aiimsUser = true;
+      this.participationID = this.aiimsRegistrationDataService.participationID;
+    }
   }
   contactUsClicked() {
     this.showContactUsService.contactUsClicked();
   }
   resendEmail() {
-    // if (!this.aiimsUser) {
       this.signUpService
-        .resendSignupLink(this.participationID)
+        .resendSignupLinkAiims(this.participationID)
         .subscribe(response => {
           this.snackBar.open(this.msgReceived, this.action, {
             duration: 4000,
           });
         });
-    // } else {
-    //   this.signUpService
-    //     .resendSignupLinkAiims(this.participationID)
-    //     .subscribe(response => {
-    //       this.snackBar.open(this.msgReceived, this.action, {
-    //         duration: 4000,
-    //       });
-    //     });
-    // }
-  }
+      }
 }
 

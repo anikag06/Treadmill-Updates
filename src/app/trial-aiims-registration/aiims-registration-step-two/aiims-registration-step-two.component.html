@@ -1,8 +1,19 @@
 <div *ngIf="showPage else desktopMessage">
 
   <div class="container-fluid w-100 small-font">
-    <app-trial-pages-header [aiimsPage]="true" [stepNumber]="stepNo"></app-trial-pages-header>
-
+    <!--    header-->
+    <div class="row sticky-top align-items-center" id="top-logo">
+      <div class="col px-0"  style=" cursor: pointer;">
+        <img src="../../../assets/shared/logo_full.svg"
+             class="w-100 log-img">
+      </div>
+      <div class="col-5 mt-2 pl-0">
+        <p  class="text-property my-0"> <b>  Step 2 </b></p>
+      </div>
+      <div class="bar w-100 mt-auto">
+      </div>
+    </div>
+    <!--    till here-->
     <div class="row my-4">
       <div class="col-12 m-medium" >
        Thank you for your interest.
@@ -109,7 +120,7 @@
   </div>
 
   <div class="row mt-5 mx-0">
-    <app-trial-pages-footer class="w-100"></app-trial-pages-footer>
+<!--    <app-trial-aiims-pages-footer class="w-100"></app-trial-aiims-pages-footer>-->
   </div>
 </div>
 <ng-template #desktopMessage>

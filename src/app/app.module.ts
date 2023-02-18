@@ -49,6 +49,8 @@ import { CommonDialogComponent } from './shared/common-dialog/common-dialog.comp
 import { PointsComponent } from '@/main/shared/points/points.component';
 import { GlobalErrorHandler } from '@/shared/global-error-handler';
 import { ChangeBrowserDialogComponent } from './shared/change-browser-dialog/change-browser-dialog.component';
+import {TrialAiimsRegistrationComponent} from '@/trial-aiims-registration/trial-aiims-registration/trial-aiims-registration.component';
+import {TrialAiimsRegistrationService} from '@/trial-aiims-registration/trial-aiims-registration.service';
 
 declare let $: any;
 
@@ -69,6 +71,7 @@ declare let $: any;
     CommonDialogComponent,
     PointsComponent,
     ChangeBrowserDialogComponent,
+    TrialAiimsRegistrationComponent
   ],
   imports: [
     BrowserModule,
@@ -110,6 +113,7 @@ declare let $: any;
     QuizService,
     MatLoginDialogService,
     ResetPasswordService,
+    TrialAiimsRegistrationService,
     { provide: ErrorHandler, useClass: GlobalErrorHandler },
   ],
   bootstrap: [AppComponent],

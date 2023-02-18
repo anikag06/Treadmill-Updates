@@ -11,7 +11,6 @@ export class TrialPagesHeaderComponent implements OnInit {
   @Output() joinStudyClicked: EventEmitter<any> = new EventEmitter();
 
   @Input() stepNumber!: number;
-  @Input() aiimsPage!: boolean;
   @Input() reregister!: boolean;
 
   stepOne = false;

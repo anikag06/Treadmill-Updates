@@ -1,0 +1,38 @@
+<div *ngIf="showPage else desktopMessage">
+
+  <div class="container-fluid">
+
+<!--    <app-trial-pages-header [aiimsPage]="true" [stepNumber]="stepNo"></app-trial-pages-header>-->
+    <!--    header-->
+    <div class="row sticky-top align-items-center" id="top-logo">
+      <div class="col px-0"  style=" cursor: pointer;">
+        <img src="../../../assets/shared/logo_full.svg"
+             class="w-100 log-img">
+      </div>
+      <div class="col-5 mt-2 pl-0">
+        <p  class="text-property my-0"> <b>  Step 3 </b></p>
+      </div>
+      <div class="bar w-100 mt-auto">
+      </div>
+    </div>
+    <!--    till here-->
+
+    <div class="row mt-0">
+      <app-questionnaire class="w-100"
+                         [fromFlow]="false"
+                         [stepId]="null"
+                         [fromTrialRegistration]="true">
+      </app-questionnaire>
+    </div>
+
+  </div>
+
+
+</div>
+<ng-template #desktopMessage>
+  <div>
+    <!--    Open this link on your mobile.-->
+    <app-qr-code></app-qr-code>
+
+  </div>
+</ng-template>

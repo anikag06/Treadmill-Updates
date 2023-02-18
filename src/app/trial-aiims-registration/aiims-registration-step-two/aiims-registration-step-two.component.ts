@@ -12,9 +12,10 @@ import {CommonDialogComponent} from '@/shared/common-dialog/common-dialog.compon
 import {FcmService} from '@/shared/fcm.service';
 import {A2HSService} from '@/shared/a2hs.service';
 import {MatContactUsDialogService} from '@/shared/mat-contact-us-dialog/mat-contact-us-dialog.service';
+import {TrialAiimsRegistrationService} from '@/trial-aiims-registration/trial-aiims-registration.service';
 
 @Component({
-  selector: 'app-aiims-registration-step-two',
+  selector: 'app-trial-aiims-registration-step-two',
   templateUrl: './aiims-registration-step-two.component.html',
   styleUrls: ['./aiims-registration-step-two.component.scss']
 })
@@ -96,6 +97,7 @@ export class AiimsRegistrationStepTwoComponent implements OnInit {
     private authService: TrialAuthService,
     private router: Router,
     private registrationDataService: RegistrationDataService,
+    private aiimsRegistrationDataService: TrialAiimsRegistrationService,
     private questionnaireService: QuizService,
     private fcmService: FcmService,
     private a2hsService: A2HSService,
@@ -114,8 +116,7 @@ export class AiimsRegistrationStepTwoComponent implements OnInit {
     const dateTime = dateNow.toJSON();
     this.starting_time = dateTime.replace('Z', '').replace('T', ' ');
 
-    this.participationID = this.registrationDataService.participationID;
-
+    this.participationID = this.aiimsRegistrationDataService.participationID;
     this.starting_time = dateTime.replace('Z', '').replace('T', ' ');
     this.placeholder_tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
     this.registrationDataService.getCountryList().subscribe((data: any) => {
@@ -124,7 +125,6 @@ export class AiimsRegistrationStepTwoComponent implements OnInit {
     this.registrationDataService.getTimeZoneData().subscribe((data: any) => {
       this.timezone_data = data;
     });
-    this.participationID = this.registrationDataService.participationID;
   }
 
   stepDataSubmit() {
@@ -147,18 +147,20 @@ export class AiimsRegistrationStepTwoComponent implements OnInit {
       this.stepTwoFormData.started_at = this.starting_time;
       this.stepTwoFormData.completed_at = this.completion_time;
       // this.stepTwoFormData.source_of_information_other = this.stepTwoForm.value.otherReasonTextBox;
-      this.registrationDataService
+      this.aiimsRegistrationDataService
         .saveStepTwoAIIMSForm(this.stepTwoFormData)
         .subscribe((res_data: any) => {
           this.showLoading = false;
           this.userEligible = !res_data.excluded;
           this.registrationDataService.participationID =
             res_data.participant_id;
+          this.aiimsRegistrationDataService.participationID =
+            res_data.participant_id;
           if (this.userEligible) {
             this.authService.activateChild(true);
 
             const stepNumber = res_data.next_step;
-            const navigation_step = AIIMS_REGISTRATION_PATH + '/step-' + stepNumber;
+            const navigation_step = AIIMS_REGISTRATION_PATH + 'r/step-' + stepNumber;
             if (stepNumber === 3) {
               this.questionnaireService.questionnaire_name =
                 res_data.next_questionnaire;

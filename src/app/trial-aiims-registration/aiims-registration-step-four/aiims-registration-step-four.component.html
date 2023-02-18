@@ -2,8 +2,19 @@
 
   <div class="container-fluid small-font">
 
-    <app-trial-pages-header [aiimsPage]="true" [stepNumber]="stepNo"></app-trial-pages-header>
-
+    <!--    header-->
+    <div class="row sticky-top align-items-center" id="top-logo">
+      <div class="col px-0"  style=" cursor: pointer;">
+        <img src="../../../assets/shared/logo_full.svg"
+             class="w-100 log-img">
+      </div>
+      <div class="col-5 mt-2 pl-0">
+        <p  class="text-property my-0"> <b>  Step 4 </b></p>
+      </div>
+      <div class="bar w-100 mt-auto">
+      </div>
+    </div>
+    <!--    till here-->
     <div  *ngIf="showHelp">
       <div class="row mx-1 my-3"
            [ngStyle]="{ display: showHelp && !userDeclined ? 'block' : 'none' }"

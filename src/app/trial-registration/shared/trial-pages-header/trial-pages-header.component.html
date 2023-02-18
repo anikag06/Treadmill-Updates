@@ -8,13 +8,11 @@
         <button type="button" *ngIf="stepOne" (click)="topJoinStudyClick()"
          class="btn btn-outline-warning mt-auto float-right">Join the Study</button>
 
-        <p *ngIf="stepTwo && !aiimsPage" class="text-property my-0"> <b>  Step 2 of 4  </b></p>
-      <p *ngIf="stepTwo && aiimsPage" class="text-property my-0"> <b>  Step 2 </b></p>
+        <p *ngIf="stepTwo" class="text-property my-0"> <b>  Step 2 of 4  </b></p>
 
-      <p *ngIf="stepThree && !aiimsPage" class="text-property my-0"> <b> Step 3 of 4 </b>  </p>
-      <p *ngIf="stepThree && aiimsPage" class="text-property my-0"> <b>  Step 3  </b></p>
+      <p *ngIf="stepThree" class="text-property my-0"> <b> Step 3 of 4 </b>  </p>
 
-      <p *ngIf="stepFour && !aiimsPage" class="text-property my-0"> <b> Step 4 of 4 </b>  </p>
+      <p *ngIf="stepFour " class="text-property my-0"> <b> Step 4 of 4 </b>  </p>
     </div>
     <div class="bar w-100 mt-auto">
 

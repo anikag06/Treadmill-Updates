@@ -1,0 +1,88 @@
+<div *ngIf="showRegistrationContent else desktopMessage">
+  <div class="container-fluid w-100 small-font" #stepOneDiv>
+<!--    header-->
+    <div class="row sticky-top align-items-center" id="top-logo">
+      <div class="col px-0"  style=" cursor: pointer;">
+        <img src="../../../assets/shared/logo_full.svg"
+             class="w-100 log-img">
+      </div>
+      <div class="col-5 mt-2 pl-0">
+        <p  class="text-property my-0"> <b>  Step 1 </b></p>
+      </div>
+      <div class="bar w-100 mt-auto">
+      </div>
+    </div>
+<!--    till here-->
+
+
+
+    <div class="row my-4 mx-1"  >
+      <div class="w-100 py-4 my-2">
+        <div class=" largest-font px-2">
+<!--          <b> Are you feeling low, down, or depressed? </b>-->
+          <b> Welcome to Treadwill</b>
+        </div>
+<!--        <img src="../../../assets/trial-registration/man_woman_sad.svg"-->
+<!--             class="mx-auto" id="sad-img">-->
+      </div>
+<!--      <p class="less-opacity">-->
+<!--        TreadWill is designed to help you deal with stress, low mood,-->
+<!--        lethargy, and other depressive symptoms.-->
+<!--      </p>-->
+
+    </div>
+
+    <div class="row my-5">
+<!--      <div class="col-12 my-2">-->
+<!--        <span class="l-medium"> Fill details</span>-->
+<!--        <span class="float-right s-medium opacity-80"> Step 1 </span>-->
+<!--      </div>-->
+
+      <div class="col-12 my-2">
+        <div class="align-self-center">
+                <span>
+                 If you have come to this link via Aiims Rishikesh please enter your email id below.
+
+                  Please use a modern email service like gmail, outlook, yahoo etc.
+                </span>
+        </div>
+        <br>
+        <form [formGroup]="emailForm" class="w-100" >
+          <input formControlName="email"
+                 type="email" class="input-box w-100 px-2 form-elements"
+                 required
+                 email
+                 placeholder=" Enter your email ID" >
+          <div class="w-100 my-3">
+            <button type="submit" class="w-100 form-elements" *ngIf="!showLoading" mat-raised-button
+                    color="primary" (click)="emailSubmit()" > Join the Study </button>
+            <button class="w-100 form-elements" color="primary" *ngIf="showLoading" type="button" mat-raised-button >
+              <span class="spinner-border spinner-border-sm"></span>
+              &nbsp; Loading..
+            </button>
+          </div>
+          <p class="text-footer mt-2 error-text" *ngIf="showErrorMessage">
+            Please give us your valid email id. We won't spam you. Promise 🤞!
+          </p>
+          <p class="text-footer mt-2 error-text" style="color: #E82626" *ngIf="emailServiceErrorMessage">
+            We only support modern email service providers that support HTML emails.
+            If you think that we have missed yours, please <a (click)= "contactUsClicked()" > <b>let us know</b>.</a>
+          </p>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row mt-3 mx-0">
+<!--    <app-trial-pages-footer class="w-100"></app-trial-pages-footer>-->
+  </div>
+</div>
+
+<ng-template #desktopMessage>
+  <div>
+    <!--        Open this link on your mobile.-->
+    <app-qr-code ></app-qr-code>
+  </div>
+</ng-template>
+

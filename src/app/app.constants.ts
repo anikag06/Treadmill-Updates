@@ -375,7 +375,8 @@ export const BELIEF_CHANGE_FORM_NAME = 'Change a belief';
 // trial registration pages
 export const INELIGIBLE_FOR_TRIAL = '/trial/thankyou';
 export const REGISTRATION_PATH = '/trial/trial-registration';
-export const AIIMS_REGISTRATION_PATH = '/aiims532/r';
+export const AIIMS_REGISTRATION_PATH = '/aiims532/';
+
 
 
 // country list api
@@ -397,7 +398,7 @@ export const REGISTRATION_GAD_RESPONSE =
 export const REGISTRATION_SIQ_RESPONSE =
   '/api/v1/questionnaire/trial-siq-user-response/';
 
-export const AIIMS_REGISTRATION_PHQ_RESPONSE =
+export const  AIIMS_REGISTRATION_PHQ_RESPONSE =
   '/api/v1/questionnaire/aiims-trial-phq-user-response/';
 export const AIIMS_REGISTRATION_GAD_RESPONSE =
   '/api/v1/questionnaire/aiims-trial-gad-user-response/';

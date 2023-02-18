@@ -40,6 +40,7 @@ import {
 import { TimerService } from '../timer.service';
 import { Location } from '@angular/common';
 import { ConclusionService } from '@/main/resources/conclusion/conclusion.service';
+import {TrialAiimsRegistrationService} from '@/trial-aiims-registration/trial-aiims-registration.service';
 
 @Component({
   animations: [
@@ -177,6 +178,7 @@ export class QuestionnaireComponent implements OnInit {
     private dataService: DataService,
     private trialAuthService: TrialAuthService,
     private registrationDataService: RegistrationDataService,
+    private aiimsRegistrationDataService: TrialAiimsRegistrationService,
     private authService: AuthService,
     private timerService: TimerService,
     private location: Location,
@@ -636,7 +638,7 @@ export class QuestionnaireComponent implements OnInit {
         phq_response.user_response,
       );
       registration_phq.participant_id = this.registrationDataService.participationID;
-      this.aiimsUser =  this.registrationDataService.aiimsUser;
+      this.aiimsUser =  this.aiimsRegistrationDataService.aiimsUser;
       if (!this.aiimsUser) {
         this.registrationDataService
           .savePHQData(registration_phq)
@@ -649,7 +651,8 @@ export class QuestionnaireComponent implements OnInit {
           });
       } else {
         // FOR AIIMS USER
-        this.registrationDataService
+        registration_phq.participant_id = this.aiimsRegistrationDataService.participationID;
+        this.aiimsRegistrationDataService
           .saveAiimsPHQData(registration_phq)
           .subscribe((res_data: any) => {
             this.phqNextStep(
@@ -713,7 +716,7 @@ export class QuestionnaireComponent implements OnInit {
       );
       registration_gad.participant_id = this.registrationDataService.participationID;
       this.iswaitList = this.registrationDataService.isWaitList;
-      this.aiimsUser =  this.registrationDataService.aiimsUser;
+      this.aiimsUser =  this.aiimsRegistrationDataService.aiimsUser;
       if (!this.aiimsUser) {
         this.registrationDataService
           .saveGADData(registration_gad)
@@ -735,7 +738,8 @@ export class QuestionnaireComponent implements OnInit {
           });
       } else {
         // FOR AIIMS USER
-        this.registrationDataService
+        registration_gad.participant_id = this.aiimsRegistrationDataService.participationID;
+        this.aiimsRegistrationDataService
           .saveAiimsGADData(registration_gad)
           .subscribe((res_data: any) => {
             // for aiims registration
@@ -743,10 +747,12 @@ export class QuestionnaireComponent implements OnInit {
             const userEligible = !res_data.data.excluded;
             this.registrationDataService.participationID =
               res_data.data.participant_id;
+            this.aiimsRegistrationDataService.participationID =
+              res_data.data.participant_id;
             if (userEligible && !this.iswaitList) {
               this.trialAuthService.activateChild(true);
               const stepNumber = res_data.data.next_step;
-              const navigation_step = AIIMS_REGISTRATION_PATH + '/step-' + stepNumber;
+              const navigation_step = AIIMS_REGISTRATION_PATH + 'r/step-' + stepNumber;
                 this.router.navigate([navigation_step]);
               }
           });
@@ -779,7 +785,7 @@ export class QuestionnaireComponent implements OnInit {
         siq_response.user_response,
       );
       registration_siq.participant_id = this.registrationDataService.participationID;
-      this.aiimsUser =  this.registrationDataService.aiimsUser;
+      this.aiimsUser =  this.aiimsRegistrationDataService.aiimsUser;
       if (!this.aiimsUser) {
         this.registrationDataService
           .saveSIQData(registration_siq)
@@ -792,7 +798,8 @@ export class QuestionnaireComponent implements OnInit {
           });
       } else {
         // FOR AIIMS USER
-        this.registrationDataService
+        registration_siq.participant_id = this.aiimsRegistrationDataService.participationID;
+        this.aiimsRegistrationDataService
           .saveAiimsSIQData(registration_siq)
           .subscribe((res_data: any) => {
             this.siqNextStep(

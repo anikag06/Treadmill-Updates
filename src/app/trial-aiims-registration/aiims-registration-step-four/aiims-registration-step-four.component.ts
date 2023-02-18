@@ -10,9 +10,10 @@ import {FcmService} from '@/shared/fcm.service';
 import {A2HSService} from '@/shared/a2hs.service';
 import {MatContactUsDialogService} from '@/shared/mat-contact-us-dialog/mat-contact-us-dialog.service';
 import {AIIMS_REGISTRATION_PATH, INELIGIBLE_FOR_TRIAL} from '@/app.constants';
+import {TrialAiimsRegistrationService} from '@/trial-aiims-registration/trial-aiims-registration.service';
 
 @Component({
-  selector: 'app-aiims-registration-step-four',
+  selector: 'app-trial-aiims-registration-step-four',
   templateUrl: './aiims-registration-step-four.component.html',
   styleUrls: ['./aiims-registration-step-four.component.scss']
 })
@@ -68,6 +69,7 @@ export class AiimsRegistrationStepFourComponent implements OnInit {
     private authService: TrialAuthService,
     private router: Router,
     private registrationDataService: RegistrationDataService,
+    private aiimsRegistrationDataService: TrialAiimsRegistrationService,
     private questionnaireService: QuizService,
     private fcmService: FcmService,
     private a2hsService: A2HSService,
@@ -79,7 +81,7 @@ export class AiimsRegistrationStepFourComponent implements OnInit {
 
   ngOnInit() {
     const smallDevice = window.matchMedia('(max-width: 767px)').matches;
-    this.registrationDataService.aiimsUser = true;
+    this.aiimsRegistrationDataService.aiimsUser = true;
     if (smallDevice) {
       this.showPage = true;
     }
@@ -98,7 +100,7 @@ export class AiimsRegistrationStepFourComponent implements OnInit {
     const dateTime = dateNow.toJSON();
     this.starting_time = dateTime.replace('Z', '').replace('T', ' ');
 
-    this.participationID = this.registrationDataService.participationID;
+    this.participationID = this.aiimsRegistrationDataService.participationID;
     this.fcmService.permit.subscribe(permit => {
       this.notificationsAllowed = permit ? 1 : 0;
       this.consentForm.controls['notificationsInfo'].setValue(
@@ -117,7 +119,6 @@ export class AiimsRegistrationStepFourComponent implements OnInit {
     this.registrationDataService.getTimeZoneData().subscribe((data: any) => {
       this.timezone_data = data;
     });
-    this.participationID = this.registrationDataService.participationID;
     this.notificationsPermission();
   }
 
@@ -132,17 +133,19 @@ export class AiimsRegistrationStepFourComponent implements OnInit {
     this.stepFourFormData.started_at = this.starting_time;
     this.stepFourFormData.completed_at = this.completion_time;
 
-    this.registrationDataService
+    this.aiimsRegistrationDataService
       .saveConsentDataAiims(this.stepFourFormData)
       .subscribe((res_data: any) => {
         this.showLoading = false;
         this.userEligible = !res_data.excluded;
         this.registrationDataService.participationID =
           res_data.participant_id;
+        this.aiimsRegistrationDataService.participationID =
+          res_data.participant_id;
         if (this.userEligible) {
           this.authService.activateChild(true);
           const stepNumber = res_data.next_step;
-          const navigation_step = AIIMS_REGISTRATION_PATH + '/step-' + stepNumber;
+          const navigation_step = AIIMS_REGISTRATION_PATH + 'r/step-' + stepNumber;
           this.router.navigate([navigation_step]);
           this.dialogRef.componentInstance.data = { loading: false };
         } else {
