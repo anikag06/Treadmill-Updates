@@ -14,6 +14,7 @@ import {
 import {AiimsRegistrationStepFourComponent} from '@/trial-aiims-registration/aiims-registration-step-four/aiims-registration-step-four.component';
 import {AiimsTrialActivateGuard} from '@/trial-aiims-registration/aiims-trial-activate.guard';
 import {AiimsStepLastPageComponent} from '@/trial-aiims-registration/aiims-step-last-page/aiims-step-last-page.component';
+import {TrialAiimsRegistrationComponent} from '@/trial-aiims-registration/trial-aiims-registration/trial-aiims-registration.component';
 
 const routes: Routes = [
   {
@@ -57,11 +58,7 @@ const routes: Routes = [
   //   component: AboutUsPageComponent,
   //   canActivate: [TrialRegistrationAuthGuard],
   // },
-  // {
-  //   path: 'thankyou',
-  //   component: IneligibleTrialPageComponent,
-  //   // canActivate: [TrialActivateGuard],
-  // },
+
 ];
 
 @NgModule({

@@ -17,7 +17,6 @@ import {TrialAiimsRegistrationService} from '@/trial-aiims-registration/trial-ai
 export class StepLastPageComponent implements OnInit {
   constructor(
     private registrationDataService: RegistrationDataService,
-    private aiimsRegistrationDataService: TrialAiimsRegistrationService,
     private showContactUsService: MatContactUsDialogService,
     private signUpService: SignUpService,
     private snackBar: MatSnackBar,
@@ -26,20 +25,14 @@ export class StepLastPageComponent implements OnInit {
   participationID!: number;
   msgReceived = 'Email sent.';
   action = 'Ok';
-  aiimsUser = false;
 
   ngOnInit() {
     this.participationID = this.registrationDataService.participationID;
-    // if (this.router.url.includes(AIIMS_REGISTRATION_PATH)) {
-    //   this.aiimsUser = true;
-    //   this.participationID = this.aiimsRegistrationDataService.participationID;
-    // }
   }
   contactUsClicked() {
     this.showContactUsService.contactUsClicked();
   }
   resendEmail() {
-    // if (!this.aiimsUser) {
       this.signUpService
         .resendSignupLink(this.participationID)
         .subscribe(response => {
@@ -47,15 +40,6 @@ export class StepLastPageComponent implements OnInit {
             duration: 4000,
           });
         });
-    // } else {
-    //   this.signUpService
-    //     .resendSignupLinkAiims(this.participationID)
-    //     .subscribe(response => {
-    //       this.snackBar.open(this.msgReceived, this.action, {
-    //         duration: 4000,
-    //       });
-    //     });
-    // }
   }
 }
 

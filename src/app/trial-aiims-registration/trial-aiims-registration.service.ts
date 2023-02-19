@@ -24,7 +24,7 @@ export class TrialAiimsRegistrationService {
   constructor(private http: HttpClient) { }
 
   participationID!: number;
-  aiimsUser = true;
+  aiimsUser!: boolean;
 
 
   storeAiimsEmailID(emailID: any) {

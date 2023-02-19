@@ -119,10 +119,10 @@ export class AiimsRegistrationStepTwoComponent implements OnInit {
     this.participationID = this.aiimsRegistrationDataService.participationID;
     this.starting_time = dateTime.replace('Z', '').replace('T', ' ');
     this.placeholder_tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    this.registrationDataService.getCountryList().subscribe((data: any) => {
+    this.aiimsRegistrationDataService.getCountryList().subscribe((data: any) => {
       this.country_data = data;
     });
-    this.registrationDataService.getTimeZoneData().subscribe((data: any) => {
+    this.aiimsRegistrationDataService.getTimeZoneData().subscribe((data: any) => {
       this.timezone_data = data;
     });
   }
@@ -152,8 +152,8 @@ export class AiimsRegistrationStepTwoComponent implements OnInit {
         .subscribe((res_data: any) => {
           this.showLoading = false;
           this.userEligible = !res_data.excluded;
-          this.registrationDataService.participationID =
-            res_data.participant_id;
+          // this.registrationDataService.participationID =
+          //   res_data.participant_id;
           this.aiimsRegistrationDataService.participationID =
             res_data.participant_id;
           if (this.userEligible) {

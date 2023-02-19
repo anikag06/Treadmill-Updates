@@ -639,6 +639,7 @@ export class QuestionnaireComponent implements OnInit {
       );
       registration_phq.participant_id = this.registrationDataService.participationID;
       this.aiimsUser =  this.aiimsRegistrationDataService.aiimsUser;
+      console.log('aiims user', this.aiimsUser);
       if (!this.aiimsUser) {
         this.registrationDataService
           .savePHQData(registration_phq)

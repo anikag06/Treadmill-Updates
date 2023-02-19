@@ -113,12 +113,6 @@ export class AiimsRegistrationStepFourComponent implements OnInit {
     });
     this.starting_time = dateTime.replace('Z', '').replace('T', ' ');
     this.placeholder_tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    this.registrationDataService.getCountryList().subscribe((data: any) => {
-      this.country_data = data;
-    });
-    this.registrationDataService.getTimeZoneData().subscribe((data: any) => {
-      this.timezone_data = data;
-    });
     this.notificationsPermission();
   }
 
@@ -129,7 +123,7 @@ export class AiimsRegistrationStepFourComponent implements OnInit {
     const dateTime = dateNow.toJSON();
     this.completion_time = dateTime.replace('Z', '').replace('T', ' ');
 
-    this.stepFourFormData.participant_id = this.registrationDataService.participationID;
+    this.stepFourFormData.participant_id = this.aiimsRegistrationDataService.participationID;
     this.stepFourFormData.started_at = this.starting_time;
     this.stepFourFormData.completed_at = this.completion_time;
 
@@ -140,6 +134,7 @@ export class AiimsRegistrationStepFourComponent implements OnInit {
         this.userEligible = !res_data.excluded;
         this.registrationDataService.participationID =
           res_data.participant_id;
+        console.log('pid', this.registrationDataService.participationID);
         this.aiimsRegistrationDataService.participationID =
           res_data.participant_id;
         if (this.userEligible) {
