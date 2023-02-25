@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { MatContactUsDialogService } from '@/shared/mat-contact-us-dialog/mat-contact-us-dialog.service';
 
 @Component({
@@ -9,6 +9,7 @@ import { MatContactUsDialogService } from '@/shared/mat-contact-us-dialog/mat-co
 export class PrivacyPolicyComponent implements OnInit {
   faqLink = '../faqs';
   showRegistrationContent = false;
+  @Input() openPage!: boolean;
 
   constructor(private showContactUsService: MatContactUsDialogService) {}
 

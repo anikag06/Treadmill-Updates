@@ -1,6 +1,6 @@
 <div *ngIf="showRegistrationContent else desktopMessage">
     <div class="container-fluid">
-        <app-trial-pages-header></app-trial-pages-header>
+        <app-trial-pages-header *ngIf="!openPage"></app-trial-pages-header>
 
         <div class="row mx-1 my-3">
             <p class="largest-font"> FAQs  </p>
@@ -132,7 +132,7 @@
     </div>
 
     <div class="row mt-5 mx-0 ">
-        <app-trial-pages-footer class="w-100"></app-trial-pages-footer>
+        <app-trial-pages-footer class="w-100" *ngIf="!openPage"></app-trial-pages-footer>
     </div>
 
 </div>

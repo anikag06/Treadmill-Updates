@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <app-trial-pages-header></app-trial-pages-header>
+    <app-trial-pages-header *ngIf="!openPage"></app-trial-pages-header>
 
     <div class="row mx-1 mt-3">
         <p class="largest-font"> Terms and Conditions  </p>
@@ -185,5 +185,5 @@
 </div>
 
 <div class="row mt-3 mx-0">
-    <app-trial-pages-footer class="w-100"></app-trial-pages-footer>
+    <app-trial-pages-footer *ngIf="!openPage" class="w-100"></app-trial-pages-footer>
 </div>

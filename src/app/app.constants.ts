@@ -376,6 +376,8 @@ export const BELIEF_CHANGE_FORM_NAME = 'Change a belief';
 export const INELIGIBLE_FOR_TRIAL = '/trial/thankyou';
 export const REGISTRATION_PATH = '/trial/trial-registration';
 export const AIIMS_REGISTRATION_PATH = '/aiims532/';
+export const OPEN_REGISTRATION_PATH = '/open/';
+
 
 
 
@@ -386,6 +388,7 @@ export const GET_TIMEZONE = '/api/v1/trial-iitk/get-timezone-list/';
 // trial registration steps
 export const EMAIL_REGISTRATION = '/api/v1/trial-iitk/register-participant/';
 export const AIIMS_EMAIL_REGISTRATION = '/api/v1/trial-aiims/register-aiims-participant/';
+export const OPEN_EMAIL_REGISTRATION = '/api/v1/trial-aiims/register-all-participant/';
 
 export const REGISTRATION_STEP_TWO =
   '/api/v1/trial-iitk/participant-information/';
@@ -414,6 +417,8 @@ export const GET_PARTICIPANT_COUNT = '/api/v1/trial-iitk/participant-count/';
 export const GET_LINK_DATA = '/api/v1/trial-iitk/verify-wait-list-link/';
 // contact us dialog data api
 export const CONTACT_US_DATA = '/api/v1/trial-iitk/save-contact-us/';
+// contact us dialog data api
+export const AIIMS_CONTACT_US_DATA = '/api/v1/trial-aiims/save-contact-us/';
 
 // treadwill email
 export const ADMIN_EMAIL = 'treadwill.iitk@gmail.com';

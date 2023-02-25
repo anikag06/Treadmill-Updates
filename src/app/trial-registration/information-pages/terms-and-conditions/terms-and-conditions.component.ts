@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { MatContactUsDialogService } from '@/shared/mat-contact-us-dialog/mat-contact-us-dialog.service';
 
@@ -10,6 +10,7 @@ import { MatContactUsDialogService } from '@/shared/mat-contact-us-dialog/mat-co
 export class TermsAndConditionsComponent implements OnInit {
   faqLink = '../faqs';
   privacyPolicyLink = '../privacy-policy';
+  @Input() openPage!: boolean;
 
   constructor(
     private router: Router,
