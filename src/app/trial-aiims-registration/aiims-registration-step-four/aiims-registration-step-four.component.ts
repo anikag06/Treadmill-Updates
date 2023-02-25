@@ -9,7 +9,7 @@ import {QuizService} from '@/shared/questionnaire/questionnaire.service';
 import {FcmService} from '@/shared/fcm.service';
 import {A2HSService} from '@/shared/a2hs.service';
 import {MatContactUsDialogService} from '@/shared/mat-contact-us-dialog/mat-contact-us-dialog.service';
-import {AIIMS_REGISTRATION_PATH, INELIGIBLE_FOR_TRIAL} from '@/app.constants';
+import {AIIMS_REGISTRATION_PATH, INELIGIBLE_FOR_TRIAL, OPEN_REGISTRATION_PATH} from '@/app.constants';
 import {TrialAiimsRegistrationService} from '@/trial-aiims-registration/trial-aiims-registration.service';
 
 @Component({
@@ -63,6 +63,7 @@ export class AiimsRegistrationStepFourComponent implements OnInit {
   placeholder_tz!: any;
   showPrompt = false;
   showOkButton = true;
+  registration_path! : string;
 
 
   constructor(
@@ -134,13 +135,19 @@ export class AiimsRegistrationStepFourComponent implements OnInit {
         this.userEligible = !res_data.excluded;
         this.registrationDataService.participationID =
           res_data.participant_id;
-        console.log('pid', this.registrationDataService.participationID);
         this.aiimsRegistrationDataService.participationID =
           res_data.participant_id;
+        this.aiimsRegistrationDataService.category =
+          res_data.data.category;
+        if(this.aiimsRegistrationDataService.category == 1) {
+          this.registration_path = AIIMS_REGISTRATION_PATH;
+        } else {
+          this.registration_path = OPEN_REGISTRATION_PATH;
+        }
         if (this.userEligible) {
           this.authService.activateChild(true);
           const stepNumber = res_data.next_step;
-          const navigation_step = AIIMS_REGISTRATION_PATH + 'r/step-' + stepNumber;
+          const navigation_step = this.registration_path  + 'r/step-' + stepNumber;
           this.router.navigate([navigation_step]);
           this.dialogRef.componentInstance.data = { loading: false };
         } else {

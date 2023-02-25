@@ -10,7 +10,7 @@ import {
   AIIMS_REGISTRATION_STEP_TWO,
   GET_COUNTRY_LIST,
   GET_PARTICIPANT_COUNT,
-  GET_TIMEZONE,
+  GET_TIMEZONE, OPEN_EMAIL_REGISTRATION,
   REGISTRATION_CONSENT_AIIMS,
 } from '@/app.constants';
 import {RegistrationStepTwoForm} from '@/trial-registration/registration-step-two/step-two-form-data.model';
@@ -25,12 +25,21 @@ export class TrialAiimsRegistrationService {
 
   participationID!: number;
   aiimsUser!: boolean;
+  category!: number;
 
 
   storeAiimsEmailID(emailID: any) {
     const sendData = { email: emailID };
     return this.http.post(
       environment.API_ENDPOINT + AIIMS_EMAIL_REGISTRATION,
+      sendData,
+    );
+  }
+
+  storeOpenEmailID(emailID: any) {
+    const sendData = { email: emailID };
+    return this.http.post(
+      environment.API_ENDPOINT + OPEN_EMAIL_REGISTRATION,
       sendData,
     );
   }

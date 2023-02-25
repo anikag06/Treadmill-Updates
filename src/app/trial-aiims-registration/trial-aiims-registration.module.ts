@@ -15,13 +15,16 @@ import {QuestionnaireModule} from '@/questionnaire.module';
 import {RegistrationDataService} from '@/trial-registration/shared/registration-data.service';
 import {TrialAiimsRegistrationRoutingModule} from '@/trial-aiims-registration/trial-aiims-registration-routing.module';
 import {AiimsStepLastPageComponent} from '@/trial-aiims-registration/aiims-step-last-page/aiims-step-last-page.component';
+import { TrialOpenInfoComponent } from './trial-open-info/trial-open-info.component';
+import {TrialRegistrationModule} from '@/trial-registration/trial-registration.module';
 
 @NgModule({
   declarations: [
     AiimsRegistrationStepTwoComponent,
     AiimsRegistrationStepThreeComponent,
     AiimsRegistrationStepFourComponent,
-    AiimsStepLastPageComponent
+    AiimsStepLastPageComponent,
+    TrialOpenInfoComponent
   ],
   imports: [
     FormsModule,
@@ -32,6 +35,7 @@ import {AiimsStepLastPageComponent} from '@/trial-aiims-registration/aiims-step-
     MatRadioModule,
     TrialAiimsRegistrationRoutingModule,
     QuestionnaireModule,
+    TrialRegistrationModule,
   ],
   providers: [
     // RegistrationDataService,

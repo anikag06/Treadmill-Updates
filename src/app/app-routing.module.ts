@@ -9,6 +9,7 @@ import { TempLandingPageComponent } from '@/temp-landing-page/temp-landing-page.
 import { ResetPasswordComponent } from '@/pre-login/reset-password/reset-password.component';
 import {TrialAiimsRegistrationComponent} from '@/trial-aiims-registration/trial-aiims-registration/trial-aiims-registration.component';
 import {TrialAiimsRegistrationRoutingModule} from '@/trial-aiims-registration/trial-aiims-registration-routing.module';
+import {TrialOpenRegistrationComponent} from '@/trial-aiims-registration/trial-open-registration/trial-open-registration.component';
 
 export const routes: Routes = [
 
@@ -58,7 +59,19 @@ export const routes: Routes = [
     pathMatch: 'full',
   },
   {
+    path: 'open',
+    component: TrialOpenRegistrationComponent,
+    pathMatch: 'full',
+  },
+  {
     path: 'aiims532/r',
+    loadChildren: () =>
+      import('./trial-aiims-registration/trial-aiims-registration.module').then(
+        m => m.TrialAiimsRegistrationModule,
+      ),
+  },
+  {
+    path: 'open/r',
     loadChildren: () =>
       import('./trial-aiims-registration/trial-aiims-registration.module').then(
         m => m.TrialAiimsRegistrationModule,

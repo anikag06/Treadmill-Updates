@@ -1,0 +1,49 @@
+<div class="container-fluid w-100 small-font" #stepOneDiv>
+  <!--    header-->
+  <div class="row sticky-top align-items-center" id="top-logo">
+    <div class="col px-0"  style=" cursor: pointer;">
+      <img src="../../../assets/shared/logo_full.svg"
+           (click)="onLogoClick()"
+           class="w-100 log-img">
+    </div>
+    <div class="col-5 mt-2 pl-0">
+<!--      <p  class="text-property my-0"> <b>  Step 1 </b></p>-->
+    </div>
+    <div class="bar w-100 mt-auto">
+    </div>
+  </div>
+  <!--    till here-->
+  <app-faq-page *ngIf="faqPage" [openPage]="openPage"></app-faq-page>
+  <app-privacy-policy *ngIf="ppPage" [openPage]="openPage"></app-privacy-policy>
+  <app-terms-and-conditions *ngIf="tcPage" [openPage]="openPage"></app-terms-and-conditions>
+
+
+  <div class="row mt-3">
+    <!--        <app-trial-pages-footer class="w-100"></app-trial-pages-footer>-->
+    <div class="open-footer container-fluid w-100 py-4">
+      <div class="row">
+<!--        <div class="col">-->
+<!--          <div class="col-12 my-3" style="cursor: pointer">-->
+<!--            <span (click)="onFAQClick()"> FAQ </span>-->
+<!--          </div>-->
+<!--          <div class="col-12 my-3" style="cursor: pointer">-->
+<!--            <span (click)="onContactUsClick()"> Contact Us </span>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="col">-->
+<!--          <div class="col-12 my-3" style="cursor: pointer">-->
+<!--            <span (click)="onPrivacyPolicyClick()"> Privacy Policy </span>-->
+<!--          </div>-->
+<!--          <div class="col-12 my-3" style="cursor: pointer">-->
+<!--            <span (click)="onTermsConditions()"> Terms & Conditions </span>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="col-12 my-3">-->
+<!--          <div class="col">-->
+<!--            © TreadWill-->
+<!--          </div>-->
+<!--        </div>-->
+      </div>
+    </div>
+  </div>
+</div>

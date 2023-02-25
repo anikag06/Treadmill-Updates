@@ -28,7 +28,7 @@ import {
   GAD7,
   SIQ,
   PHQ9,
-  DEFAULT_PATH, AIIMS_REGISTRATION_PATH,
+  DEFAULT_PATH, AIIMS_REGISTRATION_PATH, OPEN_REGISTRATION_PATH,
 } from '@/app.constants';
 import { AuthService } from '../auth/auth.service';
 import {
@@ -171,6 +171,7 @@ export class QuestionnaireComponent implements OnInit {
   // tslint:disable-next-line:max-line-length
   iswaitList = false;
   aiimsUser = false;
+  registration_path!: string;
   constructor(
     private quizService: QuizService,
     private flowService: FlowService,
@@ -749,10 +750,17 @@ export class QuestionnaireComponent implements OnInit {
               res_data.data.participant_id;
             this.aiimsRegistrationDataService.participationID =
               res_data.data.participant_id;
+            this.aiimsRegistrationDataService.category =
+              res_data.data.category;
+            if(this.aiimsRegistrationDataService.category == 1) {
+              this.registration_path = AIIMS_REGISTRATION_PATH;
+            } else {
+              this.registration_path = OPEN_REGISTRATION_PATH;
+            }
             if (userEligible && !this.iswaitList) {
               this.trialAuthService.activateChild(true);
               const stepNumber = res_data.data.next_step;
-              const navigation_step = AIIMS_REGISTRATION_PATH + 'r/step-' + stepNumber;
+              const navigation_step = this.registration_path  + 'r/step-' + stepNumber;
                 this.router.navigate([navigation_step]);
               }
           });

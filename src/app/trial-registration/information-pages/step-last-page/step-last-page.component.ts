@@ -6,8 +6,6 @@ import { MatContactUsDialogService } from '@/shared/mat-contact-us-dialog/mat-co
 import { SignUpService } from '@/pre-login/signup/sign-up.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {Router} from '@angular/router';
-import {AIIMS_REGISTRATION_PATH} from '@/app.constants';
-import {TrialAiimsRegistrationService} from '@/trial-aiims-registration/trial-aiims-registration.service';
 
 @Component({
   selector: 'app-step-last-page',

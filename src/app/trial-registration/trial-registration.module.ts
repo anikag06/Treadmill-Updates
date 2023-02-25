@@ -29,41 +29,48 @@ import { TrialsAuthHeaderInterceptor } from '@/trial-registration/shared/trials-
 import { RegistrationStepOneNextComponent } from './registration-step-one-next/registration-step-one-next.component';
 
 @NgModule({
-  declarations: [
-    RegistrationStepOneComponent,
+    declarations: [
+        RegistrationStepOneComponent,
+        TrialPagesFooterComponent,
+        TrialPagesHeaderComponent,
+        RegistrationStepTwoComponent,
+        RegistrationStepThreeComponent,
+        RegistrationStepFourComponent,
+        FaqPageComponent,
+        PrivacyPolicyComponent,
+        AboutUsPageComponent,
+        TermsAndConditionsComponent,
+        IneligibleTrialPageComponent,
+        StepLastPageComponent,
+        ReregistrationComponent,
+        WaitlistComponent,
+        RegistrationStepOneNextComponent,
+    ],
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        CommonModule,
+        MaterialModule,
+        MatExpansionModule,
+        MatRadioModule,
+        TrialRegistrationRoutingModule,
+        QuestionnaireModule,
+    ],
+    providers: [
+        RegistrationDataService,
+        WaitlistService,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: TrialsAuthHeaderInterceptor,
+            multi: true,
+        },
+    ],
+  exports: [
     TrialPagesFooterComponent,
-    TrialPagesHeaderComponent,
-    RegistrationStepTwoComponent,
-    RegistrationStepThreeComponent,
-    RegistrationStepFourComponent,
-    FaqPageComponent,
-    PrivacyPolicyComponent,
     AboutUsPageComponent,
+    FaqPageComponent,
     TermsAndConditionsComponent,
-    IneligibleTrialPageComponent,
-    StepLastPageComponent,
-    ReregistrationComponent,
-    WaitlistComponent,
-    RegistrationStepOneNextComponent,
-  ],
-  imports: [
-    FormsModule,
-    ReactiveFormsModule,
-    CommonModule,
-    MaterialModule,
-    MatExpansionModule,
-    MatRadioModule,
-    TrialRegistrationRoutingModule,
-    QuestionnaireModule,
-  ],
-  providers: [
-    RegistrationDataService,
-    WaitlistService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TrialsAuthHeaderInterceptor,
-      multi: true,
-    },
-  ],
+    PrivacyPolicyComponent
+  ]
 })
 export class TrialRegistrationModule {}

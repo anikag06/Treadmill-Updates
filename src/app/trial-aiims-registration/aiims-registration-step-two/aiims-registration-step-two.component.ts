@@ -5,7 +5,7 @@ import {TrialAuthService} from '@/trial-registration/shared/trial-auth.service';
 import {Router} from '@angular/router';
 import {RegistrationDataService} from '@/trial-registration/shared/registration-data.service';
 import {QuizService} from '@/shared/questionnaire/questionnaire.service';
-import {AIIMS_REGISTRATION_PATH, INELIGIBLE_FOR_TRIAL, REGISTRATION_PATH} from '@/app.constants';
+import {AIIMS_REGISTRATION_PATH, INELIGIBLE_FOR_TRIAL, OPEN_REGISTRATION_PATH, REGISTRATION_PATH} from '@/app.constants';
 import {RegistrationStepFourForm} from '@/trial-registration/registration-step-four/step-four-consent.model';
 import {MatDialog, MatDialogRef} from '@angular/material';
 import {CommonDialogComponent} from '@/shared/common-dialog/common-dialog.component';
@@ -28,6 +28,7 @@ export class AiimsRegistrationStepTwoComponent implements OnInit {
   allowSubmit = false;
   showLoading = false;
   userDeclined = false;
+  registration_path!: string;
 
   consentForm = new FormGroup({
     notificationsInfo: new FormControl(),
@@ -152,24 +153,32 @@ export class AiimsRegistrationStepTwoComponent implements OnInit {
         .subscribe((res_data: any) => {
           this.showLoading = false;
           this.userEligible = !res_data.excluded;
+          console.log('res data', res_data);
           // this.registrationDataService.participationID =
           //   res_data.participant_id;
           this.aiimsRegistrationDataService.participationID =
             res_data.participant_id;
+          this.aiimsRegistrationDataService.category =
+            res_data.category;
+          if(this.aiimsRegistrationDataService.category == 1) {
+            console.log('aiims path');
+            this.registration_path = AIIMS_REGISTRATION_PATH;
+          } else {
+            this.registration_path = OPEN_REGISTRATION_PATH;
+          }
           if (this.userEligible) {
             this.authService.activateChild(true);
-
             const stepNumber = res_data.next_step;
-            const navigation_step = AIIMS_REGISTRATION_PATH + 'r/step-' + stepNumber;
-            if (stepNumber === 3) {
-              this.questionnaireService.questionnaire_name =
-                res_data.next_questionnaire;
-              this.router.navigate([navigation_step]);
-            } else {
-              this.router.navigate([navigation_step]);
-            }
+            const navigation_step = this.registration_path + 'r/step-' + stepNumber;
+              if (stepNumber === 3) {
+                this.questionnaireService.questionnaire_name =
+                  res_data.next_questionnaire;
+                this.router.navigate([navigation_step]);
+              } else {
+                this.router.navigate([navigation_step]);
+              }
           } else {
-            this.router.navigate([INELIGIBLE_FOR_TRIAL]);
+            // this.router.navigate([INELIGIBLE_FOR_TRIAL]);
           }
         });
     } else {

@@ -15,6 +15,7 @@ import {AiimsRegistrationStepFourComponent} from '@/trial-aiims-registration/aii
 import {AiimsTrialActivateGuard} from '@/trial-aiims-registration/aiims-trial-activate.guard';
 import {AiimsStepLastPageComponent} from '@/trial-aiims-registration/aiims-step-last-page/aiims-step-last-page.component';
 import {TrialAiimsRegistrationComponent} from '@/trial-aiims-registration/trial-aiims-registration/trial-aiims-registration.component';
+import {TrialOpenInfoComponent} from '@/trial-aiims-registration/trial-open-info/trial-open-info.component';
 
 const routes: Routes = [
   {
@@ -38,11 +39,11 @@ const routes: Routes = [
     canActivate: [AiimsTrialActivateGuard],
   },
 
-  // {
-  //   path: 'faqs',
-  //   component: FaqPageComponent,
-  //   canActivate: [TrialRegistrationAuthGuard],
-  // },
+  {
+    path: 'info',
+    component: TrialOpenInfoComponent,
+    // canActivate: [AiimsTrialActivateGuard],
+  },
   // {
   //   path: 'terms-and-conditions',
   //   component: TermsAndConditionsComponent,

@@ -51,6 +51,8 @@ import { GlobalErrorHandler } from '@/shared/global-error-handler';
 import { ChangeBrowserDialogComponent } from './shared/change-browser-dialog/change-browser-dialog.component';
 import {TrialAiimsRegistrationComponent} from '@/trial-aiims-registration/trial-aiims-registration/trial-aiims-registration.component';
 import {TrialAiimsRegistrationService} from '@/trial-aiims-registration/trial-aiims-registration.service';
+import {TrialOpenRegistrationComponent} from '@/trial-aiims-registration/trial-open-registration/trial-open-registration.component';
+import {TrialRegistrationModule} from '@/trial-registration/trial-registration.module';
 
 declare let $: any;
 
@@ -71,35 +73,37 @@ declare let $: any;
     CommonDialogComponent,
     PointsComponent,
     ChangeBrowserDialogComponent,
-    TrialAiimsRegistrationComponent
+    TrialAiimsRegistrationComponent,
+    TrialOpenRegistrationComponent,
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    ServiceWorkerModule.register('/ngsw-worker.js', {
-      enabled: environment.production,
-      registrationStrategy: 'registerImmediately',
-    }),
-    AppRoutingModule,
-    QuestionnaireModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFireMessagingModule,
-    MatFormFieldModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule,
-    MatToolbarModule,
-    MatCheckboxModule,
-    MatDialogModule,
-    MatInputModule,
-    MatButtonModule,
-    MatSnackBarModule,
-    MatRadioModule,
-    MatTooltipModule,
-  ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        ServiceWorkerModule.register('/ngsw-worker.js', {
+            enabled: environment.production,
+            registrationStrategy: 'registerImmediately',
+        }),
+        AppRoutingModule,
+        QuestionnaireModule,
+        AngularFireModule.initializeApp(environment.firebase),
+        AngularFireMessagingModule,
+        MatFormFieldModule,
+        MatSidenavModule,
+        MatIconModule,
+        MatListModule,
+        MatToolbarModule,
+        MatCheckboxModule,
+        MatDialogModule,
+        MatInputModule,
+        MatButtonModule,
+        MatSnackBarModule,
+        MatRadioModule,
+        MatTooltipModule,
+        TrialRegistrationModule,
+    ],
   providers: [
     { provide: LOCALE_ID, useValue: 'en-US' },
     DialogSize,
