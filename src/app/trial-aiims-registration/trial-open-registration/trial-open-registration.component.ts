@@ -34,7 +34,7 @@ export class TrialOpenRegistrationComponent implements OnInit {
   ];
   emailServicePresent = false;
   remainingParticipants = 2000;
-  registration_path: string;
+  registration_path!: string;
 
 
   emailForm = new FormGroup({

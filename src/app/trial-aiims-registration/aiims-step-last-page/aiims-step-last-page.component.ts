@@ -30,10 +30,8 @@ export class AiimsStepLastPageComponent implements OnInit {
 
   ngOnInit() {
     // this.participationID = this.registrationDataService.participationID;
-    if (this.router.url.includes(AIIMS_REGISTRATION_PATH)) {
       this.aiimsUser = true;
       this.participationID = this.aiimsRegistrationDataService.participationID;
-    }
   }
   contactUsClicked() {
     this.showContactUsService.contactUsClicked();
