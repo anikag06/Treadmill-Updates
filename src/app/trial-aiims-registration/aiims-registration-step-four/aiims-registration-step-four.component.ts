@@ -138,7 +138,7 @@ export class AiimsRegistrationStepFourComponent implements OnInit {
         this.aiimsRegistrationDataService.participationID =
           res_data.participant_id;
         this.aiimsRegistrationDataService.category =
-          res_data.data.category;
+          res_data.category;
         if(this.aiimsRegistrationDataService.category == 1) {
           this.registration_path = AIIMS_REGISTRATION_PATH;
         } else {
