@@ -38,7 +38,7 @@ export class MatContactUsDialogComponent implements OnInit {
     // this.onChanges();
     if (this.router.url.includes('open') || this.router.url.includes('aiims532')) {
       this.openPage = true;
-      console.log('open')
+      // console.log('open')
     }
 
   }

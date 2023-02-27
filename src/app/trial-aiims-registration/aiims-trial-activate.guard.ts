@@ -21,7 +21,6 @@ export class AiimsTrialActivateGuard implements CanActivate, CanActivateChild {
     | boolean
     | UrlTree {
     if (!this.authService.getCanNavigate()) {
-      console.log('url', state.url);
       if (state.url.includes('/aiims532/')) {
         this.router.navigate([AIIMS_REGISTRATION_PATH]);
       } else if(state.url.includes('/open/')) {

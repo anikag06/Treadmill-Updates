@@ -22,7 +22,6 @@ export class TrialOpenInfoComponent implements OnInit {
       this.openPage = true;
     }
     this.activatedRoute.queryParams.subscribe(data => {
-      console.log(data);
       if (data.type === 'faq') {
         this.faqPage = true;
       } else if (data.type === 'pp') {

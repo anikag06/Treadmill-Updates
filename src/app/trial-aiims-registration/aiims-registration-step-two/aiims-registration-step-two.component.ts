@@ -153,7 +153,7 @@ export class AiimsRegistrationStepTwoComponent implements OnInit {
         .subscribe((res_data: any) => {
           this.showLoading = false;
           this.userEligible = !res_data.excluded;
-          console.log('res data', res_data);
+          // console.log('res data', res_data);
           // this.registrationDataService.participationID =
           //   res_data.participant_id;
           this.aiimsRegistrationDataService.participationID =
@@ -161,7 +161,7 @@ export class AiimsRegistrationStepTwoComponent implements OnInit {
           this.aiimsRegistrationDataService.category =
             res_data.category;
           if(this.aiimsRegistrationDataService.category == 1) {
-            console.log('aiims path');
+            // console.log('aiims path');
             this.registration_path = AIIMS_REGISTRATION_PATH;
           } else {
             this.registration_path = OPEN_REGISTRATION_PATH;
