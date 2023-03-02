@@ -149,6 +149,7 @@ export const FFG_MUSIC = '/api/v1/games/face-game/music/';
 
 export const NEW_CHAT = 'new_chat';
 export const RESUME_CHAT = 'resume_chat';
+export const MAXIMISE_CHAT = 'maximise_chat';
 export const REPLY_CURRENT = 'reply_current';
 export const UNSPLASH_URL = 'https://api.unsplash.com';
 export const GIPHY_URL = 'https://api.giphy.com/v1/gifs/';
@@ -246,6 +247,12 @@ export const COMMITMENT_OPTIONS = [
 export const PHQ9 = 'PHQ9';
 export const GAD7 = 'GAD7';
 export const SIQ = 'SIQ';
+export const LEVEL1 = 'Level 1 Cross-Cutting Symptom Measure';
+export const FEAR_QUESTIONNAIRE = 'Fear Questionnaire';
+export const MOOD_DISORDER = 'Mood Disorder Questionnaire';
+export const AUDITQ = 'Alcohol Use Disorders Identification Test';
+
+
 
 // questionnaire paths
 export const GET_PHQ_QUESTIONS =
@@ -255,6 +262,19 @@ export const GET_SIQ_QUESTIONS = '/api/v1/questionnaire/siq-questions-list/';
 export const USER_PHQ_DATA = '/api/v1/questionnaire/phq-user-response/';
 export const USER_GAD_DATA = '/api/v1/questionnaire/gad-user-response/';
 export const USER_SIQ_DATA = '/api/v1/questionnaire/siq-user-response/';
+
+export const QUESTIONNAIRE_LIST = '/multi-questionnaire/';
+export const TODOQUESTIONNAIRE_LIST = '/multi-questionnaire/todo/';
+export const QUESTIONNAIRE_SUBMIT = '/multi-questionnaire/questionnaire-user-response/';
+export const QUESTIONNAIRE_RESULT_HISTORY = '/multi-questionnaire/results/';
+export const QUESTIONNAIRE_EMAIL_RESULT = '/multi-questionnaire/send-result/';
+export const CHOICES_GROUP = 'choices';
+export const TEXT_INPUT_GROUP = 'text_input';
+// multi-questionarrie/
+
+export const CATEGORY_LIST = ['General mental health problems', 'Mood problems', 'Eating problems', 'Anxiety problems', 'Substance abuse problems'];
+
+
 
 // FORMS
 export const RECOMMENDED = 'recommended';

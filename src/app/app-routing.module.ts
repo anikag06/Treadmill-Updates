@@ -10,10 +10,20 @@ import { ResetPasswordComponent } from '@/pre-login/reset-password/reset-passwor
 import {TrialAiimsRegistrationComponent} from '@/trial-aiims-registration/trial-aiims-registration/trial-aiims-registration.component';
 import {TrialAiimsRegistrationRoutingModule} from '@/trial-aiims-registration/trial-aiims-registration-routing.module';
 import {TrialOpenRegistrationComponent} from '@/trial-aiims-registration/trial-open-registration/trial-open-registration.component';
+import { QuestionnaireContainerModule } from '@/questionnaire-container.module';
+import { QuestionnaireContainerComponent } from '@/shared/questionnaire-container/questionnaire-container.component';
+import { QuestionnaireItemComponent } from '@/shared/questionnaire/questionnaire-item/questionnaire-item.component';
 
 export const routes: Routes = [
 
   { path: '', redirectTo: 'landing', pathMatch: 'full' },
+  {
+    path: 'questionnaires',
+    loadChildren: () =>
+      import('./questionnaire-container.module').then(
+        (m) => m.QuestionnaireContainerModule
+      ),
+  },
   {
     path: 'landing',
     component: PreLoginComponent,
@@ -31,7 +41,12 @@ export const routes: Routes = [
     component: SignUpComponent,
     pathMatch: 'prefix',
   },
-
+  {
+    path: 'questionnaireItem/:id',
+    component: QuestionnaireItemComponent,
+    pathMatch: 'prefix',
+    data: { registered_user: false },
+  },
   {
     path: 'reset/password/:unique-code',
     component: ResetPasswordComponent,
@@ -41,7 +56,7 @@ export const routes: Routes = [
 
   {
     path: 'main',
-    loadChildren: () => import('./main/main.module').then(m => m.MainModule),
+    loadChildren: () => import('./main/main.module').then((m) => m.MainModule),
     data: { preload: true },
     canActivateChild: [AuthGuard],
   },
@@ -49,7 +64,7 @@ export const routes: Routes = [
     path: 'trial',
     loadChildren: () =>
       import('./trial-registration/trial-registration.module').then(
-        m => m.TrialRegistrationModule,
+        (m) => m.TrialRegistrationModule
       ),
   },
   { path: 'iitk', redirectTo: 'trial/trial-registration' },

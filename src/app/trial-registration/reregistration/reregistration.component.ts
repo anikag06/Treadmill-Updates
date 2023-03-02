@@ -4,7 +4,7 @@ import { RegistrationDataService } from '@/trial-registration/shared/registratio
 import { ActivatedRoute, Router } from '@angular/router';
 import { TrialAuthService } from '@/trial-registration/shared/trial-auth.service';
 import { MatContactUsDialogService } from '@/shared/mat-contact-us-dialog/mat-contact-us-dialog.service';
-import { QuizService } from '@/shared/questionnaire/questionnaire.service';
+import { QuizService } from '@/shared/questionnaire-deprecated/questionnaire-deprecated.service';
 
 @Component({
   selector: 'app-reregistration',

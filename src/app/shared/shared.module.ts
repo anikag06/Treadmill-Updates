@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SlidesVideoComponent } from '@/main/resources/slides/slides-video/slides-video.component';
-import { QuestionnaireModule } from '@/questionnaire.module';
+import { QuestionnaireDeprecatedModule } from '@/questionnaire-deprecated.module';
 import { MaterialModule } from '@/material.module';
 import { SafeUrlPipe } from '@/shared/safe-url.pipe';
 import { FormSliderComponent } from '@/main/resources/forms/shared/form-slider/form-slider.component';
 import { DateTimePickerComponent } from '@/main/shared/date-time-picker/date-time-picker.component';
 import { MoodTrackerComponent } from '@/main/shared/mood-tracker/mood-tracker.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { CongratsDialogComponent } from '@/main/resources/shared/congrats-dialog/congrats-dialog.component';
 import { ChatVideoComponent } from '@/main/chatbot/chat-window/chat-video/chat-video.component';
@@ -18,10 +18,19 @@ import { LazyLoadingImageDirective } from '@/main/shared/lazy-loading-image/lazy
 import { SafeHtmlPipe } from '@/shared/safe-html.pipe';
 import { SanitizedHtmlPipe } from '@/shared/sanitized-html.pipe';
 import { StepCompletedComponent } from '@/main/resources/shared/step-completed/step-completed.component';
+import { QuestionnaireComponent } from '@/shared/questionnaire/questionnaire.component';
+import { QuestionnaireItemComponent } from '@/shared/questionnaire/questionnaire-item/questionnaire-item.component';
+// import {QuestionnaireContainerComponent} from "@/shared/questionnaire-container/questionnaire-container.component";
+import { MatProgressBarModule } from '@angular/material';
+import { QuestionnaireResultComponent } from '@/shared/questionnaire/shared/questionnaire-result/questionnaire-result.component';
+import { CustomNavComponent } from '@/shared/questionnaire/shared/custom-nav/custom-nav.component';
+import {RouterModule} from "@angular/router";
 
 @NgModule({
   declarations: [
     SlidesVideoComponent,
+    QuestionnaireComponent,
+    // QuestionnaireContainerComponent,
     SafeUrlPipe,
     CongratsDialogComponent,
     ChatVideoComponent,
@@ -35,18 +44,24 @@ import { StepCompletedComponent } from '@/main/resources/shared/step-completed/s
     SafeHtmlPipe,
     SanitizedHtmlPipe,
     StepCompletedComponent,
+    QuestionnaireItemComponent,
+    QuestionnaireResultComponent,
+    CustomNavComponent,
   ],
   imports: [
     CommonModule,
-    QuestionnaireModule,
+    QuestionnaireDeprecatedModule,
     MaterialModule,
     FormsModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
+    MatProgressBarModule,
+    ReactiveFormsModule,
+    RouterModule,
   ],
   exports: [
     SlidesVideoComponent,
-    QuestionnaireModule,
+    QuestionnaireDeprecatedModule,
     MaterialModule,
     SafeUrlPipe,
     ChatVideoComponent,
@@ -61,6 +76,10 @@ import { StepCompletedComponent } from '@/main/resources/shared/step-completed/s
     SafeHtmlPipe,
     SanitizedHtmlPipe,
     StepCompletedComponent,
+    QuestionnaireComponent,
+    QuestionnaireResultComponent,
+    CustomNavComponent,
+    // QuestionnaireContainerComponent,
   ],
   entryComponents: [
     SlidesVideoComponent,

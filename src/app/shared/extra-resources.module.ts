@@ -6,41 +6,29 @@ import { ReadingMaterialComponent } from '@/main/extra-resources/reading-materia
 import { ReadingItemComponent } from '@/main/extra-resources/reading-material/reading-item/reading-item.component';
 import { VideoItemComponent } from '@/main/extra-resources/videos/video-item/video-item.component';
 import { CommonModule } from '@angular/common';
-import { MaterialModule } from '@/material.module';
 import { ExtraResourcesService } from '@/main/extra-resources/extra-resources.service';
-import {
-  MatCard,
-  MatCardModule,
-  MatDialogModule,
-  MatDialogRef,
-} from '@angular/material';
+import { MatCardModule, MatDialogModule } from '@angular/material';
 import { SharedModule } from '@/shared/shared.module';
 import { MatRippleModule } from '@angular/material/core';
-//import {YouTubePlayerModule} from '@angular/youtube-player';
-//import { TrimStringPipe} from '@/main/shared/trim-string.pipe';
+import {QuestionnaireContainerModule} from "@/questionnaire-container.module";
 
 @NgModule({
-  imports: [
-    ExtraResourcesRoutingModule,
-    CommonModule,
-    // MaterialModule,
-    SharedModule,
-    MatCardModule,
-    MatDialogModule,
-    MatRippleModule,
-    //  YouTubePlayerModule
-  ],
+    imports: [
+        ExtraResourcesRoutingModule,
+        CommonModule,
+        SharedModule,
+        MatCardModule,
+        MatDialogModule,
+        MatRippleModule,
+        QuestionnaireContainerModule,
+    ],
   declarations: [
     ExtraResourcesComponent,
     VideosComponent,
     ReadingMaterialComponent,
     ReadingItemComponent,
     VideoItemComponent,
-
-    // SafeUrlPipe,
-    // TrimStringPipe
   ],
   providers: [ExtraResourcesService],
-  // exports: [SafeUrlPipe],
 })
 export class ExtraResourcesModule {}

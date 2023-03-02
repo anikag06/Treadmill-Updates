@@ -1,3 +1,12 @@
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {QuestionnaireItem} from '@/shared/questionnaire/shared/questionnaire.model';
+import {UsefulListItem} from '@/main/extra-resources/shared/usefulList.model';
+import {QuestionModel} from '@/shared/questionnaire/shared/question.model';
+import {Options} from '@/shared/questionnaire/shared/options.model';
+import {BehaviorSubject} from 'rxjs';
+import {QuestionnaireService} from '@/shared/questionnaire/questionnaire.service';
+import {User} from '@/shared/user.model';
+import {AuthService} from '@/shared/auth/auth.service';
 import {Component, OnInit, Input, EventEmitter, Output} from '@angular/core';
 import { Quiz } from './input/quiz';
 import { QuesUserResponseArray } from './input/response';
@@ -43,67 +52,22 @@ import { ConclusionService } from '@/main/resources/conclusion/conclusion.servic
 import {TrialAiimsRegistrationService} from '@/trial-aiims-registration/trial-aiims-registration.service';
 
 @Component({
-  animations: [
-    trigger('in', [
-      transition(
-        ':decrement',
-        // tslint:disable-next-line:max-line-length
-        [
-          // style({ opacity: 0, transform: 'translateX(-26%)' }),
-          // animate(
-          //   '200ms ease-in-out',
-          //   style({ opacity: 1, transform: 'translateX(0%)' }),
-          // ),
-          useAnimation(decrementAnimation),
-        ],
-      ),
-      transition(
-        ':increment',
-        // tslint:disable-next-line:max-line-length
-        [
-          // style({ opacity: 0, transform: 'translateX(26%)' }),
-          // animate(
-          //   '200ms ease-in-out',
-          //   style({ opacity: 1, transform: 'translateX(0%)' }),
-          // ),
-          useAnimation(incrementAnimation),
-        ],
-      ),
-    ]),
-    trigger('simpleFadeAnimation', [
-      // the "in" style determines the "resting" state of the element when it is visible.
-      state('in', style({ opacity: 1 })),
-
-      // fade in when created. this could also be written as transition('void => *')
-      transition(':enter', [
-        // style({ opacity: 0, transform: 'translateX(50%)' }),
-        // animate(
-        //   '1000ms ease-in-out',
-        //   style({ opacity: 1, transform: 'translateX(0%)' }),
-        // ),
-        useAnimation(enterAnimation),
-      ]),
-    ]),
-    trigger('submit_animation', [
-      // the "in" style determines the "resting" state of the element when it is visible.
-      state('in', style({ opacity: 1 })),
-
-      // fade in when created. this could also be written as transition('void => *')
-      transition(':enter', [
-        // style({ opacity: 1, transform: 'translateX(50%)' }),
-        // animate(
-        //   '200ms ease-in-out',
-        //   style({ opacity: 1, transform: 'translateX(0%)' }),
-        // ),
-        useAnimation(enterSubmitAnimation),
-      ]),
-    ]),
-  ],
   selector: 'app-questionnaire',
   templateUrl: './questionnaire.component.html',
   styleUrls: ['./questionnaire.component.scss'],
 })
 export class QuestionnaireComponent implements OnInit {
+  @Input() questionnaireItem!: QuestionnaireItem;
+  @Input() usefulListItem!: UsefulListItem;
+  @Input() questionnaireResult!: any;
+  @Input() questionnaireRefList!: any;
+  @Input() isList!: string;
+  @Input() isResult!: string;
+  @Output() removeLoading = new EventEmitter();
+  user!: User;
+  showEachResultCardOnClick = false;
+  showResultComponent = false;
+  resultsArray = <any>[];
   @Input() fromFlow!: boolean;
   @Input() fromTrialRegistration!: boolean;
   @Input() stepId!: number;
@@ -173,6 +137,8 @@ export class QuestionnaireComponent implements OnInit {
   aiimsUser = false;
   registration_path!: string;
   constructor(
+    private quesService: QuestionnaireService,
+    private authService: AuthService
     private quizService: QuizService,
     private flowService: FlowService,
     private router: Router,
@@ -187,88 +153,29 @@ export class QuestionnaireComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    if (this.quizService.questionnaire_name === PHQ9) {
-      this.index = 0;
-      this.display_phq_start = true;
-      this.loadQuiz();
-    } else if (this.quizService.questionnaire_name === GAD7) {
-      this.index = 1;
-      this.display_gad_start = true;
-      this.loadQuiz();
-    } else if (this.quizService.questionnaire_name === SIQ) {
-      this.index = 2;
-      this.display_siq_start = true;
-      this.loadQuiz();
-    } else {
-      this.router.navigate([DEFAULT_PATH]);
-    }
+    this.user = <User>this.authService.isLoggedIn();
   }
 
-  loadQuiz() {
-    this.quizService.disableLinks.emit(this.data);
-    this.quizService.get(this.api[this.index]).subscribe((res: any) => {
-      this.quiz = new Quiz(res);
-      this.pager.count = this.quiz.questions.length;
-      this.total_question = this.pager.count - 1;
-      this.pager.index = 1;
-      this.ques = this.quiz.questions[0].name;
-      this.back = false;
-      this.routing = false;
-      this.dataService.setOption(this.routing);
-      this.loading = false;
-      this.submitting = false;
-      if (this.first_click) {
-        setTimeout(() => {
-          this.showLoading = false;
-          this.display_questionnaire = true;
-          if (this.display_gad_start) {
-            this.display_gad_start = false;
-          } else if (this.display_siq_start) {
-            this.display_siq_start = false;
-          }
-        }, 400);
-      }
-    });
+  resultEachCardClick() {
+    this.showEachResultCardOnClick = !this.showEachResultCardOnClick;
   }
-
-  // tslint:disable-next-line:use-life-cycle-interface
-  ngOnDestroy() {
-    if (this.id) {
-      clearInterval(this.id);
+  getBackgroundColor(category: string) {
+    if (category === 'Anxiety problems') {
+      return '#DFB264';
+    } else if (category === 'Mood problems') {
+      return '#90AAF2';
+    } else if (category === 'Eating probelms') {
+      return '#C091CB';
+    } else if (category === 'Substance abuse problems') {
+      return '#FFA3A3';
+    } else if (category === 'General mental health problems') {
+      return '#73C0D8';
+    } else if (category === 'Sleep problems') {
+      return '#D89E74';
     }
-    this.quizService.enableLinks.emit();
   }
-
-  display() {
-    this.first_click = true;
-    if (this.display_phq_start === true) {
-      this.display_phq_start = false;
-      this.is_siq_ques = false;
-      this.IsDisabled();
-      this.index = 0;
-      this.startTime = new Date();
-      this.display_questionnaire = true;
-    } else if (this.display_gad_start === true) {
-      this.showLoading = true;
-      this.is_siq_ques = false;
-      this.index = 1;
-      this.loadQuiz();
-      this.question_no = 0;
-      this.submit = false;
-      this.startTime = new Date();
-      // this.display_questionnaire = true;
-      this.reset(7);
-    } else if (this.display_siq_start === true) {
-      this.showLoading = true;
-      this.is_siq_ques = true;
-      this.index = 2;
-      this.loadQuiz();
-      this.question_no = 0;
-      this.submit = false;
-      this.startTime = new Date();
-      // this.display_questionnaire = true;
-      this.reset(10);
-    }
+  imageLoaded () {
+    this.removeLoading.emit();
   }
 
   // tick() {

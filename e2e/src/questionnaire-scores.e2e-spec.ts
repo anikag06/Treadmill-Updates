@@ -1,6 +1,6 @@
 import { AppPage } from './app.po';
 import { browser, logging } from 'protractor';
-import { QuestionnaireScoresPage } from './questionnaire/questionnaire-scores.po';
+import { QuestionnaireScoresPage } from './questionnaire-scores/questionnaire-scores.po';
 
 xdescribe('treadwill questionnaire-scores', () => {
   let page: AppPage;

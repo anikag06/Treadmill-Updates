@@ -1,7 +1,7 @@
 import { ConclusionService } from '@/main/resources/conclusion/conclusion.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { QuizService } from '@/shared/questionnaire/questionnaire.service';
+import { QuizService } from '@/shared/questionnaire-deprecated/questionnaire-deprecated.service';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({

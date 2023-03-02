@@ -1,0 +1,144 @@
+<router-outlet></router-outlet>
+<ng-template  [ngIf]="!loading  && !submitting">
+<div class="q">
+  <div [@simpleFadeAnimation]="'in'" *ngIf="display_gad_start || display_phq_start || display_siq_start">
+    <div class="row mx-0">
+      <div class="col-md-12 dashboard">
+        <div class="row card mx-auto justify-content-center">
+          <div class="col-xl-4 col-md-6 col-sm-12 mx-auto text-center">
+            <div class="card-body">
+              <div *ngIf="display_phq_start" id="phq-9">
+                <div class="bold"> Before moving further, we need you to carefully answer 9 quick
+                  questions. This is a standard set of questions, called PHQ-9, used in
+                  healthcare to assess depressive symptoms (everyone has some!).
+                </div>
+              </div>
+              <div *ngIf="display_gad_start" id="gad-7">
+                <span class="bold"> Before moving further, we need you to carefully answer 7 quick
+                  questions. This is a standard set of questions, called GAD-7, used in
+                  healthcare to assess anxiety symptoms (everyone has some!).
+                </span>
+
+              </div>
+              <div *ngIf="display_siq_start" class="bold" id="siq">
+                Before moving further, we need you to carefully answer 10 quick
+                questions. This is a standard set of questions, called SIQ, used in
+                healthcare to assess suicidal tendencies.
+              </div>
+              <br><br>
+              <span class="bold">
+                Carefully answering these questions is important for you to track your
+                progress, for ensuring your participation, and for the development of
+                TreadWill as a useful resource.
+              </span>
+              <br><br><br>
+              <button type="button" (click)="display()"
+                *ngIf="display_gad_start || display_phq_start || display_siq_start"
+                class="btn btn-outline-dark option-btn">
+                <span class="spinner-border spinner-border-sm" *ngIf="showLoading" ></span>
+                <span *ngIf="!showLoading" > Start</span>              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="display_questionnaire" [@simpleFadeAnimation]="'in'">
+    <div class="row mx-0">
+      <div class="col-md-12">
+        <div class="row card mx-auto">
+          <div class="col-xl-4 col-md-6 col-sm-12" class="card text-center">
+            <div class="row h-100 ">
+              <div class="col-2 my-auto ">
+                <button type="button" class="btn btn-default btn-left" aria-label="Left Align" (click)="onback()"
+                        *ngIf="back">
+                  <img src="assets/shared/arrow left.svg">
+                </button>
+              </div>
+              <div class="col-8 mt-0 my-md-auto" [@in]="question_no">
+                <div>
+                  <div class="card-subtitle mb-2 text-muted" *ngIf="!submit">Question {{pager.index }}
+                    of
+                    {{pager.count}}</div>
+                  <span id=const *ngIf="!submit">Over the last two weeks, how often have you
+                    been bothered by this problem?
+                  </span>
+                  <br>
+                  <div class="col" *ngIf="!submit">
+                    <div id=question>
+                      <div id=bold><b>{{ques}}</b></div>
+                    </div>
+                  </div>
+                  <br>
+                  <div class="row justify-content-center">
+                    <div class="col-6 col-md-4 " class="button-group " *ngIf="!submit">
+                      <button type="button" class="btn btn-outline-dark option-btn"
+                        [ngClass]="{'backblack': see0, 'disabled': !visible, 'hower': !visible}"
+                        (click)="visible === false || onselect0()">
+                        <span *ngIf="!is_siq_ques">No, not at all </span>
+                        <span *ngIf="is_siq_ques"> Never </span>
+                      </button>
+                    </div>
+                    <div class="col-6 col-md-4 " class="button-group " *ngIf="!submit">
+                      <button type="button" class="btn btn-outline-dark option-btn"
+                        [ngClass]="{'backblack': see1, 'disabled': !visible, 'hower': !visible}"
+                        (click)="visible === false || onselect1()">
+                        <span *ngIf="!is_siq_ques"> On some days </span>
+                        <span *ngIf="is_siq_ques">Sometimes</span>
+                      </button>
+                    </div>
+                    <div class="col-lg-3 col-sm-8" class="button-group " *ngIf="!submit">
+                      <button type="button" class="btn btn-outline-dark option-btn"
+                        [ngClass]="{'backblack': see2, 'disabled': !visible, 'hower': !visible}"
+                        (click)="visible === false || onselect2()">
+                        <span *ngIf="!is_siq_ques"> Most of the days </span>
+                        <span *ngIf="is_siq_ques"> Often </span>
+                      </button>
+                    </div>
+                    <div class="col-lg-3 col-sm-8" class="button-group " *ngIf="!submit && !is_siq_ques">
+                      <button type="button" class="btn btn-outline-dark option-btn"
+                        [ngClass]="{'backblack': see3, 'disabled': !visible, 'hower': !visible}"
+                        (click)="visible === false || onselect3()">
+                        <span > Nearly everyday</span>
+                      </button>
+                    </div>
+                  </div>
+                  <div *ngIf="submit" [@simpleFadeAnimation]="'in'">
+                    <div class="row">
+                      <div class="col">
+                        <div id=submit>
+                          Thanks. Click on Submit to save your response.
+                        </div>
+                        <button type="button" class="btn btn-outline-dark option-btn"
+                          *ngIf="submit"
+                          (click)="onsubmit()">Submit
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-2 my-auto px-1">
+                <button type="button" class="btn btn-default btn-right" aria-label="Right Align" (click)="onfront()"
+                        *ngIf="display_front()">
+                      <img src="assets/shared/arrow right.svg">
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</ng-template>
+<ng-template [ngIf]="loading || submitting">
+  <div class="col q">
+    <div class="text-center loader">
+      <img src="assets/shared/loading-gif.gif" alt="loader" width="80" />
+    </div>
+  </div>
+</ng-template>
+<!-- <ng-container *ngIf="!active && !loading">
+  <h2>This is not available</h2>
+</ng-container> -->

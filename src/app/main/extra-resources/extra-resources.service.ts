@@ -9,7 +9,7 @@ import {
   DEPRESSION_VIDEO_LIST,
   WATCHED_VIDEO,
   VIDEO_COVID_19_LIST,
-  USEFUL_LIST,
+  USEFUL_LIST, QUESTIONNAIRE_LIST,
 } from '@/app.constants';
 import { switchMap } from 'rxjs/operators';
 import {
@@ -24,6 +24,7 @@ import { VideosComponent } from '@/main/extra-resources/videos/videos.component'
 import { ReadingItem } from '@/main/extra-resources/shared/reading.model';
 import { MindfulnessVideoItem } from '@/main/extra-resources/shared/mindfulnessVideo.model';
 import { VideoCovid19Item } from '@/main/extra-resources/shared/videoCovid19.model';
+import {QuestionnaireItem} from "@/shared/questionnaire/shared/questionnaire.model";
 
 @Injectable({
   providedIn: 'root',
@@ -35,6 +36,8 @@ export class ExtraResourcesService {
   readingItemInResource!: ReadingItem;
   videoCovid19InResource!: VideoCovid19Item;
   usefulListItemInResource!: ReadingItem;
+  questionnaireItemInResource!: QuestionnaireItem;
+  sendQuestionnaireItem =  new EventEmitter<any>();
 
   videoClickBehavior: BehaviorSubject<VideoItem> = new BehaviorSubject<
     VideoItem
@@ -62,6 +65,13 @@ export class ExtraResourcesService {
     ReadingItem
   > = new BehaviorSubject<ReadingItem>(this.usefulListItemInResource);
   usefulListItemClickedEvent = this.usefulListItemClickBehavior.asObservable();
+
+  questionnaireItemClickBehavior: BehaviorSubject<
+    QuestionnaireItem
+    > = new BehaviorSubject<QuestionnaireItem>(this.questionnaireItemInResource);
+  questionnaireItemClickedEvent = this.questionnaireItemClickBehavior.asObservable();
+  todoBehaviour = new BehaviorSubject(false);
+
 
   constructor(
     private http: HttpClient,
@@ -126,11 +136,19 @@ export class ExtraResourcesService {
         '/',
     );
   }
+  getQuestionnaire(){
+    return this.http.get<QuestionnaireItem>(
+      environment.API_ENDPOINT + QUESTIONNAIRE_LIST
+    );
+  }
 
   markVideoWatched(videoId: number, watched: boolean) {
     return this.http.post(environment.API_ENDPOINT + WATCHED_VIDEO, {
       resource_video_id: videoId,
       watched: watched,
     });
+  }
+  triggerTodoQuestionnaires() {
+    this.todoBehaviour.next(true);
   }
 }

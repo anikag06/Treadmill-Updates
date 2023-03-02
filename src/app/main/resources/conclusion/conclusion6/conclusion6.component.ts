@@ -19,7 +19,7 @@ import { ConclusionService } from '@/main/resources/conclusion/conclusion.servic
 import { ActivatedRoute, Router } from '@angular/router';
 import { StepsDataService } from '@/main/resources/shared/steps-data.service';
 import { CommonDialogsService } from '@/main/resources/shared/common-dialogs.service';
-import { QuizService } from '@/shared/questionnaire/questionnaire.service';
+import { QuizService } from '@/shared/questionnaire-deprecated/questionnaire-deprecated.service';
 import { FlowService } from '@/main/flow/flow.service';
 import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
 import { CommonService } from '@/shared/common.service';

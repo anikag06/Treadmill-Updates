@@ -1,5 +1,31 @@
-<div class="container resources-container px-0"  *ngIf="outlet.isActivated == false">
+<div class="container resources-container px-0"  *ngIf="outlet.isActivated == false" [ngStyle]="{'background-color': changeBackground? '#faf4ea':'', 'margin-bottom': changeBackground? '-20px' : '0'}">
+  <div class = "top-nav-tabs no-gutters" *ngIf = "!this.quesExpand">
+
+<!--  <div class = "top-nav-tabs">-->
+    <div class="ml-lg-0 tab-style" [ngClass] = "{'tab-style-selected': forVideosTab}" (click) = "onVideosTab()">
+      Videos
+    </div>
+    <div class="tab-style" [ngClass] = "{'tab-style-selected': forReadingTab}" (click) = "onReadingTab()">
+      Reading material
+    </div>
+    <div class="tab-style" [ngClass] = "{'tab-style-selected': forQuestionnaireTab}" (click) = "onQuestionnaireTab()">
+      Questionnaires
+    </div>
+<!--  </div>-->
+  </div>
+  <div class = "row no-gutters" *ngIf = "this.quesExpand">
+    <div class="ml-0 tab-style" [ngClass] = "{'tab-style-selected': !showMyResults}" (click) = "onMyListClick()">
+      List
+    </div>
+    <div class="tab-style" [ngClass] = "{'tab-style-selected': showMyResults}" (click) = "onMyResultsClick()">
+      My Results
+    </div>
+  </div>
+  <div class="line row no-gutters">
+  </div>
+
   <div *ngIf = "user.is_exp">
+  <div *ngIf = "this.forVideosTab">
   <div class="row" #mindfulness>
     <div class="col">
       <p class="heading">Mindfulness Videos</p>
@@ -61,10 +87,12 @@
         <a  (click) = "changeVideoOnCovid19State()"  class = "see-all " *ngIf = "showVideoCovid19State == false; else videoCovid19SeeLess"><img src = "assets/icons/arrow.svg">&nbsp; See all </a>
       </div>
     </div>
+  </div>
 
 
 
 
+  <div *ngIf = "this.forReadingTab">
   <div class="row">
     <div class="col">
       <p class="heading">Reading Materials</p>
@@ -83,7 +111,9 @@
   </div>
   </div>
   </div>
+  </div>
 
+  <div *ngIf = "this.forReadingTab">
   <div class="row">
     <div class="col">
       <p class="heading">Useful Lists</p>
@@ -101,8 +131,78 @@
       <a  (click) = "changeUsefulListState()" class = "see-all" *ngIf = "showUsefulListState == false; else usefulListSeeLess"><img src = "assets/icons/arrow.svg">&nbsp;See all</a>
     </div>
   </div>
+  </div>
+
+  <div *ngIf = "this.forQuestionnaireTab">
+  <div *ngIf = "!this.showMyResults"> <!-- shows the list of questionnaires -->
+    <div *ngIf = "todocountQuestionnaireItem !== 0" >
+    <div class = "row" #recomList>
+      <div class = "col">
+        <p class = "heading"> Recommended Questionnaires</p>
+        <p class="px-2 px-xl-0">Questionnaires recommended for me based on attempt of Level 1 Cross-Cutting
+          Symptom Measure Questionnaire.</p>
+      </div>
+    </div>
+
+
+      <div [ngClass] = "todoquesExpand==true? 'show-all-cards': 'todo-card-hidden'">
+        <div class = "row no-gutters" >
+          <div class = "each-item" *ngFor = "let questionnaireItem of todoquestionnaireItems">
+            <app-questionnaire [questionnaireItem] = "questionnaireItem" isResult = 'false' isList="false" (click) = "questionnaireItemClick(questionnaireItem)"></app-questionnaire>
+          </div>
+        </div>
+      </div>
+      <div *ngIf = "todocountQuestionnaireItem > 2 && !todoquesExpand">
+        <a class = "see-all" (click) = "changeTodoQuesState()"><img src = "assets/icons/arrow.svg">&nbsp;show more</a>
+      </div>
+    </div>
+
+
+    <div class = "row">
+    <div class = "col">
+      <p class = "heading">Questionnaires</p>
+    </div>
+  </div>
+
+  <div class = "space-below-section">
+    <div [ngClass] = "quesExpand==true? 'show-all-cards': 'ques-card-hidden'" *ngIf="!quesExpand">
+     <div class = "row no-gutters">
+       <div class = "each-item" *ngFor = "let questionnaireItem of questionnaireItems">
+         <app-questionnaire [questionnaireItem] = "questionnaireItem" isResult = 'false' isList="false" (click) = "questionnaireItemClick(questionnaireItem)" #tooltip="matTooltip" matTooltipDisabled
+                            matTooltip={{tooltipData}}></app-questionnaire>
+        </div>
+      </div>
+    </div>
+    <app-questionnaire-container *ngIf="quesExpand" (questionnaireItemClicked) ="questionnaireItemClick($event)" #tooltip="matTooltip" matTooltipDisabled
+                                 matTooltip={{tooltipData}}></app-questionnaire-container>
+    <div *ngIf="countQuestionnaireItem > 8 && !quesExpand">
+      <a class = "see-all mt-4 " (click) = "changeQuesState()">See all Questionnaires <img src = "assets/questionnaire/arrow right.svg">&nbsp;</a>
+    </div>
+  </div>
+
+  </div>
+
+  <div *ngIf = "this.showMyResults">
+    <div class = "space-below-section">
+    <div>
+      <div class=" row mx-2 mt-2" *ngIf="this.questionnaireResults[0].length == 0"> Please attempt the Questionnaires to see results here.</div>
+
+      <div class = "row no-gutters" *ngIf="this.questionnaireResults[0].length != 0">
+        ​
+        <div *ngFor = "let questionnaireResult of questionnaireResults[0]; let i = index">
+          <app-questionnaire [questionnaireRefList]= "questionnaireRef[i]" [questionnaireResult] = "questionnaireResult" isResult = 'true'></app-questionnaire>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+  </div>
+
   <div class = "end-space"></div>
 </div>
+
+
+
 
 
 

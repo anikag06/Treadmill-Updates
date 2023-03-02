@@ -2,11 +2,37 @@
   font-size: 20px;
   margin-bottom: 12px;
   font-family: Roboto ;
-  font-weight: initial;
+  font-weight: 500;
   margin-top: 24px;
 }
+
 .end-space{
   padding-bottom: 48px;
+}
+.line{
+  height: 1px;
+  width: 100%;
+  background-color:black;
+  opacity: 20%;
+  display: block;
+
+}
+//div.top-nav-tabs{
+//  overflow-x: auto;
+//  //white-space: nowrap;
+//}
+.tab-style{
+  display: inline-block;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 24px;
+  margin-left: 56px;
+  padding: 2px 20px;
+  opacity: 40%;
+}
+.tab-style-selected{
+  opacity: 100%;
+  border-bottom: 2px solid #000;
 }
 .see-all{
  // float: right;
@@ -27,6 +53,12 @@
   overflow: hidden;
 }
 .reading-card-hidden {
+  overflow: hidden;
+}
+.ques-card-hidden {
+  overflow: hidden;
+}
+.todo-card-hidden {
   overflow: hidden;
 }
 
@@ -70,6 +102,12 @@ i {
   .reading-card-hidden{
     height: 296px;
   }
+  .ques-card-hidden{
+    height: 730px;
+  }
+  .todo-card-hidden{
+    height: 360px;
+  }
   .each-item{
    // padding: 0px 32px 0px 32px;
     padding: 0px 32px 0px 0px;
@@ -103,6 +141,12 @@ i {
   }
   .reading-card-hidden {
     height: 230px;
+  }
+  .ques-card-hidden{
+    height:720px;
+  }
+  .todo-card-hidden{
+    height: 360px;
   }
   .each-item{
     //padding: 0px 16px 32px;
@@ -139,6 +183,12 @@ i {
   .reading-card-hidden{
     height: 220px;
   }
+  .ques-card-hidden{
+    height: 705px;
+  }
+  .todo-card-hidden{
+    height: 350px;
+  }
   .each-item{
     // padding: 0px 16px 32px;
     padding: 0px 27px 0px 5px;
@@ -169,6 +219,12 @@ i {
   .reading-card-hidden{
     height: 198px;
   }
+  .ques-card-hidden{
+    height: 680px;
+  }
+  .todo-card-hidden{
+    height: 340px;
+  }
   .space-below-section{
     padding-bottom: 47px;
   }
@@ -185,6 +241,12 @@ i {
   }
   .reading-card-hidden{
     height: 198px;
+  }
+  .ques-card-hidden{
+    height:680px;
+  }
+  .todo-card-hidden{
+    height: 340px;
   }
   .each-item{
     // padding: 0px 10px 32px;
@@ -221,6 +283,12 @@ i {
   .reading-card-hidden{
     height: 166px;
   }
+  .ques-card-hidden{
+    height: 620px;
+  }
+  .todo-card-hidden{
+    height: 310px;
+  }
   .each-item{
     padding: 0px 7px 14px;
     width: 25%;
@@ -255,8 +323,12 @@ i {
   .reading-card-hidden{
     height: 150px;
   }
-
-
+  .ques-card-hidden{
+    height: 600px;
+  }
+  .todo-card-hidden{
+    height: 300px;
+  }
   .each-item{
     padding: 0px 7px 14px;
     width: 25%;
@@ -276,6 +348,38 @@ i {
   }
   .end-space{
     padding-bottom: 156px;
+  }
+  div.top-nav-tabs{
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  .line{
+    display: none;
+  }
+  .tab-style{
+    display:inline-block;;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 12px 16px;
+    margin: 0;
+    opacity: 40%;
+
+  }
+  .tab-style-selected{
+    opacity: 100%;
+    border-bottom:none;
+    position: relative;
+  }
+  .tab-style-selected:after{
+    content: "";
+    background: black;
+    position: absolute;
+    bottom: 0;
+    left: 30%;
+    height: 2px;
+    width: 40%;
+    border-bottom: 1px solid #000;
   }
 }
 
@@ -298,6 +402,12 @@ i {
   }
   .reading-card-hidden{
     height: 408px;
+  }
+  .ques-card-hidden{
+    height: 600px;
+  }
+  .todo-card-hidden{
+    height: 300px;
   }
   .see-all{
     padding-left: 82% ;
@@ -326,6 +436,12 @@ i {
   .reading-card-hidden{
     height: 350px;
   }
+  .ques-card-hidden{
+    height:585px;
+  }
+  .todo-card-hidden{
+    height:290px;
+  }
 
   .each-item{
     padding: 0px 7px 14px;
@@ -341,7 +457,7 @@ i {
     padding-bottom: 27px;
   }
   .end-space{
-    padding-bottom: 90px;
+    padding-bottom: 110px;
   }
 }
 @media screen and (max-width: 320px) {
@@ -351,6 +467,12 @@ i {
   }
   .reading-card-hidden{
     height: 302px;
+  }
+  .ques-card-hidden{
+    height:585px;
+  }
+  .todo-card-hidden{
+    height:300px;
   }
   .see-all {
     padding-left: 80% ;

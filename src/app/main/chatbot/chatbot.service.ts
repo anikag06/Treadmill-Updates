@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import * as moment from 'moment';
@@ -9,9 +9,10 @@ import * as moment from 'moment';
 export class ChatbotService {
   constructor(private http: HttpClient) {}
 
-  chatBotModalClicked = false;
-  modalExist = false;
-  showOutsideModal = false;
+  // chatBotModalClicked = false;
+  // modalExist = false;
+  // showOutsideModal = false;
+  chatMinimiseEmitter = new EventEmitter<Boolean>();
 
   postPreviousChat(currentDateTime: any) {
     const dateTime = moment.utc(currentDateTime).format('DD/MM/YY+HH:mm:ss');

@@ -1,217 +1,243 @@
-@import "styles.scss";
+.ques-card{
+  padding: 0px 0px 16px;
+  margin: 0px 0px 16px;
+  box-shadow: 0 0px;
+  border: 1px solid rgba(0,0,0,.125);
+  cursor:pointer;
 
-.q {
-    min-height: 90vh;
-    min-width: 74vw;
+}
+.see-all-icon-down {
+  //transform: rotate(180deg);
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  //float: right;
+  color: black;
+  position: absolute;
+  top:30%;
+  right:2%;
+}
+.see-all-icon-right {
+  transform: rotate(-90deg);
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  //float: right;
+  color: black;
+  position: absolute;
+  top:30%;
+  right:2%;
+
+}
+.my-result-card{
+  font-weight: bold;
+  width: 63vw;
+  cursor: pointer;
+  margin: 12px 0px;
+  opacity: 87%;
+  position: relative;
+  padding-right: 30px;
+}
+.result-div-style{
+  width: 63vw;
+}
+.hr-style{
+  display: block; margin-before: 0.5em; margin-after: 0.5em; margin-start: auto; margin-end: auto; overflow: hidden; border-style: inset; border-width: 1px;
+}
+.calendar-icon-style{
+  margin-right: 20px;
+}
+.date-font{
+  font-size: 14px;
+  font-weight: normal;
+}
+.history-font{
+  color: #CCA765;
+  font-size: 14px;
+}
+.category-style{
+  font-size: 10px;
+  padding: 0px 4px;
+  opacity:0.8;
+  border-radius:2px;
+  color:white;
+  width:fit-content;
+}
+.subtitle-style{
+  opacity:0.6;
+  font-size: 14px;
+}
+
+.ques-card:hover {
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.16) !important;
+}
+
+.view-result-style{
+  color: #1782FF;
+  cursor: pointer;
+  float: right;
+}
+.giveMeEllipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  /* number of lines to show */
+}
+.giveEllipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  /* number of lines to show */
+}
+
+//
+//.category-style {
+//  font-size: 10px;
+//  background-color: yellow;
+//}
+
+.span{
+  background-color: yellow;
+  font-size: 10px;
+}
+
+.show-footer-style{
+  font-size: 16px;
+   margin: 8px;
+  //margin-left: 14px;
+  //margin-right: 7px;
+  //margin-top: 7px;
+  padding-bottom: 6px;
+  text-align: left;
+  //opacity: 0.6;
+}
+
+.preview-img-div {
+  position: relative;
+}
+.preview-img{
+  width: 100%;
+  // height: 100%;
+}
+.bold-text {
+  font-weight: bold;
+  opacity: 0.87;
+}
+
+@media screen and (min-width: 2001px) {
+  .ques-card {
+    height: 395px;
+  }
+  .show-footer-style{
+    font-size: 20px;
+  }
+
+}
+@media screen and (max-width: 2000px) {
+  .ques-card {
+    height: 330px;
+  }
+  .show-footer-style{
+    font-size: 16px;
+  }
+}
+//@media screen and (min-width: 1800px) {
+//  .ques-card {
+//    height: 300px;
+//  }
+//  .show-footer-style{
+//    font-size: 16px;
+//  }
+//}
+
+@media screen and  (min-width: 1300px) and (max-width: 1500px) {
+  .ques-card {
+    height: 320px;
+  }
+  .show-footer-style{
+    font-size: 16px;
+  }
+}
+//@media screen and (width: 1366px) {
+//  .ques-card {
+//    height: 300px;
+//  }
+//  .show-footer-style{
+//    font-size: 16px;
+//  }
+//}
+@media screen and (max-width: 1300px) {
+  .ques-card {
+    height: 300px;
+  }
+  .show-footer-style{
+    font-size: 16px;
+  }
+}
+@media screen and (max-width: 1200px) {
+  .ques-card {
+    height: 285px;
+  }
+  .show-footer-style{
+    font-size: 16px;
+  }
 }
 
 
-#const{
+@media screen and (max-width: 991px) {
+  .ques-card {
+    height: 285px;
+  }
+  .show-footer-style{
     font-size: 14px;
-    font-style: italic;
-
-}
-#bold{
-    line-height:35px;
-    // font-style: bold;
-    font-size:17px;
-}
-
-.example-sidenav {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 200px;
-    background: rgba(255, 0, 0, 0.5);
   }
-#submit{
-    height: 100px;
 }
 
-#question{
-    height: 150px;
-}
-
-#text{
-    font-size: 10px;
-}
-.option-btn{
-
-    padding: 10px 20px;
+@media screen and (max-width: 768px) {
+  .ques-card {
+    height: 285px;
+  }
+  .show-footer-style{
     font-size: 14px;
-    border-radius: 5px;
-    height: 60px;
-    margin: 5px;
-    min-width: 75px;
-}
-.option-btn:focus, .option-btn:active {
-    outline: none !important;
-    box-shadow: none !important;
   }
-
-.backblack {
-    background-color: black !important;
-    color: white;
-}
-
-.hower{
-    cursor: not-allowed;
-}
-
-
-.vl {
-    border-left: 6px solid black;
+  .my-result-card{
+    width: 95vw;
   }
-.card{
-    width: 74vw;
-  height:74vh;
-  min-height: 640px;
-    background-color: white;
-    text-align: center;
-    float: none;
-    border: none;
-}
-
-
-.btn-right, .btn-left {
-  img {
-    height: 30px;
+  .result-div-style{
+    width: 95vw;
   }
 }
 
-
-@media screen and (max-width: 1040px) {
-  .q {
-    width: 100%;
+@media screen and (max-width: 525px) {
+  .ques-card {
+    // width: 42vw;
+    margin: 0px 0px 14px;
+    //max-height: 95%;
+    //min-height: 95%;
+    height: 285px;
   }
-    .card{
-
-        width: 600px;
-
-        background-color: white;
-        text-align: center;
-        padding-top: 10px;
-        padding-bottom: 10px;
-        }
-
-        #question{
-            height: 150px;
-        }
-
-  .option-btn{
-            width: 140px;
-            padding:10px;
-            font-size: 15px;
-            border-radius: 5px;
-            height: 60px;
-            margin: 5px;
-        }
-        #submit{
-            height: 100px;
-            line-height:35px;
-            font-style: bold;
-            font-size:17px;
-
-        }
-  .option-btn:focus{
-            background:white;
-            color: black;
-        }
+  .show-footer-style{
+    font-size: 14px;
   }
+}
 
-@media screen and (min-width: 578px) and (max-width: 700px) {
-
-    .card{
-
-        width: 576px;
-
-        background-color: white;
-        text-align: center;
-        padding-top: 10px;
-        padding-bottom: 10px;
-
-        }
-
-        #question{
-            height: 250px;
-        }
-
-  .option-btn{
-
-            width: 130px;
-            margin: 5px;
-            padding: 7px;
-            font-size: 15px;
-            border-radius: 5px;
-            height: 50px;
-
-
-        }
-        #submit{
-            height: 100px;
-            line-height:35px;
-            font-style: bold;
-            font-size:17px;
-
-        }
-        .option-btn:focus{
-            background:white;
-            color: black;
-        }
-
-  .btn-right {
-    padding-left: 0;
+@media screen and (max-width: 425px) {
+  .ques-card {
+    margin: 0px 0px 14px;
+    height: 270px;
   }
+  .show-footer-style{
+    font-size: 14px;
   }
+}
+//@media screen and (max-width: 320px) {
+//  .ques-card {
+//    height: 250px;
+//  }
 
-  @media screen and (max-width: 576px) {
-
-    .card{
-        width: 100%;
-        max-width: 400px;
-        background-color: white;
-        padding-top: 20px;
-        padding-bottom: 20px;
-        text-align: center;
-        float: none;
-        border: none;
-      min-height: 600px;
-
-    }
-
-        #question{
-            height: 250px;
-        }
-
-        .option-btn{
-
-            width: 100px;
-            margin: 5px;
-            padding: 5px;
-            font-size: 12px;
-            border-radius: 5px;
-            height: 50px;
-
-
-        }
-         #bold{
-            line-height:25px;
-            font-style: bold;
-            font-size:17px;
-
-
-        }
-        .btn{
-            margin:2px;
-        }
-        #submit{
-            height: 100px;
-            line-height:35px;
-            font-style: bold;
-            font-size:17px;
-
-        }
-  }
-
-
+//}
 

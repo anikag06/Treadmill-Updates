@@ -19,7 +19,9 @@ import { ErrorDialogComponent } from './shared/error-dialog/error-dialog.compone
 import { NotFoundComponent } from './shared/not-found/not-found.component';
 import { LocalStorageService } from './shared/localstorage.service';
 import { SignUpComponent } from '@/pre-login/signup/signup.component';
-import { QuestionnaireModule } from './questionnaire.module';
+import { QuestionnaireDeprecatedModule } from './questionnaire-deprecated.module'
+import {QuestionnaireModule} from '@/questionnaire.module';
+import {QuestionnaireContainerModule} from '@/questionnaire-container.module';
 import { ContactUsDataService } from './shared/mat-contact-us-dialog/contact-us-data.service';
 import { FcmService } from './shared/fcm.service';
 import { AngularFireModule } from '@angular/fire';
@@ -37,7 +39,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { QuizService } from '@/shared/questionnaire/questionnaire.service';
+import { QuizService } from '@/shared/questionnaire-deprecated/questionnaire-deprecated.service';
+import { QuestionnaireService } from '@/shared/questionnaire/questionnaire.service';
+import {QuestionnaireContainerService} from '@/shared/questionnaire-container/questionnaire-container.service';
 import { TempLandingPageComponent } from '@/temp-landing-page/temp-landing-page.component';
 import { ResetPasswordComponent } from '@/pre-login/reset-password/reset-password.component';
 import { SignupResetCommonComponent } from '@/pre-login/shared/signup-reset-common/signup-reset-common.component';
@@ -48,6 +52,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { CommonDialogComponent } from './shared/common-dialog/common-dialog.component';
 import { PointsComponent } from '@/main/shared/points/points.component';
 import { GlobalErrorHandler } from '@/shared/global-error-handler';
+import {MatCardModule, MatTableModule} from '@angular/material';
+// import {QuestionnaireContainerComponent} from '@/shared/questionnaire-container/questionnaire-container.component';
 import { ChangeBrowserDialogComponent } from './shared/change-browser-dialog/change-browser-dialog.component';
 import {TrialAiimsRegistrationComponent} from '@/trial-aiims-registration/trial-aiims-registration/trial-aiims-registration.component';
 import {TrialAiimsRegistrationService} from '@/trial-aiims-registration/trial-aiims-registration.service';
@@ -101,9 +107,10 @@ declare let $: any;
         MatButtonModule,
         MatSnackBarModule,
         MatRadioModule,
-        MatTooltipModule,
+    MatTableModule,
+    MatTooltipModule,
+    MatCardModule,
         TrialRegistrationModule,
-    ],
   providers: [
     { provide: LOCALE_ID, useValue: 'en-US' },
     DialogSize,
@@ -115,6 +122,8 @@ declare let $: any;
     SignUpService,
     CommonService,
     QuizService,
+    QuestionnaireService,
+    QuestionnaireContainerService,
     MatLoginDialogService,
     ResetPasswordService,
     TrialAiimsRegistrationService,
@@ -129,5 +138,6 @@ declare let $: any;
     PointsComponent,
     ChangeBrowserDialogComponent,
   ],
+  exports: [],
 })
 export class AppModule {}

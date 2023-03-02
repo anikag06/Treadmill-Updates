@@ -17,6 +17,8 @@ import { MatLoginDialogComponent } from '@/pre-login/login/mat-login-dialog/mat-
 import { MatDialog } from '@angular/material';
 import { ChangeBrowserDialogComponent } from '@/shared/change-browser-dialog/change-browser-dialog.component';
 import { CommonService } from '@/shared/common.service';
+import { QuestionnaireService } from '@/shared/questionnaire/questionnaire.service';
+import { QuestionnaireItem } from '@/shared/questionnaire/shared/questionnaire.model';
 
 @Component({
   selector: 'app-pre-login',
@@ -27,6 +29,8 @@ import { CommonService } from '@/shared/common.service';
 export class PreLoginComponent implements OnInit {
   loggedIn = false;
   url!: string;
+  questionnaireItemsPL: QuestionnaireItem[] = [];
+  countQuestionnaireItemPL = 0;
 
   constructor(
     private showLoginSignupDialogService: ShowLoginSignupDialogService,
@@ -36,6 +40,7 @@ export class PreLoginComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private commonService: CommonService,
+    private questionnaireService: QuestionnaireService
   ) {}
 
   ngOnInit() {
@@ -60,11 +65,22 @@ export class PreLoginComponent implements OnInit {
     if (this.router.url === LOGIN_AFTER_RESET) {
       this.onLoginClicked();
     }
+
+    // this.questionnaireService
+    //   .getQuestionnaires()
+    //   .subscribe((questionnaire_data: any) => {
+    //     questionnaire_data.results.forEach((element:any) => {
+    //       this.questionnaireItemsPL.push(<QuestionnaireItem>element);
+    //       this.countQuestionnaireItemPL = this.countQuestionnaireItemPL + 1;
+    //       console.log('title', element.title);
+    //
+    //     });
+    //   });
   }
 
   onLoginClicked() {
     this.showLoginSignupDialogService.broadcastLoginClicked(
-      MatLoginDialogComponent,
+      MatLoginDialogComponent
     );
   }
 
@@ -76,11 +92,13 @@ export class PreLoginComponent implements OnInit {
     this.showLoginSignupDialogService.joinStudyClicked();
   }
 
-  onWorkWithUsClicked() {
-    const url =
-      'https://docs.google.com/forms/d/e/1FAIpQLSfVDBSuxgghsD2SX4VWkOA2AHCotfhkOx0Qbhrci9PRLh-IPg/viewform?usp=send_form';
-    window.open(url, '_blank');
-  }
+  onPreLoginQuestionnaireShow() {}
+
+  // onWorkWithUsClicked() {
+  //   const url =
+  //     'https://docs.google.com/forms/d/e/1FAIpQLSfVDBSuxgghsD2SX4VWkOA2AHCotfhkOx0Qbhrci9PRLh-IPg/viewform?usp=send_form';
+  //   window.open(url, '_blank');
+  // }
 
   onPrivacyPolicyClick() {
     this.router.navigate(['trial/privacy-policy']);
@@ -88,5 +106,9 @@ export class PreLoginComponent implements OnInit {
 
   onTermsConditions() {
     this.router.navigate(['trial/terms-and-conditions']);
+  }
+
+  questionnaireClicked() {
+    this.router.navigate(['questionnaires']);
   }
 }

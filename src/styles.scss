@@ -70,6 +70,10 @@ $small_logo_height: 40px;
 button {
   outline: none !important;
 }
+.mat-radio-outer-circle {
+  border-color: #2a3b3d;
+  border-width: 0px!important;
+}
 .signup-dialog .mat-dialog-container {
   @include common-dialog-style();
 
@@ -375,7 +379,9 @@ img.emoji {
 .mat-radio-outer-circle {
   border-color: #000000de !important;
 }
-
+.radio-option-style.mat-radio-outer-circle {
+  border-color: #2a3b3d;
+}
 //.label {
 //  margin-bottom: 0;
 //}
@@ -447,6 +453,7 @@ img.emoji {
 body {
   /* Disables pull-to-refresh but allows overscroll glow effects. */
   overscroll-behavior-y: auto;
+
 }
 textarea {
   min-height: 20px !important;
@@ -641,6 +648,82 @@ textarea {
 .fix-parent {
   .introjs-fixParent {
     z-index: 1 !important;
+  }
+}
+.progress-bar-style .mat-progress-bar-fill::after {
+  background: #2A3B3D;
+}
+.progress-bar-style .mat-progress-bar-buffer{
+background: #cccccc;
+}
+.radio-option-style .mat-radio-container{
+   display: none;
+}
+.questionnaire-slider {
+  .mat-slider.mat-slider-horizontal .mat-slider-wrapper {
+    top: 18px;
+  }
+  .mat-slider.mat-slider-horizontal .mat-slider-track-wrapper {
+    height: 8px;
+    border-radius: 8px
+  }
+  .mat-slider.mat-slider-horizontal .mat-slider-track-background,
+  .mat-slider.mat-slider-horizontal .mat-slider-track-fill {
+    height: 100%;
+    background-color: #E1E3E3;
+    border-radius: 8px;
+  }
+  .mat-slider.mat-slider-horizontal .mat-slider-track-fill {
+    background-color:  #4C7EAA !important;
+  }
+
+  .mat-slider-min-value:not(.mat-slider-thumb-label-showing) .mat-slider-thumb {
+    background-color: white;
+  }
+  .mat-slider-horizontal .mat-slider-thumb-label {
+    transform: rotate(225deg) !important;
+    border-radius: 50% 50% 0 !important;
+    top:17px !important;
+    background-color: #4C7EAA !important;
+    .mat-slider-thumb-label-text{
+      transform: rotate(135deg) !important;
+    }
+  }
+}
+.ques-style-2{
+  opacity: 60%;
+  font-size: 14px;
+  font-weight: 400;
+  text-align:center;
+}
+.ques-style{
+  font-size: 20px;
+  opacity: 100%;
+  margin-top: 24px;
+  text-align: center;
+  font-weight: 500;
+}
+.questionnaire-text {
+  .mat-form-field-underline {
+    display: none;
+  }
+
+  .mat-input-element {
+    caret-color: #2a3b3d !important;
+    font-family: Lato, sans-serif !important;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 100%;
+    color: #2a3b3d !important;
+  }
+
+  .mat-form-field-flex {
+    background-color: #FBFDFF !important;
+    border: 1px solid #4C7EAA7D;
+    border-radius: 4px;
+    height: 80px;
+    padding: 6px;
+
   }
 }
 

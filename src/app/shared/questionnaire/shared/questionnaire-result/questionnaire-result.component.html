@@ -1,0 +1,180 @@
+<span *ngIf="fromResultHistory">
+  <a
+    (click)="viewResultClick()"
+    *ngIf="!showResultComponent && fromResultHistory"
+    class="view-result-style"
+  >View result <img src="assets/icons/arrow.svg" class="see-all-icon-right"
+  /></a>
+  <a
+    (click)="viewResultClick()"
+    *ngIf="showResultComponent && fromResultHistory"
+    class="view-result-style"
+  >Hide result <img src="assets/icons/arrow.svg" class="see-all-icon-down"
+  /></a>
+</span>
+<div class='container-div'>
+<mat-card *ngIf = "!fromResultHistory || showResultComponent" class="pt-0">
+  <div class="container px-0" id="result" #result>
+    <div class="row mx-0 float-right date mt-2">Date - {{ resultDate }}</div>
+
+    <div class = "row mx-0 result-div">
+      <div class="col px-0">
+        <div class = "d-flex justify-content-center result-heading">
+          <b>{{questionnaireName}} Result </b>
+        </div>
+<!--For questionnaires with only one score-->
+        <div *ngIf="!subscores">
+        <div *ngFor = "let resultEachItem of this.resultItem">
+            <div class="mt-4" style="font-size: 16px">
+              Your total score is
+            <div class="score">
+              {{resultEachItem.user_score}}/{{resultEachItem.total_score}}
+            </div>
+          </div>
+          <span class="font-14"
+                *ngIf="resultEachItem.result_remark !== 'null'" >{{resultEachItem.result_remark}}&nbsp;
+          </span>
+          <p class="font-14" *ngIf="resultEachItem.definition !== 'none'"
+          >{{resultEachItem.definition}}</p
+          >
+        </div>
+        </div>
+<!--For Questionnaires with subscores-->
+        <div *ngIf="subscores">
+        <div *ngFor = "let resultEachItem of this.resultItem">
+          <div *ngIf="checkScoreType(resultEachItem.user_score)">
+            <div class="mt-4" style="font-size: 16px">
+              <b>{{resultEachItem.disorder}} score:
+                {{resultEachItem.user_score}}/{{resultEachItem.total_score}}</b>
+            </div>
+          </div>
+          <div *ngIf="!checkScoreType(resultEachItem.user_score)">
+            <div class="mt-4" style="font-size: 16px">
+              <b>{{resultEachItem.disorder}}:
+                {{resultEachItem.user_score}}</b>
+            </div>
+          </div>
+
+          <div *ngIf="questionnaireName !== LEVEL1 ">
+          <span class="result-remark font-14"
+                *ngIf="resultEachItem.result_remark !== 'null'" >{{resultEachItem.result_remark}}
+          </span>
+          </div>
+          <div *ngIf="questionnaireName === LEVEL1 ">
+          <span class="result-remark font-14"
+                *ngIf="this.user" >{{resultEachItem.result_remark}}
+                        <a (click)="gotoListPage()" *ngIf="resultEachItem.result_remark.includes('suggested')" >in the Recommended Questionnaires section.</a>
+          </span>
+            <span class="result-remark font-14"
+                  *ngIf="!this.user" > {{ getUnregisteredUserRemark(resultEachItem.result_remark)}}
+          </span>
+          </div>
+
+          <p class="font-14"  *ngIf="resultEachItem.definition !== 'none'" >{{resultEachItem.definition}}</p
+          >
+        </div>
+        </div>
+      </div>
+    </div>
+  <br />
+<!--  <br />-->
+  ​
+
+<!--For reference table-->
+    <div class = "mx-0 row" *ngIf="questionnaireName !== FEARQ && questionnaireName !== MOOD_DISORDER">
+      <div class = "col px-0">
+        <div class = "ref-heading mb-3"><b>Reference Table</b></div>
+        <table class = "table-style">
+          <tr>
+            <th>Score</th>
+            <th>Risk Level</th>
+          </tr>
+          <ng-container *ngFor = "let refItem of this.refTableArray">
+            <tr class="disorder"  *ngIf="refItem[0].reference_remark !== 'null'">
+              <td class='disorder-data' colspan="2">{{refItem[0].disorder}}</td>
+            </tr>
+            <tr class="font-14" *ngFor = "let refEachItem of refItem" >
+              <td *ngIf="refEachItem.reference_remark !== 'null'">{{refEachItem.minValue}} - {{refEachItem.maxValue}}</td>
+              <td *ngIf="refEachItem.reference_remark !== 'null'">{{refEachItem.reference_remark}}</td>
+            </tr>
+          </ng-container>
+        </table>
+      </div>
+      <br />
+<!--      <br />-->
+    </div>
+
+
+<!--  No reference table for fear questionnaire -->
+  <div class = "mx-0 row" *ngIf="questionnaireName === FEARQ">
+    <div class = "col px-0">
+      <div class = "ref-heading mb-3"><b>Reference remark</b></div>
+      <div class="font-14">A higher score indicates higher avoidance or troublesome levels. Compare the scores with previous scores (if taken the test before).</div>
+    </div>
+  </div>
+    <!--  No reference table for Mood Disorder Questionnaire-->
+    <div class = "mx-0 row" *ngIf="questionnaireName === MOOD_DISORDER">
+      <div class = "col px-0">
+        <div class = "ref-heading mb-3"><b>Reference remark</b></div>
+        <div class="font-14">Bipolar disorder is a complex illness, and an accurate, thorough diagnosis can only be made through
+          a personal evaluation by your doctor.</div>
+
+      </div>
+    </div>
+
+    <div [ngStyle]="{ 'margin-top': '4rem' }">
+      <span class="disclaimer-heading">Disclaimer</span><br />
+      <span class="font-14"
+      >The results are for information purposes only. The screening does not
+        replace a medical evaluation.</span
+      >
+    </div>
+    <br />
+    <br />
+<!--    Treadwill footer -->
+<!--    <div class="row justify-content-center">-->
+<!--      <div class="col-12 mt-lg-3 font-roboto-normal text-center text-muted text-copyright">-->
+<!--        https://www.treadwill.org/-->
+<!--        <p>&copy; TreadWill. All rights reserved.</p>-->
+<!--      </div>-->
+<!--    </div>-->
+
+  </div>
+
+  <div class="container px-0">
+    <div class="mt-4">
+      <mat-icon> email</mat-icon
+      ><a (click)="expandEmail()" class="email-style">Email Result</a>
+    </div>
+    <form *ngIf="this.showEmailBox">
+      <mat-form-field>
+        <mat-label class="placeholder">
+          Enter Email
+        </mat-label>
+        <input matInput type="email" [formControl]="email" required />
+      </mat-form-field>
+      <button
+        [ngClass]="showLoading ? 'btn-style ml-2' : 'btn-style-margin'"
+        type="button"
+        mat-raised-button
+        (click)="sendEmail()"
+      >
+        <ng-container *ngIf="!showLoading; else loading">Send </ng-container>
+        <ng-template #loading>
+          <span class="spinner-border spinner-border-sm"></span>
+          Sending.. &nbsp;&nbsp;
+        </ng-template>
+      </button>
+    </form>
+    <div class="mt-4">
+      <mat-icon>cloud_download</mat-icon>
+      <a class="print-style" (click)="downloadPDF()" *ngIf="showDownload; else downloading">Download Result </a>
+      <ng-template #downloading>
+        <a class="print-style" >Downloading..
+        <span class="spinner-border spinner-border-sm"></span> </a>
+        &nbsp;&nbsp;
+      </ng-template>
+    </div>
+  </div>
+</mat-card>
+</div>

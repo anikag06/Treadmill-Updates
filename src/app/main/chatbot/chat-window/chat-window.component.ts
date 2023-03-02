@@ -1,7 +1,7 @@
 import {
   CHATBOT_RETRY_TIMEOUT,
   FORM_START_VIA_CHAT_BOT_SCORE,
-  MAX_RETRIES,
+  MAX_RETRIES, MAXIMISE_CHAT,
   MOBILE_WIDTH,
   NEW_CHAT,
   REPLY_CURRENT,
@@ -38,6 +38,7 @@ import { CustomOverlayService } from '@/main/shared/custom-overlay/custom-overla
 import { CommonService } from '@/shared/common.service';
 import { IntroService } from '@/main/walk-through/intro.service';
 import * as moment from 'moment';
+import {Subscription} from 'rxjs';
 
 declare var twemoji: any;
 
@@ -121,6 +122,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   @Input() overlayOpen!: boolean;
   @ViewChild('textArea', { static: false }) textArea!: ElementRef;
   @Input() chatWindowClosed = false;
+  @Input() chatMinimised = false;
   @Output() chatWindowClosedEmitter = new EventEmitter<Boolean>();
   counter = 4;
   showMore = false;
@@ -155,8 +157,15 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   SCROLL_DELAY = 500;
   DElAY_PER_WORD_BUTTON = 250;
   FOCUS_DELAY = 200;
+  MINIMISE_CHAT = "MIN CHAT";
+  // chatMinimised = false;
+  minChatTime = 0;
+  minimisedDuration = 0;
+  maxMinimisedDuration = 60; // time in seconds
+  chatMinSub!: Subscription;
 
   ngOnChanges(): void {
+    console.log('websocket open', this.webSocket, this.chatMinimised);
     if (!this.chatWindowClosed) {
       if (
         !this.webSocket ||
@@ -194,6 +203,8 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
             this.showMaintenance = true;
           },
         );
+      } else {
+        console.log('websocket open');
       }
     } else {
       this.closeChat();
@@ -205,6 +216,11 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     if (this.introService.getChatbotIntro()) {
       this.introService.startChatbotCloseIntro();
     }
+    this.chatMinSub = this.chatbotService.chatMinimiseEmitter.subscribe( (val: boolean) => {
+      if (val) {
+        this.minimiseChat();
+      }
+    });
   }
 
   openingStyle() {
@@ -298,13 +314,13 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       setTimeout(() => {
         this.closeChat();
       }, this.SCROLL_DELAY);
-      this.overlayService.closeChatbotOverlay.emit();
+      // this.overlayService.closeChatbotOverlay.emit();
     }
-    this.chatbotService.showOutsideModal = false;
+    // this.chatbotService.showOutsideModal = false;
   }
 
   ngOnDestroy(): void {
-    this.closeChat();
+    // this.closeChat();
   }
 
   chatButtonPressed(button: any) {
@@ -402,6 +418,10 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       }
       this.webSocket.close();
     };
+  }
+
+  resumeChatSession(type: string) {
+    this.webSocket.send(JSON.stringify({ action: type, module_name: '' }));
   }
 
   pushChat(m: any) {
@@ -505,7 +525,9 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   closeChat() {
+    console.log('CLOSE CHAT CALLED', this.webSocket);
     if (this.webSocket) {
+      console.log('WEBSOCKET CLOSE CHAT CALLED');
       this.chatClosed = true;
       this.webSocket.close();
       this.page = 1;
@@ -513,6 +535,33 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     this.retries = 0;
     this.chatWindowClosedEmitter.emit(true);
     this.chatWindowClosed = true;
+  }
+  minimiseChat() {
+    this.retries = 0;
+    // this.chatWindowClosedEmitter.emit(true);
+    // this.chatWindowClosed = false;
+    this.chatMinimised = true;
+    this.minChatTime = Date.now();
+    console.log('WEBSOCKET STATUS', this.webSocket);
+  }
+  maximiseChat() {
+    this.minimisedDuration = Math.floor((Date.now() - this.minChatTime)/60000);
+    console.log('minimise duration', this.minimisedDuration);
+    if (this.minimisedDuration < 1 ) {
+      //
+    } else if (this.minimisedDuration >= 1 && this.minimisedDuration < 3) {
+      setTimeout(() => {
+        this.resumeChatSession(MAXIMISE_CHAT);
+      }, 500);
+    } else {
+      // start new session
+      setTimeout(() => {
+        this.startChatSession(NEW_CHAT);
+      }, 500);
+    }
+    // this.minimisedDuration = 0;
+    this.minChatTime = 0;
+    this.chatMinimised = false;
   }
 
   getWordCount(str: string) {

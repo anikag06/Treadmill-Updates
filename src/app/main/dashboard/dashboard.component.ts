@@ -8,7 +8,7 @@ import { UserProfileService } from '../shared/user-profile/user-profile.service'
 import { IntroService } from '@/main/walk-through/intro.service';
 import { Subscription } from 'rxjs';
 import { isNotNullOrUndefined } from 'codelyzer/util/isNotNullOrUndefined';
-import { QuizService } from '@/shared/questionnaire/questionnaire.service';
+import { QuizService } from '@/shared/questionnaire-deprecated/questionnaire-deprecated.service';
 import { UpdateBottomSheetComponent } from '@/shared/update-bottom-sheet/update-bottom-sheet.component';
 import { SwUpdate } from '@angular/service-worker';
 import { MatBottomSheet } from '@angular/material';
