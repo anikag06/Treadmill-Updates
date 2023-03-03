@@ -5,7 +5,7 @@ import {CommonDialogComponent} from '@/shared/common-dialog/common-dialog.compon
 import {TrialAuthService} from '@/trial-registration/shared/trial-auth.service';
 import {Router} from '@angular/router';
 import {RegistrationDataService} from '@/trial-registration/shared/registration-data.service';
-import {QuizService} from '@/shared/questionnaire/questionnaire.service';
+import {QuizService} from '@/shared/questionnaire-deprecated/questionnaire-deprecated.service';
 import {FcmService} from '@/shared/fcm.service';
 import {A2HSService} from '@/shared/a2hs.service';
 import {MatContactUsDialogService} from '@/shared/mat-contact-us-dialog/mat-contact-us-dialog.service';

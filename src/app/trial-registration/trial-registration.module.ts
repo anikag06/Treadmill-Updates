@@ -27,6 +27,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthHeaderInterceptor } from '@/main/auth-header.interceptor';
 import { TrialsAuthHeaderInterceptor } from '@/trial-registration/shared/trials-auth-header-interceptor';
 import { RegistrationStepOneNextComponent } from './registration-step-one-next/registration-step-one-next.component';
+import {QuestionnaireModule} from '@/questionnaire.module';
 
 @NgModule({
     declarations: [
@@ -55,6 +56,7 @@ import { RegistrationStepOneNextComponent } from './registration-step-one-next/r
         MatRadioModule,
         TrialRegistrationRoutingModule,
         QuestionnaireModule,
+      QuestionnaireDeprecatedModule
     ],
     providers: [
         RegistrationDataService,
@@ -70,8 +72,8 @@ import { RegistrationStepOneNextComponent } from './registration-step-one-next/r
     AboutUsPageComponent,
     FaqPageComponent,
     TermsAndConditionsComponent,
-    PrivacyPolicyComponent
-  ]
+    PrivacyPolicyComponent,
     CommonModule,
+    ]
 })
 export class TrialRegistrationModule {}

@@ -3,7 +3,7 @@ import {FormControl, FormGroup} from '@angular/forms';
 import {Router} from '@angular/router';
 import {TrialAuthService} from '@/trial-registration/shared/trial-auth.service';
 import {MatContactUsDialogService} from '@/shared/mat-contact-us-dialog/mat-contact-us-dialog.service';
-import {QuizService} from '@/shared/questionnaire/questionnaire.service';
+import {QuizService} from '@/shared/questionnaire-deprecated/questionnaire-deprecated.service';
 import {A2HSService} from '@/shared/a2hs.service';
 import {AIIMS_REGISTRATION_PATH, INELIGIBLE_FOR_TRIAL} from '@/app.constants';
 import {TrialAiimsRegistrationService} from '@/trial-aiims-registration/trial-aiims-registration.service';

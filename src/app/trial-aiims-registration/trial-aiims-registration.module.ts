@@ -17,6 +17,7 @@ import {TrialAiimsRegistrationRoutingModule} from '@/trial-aiims-registration/tr
 import {AiimsStepLastPageComponent} from '@/trial-aiims-registration/aiims-step-last-page/aiims-step-last-page.component';
 import { TrialOpenInfoComponent } from './trial-open-info/trial-open-info.component';
 import {TrialRegistrationModule} from '@/trial-registration/trial-registration.module';
+import {QuestionnaireDeprecatedModule} from '@/questionnaire-deprecated.module';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import {TrialRegistrationModule} from '@/trial-registration/trial-registration.m
     TrialAiimsRegistrationRoutingModule,
     QuestionnaireModule,
     TrialRegistrationModule,
+    QuestionnaireDeprecatedModule
   ],
   providers: [
     // RegistrationDataService,
