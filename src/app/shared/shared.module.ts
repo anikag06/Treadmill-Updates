@@ -78,7 +78,7 @@ import {RouterModule} from "@angular/router";
     StepCompletedComponent,
     QuestionnaireComponent,
     QuestionnaireResultComponent,
-    QuestionnaireItemComponent,
+    // QuestionnaireItemComponent,
     CustomNavComponent,
     // QuestionnaireContainerComponent,
   ],

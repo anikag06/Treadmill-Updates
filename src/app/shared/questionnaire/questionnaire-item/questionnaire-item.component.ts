@@ -400,11 +400,14 @@ sliderPosition() {
     localStorage.removeItem('options');
   }
 
-  getIPAddress() {
-    this.http.get('http://api.ipify.org/?format=json').subscribe((res: any) => {
-      this.ip_add = res.ip;
+  async getIPAddress() {
+     await fetch('https://api.ipify.org/?format=json').then((res: any) => res.json())
+    .then(data=> {
+      console.log('ip add', data);
+      this.ip_add = data.ip;
     });
-  }
+   }
+
 
   ngOnDestroy() {
     if (this.sub) {
