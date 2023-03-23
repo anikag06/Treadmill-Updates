@@ -59,6 +59,7 @@ import {TrialAiimsRegistrationComponent} from '@/trial-aiims-registration/trial-
 import {TrialAiimsRegistrationService} from '@/trial-aiims-registration/trial-aiims-registration.service';
 import {TrialOpenRegistrationComponent} from '@/trial-aiims-registration/trial-open-registration/trial-open-registration.component';
 import {TrialRegistrationModule} from '@/trial-registration/trial-registration.module';
+import {SharedModule} from '@/shared/shared.module';
 
 declare let $: any;
 
@@ -107,10 +108,12 @@ declare let $: any;
         MatButtonModule,
         MatSnackBarModule,
         MatRadioModule,
-    MatTableModule,
-    MatTooltipModule,
-    MatCardModule,
+        MatTableModule,
+        MatTooltipModule,
+        MatCardModule,
         TrialRegistrationModule,
+        SharedModule,
+      ],
   providers: [
     { provide: LOCALE_ID, useValue: 'en-US' },
     DialogSize,
