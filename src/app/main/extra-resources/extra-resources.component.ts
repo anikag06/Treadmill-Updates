@@ -172,34 +172,36 @@ export class ExtraResourcesComponent implements OnInit {
         });
       });
 
-       this.quesService
-         .getQuestionnaires()
-         .subscribe((questionnaire_data: any) => {
-           console.log('whole data', questionnaire_data);
-           questionnaire_data.results.forEach((element:any) => {
-             if (element.level !== 2) {
-               this.questionnaireItems.push(<QuestionnaireItem>element);
-               this.countQuestionnaireItem = this.countQuestionnaireItem + 1;
-             }
-           });
-         });
+    // below code for questionnaires commented for version 2
 
-    this.todoBehaviorSub = this.extraResourcesService.todoBehaviour.subscribe(data => {
-      if (data) {
-        console.log('TODO SUB')
-        this.todoquestionnaireItems.length = 0;
-        this.getTodoQuestionnaire();
-        this.questionnaireResults.length = 0;
-        this.questionnaireRefList.length = 0;
-        this.getResults();
-      }
-    });
-    this.getTodoQuestionnaire();
-    this.getResults();
-    this.quesService.openListPage.subscribe( () => {
-      this.onScrollToTop(this.recomList);
-      this.onMyListClick();
-    });
+    //    this.quesService
+    //      .getQuestionnaires()
+    //      .subscribe((questionnaire_data: any) => {
+    //        console.log('whole data', questionnaire_data);
+    //        questionnaire_data.results.forEach((element:any) => {
+    //          if (element.level !== 2) {
+    //            this.questionnaireItems.push(<QuestionnaireItem>element);
+    //            this.countQuestionnaireItem = this.countQuestionnaireItem + 1;
+    //          }
+    //        });
+    //      });
+    //
+    // this.todoBehaviorSub = this.extraResourcesService.todoBehaviour.subscribe(data => {
+    //   if (data) {
+    //     console.log('TODO SUB')
+    //     this.todoquestionnaireItems.length = 0;
+    //     this.getTodoQuestionnaire();
+    //     this.questionnaireResults.length = 0;
+    //     this.questionnaireRefList.length = 0;
+    //     this.getResults();
+    //   }
+    // });
+    // this.getTodoQuestionnaire();
+    // this.getResults();
+    // this.quesService.openListPage.subscribe( () => {
+    //   this.onScrollToTop(this.recomList);
+    //   this.onMyListClick();
+    // });
   }
 
   ngOnDestroy() {
