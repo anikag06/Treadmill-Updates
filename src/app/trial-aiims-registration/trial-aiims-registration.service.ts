@@ -36,8 +36,8 @@ export class TrialAiimsRegistrationService {
     );
   }
 
-  storeOpenEmailID(emailID: any) {
-    const sendData = { email: emailID };
+  storeOpenEmailID(emailID: any, pageCategory: number) {
+    const sendData = { email: emailID, pageCategory: pageCategory };
     return this.http.post(
       environment.API_ENDPOINT + OPEN_EMAIL_REGISTRATION,
       sendData,

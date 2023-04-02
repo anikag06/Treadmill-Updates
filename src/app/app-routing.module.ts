@@ -10,6 +10,18 @@ import { ResetPasswordComponent } from '@/pre-login/reset-password/reset-passwor
 import {TrialAiimsRegistrationComponent} from '@/trial-aiims-registration/trial-aiims-registration/trial-aiims-registration.component';
 import {TrialAiimsRegistrationRoutingModule} from '@/trial-aiims-registration/trial-aiims-registration-routing.module';
 import {TrialOpenRegistrationComponent} from '@/trial-aiims-registration/trial-open-registration/trial-open-registration.component';
+import {
+  TrialWorkPageRegistrationComponent
+} from '@/trial-aiims-registration/trial-work-page-registration/trial-work-page-registration.component';
+import {
+  TrialStudentPageRegistrationComponent
+} from '@/trial-aiims-registration/trial-student-page-registration/trial-student-page-registration.component';
+import {
+  TrialLifePageRegistrationComponent
+} from '@/trial-aiims-registration/trial-life-page-registration/trial-life-page-registration.component';
+import {
+  TrialLearnPageRegistrationComponent
+} from '@/trial-aiims-registration/trial-learn-page-registration/trial-learn-page-registration.component';
 
 export const routes: Routes = [
 
@@ -64,6 +76,26 @@ export const routes: Routes = [
     pathMatch: 'full',
   },
   {
+    path: 'work',
+    component: TrialWorkPageRegistrationComponent,
+    pathMatch: 'full',
+  },
+  {
+    path: 'student',
+    component: TrialStudentPageRegistrationComponent,
+    pathMatch: 'full',
+  },
+  {
+    path: 'life',
+    component: TrialLifePageRegistrationComponent,
+    pathMatch: 'full',
+  },
+  {
+    path: 'learn',
+    component: TrialLearnPageRegistrationComponent,
+    pathMatch: 'full',
+  },
+  {
     path: 'aiims532/r',
     loadChildren: () =>
       import('./trial-aiims-registration/trial-aiims-registration.module').then(
@@ -72,6 +104,34 @@ export const routes: Routes = [
   },
   {
     path: 'open/r',
+    loadChildren: () =>
+      import('./trial-aiims-registration/trial-aiims-registration.module').then(
+        m => m.TrialAiimsRegistrationModule,
+      ),
+  },
+  {
+    path: 'work/r',
+    loadChildren: () =>
+      import('./trial-aiims-registration/trial-aiims-registration.module').then(
+        m => m.TrialAiimsRegistrationModule,
+      ),
+  },
+  {
+    path: 'student/r',
+    loadChildren: () =>
+      import('./trial-aiims-registration/trial-aiims-registration.module').then(
+        m => m.TrialAiimsRegistrationModule,
+      ),
+  },
+  {
+    path: 'life/r',
+    loadChildren: () =>
+      import('./trial-aiims-registration/trial-aiims-registration.module').then(
+        m => m.TrialAiimsRegistrationModule,
+      ),
+  },
+  {
+    path: 'learn/r',
     loadChildren: () =>
       import('./trial-aiims-registration/trial-aiims-registration.module').then(
         m => m.TrialAiimsRegistrationModule,

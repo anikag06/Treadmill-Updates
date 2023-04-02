@@ -7,19 +7,21 @@ import {TrialAiimsRegistrationService} from '@/trial-aiims-registration/trial-ai
 import {QuizService} from '@/shared/questionnaire/questionnaire.service';
 import {A2HSService} from '@/shared/a2hs.service';
 import {
-  AIIMS_REGISTRATION_PATH, LEARN_GROUP_REGISTRATION_PATH, LIFE_GROUP_REGISTRATION_PATH,
+  AIIMS_REGISTRATION_PATH,
+  LEARN_GROUP, LEARN_GROUP_REGISTRATION_PATH,
+  LIFE_GROUP_REGISTRATION_PATH,
   OPEN_GROUP,
   OPEN_REGISTRATION_PATH,
-  REGISTRATION_PATH,
   STUDENT_GROUP_REGISTRATION_PATH, WORK_GROUP_REGISTRATION_PATH
 } from '@/app.constants';
 
 @Component({
-  selector: 'app-trial-open-registration',
-  templateUrl: './trial-open-registration.component.html',
-  styleUrls: ['./trial-open-registration.component.scss']
+  selector: 'app-trial-learn-page-registration',
+  templateUrl: './trial-learn-page-registration.component.html',
+  styleUrls: ['./trial-learn-page-registration.component.scss']
 })
-export class TrialOpenRegistrationComponent implements OnInit {
+export class TrialLearnPageRegistrationComponent implements OnInit {
+
   @ViewChild('stepOneDiv', { static: false }) stepOneDiv!: ElementRef;
 
   stepNo = 1;
@@ -41,7 +43,7 @@ export class TrialOpenRegistrationComponent implements OnInit {
   emailServicePresent = false;
   remainingParticipants = 2000;
   registration_path!: string;
-  page_category =  OPEN_GROUP;
+  page_category =  LEARN_GROUP;
 
 
   emailForm = new FormGroup({
@@ -87,17 +89,17 @@ export class TrialOpenRegistrationComponent implements OnInit {
                 res_data.data.category;
               if(this.aiimsRegistrationDataService.category == 1) {
                 this.registration_path = AIIMS_REGISTRATION_PATH;
-                } else if (this.aiimsRegistrationDataService.category == 2) {
-                  this.registration_path = OPEN_REGISTRATION_PATH;
-                } else if (this.aiimsRegistrationDataService.category == 3) {
-                  this.registration_path = STUDENT_GROUP_REGISTRATION_PATH;
-                } else if (this.aiimsRegistrationDataService.category == 4) {
-                  this.registration_path = LIFE_GROUP_REGISTRATION_PATH;
-                } else if (this.aiimsRegistrationDataService.category == 5) {
-                  this.registration_path = LEARN_GROUP_REGISTRATION_PATH;
-                } else if (this.aiimsRegistrationDataService.category == 6) {
-                  this.registration_path = WORK_GROUP_REGISTRATION_PATH;
-                }
+              } else if (this.aiimsRegistrationDataService.category == 2) {
+                this.registration_path = OPEN_REGISTRATION_PATH;
+              } else if (this.aiimsRegistrationDataService.category == 3) {
+                this.registration_path = STUDENT_GROUP_REGISTRATION_PATH;
+              } else if (this.aiimsRegistrationDataService.category == 4) {
+                this.registration_path = LIFE_GROUP_REGISTRATION_PATH;
+              } else if (this.aiimsRegistrationDataService.category == 5) {
+                this.registration_path = LEARN_GROUP_REGISTRATION_PATH;
+              } else if (this.aiimsRegistrationDataService.category == 6) {
+                this.registration_path = WORK_GROUP_REGISTRATION_PATH;
+              }
               this.userEligible = !res_data.data.excluded;
               if (this.userEligible) {
                 this.authService.activateChild(true);
@@ -157,9 +159,9 @@ export class TrialOpenRegistrationComponent implements OnInit {
 
   onFAQClick() {
     this.router.navigate(['open/r/info'],
-    {queryParams: {
-      type: 'faq'}
-    });
+      {queryParams: {
+          type: 'faq'}
+      });
   }
 
   onContactUsClick() {
@@ -169,8 +171,8 @@ export class TrialOpenRegistrationComponent implements OnInit {
   onPrivacyPolicyClick() {
     this.router.navigate(['open/r/info'],
       {queryParams: {
-      type: 'pp'}
-  });
+          type: 'pp'}
+      });
   }
 
   onTermsConditions() {
@@ -180,8 +182,8 @@ export class TrialOpenRegistrationComponent implements OnInit {
       });
   }
   onLogoClick() {
-    this.router.navigate([OPEN_REGISTRATION_PATH]);
-    }
+    this.router.navigate([LEARN_GROUP_REGISTRATION_PATH]);
+  }
 
 }
 

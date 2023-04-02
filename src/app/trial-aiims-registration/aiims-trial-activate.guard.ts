@@ -2,7 +2,13 @@ import { Injectable } from '@angular/core';
 import {CanActivate, CanActivateChild, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router} from '@angular/router';
 import { Observable } from 'rxjs';
 import {TrialAuthService} from '@/trial-registration/shared/trial-auth.service';
-import {AIIMS_REGISTRATION_PATH, OPEN_REGISTRATION_PATH, REGISTRATION_PATH} from '@/app.constants';
+import {
+  AIIMS_REGISTRATION_PATH, LEARN_GROUP_REGISTRATION_PATH,
+  LIFE_GROUP_REGISTRATION_PATH,
+  OPEN_REGISTRATION_PATH,
+  REGISTRATION_PATH, STUDENT_GROUP_REGISTRATION_PATH,
+  WORK_GROUP_REGISTRATION_PATH
+} from '@/app.constants';
 import {TrialAiimsRegistrationService} from '@/trial-aiims-registration/trial-aiims-registration.service';
 
 @Injectable({
@@ -25,6 +31,14 @@ export class AiimsTrialActivateGuard implements CanActivate, CanActivateChild {
         this.router.navigate([AIIMS_REGISTRATION_PATH]);
       } else if(state.url.includes('/open/')) {
         this.router.navigate([OPEN_REGISTRATION_PATH]);
+      } else if(state.url.includes('/life/')) {
+      this.router.navigate([LIFE_GROUP_REGISTRATION_PATH]);
+      } else if(state.url.includes('/work/')) {
+      this.router.navigate([WORK_GROUP_REGISTRATION_PATH]);
+      } else if(state.url.includes('/student/')) {
+      this.router.navigate([STUDENT_GROUP_REGISTRATION_PATH]);
+      } else if(state.url.includes('/learn/')) {
+      this.router.navigate([LEARN_GROUP_REGISTRATION_PATH]);
       }
       return false;
     }

@@ -28,7 +28,12 @@ import {
   GAD7,
   SIQ,
   PHQ9,
-  DEFAULT_PATH, AIIMS_REGISTRATION_PATH, OPEN_REGISTRATION_PATH,
+  DEFAULT_PATH,
+  AIIMS_REGISTRATION_PATH,
+  OPEN_REGISTRATION_PATH,
+  STUDENT_GROUP_REGISTRATION_PATH,
+  LIFE_GROUP_REGISTRATION_PATH,
+  LEARN_GROUP_REGISTRATION_PATH, WORK_GROUP_REGISTRATION_PATH,
 } from '@/app.constants';
 import { AuthService } from '../auth/auth.service';
 import {
@@ -754,8 +759,16 @@ export class QuestionnaireComponent implements OnInit {
               res_data.data.category;
             if(this.aiimsRegistrationDataService.category == 1) {
               this.registration_path = AIIMS_REGISTRATION_PATH;
-            } else {
+            } else if (this.aiimsRegistrationDataService.category == 2) {
               this.registration_path = OPEN_REGISTRATION_PATH;
+            } else if (this.aiimsRegistrationDataService.category == 3) {
+              this.registration_path = STUDENT_GROUP_REGISTRATION_PATH;
+            } else if (this.aiimsRegistrationDataService.category == 4) {
+              this.registration_path = LIFE_GROUP_REGISTRATION_PATH;
+            } else if (this.aiimsRegistrationDataService.category == 5) {
+              this.registration_path = LEARN_GROUP_REGISTRATION_PATH;
+            } else if (this.aiimsRegistrationDataService.category == 6) {
+              this.registration_path = WORK_GROUP_REGISTRATION_PATH;
             }
             if (userEligible && !this.iswaitList) {
               this.trialAuthService.activateChild(true);

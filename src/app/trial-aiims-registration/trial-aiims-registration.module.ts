@@ -24,7 +24,7 @@ import {TrialRegistrationModule} from '@/trial-registration/trial-registration.m
     AiimsRegistrationStepThreeComponent,
     AiimsRegistrationStepFourComponent,
     AiimsStepLastPageComponent,
-    TrialOpenInfoComponent
+    TrialOpenInfoComponent,
   ],
   imports: [
     FormsModule,
