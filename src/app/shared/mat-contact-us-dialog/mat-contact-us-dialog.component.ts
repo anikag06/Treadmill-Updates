@@ -36,9 +36,11 @@ export class MatContactUsDialogComponent implements OnInit {
   openPage = false;
   ngOnInit() {
     // this.onChanges();
-    if (this.router.url.includes('open') || this.router.url.includes('aiims532')) {
+    if (this.router.url.includes('open') || this.router.url.includes('aiims532') ||
+        this.router.url.includes('life') || this.router.url.includes('learn') ||
+        this.router.url.includes('work') || this.router.url.includes('student')) {
       this.openPage = true;
-      // console.log('open')
+      console.log('open')
     }
 
   }
