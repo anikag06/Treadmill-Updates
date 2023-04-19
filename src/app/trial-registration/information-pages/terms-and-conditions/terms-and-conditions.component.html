@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" [ngStyle]="{ paddingLeft: !openPage ? '15px' : '0px' , paddingRight: !openPage ? '15px' : '0px' }">
     <app-trial-pages-header *ngIf="!openPage"></app-trial-pages-header>
 
     <div class="row mx-1 mt-3">
