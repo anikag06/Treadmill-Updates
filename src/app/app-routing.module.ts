@@ -13,6 +13,18 @@ import {TrialOpenRegistrationComponent} from '@/trial-aiims-registration/trial-o
 import { QuestionnaireContainerModule } from '@/questionnaire-container.module';
 import { QuestionnaireContainerComponent } from '@/shared/questionnaire-container/questionnaire-container.component';
 import { QuestionnaireItemComponent } from '@/shared/questionnaire/questionnaire-item/questionnaire-item.component';
+import {
+  TrialWorkPageRegistrationComponent
+} from '@/trial-aiims-registration/trial-work-page-registration/trial-work-page-registration.component';
+import {
+  TrialStudentPageRegistrationComponent
+} from '@/trial-aiims-registration/trial-student-page-registration/trial-student-page-registration.component';
+import {
+  TrialLifePageRegistrationComponent
+} from '@/trial-aiims-registration/trial-life-page-registration/trial-life-page-registration.component';
+import {
+  TrialLearnPageRegistrationComponent
+} from '@/trial-aiims-registration/trial-learn-page-registration/trial-learn-page-registration.component';
 
 export const routes: Routes = [
 
@@ -79,6 +91,26 @@ export const routes: Routes = [
     pathMatch: 'full',
   },
   {
+    path: 'work',
+    component: TrialWorkPageRegistrationComponent,
+    pathMatch: 'full',
+  },
+  {
+    path: 'student',
+    component: TrialStudentPageRegistrationComponent,
+    pathMatch: 'full',
+  },
+  {
+    path: 'life',
+    component: TrialLifePageRegistrationComponent,
+    pathMatch: 'full',
+  },
+  {
+    path: 'learn',
+    component: TrialLearnPageRegistrationComponent,
+    pathMatch: 'full',
+  },
+  {
     path: 'aiims532/r',
     loadChildren: () =>
       import('./trial-aiims-registration/trial-aiims-registration.module').then(
@@ -87,6 +119,34 @@ export const routes: Routes = [
   },
   {
     path: 'open/r',
+    loadChildren: () =>
+      import('./trial-aiims-registration/trial-aiims-registration.module').then(
+        m => m.TrialAiimsRegistrationModule,
+      ),
+  },
+  {
+    path: 'work/r',
+    loadChildren: () =>
+      import('./trial-aiims-registration/trial-aiims-registration.module').then(
+        m => m.TrialAiimsRegistrationModule,
+      ),
+  },
+  {
+    path: 'student/r',
+    loadChildren: () =>
+      import('./trial-aiims-registration/trial-aiims-registration.module').then(
+        m => m.TrialAiimsRegistrationModule,
+      ),
+  },
+  {
+    path: 'life/r',
+    loadChildren: () =>
+      import('./trial-aiims-registration/trial-aiims-registration.module').then(
+        m => m.TrialAiimsRegistrationModule,
+      ),
+  },
+  {
+    path: 'learn/r',
     loadChildren: () =>
       import('./trial-aiims-registration/trial-aiims-registration.module').then(
         m => m.TrialAiimsRegistrationModule,

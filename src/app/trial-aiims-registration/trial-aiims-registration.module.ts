@@ -25,7 +25,7 @@ import {QuestionnaireDeprecatedModule} from '@/questionnaire-deprecated.module';
     AiimsRegistrationStepThreeComponent,
     AiimsRegistrationStepFourComponent,
     AiimsStepLastPageComponent,
-    TrialOpenInfoComponent
+    TrialOpenInfoComponent,
   ],
   imports: [
     FormsModule,

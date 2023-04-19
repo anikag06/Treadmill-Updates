@@ -9,7 +9,13 @@ import {QuizService} from '@/shared/questionnaire-deprecated/questionnaire-depre
 import {FcmService} from '@/shared/fcm.service';
 import {A2HSService} from '@/shared/a2hs.service';
 import {MatContactUsDialogService} from '@/shared/mat-contact-us-dialog/mat-contact-us-dialog.service';
-import {AIIMS_REGISTRATION_PATH, INELIGIBLE_FOR_TRIAL, OPEN_REGISTRATION_PATH} from '@/app.constants';
+import {
+  AIIMS_REGISTRATION_PATH,
+  INELIGIBLE_FOR_TRIAL, LEARN_GROUP_REGISTRATION_PATH,
+  LIFE_GROUP_REGISTRATION_PATH,
+  OPEN_REGISTRATION_PATH,
+  STUDENT_GROUP_REGISTRATION_PATH, WORK_GROUP_REGISTRATION_PATH
+} from '@/app.constants';
 import {TrialAiimsRegistrationService} from '@/trial-aiims-registration/trial-aiims-registration.service';
 
 @Component({
@@ -141,8 +147,16 @@ export class AiimsRegistrationStepFourComponent implements OnInit {
           res_data.category;
         if(this.aiimsRegistrationDataService.category == 1) {
           this.registration_path = AIIMS_REGISTRATION_PATH;
-        } else {
+        } else if (this.aiimsRegistrationDataService.category == 2) {
           this.registration_path = OPEN_REGISTRATION_PATH;
+        } else if (this.aiimsRegistrationDataService.category == 3) {
+          this.registration_path = STUDENT_GROUP_REGISTRATION_PATH;
+        } else if (this.aiimsRegistrationDataService.category == 4) {
+          this.registration_path = LIFE_GROUP_REGISTRATION_PATH;
+        } else if (this.aiimsRegistrationDataService.category == 5) {
+          this.registration_path = LEARN_GROUP_REGISTRATION_PATH;
+        } else if (this.aiimsRegistrationDataService.category == 6) {
+          this.registration_path = WORK_GROUP_REGISTRATION_PATH;
         }
         if (this.userEligible) {
           this.authService.activateChild(true);

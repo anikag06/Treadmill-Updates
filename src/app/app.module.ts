@@ -59,6 +59,18 @@ import {TrialAiimsRegistrationComponent} from '@/trial-aiims-registration/trial-
 import {TrialAiimsRegistrationService} from '@/trial-aiims-registration/trial-aiims-registration.service';
 import {TrialOpenRegistrationComponent} from '@/trial-aiims-registration/trial-open-registration/trial-open-registration.component';
 import {TrialRegistrationModule} from '@/trial-registration/trial-registration.module';
+import {
+  TrialLifePageRegistrationComponent
+} from '@/trial-aiims-registration/trial-life-page-registration/trial-life-page-registration.component';
+import {
+  TrialStudentPageRegistrationComponent
+} from '@/trial-aiims-registration/trial-student-page-registration/trial-student-page-registration.component';
+import {
+  TrialWorkPageRegistrationComponent
+} from '@/trial-aiims-registration/trial-work-page-registration/trial-work-page-registration.component';
+import {
+  TrialLearnPageRegistrationComponent
+} from '@/trial-aiims-registration/trial-learn-page-registration/trial-learn-page-registration.component';
 import {SharedModule} from '@/shared/shared.module';
 
 declare let $: any;
@@ -82,6 +94,10 @@ declare let $: any;
     ChangeBrowserDialogComponent,
     TrialAiimsRegistrationComponent,
     TrialOpenRegistrationComponent,
+    TrialLifePageRegistrationComponent,
+    TrialStudentPageRegistrationComponent,
+    TrialWorkPageRegistrationComponent,
+    TrialLearnPageRegistrationComponent
   ],
     imports: [
         BrowserModule,

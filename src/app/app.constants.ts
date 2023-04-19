@@ -77,6 +77,15 @@ export const LOGIN_PATH = '/api/v1/user/login/';
 export const SIGN_UP_PATH = '/api/v1/user/registration/';
 export const VERIFY_PARTICIPANT = '/api/v1/trial-iitk/verify-sign-up-link/';
 // export const VERIFY_PARTICIPANT_AIIMS = '/api/v1/trial-aiims/verify-sign-up-link/';
+//Different category for open group
+export const AIIMS_GROUP = 1;
+export const OPEN_GROUP = 2;
+export const STUDENT_GROUP = 3;
+export const LIFE_GROUP = 4;
+export const LEARN_GROUP = 5;
+export const WORK_GROUP = 6;
+
+
 
 export const GET_SIGNUP_MAIL = '/api/v1/trial-iitk/get-sign-up-mail/';
 export const GET_SIGNUP_MAIL_AIIMS = '/api/v1/trial-aiims/get-sign-up-mail/';
@@ -396,6 +405,11 @@ export const INELIGIBLE_FOR_TRIAL = '/trial/thankyou';
 export const REGISTRATION_PATH = '/trial/trial-registration';
 export const AIIMS_REGISTRATION_PATH = '/aiims532/';
 export const OPEN_REGISTRATION_PATH = '/open/';
+export const STUDENT_GROUP_REGISTRATION_PATH = '/student/';
+export const LIFE_GROUP_REGISTRATION_PATH = '/life/';
+export const LEARN_GROUP_REGISTRATION_PATH = '/learn/';
+export const WORK_GROUP_REGISTRATION_PATH = '/work/';
+
 
 
 

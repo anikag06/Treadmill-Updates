@@ -1,5 +1,5 @@
 <div  *ngIf="showRegistrationContent else desktopMessage">
-    <div class="container-fluid">
+    <div class="container-fluid" [ngStyle]="{ paddingLeft: !openPage ? '15px' : '0px' , paddingRight: !openPage ? '15px' : '0px' }">
         <app-trial-pages-header *ngIf="!openPage"></app-trial-pages-header>
 
         <div class="row mx-1 my-3">
@@ -114,7 +114,7 @@
         </div>
 
 
-        <div class="row my-4 py-3">
+        <div class="row my-4 py-3" *ngIf="!openPage">
             <div class="col-12 text-center">
                 <span class="small-font less-opacity"> For any question check
                     <a routerLink="{{faqLink}}" > FAQ </a>  or

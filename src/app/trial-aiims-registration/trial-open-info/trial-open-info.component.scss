@@ -1,1 +1,12 @@
 @import "../trial-open-registration/trial-open-registration.component";
+
+.back-button {
+  background-color: inherit;
+  outline: none;
+  line-height: 1;
+  min-width: 24px;
+  padding-right: 0;
+  font-size: 14px;
+  padding-left: 0;
+  margin-left: 16px;
+}

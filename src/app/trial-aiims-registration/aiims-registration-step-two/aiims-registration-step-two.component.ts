@@ -4,8 +4,15 @@ import {RegistrationStepTwoForm} from '@/trial-registration/registration-step-tw
 import {TrialAuthService} from '@/trial-registration/shared/trial-auth.service';
 import {Router} from '@angular/router';
 import {RegistrationDataService} from '@/trial-registration/shared/registration-data.service';
+import {QuizService} from '@/shared/questionnaire/questionnaire.service';
+import {
+  AIIMS_REGISTRATION_PATH,
+  INELIGIBLE_FOR_TRIAL, LEARN_GROUP_REGISTRATION_PATH, LIFE_GROUP_REGISTRATION_PATH,
+  OPEN_REGISTRATION_PATH,
+  REGISTRATION_PATH,
+  STUDENT_GROUP_REGISTRATION_PATH, WORK_GROUP_REGISTRATION_PATH
+} from '@/app.constants';
 import {QuizService} from '@/shared/questionnaire-deprecated/questionnaire-deprecated.service';
-import {AIIMS_REGISTRATION_PATH, INELIGIBLE_FOR_TRIAL, OPEN_REGISTRATION_PATH, REGISTRATION_PATH} from '@/app.constants';
 import {RegistrationStepFourForm} from '@/trial-registration/registration-step-four/step-four-consent.model';
 import {MatDialog, MatDialogRef} from '@angular/material';
 import {CommonDialogComponent} from '@/shared/common-dialog/common-dialog.component';
@@ -161,10 +168,17 @@ export class AiimsRegistrationStepTwoComponent implements OnInit {
           this.aiimsRegistrationDataService.category =
             res_data.category;
           if(this.aiimsRegistrationDataService.category == 1) {
-            // console.log('aiims path');
             this.registration_path = AIIMS_REGISTRATION_PATH;
-          } else {
+          } else if (this.aiimsRegistrationDataService.category == 2) {
             this.registration_path = OPEN_REGISTRATION_PATH;
+          } else if (this.aiimsRegistrationDataService.category == 3) {
+            this.registration_path = STUDENT_GROUP_REGISTRATION_PATH;
+          } else if (this.aiimsRegistrationDataService.category == 4) {
+            this.registration_path = LIFE_GROUP_REGISTRATION_PATH;
+          } else if (this.aiimsRegistrationDataService.category == 5) {
+            this.registration_path = LEARN_GROUP_REGISTRATION_PATH;
+          } else if (this.aiimsRegistrationDataService.category == 6) {
+            this.registration_path = WORK_GROUP_REGISTRATION_PATH;
           }
           if (this.userEligible) {
             this.authService.activateChild(true);

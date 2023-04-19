@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {OPEN_REGISTRATION_PATH} from '@/app.constants';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-trial-open-info',
@@ -9,7 +10,10 @@ import {OPEN_REGISTRATION_PATH} from '@/app.constants';
 })
 export class TrialOpenInfoComponent implements OnInit {
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute,) {
+  constructor(private router: Router,
+              private activatedRoute: ActivatedRoute,
+              private location: Location,
+  ) {
   }
 
   openPage!: boolean;
@@ -34,5 +38,9 @@ export class TrialOpenInfoComponent implements OnInit {
   onLogoClick() {
     this.router.navigate([OPEN_REGISTRATION_PATH]);
   }
+  backClick() {
+    this.location.back();
+  }
+
 
 }
