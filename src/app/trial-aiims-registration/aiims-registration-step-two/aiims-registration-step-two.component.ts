@@ -4,7 +4,6 @@ import {RegistrationStepTwoForm} from '@/trial-registration/registration-step-tw
 import {TrialAuthService} from '@/trial-registration/shared/trial-auth.service';
 import {Router} from '@angular/router';
 import {RegistrationDataService} from '@/trial-registration/shared/registration-data.service';
-import {QuizService} from '@/shared/questionnaire/questionnaire.service';
 import {
   AIIMS_REGISTRATION_PATH,
   INELIGIBLE_FOR_TRIAL, LEARN_GROUP_REGISTRATION_PATH, LIFE_GROUP_REGISTRATION_PATH,

@@ -4,7 +4,6 @@ import {Router} from '@angular/router';
 import {TrialAuthService} from '@/trial-registration/shared/trial-auth.service';
 import {MatContactUsDialogService} from '@/shared/mat-contact-us-dialog/mat-contact-us-dialog.service';
 import {TrialAiimsRegistrationService} from '@/trial-aiims-registration/trial-aiims-registration.service';
-import {QuizService} from '@/shared/questionnaire/questionnaire.service';
 import {A2HSService} from '@/shared/a2hs.service';
 import {
   AIIMS_REGISTRATION_PATH, LEARN_GROUP_REGISTRATION_PATH,
@@ -14,6 +13,7 @@ import {
   STUDENT_GROUP_REGISTRATION_PATH,
   WORK_GROUP, WORK_GROUP_REGISTRATION_PATH
 } from '@/app.constants';
+import {QuizService} from '@/shared/questionnaire-deprecated/questionnaire-deprecated.service';
 
 @Component({
   selector: 'app-trial-work-page-registration',
