@@ -25,6 +25,9 @@ import { MatProgressBarModule } from '@angular/material';
 import { QuestionnaireResultComponent } from '@/shared/questionnaire/shared/questionnaire-result/questionnaire-result.component';
 import { CustomNavComponent } from '@/shared/questionnaire/shared/custom-nav/custom-nav.component';
 import {RouterModule} from "@angular/router";
+import {
+  QuestionnaireInstructionsDialogComponent
+} from '@/shared/questionnaire/shared/questionnaire-instructions-dialog/questionnaire-instructions-dialog.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +50,7 @@ import {RouterModule} from "@angular/router";
     QuestionnaireItemComponent,
     QuestionnaireResultComponent,
     CustomNavComponent,
+    QuestionnaireInstructionsDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -86,6 +90,7 @@ import {RouterModule} from "@angular/router";
     SlidesVideoComponent,
     DateTimePickerComponent,
     MoodTrackerComponent,
+    QuestionnaireInstructionsDialogComponent,
     CongratsDialogComponent,
   ],
 })

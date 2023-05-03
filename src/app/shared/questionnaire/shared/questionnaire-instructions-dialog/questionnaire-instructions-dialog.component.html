@@ -1,0 +1,27 @@
+<!--<div class='container-div' >-->
+  <div class="" style="height: 70vh; position: relative;">
+    <div class="row mx-auto justify-content-center">
+      <div class="col-lg-10 my-auto">
+        <div class = "row">
+          <div class = "col">
+              <h5 class = "title-style">{{data.questionnaireItem.title}}</h5>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col"
+
+              [innerHTML]="data.questionnaireItem.instructions"
+              class="instruction-style">
+
+          </div>
+        </div>
+
+      </div>
+      <div class="row d-flex justify-content-center" style="position: absolute; bottom: 0;">
+        <button class="btn-style" mat-raised-button (click)="closeModal()">
+          Go back
+        </button>
+      </div>
+    </div>
+  </div>
+<!--</div>-->

@@ -11,10 +11,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { QuestionModel } from '@/shared/questionnaire/shared/question.model';
 import { AuthService } from '@/shared/auth/auth.service';
 import { User } from '@/shared/user.model';
-import { MatSliderChange } from '@angular/material';
+import {MatDialog, MatDialogRef, MatSliderChange} from '@angular/material';
 import { HttpClient } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import {QuestionnaireItem} from '@/shared/questionnaire/shared/questionnaire.model';
+import {
+  QuestionnaireInstructionsDialogComponent
+} from '@/shared/questionnaire/shared/questionnaire-instructions-dialog/questionnaire-instructions-dialog.component';
+
 
 
 @Component({
@@ -63,6 +67,7 @@ export class QuestionnaireItemComponent implements OnInit {
   // oldQuestionsArray: QuestionModel[] = [];
   auditQuestionScore!: number;
   showBackArrow = true;
+  dialogRef!: MatDialogRef<QuestionnaireInstructionsDialogComponent>;
   constructor(
     private quizService: QuizService,
     private questionnaireService: QuestionnaireService,
@@ -72,7 +77,8 @@ export class QuestionnaireItemComponent implements OnInit {
     private authService: AuthService,
     private element: ElementRef,
     private http: HttpClient,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private dialog: MatDialog,
   ) {
     // tslint:disable-next-line:no-non-null-assertion
     if (this.router.getCurrentNavigation() !== null) {
@@ -486,5 +492,17 @@ sliderPosition() {
       this.skipQuestions = true;
       this.showBackArrow = false;
     }
+  }
+  showInstructionsDialog(){
+    this.dialogRef = this.dialog.open(QuestionnaireInstructionsDialogComponent, {
+      data: {
+        loading: true,
+        questionnaireItem: this.questionnaireItem,
+      },
+      disableClose: true,
+      minWidth: '90vw',
+      autoFocus: false,
+    });
+
   }
 }

@@ -107,7 +107,7 @@ export class QuestionnaireResultComponent implements OnInit {
   }
 
   checkScoreType(score: any) {
-    if (/^[0-9]+$/.test(score)) {
+    if (Number(score)) {
       return true;
     } else {
       return false;
