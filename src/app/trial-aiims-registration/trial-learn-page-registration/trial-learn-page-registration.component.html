@@ -1,18 +1,84 @@
-<div *ngIf="showRegistrationContent else desktopMessage">
-  <div class="container-fluid w-100 small-font" #stepOneDiv>
-    <!--    header-->
-    <div class="row sticky-top align-items-center" id="top-logo">
+<mat-drawer-container class="pre-login-side-nav-drawer-container">
+  <mat-drawer #drawer class="pre-login-side-nav-drawer">
+    <mat-nav-list role="navigation">
+      <a
+        mat-list-item
+        class="pre-login-side-nav-anchor"
+        (click)="questionnaireClicked()"
+      >Questionnaires</a>
+      <a mat-list-item class="pre-login-side-nav-anchor" (click)="onTermsConditions()">Terms and conditions</a>
+      <a mat-list-item class="pre-login-side-nav-anchor" (click)="onPrivacyPolicyClick()">Privacy policy</a>
+    </mat-nav-list>
+  </mat-drawer>
+  <mat-drawer-content>
+    <mat-toolbar class="mat-pre-login-toolbar-color d-flex-wrap">
+      <div class="d-block d-sm-none">
+        <mat-icon (click)="drawer.toggle()" class="pre-login-toolbar-burger"
+        >menu</mat-icon
+        >
+      </div>
+<!--      <div class="d-none d-sm-block">-->
+<!--        <img-->
+<!--          alt="TreadWill logo"-->
+<!--          style="width: 40%"-->
+<!--          src="assets/shared/logo_full.svg"-->
+<!--          class="logo-landscape"-->
+<!--        />-->
+<!--      </div>-->
+      <div class="row sticky-top mx-0 align-items-center" id="top-logo">
       <div class="col px-0"  style=" cursor: pointer;">
         <img src="../../../assets/shared/logo_full.svg"
              (click)="onLogoClick()"
              class="w-100 log-img">
       </div>
-      <div class="col-5 mt-2 pl-0">
-        <p  class="text-property my-0"> <b>  Step 1 </b></p>
       </div>
-      <div class="bar w-100 mt-auto">
+      <div class="d-none d-sm-block links">
+        <a
+          mat-button
+          class="anchorify-pre-login-toolbar-button float-right login-btn"
+          (click)="onLoginClicked()"
+          *ngIf="!loggedIn"
+        >
+          Login
+        </a>
+        <a
+          mat-button
+          class="anchorify-pre-login-toolbar-button float-right"
+          (click)="questionnaireClicked()"
+        >Questionnaires</a
+        >
       </div>
-    </div>
+      <div class="d-block d-sm-none">
+        <a
+          [ngStyle]="{ right: '0', position: 'absolute', top: '15px', fontSize:'16px' }"
+          mat-button
+          class="anchorify-pre-login-toolbar-button float-right login-btn"
+          (click)="onLoginClicked()"
+          *ngIf="!loggedIn"
+        >
+          Login
+        </a>
+      </div>
+    </mat-toolbar>
+  </mat-drawer-content>
+
+
+  <mat-drawer-content>
+<div *ngIf="showRegistrationContent else desktopMessage">
+  <div class="container-fluid w-100 small-font" #stepOneDiv>
+    <!--    header-->
+<!--    <div class="row sticky-top align-items-center" id="">-->
+<!--      <div class="col px-0"  style=" cursor: pointer;">-->
+<!--        <img src="../../../assets/shared/logo_full.svg"-->
+<!--             (click)="onLogoClick()"-->
+<!--             class="w-100 log-img">-->
+<!--      </div>-->
+<!--      <div class="col-5 mt-2 pl-0">-->
+<!--        <p  class="text-property my-0"> <b>  Step 1 </b></p>-->
+<!--      </div>-->
+<!--      <div class="bar w-100 mt-auto">-->
+<!--      </div>-->
+<!--    </div>-->
     <!--    till here-->
 
 
@@ -107,7 +173,8 @@
     </div>
   </div>
 </div>
-
+  </mat-drawer-content>
+</mat-drawer-container>
 <ng-template #desktopMessage>
   <div>
     <!--        Open this link on your mobile.-->

@@ -1,3 +1,16 @@
 @import "../trial-aiims-registration/trial-aiims-registration.component";
 @import "../trial-open-registration/trial-open-registration.component";
-
+.mat-pre-login-toolbar-color {
+  background-color: #2a3b3d;
+  height: 74px;
+}
+.login-btn {
+  color: white;
+  top: 18px;
+}
+.mat-toolbar {
+  height: 74px;
+}
+.pre-login-toolbar-burger {
+  color: #fff;
+}
