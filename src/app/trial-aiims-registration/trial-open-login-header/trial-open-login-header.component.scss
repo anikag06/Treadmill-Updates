@@ -1,0 +1,25 @@
+@import "../trial-aiims-registration/trial-aiims-registration.component";
+@import "../trial-open-registration/trial-open-registration.component";
+@import "../../pre-login/pre-login.component";
+.mat-drawer-container{
+  background-color: white;
+}
+.mat-pre-login-toolbar-color {
+  background-color: #293839;
+  height: 100%;
+}
+.login-btn {
+  color: white;
+  //top: 18px;
+}
+.mat-toolbar {
+  height: 100%;
+
+}
+.pre-login-toolbar-burger {
+  color: #fff;
+}
+.registration-content {
+  background-color: white;
+  color: black;
+}

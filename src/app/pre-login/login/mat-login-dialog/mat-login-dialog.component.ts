@@ -38,6 +38,7 @@ export class MatLoginDialogComponent implements OnInit {
   passwordErrorMsg = '';
   showPasswordLoading = false;
   passwordErrorMsgShow!: boolean;
+  showJoinStudyBtn = true;
   recoverPasswordStatus = true;
 
   emailForm = new FormGroup({
@@ -62,6 +63,17 @@ export class MatLoginDialogComponent implements OnInit {
     this.loginAfterSignup = this.showLoginSignupService.loginAfterSignup();
     if (this.router.url === LANDING_RESET_PASSWORD_PATH) {
       this.recoverPasswordShow = true;
+    }
+    if (this.router.url.includes('open')) {
+      this.showJoinStudyBtn = false;
+    } else  if (this.router.url.includes('learn')) {
+      this.showJoinStudyBtn = false;
+    } else  if (this.router.url.includes('student')) {
+      this.showJoinStudyBtn = false;
+    } else  if (this.router.url.includes('work')) {
+      this.showJoinStudyBtn = false;
+    } else  if (this.router.url.includes('life')) {
+      this.showJoinStudyBtn = false;
     }
   }
 

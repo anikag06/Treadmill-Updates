@@ -25,6 +25,7 @@ import {
 import {
   TrialLearnPageRegistrationComponent
 } from '@/trial-aiims-registration/trial-learn-page-registration/trial-learn-page-registration.component';
+import {TrialOpenLoginHeaderComponent} from '@/trial-aiims-registration/trial-open-login-header/trial-open-login-header.component';
 
 export const routes: Routes = [
 
@@ -87,27 +88,27 @@ export const routes: Routes = [
   },
   {
     path: 'open',
-    component: TrialOpenRegistrationComponent,
+    component: TrialOpenLoginHeaderComponent,
     pathMatch: 'full',
   },
   {
     path: 'work',
-    component: TrialWorkPageRegistrationComponent,
+    component: TrialOpenLoginHeaderComponent,
     pathMatch: 'full',
   },
   {
     path: 'student',
-    component: TrialStudentPageRegistrationComponent,
+    component: TrialOpenLoginHeaderComponent,
     pathMatch: 'full',
   },
   {
     path: 'life',
-    component: TrialLifePageRegistrationComponent,
+    component: TrialOpenLoginHeaderComponent,
     pathMatch: 'full',
   },
   {
     path: 'learn',
-    component: TrialLearnPageRegistrationComponent,
+    component: TrialOpenLoginHeaderComponent,
     pathMatch: 'full',
   },
   {

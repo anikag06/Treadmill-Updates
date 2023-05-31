@@ -70,7 +70,7 @@
 
     <div
       mat-dialog-actions
-      class="d-flex justify-content-center join-study">
+      class="d-flex justify-content-center join-study" *ngIf="showJoinStudyBtn">
       <p class="login-dialog-text-color">
         Not a member yet?
         <a class="anchorify-join-the-study" (click) = " onJoinTheStudyClicked()">
