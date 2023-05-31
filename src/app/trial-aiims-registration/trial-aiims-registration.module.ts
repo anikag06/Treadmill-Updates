@@ -18,6 +18,8 @@ import {AiimsStepLastPageComponent} from '@/trial-aiims-registration/aiims-step-
 import { TrialOpenInfoComponent } from './trial-open-info/trial-open-info.component';
 import {TrialRegistrationModule} from '@/trial-registration/trial-registration.module';
 import {QuestionnaireDeprecatedModule} from '@/questionnaire-deprecated.module';
+import { TrialOpenLoginHeaderComponent } from './trial-open-login-header/trial-open-login-header.component';
+import {AppModule} from '@/app.module';
 
 @NgModule({
   declarations: [
@@ -26,19 +28,21 @@ import {QuestionnaireDeprecatedModule} from '@/questionnaire-deprecated.module';
     AiimsRegistrationStepFourComponent,
     AiimsStepLastPageComponent,
     TrialOpenInfoComponent,
+    // TrialOpenLoginHeaderComponent,
   ],
-  imports: [
-    FormsModule,
-    ReactiveFormsModule,
-    CommonModule,
-    MaterialModule,
-    MatExpansionModule,
-    MatRadioModule,
-    TrialAiimsRegistrationRoutingModule,
-    QuestionnaireModule,
-    TrialRegistrationModule,
-    QuestionnaireDeprecatedModule
-  ],
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        CommonModule,
+        MaterialModule,
+        MatExpansionModule,
+        MatRadioModule,
+        TrialAiimsRegistrationRoutingModule,
+        QuestionnaireModule,
+        TrialRegistrationModule,
+        QuestionnaireDeprecatedModule,
+        // AppModule
+    ],
   providers: [
     // RegistrationDataService,
     {

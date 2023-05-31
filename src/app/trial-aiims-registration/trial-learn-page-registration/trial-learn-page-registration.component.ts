@@ -14,6 +14,8 @@ import {
   OPEN_REGISTRATION_PATH,
   STUDENT_GROUP_REGISTRATION_PATH, WORK_GROUP_REGISTRATION_PATH
 } from '@/app.constants';
+import {MatLoginDialogComponent} from '@/pre-login/login/mat-login-dialog/mat-login-dialog.component';
+import {ShowLoginSignupDialogService} from '@/pre-login/shared/show-login-signup-dialog.service';
 
 @Component({
   selector: 'app-trial-learn-page-registration',
@@ -62,6 +64,7 @@ export class TrialLearnPageRegistrationComponent implements OnInit {
     private aiimsRegistrationDataService: TrialAiimsRegistrationService,
     private questionnaireService: QuizService,
     private a2hsService: A2HSService,
+    private showLoginSignupDialogService: ShowLoginSignupDialogService
   ) {}
 
   ngOnInit() {
@@ -106,6 +109,7 @@ export class TrialLearnPageRegistrationComponent implements OnInit {
                 const stepNumber = res_data.data.next_step;
                 const navigation_step =
                   this.registration_path  + 'r/step-' + stepNumber;
+                console.log('navigation step', navigation_step);
 
                 if (stepNumber === 3) {
                   this.questionnaireService.questionnaire_name =
@@ -183,6 +187,14 @@ export class TrialLearnPageRegistrationComponent implements OnInit {
   }
   onLogoClick() {
     this.router.navigate([LEARN_GROUP_REGISTRATION_PATH]);
+  }
+  onLoginClicked() {
+    this.showLoginSignupDialogService.broadcastLoginClicked(
+      MatLoginDialogComponent
+    );
+  }
+  questionnaireClicked() {
+    this.router.navigate(['questionnaires']);
   }
 
 }
