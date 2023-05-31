@@ -72,6 +72,8 @@ import {
   TrialLearnPageRegistrationComponent
 } from '@/trial-aiims-registration/trial-learn-page-registration/trial-learn-page-registration.component';
 import {SharedModule} from '@/shared/shared.module';
+import {TrialOpenLoginHeaderComponent} from '@/trial-aiims-registration/trial-open-login-header/trial-open-login-header.component';
+// import {TrialAiimsRegistrationModule} from '@/trial-aiims-registration/trial-aiims-registration.module';
 
 declare let $: any;
 
@@ -97,7 +99,8 @@ declare let $: any;
     TrialLifePageRegistrationComponent,
     TrialStudentPageRegistrationComponent,
     TrialWorkPageRegistrationComponent,
-    TrialLearnPageRegistrationComponent
+    TrialLearnPageRegistrationComponent,
+    TrialOpenLoginHeaderComponent,
   ],
     imports: [
         BrowserModule,
@@ -128,6 +131,7 @@ declare let $: any;
         MatTooltipModule,
         MatCardModule,
         TrialRegistrationModule,
+        // TrialAiimsRegistrationModule,
         SharedModule,
       ],
   providers: [

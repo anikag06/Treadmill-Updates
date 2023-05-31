@@ -61,9 +61,9 @@ export class TrialOpenLoginHeaderComponent implements OnInit {
     }
   }
 
-  onLogoClick() {
-    this.router.navigate([LEARN_GROUP_REGISTRATION_PATH]);
-  }
+  // onLogoClick() {
+  //   this.router.navigate([LEARN_GROUP_REGISTRATION_PATH]);
+  // }
   onLoginClicked() {
     this.showLoginSignupDialogService.broadcastLoginClicked(
       MatLoginDialogComponent

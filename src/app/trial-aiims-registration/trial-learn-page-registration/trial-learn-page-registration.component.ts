@@ -188,14 +188,7 @@ export class TrialLearnPageRegistrationComponent implements OnInit {
   onLogoClick() {
     this.router.navigate([LEARN_GROUP_REGISTRATION_PATH]);
   }
-  onLoginClicked() {
-    this.showLoginSignupDialogService.broadcastLoginClicked(
-      MatLoginDialogComponent
-    );
-  }
-  questionnaireClicked() {
-    this.router.navigate(['questionnaires']);
-  }
+
 
 }
 
