@@ -9,6 +9,7 @@ import {QuestionnaireItem} from '@/shared/questionnaire/shared/questionnaire.mod
 export class QuestionnaireContainerService{
   sendQuestionnaireItem =  new EventEmitter<any>();
   questionnaireItemInPage!: QuestionnaireItem;
+  loadingPath!: string;
   questionnaireItemClickBehavior: BehaviorSubject<
     QuestionnaireItem
     > = new BehaviorSubject<QuestionnaireItem>(this.questionnaireItemInPage);

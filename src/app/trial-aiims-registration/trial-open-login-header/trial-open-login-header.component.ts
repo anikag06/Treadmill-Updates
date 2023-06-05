@@ -13,6 +13,7 @@ import {TrialAiimsRegistrationService} from '@/trial-aiims-registration/trial-ai
 import {QuizService} from '@/shared/questionnaire-deprecated/questionnaire-deprecated.service';
 import {A2HSService} from '@/shared/a2hs.service';
 import {ShowLoginSignupDialogService} from '@/pre-login/shared/show-login-signup-dialog.service';
+import {QuestionnaireContainerService} from '@/shared/questionnaire-container/questionnaire-container.service';
 
 @Component({
   selector: 'app-trial-open-login-header',
@@ -37,7 +38,8 @@ export class TrialOpenLoginHeaderComponent implements OnInit {
     private aiimsRegistrationDataService: TrialAiimsRegistrationService,
     private questionnaireService: QuizService,
     private a2hsService: A2HSService,
-    private showLoginSignupDialogService: ShowLoginSignupDialogService
+    private showLoginSignupDialogService: ShowLoginSignupDialogService,
+    private questionnaireContainerService: QuestionnaireContainerService,
   ) {}
 
   ngOnInit() {
@@ -53,8 +55,7 @@ export class TrialOpenLoginHeaderComponent implements OnInit {
     } else  if (this.router.url.includes('life')) {
       this.urlLink = 'life';
     }
-
-      console.log('link', this.router.url);
+    this.questionnaireContainerService.loadingPath = '/' + this.urlLink;
     const smallDevice = window.matchMedia('(max-width: 767px)').matches;
     if (smallDevice) {
       this.showRegistrationContent = true;
@@ -72,4 +73,18 @@ export class TrialOpenLoginHeaderComponent implements OnInit {
   questionnaireClicked() {
     this.router.navigate(['questionnaires']);
   }
+  onPrivacyPolicyClick() {
+    this.router.navigate(['open/r/info'],
+      {queryParams: {
+          type: 'pp'}
+      });
+  }
+
+  onTermsConditions() {
+    this.router.navigate(['open/r/info'],
+      {queryParams: {
+          type: 'tc'}
+      });
+  }
+
 }

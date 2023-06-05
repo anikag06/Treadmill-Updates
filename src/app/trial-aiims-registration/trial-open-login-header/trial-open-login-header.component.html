@@ -16,30 +16,20 @@
     <mat-toolbar class="mat-pre-login-toolbar-color d-flex-wrap">
       <div class="d-block d-sm-none">
         <mat-icon (click)="drawer.toggle()" class="pre-login-toolbar-burger"
-        >menu</mat-icon
+        style="vertical-align: middle;">menu</mat-icon
         >
       </div>
-      <!--      <div class="d-none d-sm-block">-->
-      <!--        <img-->
-      <!--          alt="TreadWill logo"-->
-      <!--          style="width: 40%"-->
-      <!--          src="assets/shared/logo_full.svg"-->
-      <!--          class="logo-landscape"-->
-      <!--        />-->
-      <!--      </div>-->
-      <!--      <div class="row sticky-top mx-0 align-items-center" id="top-logo">-->
-      <div class="col px-0"  style=" cursor: pointer;">
+
+      <div class="col px-0" >
         <img src="../../../assets/shared/logo_full.svg"
-             (click)="onLogoClick()"
              class="w-100 log-img">
-        <!--      </div>-->
+
       </div>
       <div class="d-none d-sm-block links">
         <a
           mat-button
           class="anchorify-pre-login-toolbar-button float-right login-btn"
           (click)="onLoginClicked()"
-          *ngIf="!loggedIn"
         >
           Login
         </a>
@@ -56,7 +46,6 @@
           mat-button
           class="anchorify-pre-login-toolbar-button float-right login-btn"
           (click)="onLoginClicked()"
-          *ngIf="!loggedIn"
         >
           Login
         </a>

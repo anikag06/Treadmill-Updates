@@ -13,6 +13,7 @@ import {
   REGISTRATION_PATH,
   STUDENT_GROUP_REGISTRATION_PATH, WORK_GROUP_REGISTRATION_PATH
 } from '@/app.constants';
+import {QuestionnaireContainerService} from '@/shared/questionnaire-container/questionnaire-container.service';
 
 @Component({
   selector: 'app-trial-open-registration',
