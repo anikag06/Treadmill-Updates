@@ -7,13 +7,14 @@ import {TrialAiimsRegistrationService} from '@/trial-aiims-registration/trial-ai
 import {QuizService} from '@/shared/questionnaire-deprecated/questionnaire-deprecated.service';
 import {A2HSService} from '@/shared/a2hs.service';
 import {
-  AIIMS_REGISTRATION_PATH, LEARN_GROUP_REGISTRATION_PATH, LIFE_GROUP_REGISTRATION_PATH,
+  AIIMS_REGISTRATION_PATH, GAD7, LEARN_GROUP_REGISTRATION_PATH, LIFE_GROUP_REGISTRATION_PATH,
   OPEN_GROUP,
   OPEN_REGISTRATION_PATH,
-  REGISTRATION_PATH,
+  REGISTRATION_PATH, SIQ,
   STUDENT_GROUP_REGISTRATION_PATH, WORK_GROUP_REGISTRATION_PATH
 } from '@/app.constants';
 import {QuestionnaireContainerService} from '@/shared/questionnaire-container/questionnaire-container.service';
+import {CommonService} from '@/shared/common.service';
 
 @Component({
   selector: 'app-trial-open-registration',
@@ -43,6 +44,9 @@ export class TrialOpenRegistrationComponent implements OnInit {
   remainingParticipants = 2000;
   registration_path!: string;
   page_category =  OPEN_GROUP;
+  openPage = true; //openPage is availaible on screens sizes desktop and mobile
+  chrome_user = false; // for testing
+  openPagePrefencesSet = false;
 
 
   emailForm = new FormGroup({
@@ -61,18 +65,28 @@ export class TrialOpenRegistrationComponent implements OnInit {
     private aiimsRegistrationDataService: TrialAiimsRegistrationService,
     private questionnaireService: QuizService,
     private a2hsService: A2HSService,
+    private commonService: CommonService,
+
   ) {}
 
   ngOnInit() {
-    // this.a2hsService.setDeferredPrompt();
     const smallDevice = window.matchMedia('(max-width: 767px)').matches;
-    if (smallDevice) {
+    if (smallDevice|| this.openPage) {
       this.showRegistrationContent = true;
     }
+
+    // IF IT IS NOT CHROME USER BUT USING OPEN LINK
+    this.chrome_user  = this.commonService.isChromeBrowser(); //check what it returns
+    console.log('CHROME USER', this.chrome_user);
+    if (!this.chrome_user && this.openPage) {
+      this.openPagePrefencesSet = true;
+    }
+
   }
 
   emailSubmit() {
     localStorage.clear();
+    console.log('email form', this.emailForm);
     if (this.emailForm.valid) {
       this.showLoading = true;
       // check if modern email service provider
@@ -107,8 +121,12 @@ export class TrialOpenRegistrationComponent implements OnInit {
                   this.registration_path  + 'r/step-' + stepNumber;
 
                 if (stepNumber === 3) {
-                  this.questionnaireService.questionnaire_name =
-                    res_data.data.next_questionnaire;
+                  if(res_data.data.next_questionnaire === SIQ) {
+                    this.questionnaireService.questionnaire_name = GAD7
+                  } else {
+                    this.questionnaireService.questionnaire_name =
+                      res_data.data.next_questionnaire;
+                  }
                   this.router.navigate([navigation_step]);
                 } else {
                   this.router.navigate([navigation_step]);
@@ -153,6 +171,7 @@ export class TrialOpenRegistrationComponent implements OnInit {
         break;
       }
     }
+    this.emailServicePresent = true;
     return this.emailServicePresent;
   }
 

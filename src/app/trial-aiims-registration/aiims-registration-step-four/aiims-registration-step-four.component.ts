@@ -11,12 +11,13 @@ import {A2HSService} from '@/shared/a2hs.service';
 import {MatContactUsDialogService} from '@/shared/mat-contact-us-dialog/mat-contact-us-dialog.service';
 import {
   AIIMS_REGISTRATION_PATH,
-  INELIGIBLE_FOR_TRIAL, LEARN_GROUP_REGISTRATION_PATH,
+  INELIGIBLE_FOR_TRIAL, IS_VISITED, LEARN_GROUP_REGISTRATION_PATH,
   LIFE_GROUP_REGISTRATION_PATH,
   OPEN_REGISTRATION_PATH,
   STUDENT_GROUP_REGISTRATION_PATH, WORK_GROUP_REGISTRATION_PATH
 } from '@/app.constants';
 import {TrialAiimsRegistrationService} from '@/trial-aiims-registration/trial-aiims-registration.service';
+import {CommonService} from '@/shared/common.service';
 
 @Component({
   selector: 'app-trial-aiims-registration-step-four',
@@ -70,6 +71,9 @@ export class AiimsRegistrationStepFourComponent implements OnInit {
   showPrompt = false;
   showOkButton = true;
   registration_path! : string;
+  openPage = false;
+  chrome_user = false; // for testing
+  openPagePrefencesSet = false;
 
 
   constructor(
@@ -83,33 +87,37 @@ export class AiimsRegistrationStepFourComponent implements OnInit {
     private dialog: MatDialog,
     private changeDetector: ChangeDetectorRef,
     private showContactUsService: MatContactUsDialogService,
+    private commonService: CommonService,
+
   ) {}
 
 
   ngOnInit() {
-    const smallDevice = window.matchMedia('(max-width: 767px)').matches;
+    this.chrome_user  = this.commonService.isChromeBrowser(); //check what it returns
+    console.log('is chrome user', this.chrome_user);
+
     this.aiimsRegistrationDataService.aiimsUser = true;
-    if (smallDevice) {
+    if (this.router.url.includes('open')) {
+      this.openPage = true;
+      console.log(this.openPage, 'open link');
+    }
+    const smallDevice = window.matchMedia('(max-width: 767px)').matches;
+    if (smallDevice || this.openPage) {
       this.showPage = true;
     }
+    if (!this.chrome_user && this.openPage) {
+      this.openPagePrefencesSet = true;
+      this.notificationsAllowed = 1;
 
-    const notificationStatus = Notification.permission;
-    if (notificationStatus === 'denied') {
-      // this.showHelp = true;
-      this.errorMessage =
-        'It looks like you have blocked notifications in your browser.';
-      this.notificationHelp =
-        'See how to allow notifications.See under the heading <b>Allow or block notifications from all sites</b> in ';
-    } else {
-     // this.homeScreenPermission();
-    }
+      // OPEN LINK USERS USING BROWSER OTHER THAN CHROME WILL BYPASS NOTIFICATIONS AND INSTALL PROMPT
+
     const dateNow = new Date();
     const dateTime = dateNow.toJSON();
     this.starting_time = dateTime.replace('Z', '').replace('T', ' ');
 
     this.participationID = this.aiimsRegistrationDataService.participationID;
     this.fcmService.permit.subscribe(permit => {
-      this.notificationsAllowed = permit ? 1 : 0;
+      this.notificationsAllowed = permit ? 1 : 1;
       this.consentForm.controls['notificationsInfo'].setValue(
         this.notificationsAllowed,
       );
@@ -120,8 +128,42 @@ export class AiimsRegistrationStepFourComponent implements OnInit {
     });
     this.starting_time = dateTime.replace('Z', '').replace('T', ' ');
     this.placeholder_tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    this.notificationsPermission();
+    // this.notificationsPermission();
+      this.homeScreenPermission();
+
+    }  else {
+
+      // OTHER LINKS AIIMS , LEARN, WORK, LIFE, STUDENT ALL WORK AS EARLIER ACCESIBLE ONLY ON ANDROID MOBILE AND CHROME
+      const notificationStatus = Notification.permission;
+      if (notificationStatus === 'denied') {
+        // this.showHelp = true;
+        this.errorMessage =
+          'It looks like you have blocked notifications in your browser.';
+        this.notificationHelp =
+          'See how to allow notifications.See under the heading <b>Allow or block notifications from all sites</b> in ';
+      } else {
+        // this.homeScreenPermission();
+      }
+      const dateNow = new Date();
+      const dateTime = dateNow.toJSON();
+      this.starting_time = dateTime.replace('Z', '').replace('T', ' ');
+
+      this.participationID = this.aiimsRegistrationDataService.participationID;
+      this.fcmService.permit.subscribe(permit => {
+        this.notificationsAllowed = permit ? 1 : 0;
+        this.consentForm.controls['notificationsInfo'].setValue(
+          this.notificationsAllowed,
+        );
+        this.updatingPermissions = false;
+        this.showHelp = this.notificationsAllowed === 0;
+        this.changeDetector.detectChanges();
+        // this.activateSubmitButton();
+      });
+      this.starting_time = dateTime.replace('Z', '').replace('T', ' ');
+      this.placeholder_tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      this.notificationsPermission();
   }
+}
 
   step4DataSubmit() {
     // if (this.consentForm.valid) {
@@ -192,33 +234,50 @@ export class AiimsRegistrationStepFourComponent implements OnInit {
     this.addingToHomescreen = true;
     // if (this.consentForm.value.homeScreenInfo) {
     this.a2hsService.getDeferredPrompt().subscribe(deferredPrompt => {
-      this.addingToHomescreen = false;
-      if (!deferredPrompt) {
-        return;
-      }
-      deferredPrompt.prompt();
-      deferredPrompt.userChoice.then((choiceResult: any) => {
+      if (!this.chrome_user && this.openPage) {
+        // users coming via open link can access site without notification
+            this.allowedToHomeScreen = 1;
+            this.dialogRef = this.dialog.open(CommonDialogComponent, {
+              data: {
+                loading: true,
+              },
+              disableClose: true,
+              minWidth: '90vw',
+              autoFocus: false,
+            });
+            this.showOkButton = false;
+            this.step4DataSubmit();
+      } else {
+        // for rest of users
 
-        if (choiceResult.outcome === 'accepted') {
-          // this.stepFourFormData.agreement_consent = 1;
-          this.allowedToHomeScreen = 1;
-          this.dialogRef = this.dialog.open(CommonDialogComponent, {
-            data: {
-              loading: true,
-            },
-            disableClose: true,
-            minWidth: '90vw',
-            autoFocus: false,
-          });
-          this.showOkButton = false;
-          this.step4DataSubmit();
-          // no matter the outcome, the prompt cannot be reused ON MOBILE
-          // for 3 months or until browser cache is cleared?
-        } else {
-          const deferredPromptRejected = true;
-          this.showOkButton = true;
-        }
-      });
+              this.addingToHomescreen = false;
+              if (!deferredPrompt) {
+                return;
+              }
+              deferredPrompt.prompt();
+              deferredPrompt.userChoice.then((choiceResult: any) => {
+
+                if (choiceResult.outcome === 'accepted') {
+                  // this.stepFourFormData.agreement_consent = 1;
+                  this.allowedToHomeScreen = 1;
+                  this.dialogRef = this.dialog.open(CommonDialogComponent, {
+                    data: {
+                      loading: true,
+                    },
+                    disableClose: true,
+                    minWidth: '90vw',
+                    autoFocus: false,
+                  });
+                  this.showOkButton = false;
+                  this.step4DataSubmit();
+                  // no matter the outcome, the prompt cannot be reused ON MOBILE
+                  // for 3 months or until browser cache is cleared?
+                } else {
+                  const deferredPromptRejected = true;
+                  this.showOkButton = true;
+                }
+            });
+      }
     });
     // } else {
     //   this.addingToHomescreen = false;

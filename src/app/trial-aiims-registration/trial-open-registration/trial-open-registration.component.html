@@ -21,7 +21,8 @@
                 <span>
                  Please enter your email id below.
 
-                  Please use a modern email service like gmail, outlook, yahoo etc.
+<!--                  Please use a modern email service like gmail, outlook, yahoo etc.-->
+                  <span *ngIf="openPagePrefencesSet"> Please use TreadWill in Google Chrome, It works best there. </span>
                 </span>
         </div>
         <br>
@@ -42,10 +43,10 @@
           <p class="text-footer mt-2 error-text" *ngIf="showErrorMessage">
             Please give us your valid email id. We won't spam you. Promise 🤞!
           </p>
-          <p class="text-footer mt-2 error-text" style="color: #E82626" *ngIf="emailServiceErrorMessage">
-            We only support modern email service providers that support HTML emails.
-            If you think that we have missed yours, please <a (click)= "contactUsClicked()" > <b>let us know</b>.</a>
-          </p>
+<!--          <p class="text-footer mt-2 error-text" style="color: #E82626" *ngIf="emailServiceErrorMessage">-->
+<!--            We only support modern email service providers that support HTML emails.-->
+<!--            If you think that we have missed yours, please <a (click)= "contactUsClicked()" > <b>let us know</b>.</a>-->
+<!--          </p>-->
         </form>
       </div>
     </div>

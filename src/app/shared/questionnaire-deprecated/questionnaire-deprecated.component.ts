@@ -177,6 +177,7 @@ export class QuestionnaireDeprecatedComponent implements OnInit {
   iswaitList = false;
   aiimsUser = false;
   registration_path!: string;
+  openPageUser = false;
 
   constructor(
     private quizService: QuizService,
@@ -207,6 +208,9 @@ export class QuestionnaireDeprecatedComponent implements OnInit {
       this.loadQuiz();
     } else {
       this.router.navigate([DEFAULT_PATH]);
+    }
+    if (this.router.url.includes('open')) {
+      this.openPageUser = true;
     }
   }
 
@@ -662,6 +666,7 @@ export class QuestionnaireDeprecatedComponent implements OnInit {
             this.aiimsRegistrationDataService
               .saveAiimsPHQData(registration_phq)
               .subscribe((res_data: any) => {
+                console.log('PHQ RESPONSE', res_data);
                 this.phqNextStep(
                   res_data.data.excluded,
                   res_data.data.next_questionnaire,
@@ -686,7 +691,12 @@ export class QuestionnaireDeprecatedComponent implements OnInit {
     } else {
       this.submitting = false;
       if (questionnaireName === SIQ) {
-        this.display_siq_start = true;
+        // Skip SIQ for open user and start GAD
+        if (this.openPageUser && this.fromTrialRegistration ) {
+          this.display_gad_start = true;
+        } else {
+          this.display_siq_start = true;
+        }
       } else if (questionnaireName === GAD7) {
         this.display_gad_start = true;
       }

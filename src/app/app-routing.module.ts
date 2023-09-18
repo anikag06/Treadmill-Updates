@@ -55,6 +55,11 @@ export const routes: Routes = [
     pathMatch: 'prefix',
   },
   {
+    path: 'open/sign-up/:unique-code',
+    component: SignUpComponent,
+    pathMatch: 'prefix',
+  },
+  {
     path: 'questionnaireItem/:id',
     component: QuestionnaireItemComponent,
     pathMatch: 'prefix',

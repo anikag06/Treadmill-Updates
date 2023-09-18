@@ -58,6 +58,7 @@ export class SignUpComponent implements OnInit {
   emailForm = new FormGroup({
     email: new FormControl(''),
   });
+  openPage = false;
 
   constructor(
     private router: Router,
@@ -67,8 +68,12 @@ export class SignUpComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    if (this.router.url.includes('open')) {
+      this.openPage = true;
+      console.log(this.openPage, 'open link');
+    }
     const smallDevice = window.matchMedia('(max-width: 767px)').matches;
-    if (smallDevice) {
+    if (smallDevice || this.openPage) {
       this.showSignUpPage = true;
     }
     this.signUpService
@@ -189,6 +194,10 @@ export class SignUpComponent implements OnInit {
   }
 
   activateSubmitButton() {
+    if(this.openPage)
+    {
+      this.signupForm.value.terms_and_conditions =1;
+    }
     this.allowSubmit =
       this.signupForm.value.username &&
       this.isUsernameAvailable &&

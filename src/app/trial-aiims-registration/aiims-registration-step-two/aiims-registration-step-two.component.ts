@@ -19,6 +19,7 @@ import {FcmService} from '@/shared/fcm.service';
 import {A2HSService} from '@/shared/a2hs.service';
 import {MatContactUsDialogService} from '@/shared/mat-contact-us-dialog/mat-contact-us-dialog.service';
 import {TrialAiimsRegistrationService} from '@/trial-aiims-registration/trial-aiims-registration.service';
+import {CommonService} from '@/shared/common.service';
 
 @Component({
   selector: 'app-trial-aiims-registration-step-two',
@@ -50,7 +51,7 @@ export class AiimsRegistrationStepTwoComponent implements OnInit {
     gender: new FormControl('', [Validators.required]),
     education: new FormControl(null, [Validators.required]),
     profession: new FormControl(null, [Validators.required]),
-    browser: new FormControl(null, [Validators.required]),
+    browser: new FormControl(null, ),
     // country: new FormControl(null, [Validators.required]),
     // timezone: new FormControl(null, [Validators.required]),
     // knowEnglish: new FormControl(null, [Validators.required]),
@@ -99,6 +100,9 @@ export class AiimsRegistrationStepTwoComponent implements OnInit {
   otherOptionSelected = false;
   showErrorMsg = false;
   placeholder_tz!: any;
+  openPage = false; //openPage is availaible on screens sizes desktop and mobile
+  chrome_user = false; // for testing
+  openPagePrefencesSet = false;
 
   constructor(
     private authService: TrialAuthService,
@@ -111,12 +115,23 @@ export class AiimsRegistrationStepTwoComponent implements OnInit {
     private dialog: MatDialog,
     private changeDetector: ChangeDetectorRef,
     private showContactUsService: MatContactUsDialogService,
+    private commonService: CommonService,
+
   ) {}
 
   ngOnInit() {
+    if (this.router.url.includes('open')) {
+      this.openPage = true;
+      console.log(this.openPage, 'open link');
+    }
     const smallDevice = window.matchMedia('(max-width: 767px)').matches;
-    if (smallDevice) {
+    if (smallDevice || this.openPage) {
       this.showPage = true;
+    }
+    // IF IT IS NOT CHROME USER BUT USING OPEN LINK
+    this.chrome_user  = this.commonService.isChromeBrowser(); //check what it returns
+    if (!this.chrome_user && this.openPage) {
+      this.openPagePrefencesSet = true;
     }
 
     const dateNow = new Date();
@@ -135,6 +150,7 @@ export class AiimsRegistrationStepTwoComponent implements OnInit {
   }
 
   stepDataSubmit() {
+    this.stepTwoFormData.browser =0;
     if (this.stepTwoForm.valid) {
       this.showLoading = true;
       this.showErrorMsg = false;

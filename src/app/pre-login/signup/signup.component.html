@@ -6,9 +6,10 @@
     <app-signup-reset-common></app-signup-reset-common>
   </div>
 
-  <div class="d-flex flex-column col-sm-12">
-    <h4 class="d-flex align-self-center">SIGN UP</h4>
+  <div class="d-flex flex-column col-sm-12 col-md-7 text-center  no-gutters">
     <div class="flex-column mx-auto my-auto align-self-center">
+      <h4 >SIGN UP</h4>
+
       <div
         *ngIf="!showSignUpForm"
         class="d-flex flex-row align-items-center justify-content-start"
@@ -118,7 +119,7 @@
             </div>
             <!--      Password end      -->
 
-            <div class="col-12 my-1 checkbox-common">
+            <div class="col-12 my-1 checkbox-common" *ngIf="!openPage">
               <mat-checkbox
                 ngModel
                 required

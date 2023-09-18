@@ -25,6 +25,8 @@ export class AiimsRegistrationStepThreeComponent implements OnInit {
   otherOptionSelected = false;
   showErrorMsg = false;
   placeholder_tz!: any;
+  openPage = false; //openPage is availaible on screens sizes desktop and mobile
+
 
   constructor(
     private authService: TrialAuthService,
@@ -36,11 +38,15 @@ export class AiimsRegistrationStepThreeComponent implements OnInit {
 
 
   ngOnInit() {
+    if (this.router.url.includes('open')) {
+      this.openPage = true;
+      console.log(this.openPage, 'open link');
+    }
     const smallDevice = window.matchMedia('(max-width: 767px)').matches;
-    this.aiimsRegistrationDataService.aiimsUser = true;
-    this.registrationDataService.participationID = this.aiimsRegistrationDataService.participationID;
-    if (smallDevice) {
+    if (smallDevice || this.openPage) {
       this.showPage = true;
     }
+    this.aiimsRegistrationDataService.aiimsUser = true;
+    this.registrationDataService.participationID = this.aiimsRegistrationDataService.participationID;
     }
 }
