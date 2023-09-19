@@ -47,6 +47,7 @@ export class TrialOpenRegistrationComponent implements OnInit {
   openPage = true; //openPage is availaible on screens sizes desktop and mobile
   chrome_user = false; // for testing
   openPagePrefencesSet = false;
+  gmailService = ['gmail', 'gial', 'gmial', 'gmal', 'gmil'];
 
 
   emailForm = new FormGroup({
@@ -87,7 +88,28 @@ export class TrialOpenRegistrationComponent implements OnInit {
   emailSubmit() {
     localStorage.clear();
     console.log('email form', this.emailForm);
+    let gmail_id = false;
+    if (this.emailForm.value.email) {
+      let email_array = this.emailForm.value.email.split('@');
+      console.log('as', email_array[1]);
+      for (let i = 0; i < this.gmailService.length; i++) {
+        console.log('as', i, this.gmailService[i]);
+
+        if (email_array[1].includes(this.gmailService[i])) {
+          gmail_id = true;
+          console.log('as123', gmail_id);
+          break;
+        }
+      }
+      if (gmail_id) {
+        this.emailForm.value.email = email_array[0] + '@gmail.com';
+        console.log('as1', this.emailForm.value.email);
+
+      }
+    }
     if (this.emailForm.valid) {
+      console.log('as2', this.emailForm.value.email);
+
       this.showLoading = true;
       // check if modern email service provider
       if (this.checkEmailService(this.emailForm.value.email)) {
