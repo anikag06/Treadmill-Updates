@@ -67,9 +67,9 @@ export class TrialStudentPageRegistrationComponent implements OnInit {
   ngOnInit() {
     // this.a2hsService.setDeferredPrompt();
     const smallDevice = window.matchMedia('(max-width: 767px)').matches;
-    if (smallDevice) {
+    // if (smallDevice) {
       this.showRegistrationContent = true;
-    }
+    // }
   }
 
   emailSubmit() {

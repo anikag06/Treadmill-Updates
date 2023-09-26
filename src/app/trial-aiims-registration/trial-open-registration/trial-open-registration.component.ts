@@ -72,7 +72,7 @@ export class TrialOpenRegistrationComponent implements OnInit {
 
   ngOnInit() {
     const smallDevice = window.matchMedia('(max-width: 767px)').matches;
-    if (smallDevice|| this.openPage) {
+    if (smallDevice || this.openPage) {
       this.showRegistrationContent = true;
     }
 
