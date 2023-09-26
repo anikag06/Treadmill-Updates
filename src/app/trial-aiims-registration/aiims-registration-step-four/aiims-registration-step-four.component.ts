@@ -70,8 +70,8 @@ export class AiimsRegistrationStepFourComponent implements OnInit {
   placeholder_tz!: any;
   showPrompt = false;
   showOkButton = true;
-  registration_path! : string;
-  openPage = false;
+  registration_path!: string;
+  openLinksPage = false; // openLinksPage  refer to all new links // they are availaible on screens sizes desktop and mobile
   chrome_user = false; // for testing
   openPagePrefencesSet = false;
 
@@ -93,19 +93,21 @@ export class AiimsRegistrationStepFourComponent implements OnInit {
 
 
   ngOnInit() {
-    this.chrome_user  = this.commonService.isChromeBrowser(); //check what it returns
+    this.chrome_user  = this.commonService.isChromeBrowser(); // check what it returns
     console.log('is chrome user', this.chrome_user);
 
     this.aiimsRegistrationDataService.aiimsUser = true;
-    if (this.router.url.includes('open')) {
-      this.openPage = true;
-      console.log(this.openPage, 'open link');
+    if (this.router.url.includes('aiims532')) {
+      this.openLinksPage = false;
+    } else {
+      this.openLinksPage = true;
+      console.log(this.openLinksPage, ' new open links');
     }
     const smallDevice = window.matchMedia('(max-width: 767px)').matches;
-    if (smallDevice || this.openPage) {
+    if (smallDevice || this.openLinksPage) {
       this.showPage = true;
     }
-    if (!this.chrome_user && this.openPage) {
+    if (!this.chrome_user && this.openLinksPage) {
       this.openPagePrefencesSet = true;
       this.notificationsAllowed = 1;
 
@@ -187,17 +189,17 @@ export class AiimsRegistrationStepFourComponent implements OnInit {
           res_data.participant_id;
         this.aiimsRegistrationDataService.category =
           res_data.category;
-        if(this.aiimsRegistrationDataService.category == 1) {
+        if (this.aiimsRegistrationDataService.category === 1) {
           this.registration_path = AIIMS_REGISTRATION_PATH;
-        } else if (this.aiimsRegistrationDataService.category == 2) {
+        } else if (this.aiimsRegistrationDataService.category === 2) {
           this.registration_path = OPEN_REGISTRATION_PATH;
-        } else if (this.aiimsRegistrationDataService.category == 3) {
+        } else if (this.aiimsRegistrationDataService.category === 3) {
           this.registration_path = STUDENT_GROUP_REGISTRATION_PATH;
-        } else if (this.aiimsRegistrationDataService.category == 4) {
+        } else if (this.aiimsRegistrationDataService.category === 4) {
           this.registration_path = LIFE_GROUP_REGISTRATION_PATH;
-        } else if (this.aiimsRegistrationDataService.category == 5) {
+        } else if (this.aiimsRegistrationDataService.category === 5) {
           this.registration_path = LEARN_GROUP_REGISTRATION_PATH;
-        } else if (this.aiimsRegistrationDataService.category == 6) {
+        } else if (this.aiimsRegistrationDataService.category === 6) {
           this.registration_path = WORK_GROUP_REGISTRATION_PATH;
         }
         if (this.userEligible) {
@@ -234,7 +236,7 @@ export class AiimsRegistrationStepFourComponent implements OnInit {
     this.addingToHomescreen = true;
     // if (this.consentForm.value.homeScreenInfo) {
     this.a2hsService.getDeferredPrompt().subscribe(deferredPrompt => {
-      if (!this.chrome_user && this.openPage) {
+      if (!this.chrome_user && this.openLinksPage) {
         // users coming via open link can access site without notification
             this.allowedToHomeScreen = 1;
             this.dialogRef = this.dialog.open(CommonDialogComponent, {

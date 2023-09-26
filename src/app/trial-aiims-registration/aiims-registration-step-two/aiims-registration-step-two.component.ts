@@ -100,7 +100,7 @@ export class AiimsRegistrationStepTwoComponent implements OnInit {
   otherOptionSelected = false;
   showErrorMsg = false;
   placeholder_tz!: any;
-  openPage = false; //openPage is availaible on screens sizes desktop and mobile
+  openLinksPage = false; //openLinksPage  refer to all new links // they are availaible on screens sizes desktop and mobile
   chrome_user = false; // for testing
   openPagePrefencesSet = false;
 
@@ -120,17 +120,19 @@ export class AiimsRegistrationStepTwoComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    if (this.router.url.includes('open')) {
-      this.openPage = true;
-      console.log(this.openPage, 'open link');
+    if (this.router.url.includes('aiims532')) {
+      this.openLinksPage = false;
+    } else {
+      this.openLinksPage = true;
+      console.log(this.openLinksPage, 'new open links');
     }
     const smallDevice = window.matchMedia('(max-width: 767px)').matches;
-    if (smallDevice || this.openPage) {
+    if (smallDevice || this.openLinksPage) {
       this.showPage = true;
     }
     // IF IT IS NOT CHROME USER BUT USING OPEN LINK
     this.chrome_user  = this.commonService.isChromeBrowser(); //check what it returns
-    if (!this.chrome_user && this.openPage) {
+    if (!this.chrome_user && this.openLinksPage) {
       this.openPagePrefencesSet = true;
     }
 

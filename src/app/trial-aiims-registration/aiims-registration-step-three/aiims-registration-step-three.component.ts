@@ -25,7 +25,7 @@ export class AiimsRegistrationStepThreeComponent implements OnInit {
   otherOptionSelected = false;
   showErrorMsg = false;
   placeholder_tz!: any;
-  openPage = false; //openPage is availaible on screens sizes desktop and mobile
+  openLinksPage = false; //openLinksPage  refer to all new links // they are availaible on screens sizes desktop and mobile
 
 
   constructor(
@@ -38,12 +38,14 @@ export class AiimsRegistrationStepThreeComponent implements OnInit {
 
 
   ngOnInit() {
-    if (this.router.url.includes('open')) {
-      this.openPage = true;
-      console.log(this.openPage, 'open link');
+    if (this.router.url.includes('aiims532')) {
+      this.openLinksPage = false;
+    } else {
+      this.openLinksPage = true;
+      console.log(this.openLinksPage, 'new open links');
     }
     const smallDevice = window.matchMedia('(max-width: 767px)').matches;
-    if (smallDevice || this.openPage) {
+    if (smallDevice || this.openLinksPage) {
       this.showPage = true;
     }
     this.aiimsRegistrationDataService.aiimsUser = true;

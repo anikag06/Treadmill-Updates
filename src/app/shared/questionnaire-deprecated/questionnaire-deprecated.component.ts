@@ -177,7 +177,7 @@ export class QuestionnaireDeprecatedComponent implements OnInit {
   iswaitList = false;
   aiimsUser = false;
   registration_path!: string;
-  openPageUser = false;
+  openLinksPageUser = false; // openLinksPageUser  refer to all new links // they are availaible on all screens sizes desktop and mobile
 
   constructor(
     private quizService: QuizService,
@@ -209,8 +209,10 @@ export class QuestionnaireDeprecatedComponent implements OnInit {
     } else {
       this.router.navigate([DEFAULT_PATH]);
     }
-    if (this.router.url.includes('open')) {
-      this.openPageUser = true;
+    if (this.router.url.includes('aiims532')) {
+      this.openLinksPageUser = false;
+    } else {
+      this.openLinksPageUser = true;
     }
   }
 
@@ -692,7 +694,7 @@ export class QuestionnaireDeprecatedComponent implements OnInit {
       this.submitting = false;
       if (questionnaireName === SIQ) {
         // Skip SIQ for open user and start GAD
-        if (this.openPageUser && this.fromTrialRegistration ) {
+        if (this.openLinksPageUser && this.fromTrialRegistration ) {
           this.display_gad_start = true;
         } else {
           this.display_siq_start = true;
@@ -768,17 +770,17 @@ export class QuestionnaireDeprecatedComponent implements OnInit {
                   res_data.data.participant_id;
                 this.aiimsRegistrationDataService.category =
                   res_data.data.category;
-                if(this.aiimsRegistrationDataService.category == 1) {
+                if (this.aiimsRegistrationDataService.category === 1) {
                   this.registration_path = AIIMS_REGISTRATION_PATH;
-                  } else if (this.aiimsRegistrationDataService.category == 2) {
+                  } else if (this.aiimsRegistrationDataService.category === 2) {
                   this.registration_path = OPEN_REGISTRATION_PATH;
-                  } else if (this.aiimsRegistrationDataService.category == 3) {
+                  } else if (this.aiimsRegistrationDataService.category === 3) {
                   this.registration_path = STUDENT_GROUP_REGISTRATION_PATH;
-                  } else if (this.aiimsRegistrationDataService.category == 4) {
+                  } else if (this.aiimsRegistrationDataService.category === 4) {
                   this.registration_path = LIFE_GROUP_REGISTRATION_PATH;
-                  } else if (this.aiimsRegistrationDataService.category == 5) {
+                  } else if (this.aiimsRegistrationDataService.category === 5) {
                   this.registration_path = LEARN_GROUP_REGISTRATION_PATH;
-                  } else if (this.aiimsRegistrationDataService.category == 6) {
+                  } else if (this.aiimsRegistrationDataService.category === 6) {
                   this.registration_path = WORK_GROUP_REGISTRATION_PATH;
                   }
                 if (userEligible && !this.iswaitList) {
