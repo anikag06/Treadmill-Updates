@@ -7,10 +7,10 @@ import {TrialAiimsRegistrationService} from '@/trial-aiims-registration/trial-ai
 import {QuizService} from '@/shared/questionnaire-deprecated/questionnaire-deprecated.service';
 import {A2HSService} from '@/shared/a2hs.service';
 import {
-  AIIMS_REGISTRATION_PATH, LEARN_GROUP_REGISTRATION_PATH,
+  AIIMS_REGISTRATION_PATH, GAD7, LEARN_GROUP_REGISTRATION_PATH,
   LIFE_GROUP_REGISTRATION_PATH,
   OPEN_GROUP,
-  OPEN_REGISTRATION_PATH,
+  OPEN_REGISTRATION_PATH, SIQ,
   STUDENT_GROUP,
   STUDENT_GROUP_REGISTRATION_PATH, WORK_GROUP_REGISTRATION_PATH
 } from '@/app.constants';
@@ -27,7 +27,7 @@ export class TrialStudentPageRegistrationComponent implements OnInit {
   stepNo = 1;
   faqLink = '../faqs';
   touchDevice = false;
-  showRegistrationContent = false;
+  showRegistrationContent = true;
   userEligible = false;
   showLoading = false;
   showErrorMessage = false;
@@ -44,7 +44,7 @@ export class TrialStudentPageRegistrationComponent implements OnInit {
   remainingParticipants = 2000;
   registration_path!: string;
   page_category =  STUDENT_GROUP;
-
+  gmailService = ['gmail', 'gial', 'gmial', 'gmal', 'gmil'];
 
   emailForm = new FormGroup({
     email: new FormControl(''),
@@ -74,6 +74,26 @@ export class TrialStudentPageRegistrationComponent implements OnInit {
 
   emailSubmit() {
     localStorage.clear();
+    console.log('email form', this.emailForm);
+    let gmail_id = false;
+    if (this.emailForm.value.email) {
+      let email_array = this.emailForm.value.email.split('@');
+      console.log('as', email_array[1]);
+      for (let i = 0; i < this.gmailService.length; i++) {
+        console.log('as', i, this.gmailService[i]);
+
+        if (email_array[1].includes(this.gmailService[i])) {
+          gmail_id = true;
+          console.log('as123', gmail_id);
+          break;
+        }
+      }
+      if (gmail_id) {
+        this.emailForm.value.email = email_array[0] + '@gmail.com';
+        console.log('as1', this.emailForm.value.email);
+
+      }
+    }
     if (this.emailForm.valid) {
       this.showLoading = true;
       // check if modern email service provider
@@ -87,17 +107,17 @@ export class TrialStudentPageRegistrationComponent implements OnInit {
                 res_data.data.participant_id;
               this.aiimsRegistrationDataService.category =
                 res_data.data.category;
-              if(this.aiimsRegistrationDataService.category == 1) {
+              if(this.aiimsRegistrationDataService.category === 1) {
                 this.registration_path = AIIMS_REGISTRATION_PATH;
-              } else if (this.aiimsRegistrationDataService.category == 2) {
+              } else if (this.aiimsRegistrationDataService.category === 2) {
                 this.registration_path = OPEN_REGISTRATION_PATH;
-              } else if (this.aiimsRegistrationDataService.category == 3) {
+              } else if (this.aiimsRegistrationDataService.category === 3) {
                 this.registration_path = STUDENT_GROUP_REGISTRATION_PATH;
-              } else if (this.aiimsRegistrationDataService.category == 4) {
+              } else if (this.aiimsRegistrationDataService.category === 4) {
                 this.registration_path = LIFE_GROUP_REGISTRATION_PATH;
-              } else if (this.aiimsRegistrationDataService.category == 5) {
+              } else if (this.aiimsRegistrationDataService.category === 5) {
                 this.registration_path = LEARN_GROUP_REGISTRATION_PATH;
-              } else if (this.aiimsRegistrationDataService.category == 6) {
+              } else if (this.aiimsRegistrationDataService.category === 6) {
                 this.registration_path = WORK_GROUP_REGISTRATION_PATH;
               }
               this.userEligible = !res_data.data.excluded;
@@ -108,8 +128,12 @@ export class TrialStudentPageRegistrationComponent implements OnInit {
                   this.registration_path  + 'r/step-' + stepNumber;
 
                 if (stepNumber === 3) {
-                  this.questionnaireService.questionnaire_name =
-                    res_data.data.next_questionnaire;
+                  if (res_data.data.next_questionnaire === SIQ) {
+                    this.questionnaireService.questionnaire_name = GAD7;
+                  } else {
+                    this.questionnaireService.questionnaire_name =
+                      res_data.data.next_questionnaire;
+                  }
                   this.router.navigate([navigation_step]);
                 } else {
                   this.router.navigate([navigation_step]);
@@ -154,6 +178,7 @@ export class TrialStudentPageRegistrationComponent implements OnInit {
         break;
       }
     }
+    this.emailServicePresent = true;
     return this.emailServicePresent;
   }
 

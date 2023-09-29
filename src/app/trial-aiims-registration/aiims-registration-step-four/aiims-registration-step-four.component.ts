@@ -74,6 +74,7 @@ export class AiimsRegistrationStepFourComponent implements OnInit {
   openLinksPage = false; // openLinksPage  refer to all new links // they are availaible on screens sizes desktop and mobile
   chrome_user = false; // for testing
   openPagePrefencesSet = false;
+  chromeUserWithNotificationDisabled = false; // openLinksPage user with chrome notifications disabled
 
 
   constructor(
@@ -107,11 +108,16 @@ export class AiimsRegistrationStepFourComponent implements OnInit {
     if (smallDevice || this.openLinksPage) {
       this.showPage = true;
     }
-    if (!this.chrome_user && this.openLinksPage) {
+    const notificationStatus = Notification.permission;
+    // OPEN LINKS USERS (refer to all new links) USING BROWSER OTHER THAN CHROME WILL BYPASS NOTIFICATIONS AND INSTALL PROMPT
+    // OPEN LINKS USERS USING BROWSER CHROME WILL ALSO BYPASS NOTIFICATIONS IN CASE NOTIFICATION STATUS IS DENIED
+    if (this.chrome_user && notificationStatus === 'denied' && this.openLinksPage) {
+      this.chromeUserWithNotificationDisabled = true;
+    }
+
+    if ((this.chrome_user && notificationStatus === 'denied' && this.openLinksPage) || (!this.chrome_user && this.openLinksPage)) {
       this.openPagePrefencesSet = true;
       this.notificationsAllowed = 1;
-
-      // OPEN LINK USERS USING BROWSER OTHER THAN CHROME WILL BYPASS NOTIFICATIONS AND INSTALL PROMPT
 
     const dateNow = new Date();
     const dateTime = dateNow.toJSON();
@@ -135,8 +141,10 @@ export class AiimsRegistrationStepFourComponent implements OnInit {
 
     }  else {
 
-      // OTHER LINKS AIIMS , LEARN, WORK, LIFE, STUDENT ALL WORK AS EARLIER ACCESIBLE ONLY ON ANDROID MOBILE AND CHROME
-      const notificationStatus = Notification.permission;
+      // For AIIMS - WORK AS EARLIER
+      // OPEN LINKS USERS USING BROWSER CHROME WILL ALSO BYPASS NOTIFICATIONS IN CASE NOTIFICATION STATUS IS DENIED IF NOT THEN WORK AS EARLIER
+
+      // const notificationStatus = Notification.permission;
       if (notificationStatus === 'denied') {
         // this.showHelp = true;
         this.errorMessage =
@@ -232,11 +240,12 @@ export class AiimsRegistrationStepFourComponent implements OnInit {
   }
 
   homeScreenPermission() {
+    console.log('chromeUserWithNotificationDisabled', this.chromeUserWithNotificationDisabled);
     // this.showPrompt = true;
     this.addingToHomescreen = true;
     // if (this.consentForm.value.homeScreenInfo) {
     this.a2hsService.getDeferredPrompt().subscribe(deferredPrompt => {
-      if (!this.chrome_user && this.openLinksPage) {
+      if ((!this.chrome_user && this.openLinksPage) || (this.chromeUserWithNotificationDisabled && this.openLinksPage)) {
         // users coming via open link can access site without notification
             this.allowedToHomeScreen = 1;
             this.dialogRef = this.dialog.open(CommonDialogComponent, {

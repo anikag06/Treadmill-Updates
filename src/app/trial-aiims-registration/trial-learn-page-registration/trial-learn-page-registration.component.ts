@@ -7,15 +7,16 @@ import {TrialAiimsRegistrationService} from '@/trial-aiims-registration/trial-ai
 import {QuizService} from '@/shared/questionnaire-deprecated/questionnaire-deprecated.service';
 import {A2HSService} from '@/shared/a2hs.service';
 import {
-  AIIMS_REGISTRATION_PATH,
+  AIIMS_REGISTRATION_PATH, GAD7,
   LEARN_GROUP, LEARN_GROUP_REGISTRATION_PATH,
   LIFE_GROUP_REGISTRATION_PATH,
   OPEN_GROUP,
-  OPEN_REGISTRATION_PATH,
+  OPEN_REGISTRATION_PATH, SIQ,
   STUDENT_GROUP_REGISTRATION_PATH, WORK_GROUP_REGISTRATION_PATH
 } from '@/app.constants';
 import {MatLoginDialogComponent} from '@/pre-login/login/mat-login-dialog/mat-login-dialog.component';
 import {ShowLoginSignupDialogService} from '@/pre-login/shared/show-login-signup-dialog.service';
+import {CommonService} from '@/shared/common.service';
 
 @Component({
   selector: 'app-trial-learn-page-registration',
@@ -29,7 +30,7 @@ export class TrialLearnPageRegistrationComponent implements OnInit {
   stepNo = 1;
   faqLink = '../faqs';
   touchDevice = false;
-  showRegistrationContent = false;
+  showRegistrationContent = true;
   userEligible = false;
   showLoading = false;
   showErrorMessage = false;
@@ -46,7 +47,9 @@ export class TrialLearnPageRegistrationComponent implements OnInit {
   remainingParticipants = 2000;
   registration_path!: string;
   page_category =  LEARN_GROUP;
-
+  openPagePrefencesSet = false;
+  chrome_user = false; // for testing
+  gmailService = ['gmail', 'gial', 'gmial', 'gmal', 'gmil'];
 
   emailForm = new FormGroup({
     email: new FormControl(''),
@@ -64,7 +67,9 @@ export class TrialLearnPageRegistrationComponent implements OnInit {
     private aiimsRegistrationDataService: TrialAiimsRegistrationService,
     private questionnaireService: QuizService,
     private a2hsService: A2HSService,
-    private showLoginSignupDialogService: ShowLoginSignupDialogService
+    private showLoginSignupDialogService: ShowLoginSignupDialogService,
+    private commonService: CommonService,
+
   ) {}
 
   ngOnInit() {
@@ -73,10 +78,36 @@ export class TrialLearnPageRegistrationComponent implements OnInit {
     // if (smallDevice) {
       this.showRegistrationContent = true;
     // }
+    // IF IT IS NOT CHROME USER BUT USING OPEN LINK
+    this.chrome_user  = this.commonService.isChromeBrowser(); //check what it returns
+    console.log('CHROME USER', this.chrome_user);
+    if (!this.chrome_user) {
+      this.openPagePrefencesSet = true;
+    }
   }
 
   emailSubmit() {
     localStorage.clear();
+    console.log('email form', this.emailForm);
+    let gmail_id = false;
+    if (this.emailForm.value.email) {
+      let email_array = this.emailForm.value.email.split('@');
+      console.log('as', email_array[1]);
+      for (let i = 0; i < this.gmailService.length; i++) {
+        console.log('as', i, this.gmailService[i]);
+
+        if (email_array[1].includes(this.gmailService[i])) {
+          gmail_id = true;
+          console.log('as123', gmail_id);
+          break;
+        }
+      }
+      if (gmail_id) {
+        this.emailForm.value.email = email_array[0] + '@gmail.com';
+        console.log('as1', this.emailForm.value.email);
+
+      }
+    }
     if (this.emailForm.valid) {
       this.showLoading = true;
       // check if modern email service provider
@@ -112,8 +143,12 @@ export class TrialLearnPageRegistrationComponent implements OnInit {
                 console.log('navigation step', navigation_step);
 
                 if (stepNumber === 3) {
-                  this.questionnaireService.questionnaire_name =
-                    res_data.data.next_questionnaire;
+                  if (res_data.data.next_questionnaire === SIQ) {
+                    this.questionnaireService.questionnaire_name = GAD7;
+                  } else {
+                    this.questionnaireService.questionnaire_name =
+                      res_data.data.next_questionnaire;
+                  }
                   this.router.navigate([navigation_step]);
                 } else {
                   this.router.navigate([navigation_step]);
@@ -158,6 +193,7 @@ export class TrialLearnPageRegistrationComponent implements OnInit {
         break;
       }
     }
+    this.emailServicePresent = true;
     return this.emailServicePresent;
   }
 

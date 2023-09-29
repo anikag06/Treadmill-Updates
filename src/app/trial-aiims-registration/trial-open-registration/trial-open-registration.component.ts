@@ -122,17 +122,17 @@ export class TrialOpenRegistrationComponent implements OnInit {
                 res_data.data.participant_id;
               this.aiimsRegistrationDataService.category =
                 res_data.data.category;
-              if(this.aiimsRegistrationDataService.category == 1) {
+              if (this.aiimsRegistrationDataService.category === 1) {
                 this.registration_path = AIIMS_REGISTRATION_PATH;
-                } else if (this.aiimsRegistrationDataService.category == 2) {
+                } else if (this.aiimsRegistrationDataService.category === 2) {
                   this.registration_path = OPEN_REGISTRATION_PATH;
-                } else if (this.aiimsRegistrationDataService.category == 3) {
+                } else if (this.aiimsRegistrationDataService.category === 3) {
                   this.registration_path = STUDENT_GROUP_REGISTRATION_PATH;
-                } else if (this.aiimsRegistrationDataService.category == 4) {
+                } else if (this.aiimsRegistrationDataService.category === 4) {
                   this.registration_path = LIFE_GROUP_REGISTRATION_PATH;
-                } else if (this.aiimsRegistrationDataService.category == 5) {
+                } else if (this.aiimsRegistrationDataService.category === 5) {
                   this.registration_path = LEARN_GROUP_REGISTRATION_PATH;
-                } else if (this.aiimsRegistrationDataService.category == 6) {
+                } else if (this.aiimsRegistrationDataService.category === 6) {
                   this.registration_path = WORK_GROUP_REGISTRATION_PATH;
                 }
               this.userEligible = !res_data.data.excluded;
@@ -143,8 +143,8 @@ export class TrialOpenRegistrationComponent implements OnInit {
                   this.registration_path  + 'r/step-' + stepNumber;
 
                 if (stepNumber === 3) {
-                  if(res_data.data.next_questionnaire === SIQ) {
-                    this.questionnaireService.questionnaire_name = GAD7
+                  if (res_data.data.next_questionnaire === SIQ) {
+                    this.questionnaireService.questionnaire_name = GAD7;
                   } else {
                     this.questionnaireService.questionnaire_name =
                       res_data.data.next_questionnaire;

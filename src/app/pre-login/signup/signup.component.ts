@@ -194,9 +194,8 @@ export class SignUpComponent implements OnInit {
   }
 
   activateSubmitButton() {
-    if(this.openPage)
-    {
-      this.signupForm.value.terms_and_conditions =1;
+    if (this.openPage) {
+      this.signupForm.value.terms_and_conditions = 1;
     }
     this.allowSubmit =
       this.signupForm.value.username &&
