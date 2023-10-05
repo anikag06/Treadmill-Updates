@@ -209,10 +209,24 @@ export class QuestionnaireDeprecatedComponent implements OnInit {
     } else {
       this.router.navigate([DEFAULT_PATH]);
     }
-    if (this.router.url.includes('aiims532')) {
-      this.openLinksPageUser = false;
-    } else {
+    // checking if new links and not showing SIQ FOR THEM
+     if (this.router.url.includes('open')) {
       this.openLinksPageUser = true;
+       console.log('open links page true');
+    } else  if (this.router.url.includes('learn')) {
+      this.openLinksPageUser = true;
+       console.log('open links page true');
+    } else  if (this.router.url.includes('student')) {
+      this.openLinksPageUser = true;
+       console.log('open links page true');
+    } else  if (this.router.url.includes('work')) {
+      this.openLinksPageUser = true;
+       console.log('open links page true');
+    } else  if (this.router.url.includes('life')) {
+      this.openLinksPageUser = true;
+       console.log('open links page true');
+     } else {
+      this.openLinksPageUser = false;
     }
   }
 

@@ -11,6 +11,8 @@ import { FormControl, FormGroup, NgForm } from '@angular/forms';
 import { SignUpData } from '@/pre-login/signup/signup-data.interface';
 import { ShowLoginSignupDialogService } from '@/pre-login/shared/show-login-signup-dialog.service';
 import { MatContactUsDialogService } from '@/shared/mat-contact-us-dialog/mat-contact-us-dialog.service';
+import {INELIGIBLE_FOR_TRIAL, IS_VISITED, LOGGED_IN_PATH, USER_EXCLUDED} from '@/app.constants';
+import {AuthService} from '@/shared/auth/auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -59,12 +61,14 @@ export class SignUpComponent implements OnInit {
     email: new FormControl(''),
   });
   openPage = false;
-
+  signupForOpenDone = false;
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private signUpService: SignUpService,
     private changeDetector: ChangeDetectorRef,
+    private authService: AuthService,
+
   ) {}
 
   ngOnInit() {
@@ -95,7 +99,9 @@ export class SignUpComponent implements OnInit {
     this.signUpService.signUpData(this.data).subscribe(
       res => {
         this.onSignUpDone();
-        this.showLoading = false;
+        if (!this.openPage) {
+          this.showLoading = false;
+        }
       },
       err => {
         this.showLoading = false;
@@ -190,8 +196,61 @@ export class SignUpComponent implements OnInit {
     this.formInvalid = false;
     this.showSignUpForm = true;
     this.passwordMatch = false;
-    this.showSignUpCompletedMessage = true;
+    if (this.openPage) {
+      this.signupForOpenDone = true;
+      this.onOpenPageSignupSubmit(this.data);
+    } else {
+      this.showSignUpCompletedMessage = true;
+    }
   }
+
+  // for direct sign up of users in new links
+
+  onOpenPageSignupSubmit(loginData: any) {
+    console.log('LOGIN DATA', loginData);
+    localStorage.clear();
+    this.callAuthLoginService(loginData);
+  }
+
+  callAuthLoginService(loginData: any) {
+    this.authService
+      .getUserDetails(loginData)
+      .then((data: any) => {
+        // this.signupForOpenDone = false;
+        this.authService.isUserExcluded = data.data.is_excluded;
+        if (data.data.is_excluded) {
+          localStorage.setItem(USER_EXCLUDED, 'true');
+          this.router.navigateByUrl(INELIGIBLE_FOR_TRIAL).then(() => {
+          });
+        } else {
+          this.authService.setLoginData(data);
+          this.router.navigateByUrl(LOGGED_IN_PATH).then(() => {
+            sessionStorage.setItem(IS_VISITED, 'true');
+          });
+        }
+      })
+      .catch((error: any) => {
+        this.errorStatus = true;
+        // this.showForm = true;
+        if (error.error.message.username) {
+          this.errorMessage = error.error.message.username;
+        } else if (error.error.message.password) {
+          this.errorMessage = error.error.message.password;
+        } else {
+          this.errorMessage = error.error.message;
+        }
+        if (error.status === 400) {
+          this.formInvalid = true;
+        }
+      })
+      .finally(() => {
+        this.errorStatus = false;
+      });
+  }
+
+  //till here
+
+
 
   activateSubmitButton() {
     if (this.openPage) {
