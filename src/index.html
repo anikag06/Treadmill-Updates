@@ -1,133 +1,145 @@
+
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>TreadWill</title>
-    <base href="/" />
+<head>
+  <meta charset="utf-8" />
+  <title>TreadWill</title>
+  <base href="/" />
 
-    <!-- description for SEO -->
-    <meta
-      name="description"
-      content="Created by TreadWill organization, IIT Kanpur,
+  <!-- description for SEO -->
+  <meta
+    name="description"
+    content="Created by TreadWill organization, IIT Kanpur,
   Useful for people to depressive symptoms,
   Best feature: personalized,
   Supportgroup: available"
-    />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
 
-    <!-- angular material icons -->
-    <link
-      rel="preload"
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      as="style"
-      onload="this.onload=null;this.rel='stylesheet'"
-    />
-    <!-- Font families from Google -->
-    <link
-      rel="preload"
-      href="https://fonts.googleapis.com/css?family=Lato:400,500,700,700i|Montserrat:400,500,700,800&display=swap"
-      as="style"
-      onload="this.onload=null;this.rel='stylesheet'"
-    />
-    <link
-      rel="preload"
-      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-      as="style"
-      onload="this.onload=null;this.rel='stylesheet'"
-    />
+  <!-- angular material icons -->
+  <link
+    rel="preload"
+    href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    as="style"
+    onload="this.onload=null;this.rel='stylesheet'"
+  />
+  <!-- Font families from Google -->
+  <link
+    rel="preload"
+    href="https://fonts.googleapis.com/css?family=Lato:400,500,700,700i|Montserrat:400,500,700,800&display=swap"
+    as="style"
+    onload="this.onload=null;this.rel='stylesheet'"
+  />
+  <link
+    rel="preload"
+    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+    as="style"
+    onload="this.onload=null;this.rel='stylesheet'"
+  />
 
-    <!-- Add to home screen for Safari on iOS -->
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <meta name="apple-mobile-web-app-title" content="TreadWill" />
-    <link rel="apple-touch-icon" href="images/icons/icon-144x144.png" />
-    <link
-      rel="apple-touch-startup-image"
-      href="assets/icons/icon-144x144.png"
-      media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      href="assets/icons/icon-144x144.png"
-      media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      href="assets/icons/icon-144x144.png"
-      media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      href="assets/icons/icon-144x144.png"
-      media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      href="assets/icons/icon-192x192.svg"
-      media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      href="assets/icons/icon-192x192.svg"
-      media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      href="assets/icons/icon-512x512.svg"
-      media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)"
-    />
+  <!-- Add to home screen for Safari on iOS -->
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="apple-mobile-web-app-title" content="TreadWill" />
+  <link rel="apple-touch-icon" href="images/icons/icon-144x144.png" />
+  <link
+    rel="apple-touch-startup-image"
+    href="assets/icons/icon-144x144.png"
+    media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)"
+  />
+  <link
+    rel="apple-touch-startup-image"
+    href="assets/icons/icon-144x144.png"
+    media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)"
+  />
+  <link
+    rel="apple-touch-startup-image"
+    href="assets/icons/icon-144x144.png"
+    media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)"
+  />
+  <link
+    rel="apple-touch-startup-image"
+    href="assets/icons/icon-144x144.png"
+    media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)"
+  />
+  <link
+    rel="apple-touch-startup-image"
+    href="assets/icons/icon-192x192.svg"
+    media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)"
+  />
+  <link
+    rel="apple-touch-startup-image"
+    href="assets/icons/icon-192x192.svg"
+    media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)"
+  />
+  <link
+    rel="apple-touch-startup-image"
+    href="assets/icons/icon-512x512.svg"
+    media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)"
+  />
 
-    <!-- for windows -->
-    <meta
-      name="msapplication-TileImage"
-      content="images/icons/icon-144x144.png"
-    />
-    <meta name="msapplication-TileColor" content="#2F3BA2" />
+  <!-- for windows -->
+  <meta
+    name="msapplication-TileImage"
+    content="images/icons/icon-144x144.png"
+  />
+  <meta name="msapplication-TileColor" content="#2F3BA2" />
 
-    <!-- manifest -->
-    <link rel="manifest" href="manifest.webmanifest" />
-    <meta name="theme-color" content="#2a3b3d" />
+  <!-- manifest -->
+  <link rel="manifest" href="manifest.webmanifest" />
+  <meta name="theme-color" content="#2a3b3d" />
 
-    <script async type="text/javascript" charset="utf-8">
-      var jpg_location = './assets/games/executive-control-game/jpg_phaser';
-      var svg_location = './assets/games/executive-control-game/svg_phaser';
-      var png = './assets/games/executive-control-game/png';
-      var sound_location = './assets/games/executive-control-game/sounds';
-      var assets_img_location = './assets/games';
-    </script>
+  <script async type="text/javascript" charset="utf-8">
+    var jpg_location = './assets/games/executive-control-game/jpg_phaser';
+    var svg_location = './assets/games/executive-control-game/svg_phaser';
+    var png = './assets/games/executive-control-game/png';
+    var sound_location = './assets/games/executive-control-game/sounds';
+    var assets_img_location = './assets/games';
+  </script>
 
-    <script src="https://static.hotjar.com/c/hotjar-6.js?sv=6.0.3&h=3666440&v=1"></script>
+<!--   Hotjar Tracking Code for https://www.treadwill.org/ -->
+  <script src="https://static.hotjar.com/c/hotjar-6.js?sv=6.0.3&h=3666440&v=1"></script>
+  <script>
+    (function(h,o,t,j,a,r){
+      h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+      h._hjSettings={hjid:3666440,hjsv:6};
+      a=o.getElementsByTagName('head')[0];
+      r=o.createElement('script');r.async=1;
+      r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+      a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+  </script>
 
-    <!-- to verify ownership to google -->
-    <meta
-      name="google-site-verification"
-      content="TofACPRj4s3AgmpfCrASq8saBLEfPIqxoZUGZeNzOus"
-    />
-  </head>
-  <body style="margin: 0; padding: 0;">
-    <script>
-      window.onerror = function (error) {
-        if (error.includes('Uncaught SyntaxError')) {
-          window.location.reload();
-        }
-      };
-    </script>
-    <app-root>
-      <div
-        style="
+  <!-- to verify ownership to google -->
+  <meta
+    name="google-site-verification"
+    content="TofACPRj4s3AgmpfCrASq8saBLEfPIqxoZUGZeNzOus"
+  />
+  <link rel="stylesheet" href="styles.38df1576d4970317359a.css"></head>
+<body style="margin: 0; padding: 0;">
+<script>
+  window.onerror = function (error) {
+    if (error.includes('Uncaught SyntaxError')) {
+      window.location.reload();
+    }
+  };
+</script>
+<app-root>
+  <div
+    style="
           width: 100%;
           height: 100vh;
           background-color: #2a3b3d;
           text-align: center;
           padding-top: 150px;
         "
-      >
-        <img src="assets/shared/loading-gif.gif" alt="loading..." width="80" />
-      </div>
-    </app-root>
-    <noscript
-      >Please enable JavaScript to continue using this application.</noscript
-    >
-  </body>
+  >
+    <img src="assets/shared/loading-gif.gif" alt="loading..." width="80" />
+  </div>
+</app-root>
+<noscript
+>Please enable JavaScript to continue using this application.</noscript
+>
+<script src="runtime.dd524e5bb1c5ad060215.js" defer></script><script src="polyfills-es5.9c33adffc758d8dc6e5d.js" nomodule defer></script><script src="polyfills.87730a0bf5c5a89b453b.js" defer></script><script src="scripts.52580cc09cbbe005a669.js" defer></script><script src="main.c74dca736e76e56ef278.js" defer></script></body>
 </html>
