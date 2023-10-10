@@ -109,6 +109,7 @@ export class SlidesComponent implements OnInit, AfterContentInit, DoCheck {
     private goToService: NavbarGoToService,
     private commonService: CommonService,
     private authService: AuthService,
+
   ) {}
 
   slide!: Slide;
@@ -146,11 +147,22 @@ export class SlidesComponent implements OnInit, AfterContentInit, DoCheck {
   stepName!: string;
   stepGroupSequence!: number;
   showloading = false;
+  chrome_user = false; // for testing
+
 
   ngDoCheck(): void {}
 
   ngOnInit() {
     this.user = <User>this.authService.isLoggedIn();
+    this.chrome_user  = this.commonService.isChromeBrowser(); //check what it returns
+    console.log('not chrome user', !this.chrome_user, this.commonService.isChromeBrowser() );
+    this.callStepData();
+    if (!this.chrome_user) {
+      setTimeout(() => this.callStepData(),
+        100);
+    }
+  }
+  callStepData() {
     this.activateRoute.params
       .pipe(
         map(v => v.id),
