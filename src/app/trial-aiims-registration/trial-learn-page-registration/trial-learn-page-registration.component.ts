@@ -79,7 +79,7 @@ export class TrialLearnPageRegistrationComponent implements OnInit {
       this.showRegistrationContent = true;
     // }
     // IF IT IS NOT CHROME USER BUT USING OPEN LINK
-    this.chrome_user  = this.commonService.isChromeBrowser(); //check what it returns
+    this.chrome_user  = this.commonService.isChromeBrowser(); // check what it returns
     console.log('CHROME USER', this.chrome_user);
     if (!this.chrome_user) {
       this.openPagePrefencesSet = true;
@@ -91,7 +91,7 @@ export class TrialLearnPageRegistrationComponent implements OnInit {
     console.log('email form', this.emailForm);
     let gmail_id = false;
     if (this.emailForm.value.email) {
-      let email_array = this.emailForm.value.email.split('@');
+      const email_array = this.emailForm.value.email.split('@');
       console.log('as', email_array[1]);
       for (let i = 0; i < this.gmailService.length; i++) {
         console.log('as', i, this.gmailService[i]);
@@ -121,17 +121,17 @@ export class TrialLearnPageRegistrationComponent implements OnInit {
                 res_data.data.participant_id;
               this.aiimsRegistrationDataService.category =
                 res_data.data.category;
-              if(this.aiimsRegistrationDataService.category == 1) {
+              if (this.aiimsRegistrationDataService.category === 1) {
                 this.registration_path = AIIMS_REGISTRATION_PATH;
-              } else if (this.aiimsRegistrationDataService.category == 2) {
+              } else if (this.aiimsRegistrationDataService.category === 2) {
                 this.registration_path = OPEN_REGISTRATION_PATH;
-              } else if (this.aiimsRegistrationDataService.category == 3) {
+              } else if (this.aiimsRegistrationDataService.category === 3) {
                 this.registration_path = STUDENT_GROUP_REGISTRATION_PATH;
-              } else if (this.aiimsRegistrationDataService.category == 4) {
+              } else if (this.aiimsRegistrationDataService.category === 4) {
                 this.registration_path = LIFE_GROUP_REGISTRATION_PATH;
-              } else if (this.aiimsRegistrationDataService.category == 5) {
+              } else if (this.aiimsRegistrationDataService.category === 5) {
                 this.registration_path = LEARN_GROUP_REGISTRATION_PATH;
-              } else if (this.aiimsRegistrationDataService.category == 6) {
+              } else if (this.aiimsRegistrationDataService.category === 6) {
                 this.registration_path = WORK_GROUP_REGISTRATION_PATH;
               }
               this.userEligible = !res_data.data.excluded;

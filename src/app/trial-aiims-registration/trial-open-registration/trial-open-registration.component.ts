@@ -44,7 +44,7 @@ export class TrialOpenRegistrationComponent implements OnInit {
   remainingParticipants = 2000;
   registration_path!: string;
   page_category =  OPEN_GROUP;
-  openPage = true; //openPage is availaible on screens sizes desktop and mobile
+  openPage = true; // openPage is availaible on screens sizes desktop and mobile
   chrome_user = false; // for testing
   openPagePrefencesSet = false;
   gmailService = ['gmail', 'gial', 'gmial', 'gmal', 'gmil'];
@@ -77,7 +77,7 @@ export class TrialOpenRegistrationComponent implements OnInit {
     }
 
     // IF IT IS NOT CHROME USER BUT USING OPEN LINK
-    this.chrome_user  = this.commonService.isChromeBrowser(); //check what it returns
+    this.chrome_user  = this.commonService.isChromeBrowser(); // check what it returns
     console.log('CHROME USER', this.chrome_user);
     if (!this.chrome_user && this.openPage) {
       this.openPagePrefencesSet = true;
@@ -90,7 +90,7 @@ export class TrialOpenRegistrationComponent implements OnInit {
     console.log('email form', this.emailForm);
     let gmail_id = false;
     if (this.emailForm.value.email) {
-      let email_array = this.emailForm.value.email.split('@');
+      const email_array = this.emailForm.value.email.split('@');
       console.log('as', email_array[1]);
       for (let i = 0; i < this.gmailService.length; i++) {
         console.log('as', i, this.gmailService[i]);

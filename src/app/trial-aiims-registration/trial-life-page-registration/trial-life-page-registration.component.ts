@@ -76,7 +76,7 @@ export class TrialLifePageRegistrationComponent implements OnInit {
       this.showRegistrationContent = true;
     // }
     // IF IT IS NOT CHROME USER BUT USING OPEN LINK
-    this.chrome_user  = this.commonService.isChromeBrowser(); //check what it returns
+    this.chrome_user  = this.commonService.isChromeBrowser(); // check what it returns
     console.log('CHROME USER', this.chrome_user);
     if (!this.chrome_user) {
       this.openPagePrefencesSet = true;
@@ -88,7 +88,7 @@ export class TrialLifePageRegistrationComponent implements OnInit {
     console.log('email form', this.emailForm);
     let gmail_id = false;
     if (this.emailForm.value.email) {
-      let email_array = this.emailForm.value.email.split('@');
+      const email_array = this.emailForm.value.email.split('@');
       console.log('as', email_array[1]);
       for (let i = 0; i < this.gmailService.length; i++) {
         console.log('as', i, this.gmailService[i]);

@@ -248,7 +248,7 @@ export class SignUpComponent implements OnInit {
       });
   }
 
-  //till here
+  // till here
 
 
 
