@@ -16,10 +16,15 @@
         Thanks for your interest in TreadWill.
     </div>
 
-    <div class="row mx-1 my-3 thank-you-text"  style=" display:block;">
+    <div class="row mx-1 my-3 thank-you-text" *ngIf="!alreadyRegistered"  style=" display:block;">
       We have sent the sign up link in the email id you provided. <a (click)= "resendEmail()" [routerLink]=""  >Click here</a> to resend the email.
       <br><br>
       If you don't see the mail please check your spam/junk folder and move the mail back to inbox. If you still don't receive any email, please <a (click)= "contactUsClicked()" [routerLink]="">let us know</a>.
     </div>
+  <!--when the user is already registered as waitlist candidate-->
+  <div class="row mx-1 my-3 thank-you-text"  *ngIf="alreadyRegistered" style=" display:block;">
+    We found  in our database that you have already registered from a different link. We recommend that you go back to the same link i.e <a href = "{{newLink}}">{{newLinkFull}} </a>.
+    <br><br>
+  </div>
 </div>
 

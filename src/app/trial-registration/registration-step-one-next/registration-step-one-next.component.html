@@ -1,11 +1,19 @@
 <div class="container-fluid">
   <app-trial-pages-header  [stepNumber]="null" ></app-trial-pages-header>
+
   <div class="m-medium row mx-1 my-3">
     Thanks for your interest in TreadWill.
   </div>
 
-  <div class="row mx-1 my-3 thank-you-text" >
-    We will send you further instructions to the email id within a day.
+<!--  <div class="row mx-1 my-3 thank-you-text" >-->
+<!--    We will send you further instructions to the email id within a day.-->
+<!--  </div>-->
+
+  <div class="row mx-2 my-3 thank-you-text" *ngIf="dataLoaded" >
+    We found  in our database that you have initially tried registering from a different link. We recommend that you go back to the same link i.e <a href = "{{newLink}}">{{newLinkFull}} </a>else you might face some errors.
+  </div>
+  <div class="text-center loader" *ngIf="!dataLoaded">
+    <img src="assets/shared/ripple.gif" alt="loader" width="80">
   </div>
 </div>
 

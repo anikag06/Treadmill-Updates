@@ -5,7 +5,7 @@ import { RegistrationDataService } from '@/trial-registration/shared/registratio
 import { MatContactUsDialogService } from '@/shared/mat-contact-us-dialog/mat-contact-us-dialog.service';
 import { SignUpService } from '@/pre-login/signup/sign-up.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {AIIMS_REGISTRATION_PATH} from '@/app.constants';
 import {TrialAiimsRegistrationService} from '@/trial-aiims-registration/trial-aiims-registration.service';
 
@@ -22,16 +22,28 @@ export class AiimsStepLastPageComponent implements OnInit {
     private signUpService: SignUpService,
     private snackBar: MatSnackBar,
     private router: Router,
+    private activateRoutes: ActivatedRoute,
+
   ) {}
   participationID!: number;
   msgReceived = 'Email sent.';
   action = 'Ok';
   aiimsUser = false;
+  alreadyRegistered = true;
+  newLink!: string;
+  newLinkFull!: string;
 
   ngOnInit() {
     // this.participationID = this.registrationDataService.participationID;
       this.aiimsUser = true;
       this.participationID = this.aiimsRegistrationDataService.participationID;
+    this.activateRoutes.queryParams.subscribe(data => {
+      console.log('data', data);
+      if (data.link) {
+        this.newLink = data.link;
+        this.newLinkFull = 'www.treadwill.org/' + this.newLink;
+      }
+    });
   }
   contactUsClicked() {
     this.showContactUsService.contactUsClicked();

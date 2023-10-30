@@ -14,6 +14,7 @@ import { RegistrationDataService } from '../shared/registration-data.service';
 import { QuizService } from '@/shared/questionnaire-deprecated/questionnaire-deprecated.service';
 import { A2HSService } from '@/shared/a2hs.service';
 import { FcmService } from '@/shared/fcm.service';
+import {isArrayLike} from 'rxjs/internal-compatibility';
 
 @Component({
   selector: 'app-registration-step-one',
@@ -91,11 +92,19 @@ export class RegistrationStepOneComponent implements OnInit {
               this.userEligible = !res_data.data.excluded;
               if (this.userEligible) {
                 this.authService.activateChild(true);
-                const stepNumber = res_data.data.next_step;
-                const navigation_step =
+                let stepNumber = res_data.data.next_step;
+                let navigation_step =
                   REGISTRATION_PATH + '/step-' + stepNumber;
-
-                if (stepNumber === 3) {
+                if (stepNumber.link) {
+                  stepNumber = res_data.data.next_step.step;
+                  const link = res_data.data.next_step.link;
+                  navigation_step =
+                    REGISTRATION_PATH + '/step-' + stepNumber;
+                  this.router.navigate(
+                    [navigation_step],
+                    {queryParams: {'link': link}}
+                  );
+                } else if (stepNumber === 3) {
                   this.questionnaireService.questionnaire_name =
                     res_data.data.next_questionnaire;
                   this.router.navigate([navigation_step]);
