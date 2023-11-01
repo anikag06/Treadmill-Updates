@@ -134,20 +134,32 @@ export class TrialLifePageRegistrationComponent implements OnInit {
               this.userEligible = !res_data.data.excluded;
               if (this.userEligible) {
                 this.authService.activateChild(true);
-                const stepNumber = res_data.data.next_step;
-                const navigation_step =
-                  this.registration_path  + 'r/step-' + stepNumber;
-
-                if (stepNumber === 3) {
-                  if (res_data.data.next_questionnaire === SIQ) {
-                    this.questionnaireService.questionnaire_name = GAD7;
-                  } else {
-                    this.questionnaireService.questionnaire_name =
-                      res_data.data.next_questionnaire;
-                  }
-                  this.router.navigate([navigation_step]);
+                if (res_data.data.next_step.link) {
+                  const stepNumber = res_data.data.next_step.step;
+                  const link = res_data.data.next_step.link;
+                  console.log('navigate to step 5');
+                  const navigation_step =
+                    this.registration_path + 'r/step-' + stepNumber;
+                  this.router.navigate(
+                    [navigation_step],
+                    {queryParams: {'link': link}}
+                  );
                 } else {
-                  this.router.navigate([navigation_step]);
+                  const stepNumber = res_data.data.next_step;
+                  const navigation_step =
+                    this.registration_path + 'r/step-' + stepNumber;
+
+                  if (stepNumber === 3) {
+                    if (res_data.data.next_questionnaire === SIQ) {
+                      this.questionnaireService.questionnaire_name = GAD7;
+                    } else {
+                      this.questionnaireService.questionnaire_name =
+                        res_data.data.next_questionnaire;
+                    }
+                    this.router.navigate([navigation_step]);
+                  } else {
+                    this.router.navigate([navigation_step]);
+                  }
                 }
               } else {
                 // this.authService.activateChild(true);

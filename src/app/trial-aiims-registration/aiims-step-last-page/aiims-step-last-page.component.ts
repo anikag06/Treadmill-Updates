@@ -29,7 +29,7 @@ export class AiimsStepLastPageComponent implements OnInit {
   msgReceived = 'Email sent.';
   action = 'Ok';
   aiimsUser = false;
-  alreadyRegistered = true;
+  alreadyRegistered = false;
   newLink!: string;
   newLinkFull!: string;
 
@@ -40,6 +40,7 @@ export class AiimsStepLastPageComponent implements OnInit {
     this.activateRoutes.queryParams.subscribe(data => {
       console.log('data', data);
       if (data.link) {
+        this.alreadyRegistered = true;
         this.newLink = data.link;
         this.newLinkFull = 'www.treadwill.org/' + this.newLink;
       }

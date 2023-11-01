@@ -29,6 +29,7 @@ import { RegistrationStepFourForm } from '../registration-step-four/step-four-co
 export class RegistrationDataService {
   participationID!: number;
   isWaitList!: boolean;
+  participant_category!: number; // required to check participant category in iims group
   // aiimsUser!: boolean;
 
   constructor(private http: HttpClient) {}
