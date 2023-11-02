@@ -43,10 +43,9 @@ export class QuestionnaireResultComponent implements OnInit {
           '</div>' +
           '</div>';
   header = '<div class=\'row header\'>' +
-          '<img ' +
-          'src=\'https://www.treadwill.org/assets/shared/logo_full.svg\'' +
-          'class=\'center header-image\'' +
-          'alt=\'treadwill_logo\' >'  +
+          '<div class="center" id=\'header-image\'>' +
+          '<h1>TreadWill</h1>' +
+          '</div>' +
           '</div>';
 
 

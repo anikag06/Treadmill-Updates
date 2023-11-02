@@ -93,7 +93,7 @@ export class QuestionnaireService {
     // @ts-ignore
     return this.http
       .post(
-        environment.API_ENDPOINT + '/multi-questionnaire/send-pdf/',
+        environment.API_ENDPOINT + '/api/v1/multi-questionnaire/send-pdf/',
         {
           html: html,
           qname: qname,
