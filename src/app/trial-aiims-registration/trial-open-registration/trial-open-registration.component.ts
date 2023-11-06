@@ -82,7 +82,6 @@ export class TrialOpenRegistrationComponent implements OnInit {
     if (!this.chrome_user && this.openPage) {
       this.openPagePrefencesSet = true;
     }
-
   }
 
   emailSubmit() {
@@ -91,25 +90,17 @@ export class TrialOpenRegistrationComponent implements OnInit {
     let gmail_id = false;
     if (this.emailForm.value.email) {
       const email_array = this.emailForm.value.email.split('@');
-      console.log('as', email_array[1]);
       for (let i = 0; i < this.gmailService.length; i++) {
-        console.log('as', i, this.gmailService[i]);
-
         if (email_array[1].includes(this.gmailService[i])) {
           gmail_id = true;
-          console.log('as123', gmail_id);
           break;
         }
       }
       if (gmail_id) {
         this.emailForm.value.email = email_array[0] + '@gmail.com';
-        console.log('as1', this.emailForm.value.email);
-
       }
     }
     if (this.emailForm.valid) {
-      console.log('as2', this.emailForm.value.email);
-
       this.showLoading = true;
       // check if modern email service provider
       if (this.checkEmailService(this.emailForm.value.email)) {
@@ -118,12 +109,27 @@ export class TrialOpenRegistrationComponent implements OnInit {
           .subscribe(
             (res_data: any) => {
               this.showLoading = false;
-              this.aiimsRegistrationDataService.participationID =
-                res_data.data.participant_id;
-              this.aiimsRegistrationDataService.category =
-                res_data.data.category;
-              if (this.aiimsRegistrationDataService.category === 1) {
-                this.registration_path = AIIMS_REGISTRATION_PATH;
+              if (res_data.data.link) {
+                this.authService.activateChild(true);
+                const stepNumber = res_data.data.step;
+                const link = res_data.data.link;
+
+                // this.registration_path = OPEN_REGISTRATION_PATH;
+                const navigation_step = OPEN_REGISTRATION_PATH +  'r/step-' + stepNumber;
+                console.log('navigate to step 5', navigation_step);
+                this.router.navigate(
+                  [navigation_step],
+                  {
+                    queryParams: {'link': link},
+                  }
+                );
+              } else {
+                this.aiimsRegistrationDataService.participationID =
+                  res_data.data.participant_id;
+                this.aiimsRegistrationDataService.category =
+                  res_data.data.category;
+                if (this.aiimsRegistrationDataService.category === 1) {
+                  this.registration_path = AIIMS_REGISTRATION_PATH;
                 } else if (this.aiimsRegistrationDataService.category === 2) {
                   this.registration_path = OPEN_REGISTRATION_PATH;
                 } else if (this.aiimsRegistrationDataService.category === 3) {
@@ -135,39 +141,28 @@ export class TrialOpenRegistrationComponent implements OnInit {
                 } else if (this.aiimsRegistrationDataService.category === 6) {
                   this.registration_path = WORK_GROUP_REGISTRATION_PATH;
                 }
-              this.userEligible = !res_data.data.excluded;
-              if (this.userEligible) {
-                this.authService.activateChild(true);
-                if (res_data.data.next_step.link) {
-                  const stepNumber = res_data.data.next_step.step;
-                  const link = res_data.data.next_step.link;
-                  console.log('navigate to step 5');
-                  const navigation_step =
-                    this.registration_path + 'r/step-' + stepNumber;
-                  this.router.navigate(
-                    [navigation_step],
-                    {queryParams: {'link': link}}
-                  );
-                } else {
-                  const stepNumber = res_data.data.next_step;
-                  const navigation_step =
-                    this.registration_path + 'r/step-' + stepNumber;
+                this.userEligible = !res_data.data.excluded;
+                if (this.userEligible) {
+                  this.authService.activateChild(true);
+                    const stepNumber = res_data.data.next_step;
+                    const navigation_step =
+                      this.registration_path + 'r/step-' + stepNumber;
 
-                  if (stepNumber === 3) {
-                    if (res_data.data.next_questionnaire === SIQ) {
-                      this.questionnaireService.questionnaire_name = GAD7;
+                    if (stepNumber === 3) {
+                      if (res_data.data.next_questionnaire === SIQ) {
+                        this.questionnaireService.questionnaire_name = GAD7;
+                      } else {
+                        this.questionnaireService.questionnaire_name =
+                          res_data.data.next_questionnaire;
+                      }
+                      this.router.navigate([navigation_step]);
                     } else {
-                      this.questionnaireService.questionnaire_name =
-                        res_data.data.next_questionnaire;
+                      this.router.navigate([navigation_step]);
                     }
-                    this.router.navigate([navigation_step]);
-                  } else {
-                    this.router.navigate([navigation_step]);
-                  }
+                } else {
+                  // this.authService.activateChild(true);
+                  // this.router.navigate([INELIGIBLE_FOR_TRIAL]);
                 }
-              } else {
-                // this.authService.activateChild(true);
-                // this.router.navigate([INELIGIBLE_FOR_TRIAL]);
               }
             },
             err => {

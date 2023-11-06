@@ -1,6 +1,6 @@
 import {Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {TrialAuthService} from '@/trial-registration/shared/trial-auth.service';
 import {MatContactUsDialogService} from '@/shared/mat-contact-us-dialog/mat-contact-us-dialog.service';
 import {TrialAiimsRegistrationService} from '@/trial-aiims-registration/trial-aiims-registration.service';
@@ -14,6 +14,7 @@ import {
   WORK_GROUP, WORK_GROUP_REGISTRATION_PATH
 } from '@/app.constants';
 import {QuizService} from '@/shared/questionnaire-deprecated/questionnaire-deprecated.service';
+import {CommonService} from '@/shared/common.service';
 
 @Component({
   selector: 'app-trial-work-page-registration',
@@ -43,11 +44,14 @@ export class TrialWorkPageRegistrationComponent implements OnInit {
   remainingParticipants = 2000;
   registration_path!: string;
   page_category =  WORK_GROUP;
+  openPage = true; // openPage is availaible on screens sizes desktop and mobile
   openPagePrefencesSet = false;
   gmailService = ['gmail', 'gial', 'gmial', 'gmal', 'gmil'];
   emailForm = new FormGroup({
     email: new FormControl(''),
   });
+  chrome_user = false; // for testing
+
 
   @HostListener('touchstart')
   onTouchEvent() {
@@ -60,37 +64,41 @@ export class TrialWorkPageRegistrationComponent implements OnInit {
     private showContactUsService: MatContactUsDialogService,
     private aiimsRegistrationDataService: TrialAiimsRegistrationService,
     private questionnaireService: QuizService,
+    private commonService: CommonService,
     private a2hsService: A2HSService,
+    private activatedRoute: ActivatedRoute,
+
   ) {}
 
   ngOnInit() {
-    // this.a2hsService.setDeferredPrompt();
     const smallDevice = window.matchMedia('(max-width: 767px)').matches;
     // if (smallDevice) {
       this.showRegistrationContent = true;
     // }
+
+    // IF IT IS NOT CHROME USER BUT USING OPEN LINK
+    this.chrome_user  = this.commonService.isChromeBrowser(); // check what it returns
+    console.log('CHROME USER', this.chrome_user);
+    if (!this.chrome_user && this.openPage) {
+      this.openPagePrefencesSet = true;
+    }
   }
 
   emailSubmit() {
     localStorage.clear();
-    console.log('email form', this.emailForm);
     let gmail_id = false;
     if (this.emailForm.value.email) {
       let email_array = this.emailForm.value.email.split('@');
-      console.log('as', email_array[1]);
       for (let i = 0; i < this.gmailService.length; i++) {
         console.log('as', i, this.gmailService[i]);
 
         if (email_array[1].includes(this.gmailService[i])) {
           gmail_id = true;
-          console.log('as123', gmail_id);
           break;
         }
       }
       if (gmail_id) {
         this.emailForm.value.email = email_array[0] + '@gmail.com';
-        console.log('as1', this.emailForm.value.email);
-
       }
     }
     if (this.emailForm.valid) {
@@ -101,12 +109,28 @@ export class TrialWorkPageRegistrationComponent implements OnInit {
           .storeOpenEmailID(this.emailForm.value.email, this.page_category)
           .subscribe(
             (res_data: any) => {
+              console.log('responsedata', res_data);
               this.showLoading = false;
+              if (res_data.data.link) {
+                this.authService.activateChild(true);
+                const stepNumber = res_data.data.step;
+                const link = res_data.data.link;
+
+                // this.registration_path = OPEN_REGISTRATION_PATH;
+                const navigation_step = OPEN_REGISTRATION_PATH +  'r/step-' + stepNumber;
+                console.log('navigate to step 5', navigation_step);
+                this.router.navigate(
+                  [navigation_step],
+                  {
+                    queryParams: {'link': link},
+                  }
+                );
+              } else {
               this.aiimsRegistrationDataService.participationID =
                 res_data.data.participant_id;
               this.aiimsRegistrationDataService.category =
                 res_data.data.category;
-              if(this.aiimsRegistrationDataService.category === 1) {
+              if (this.aiimsRegistrationDataService.category === 1) {
                 this.registration_path = AIIMS_REGISTRATION_PATH;
               } else if (this.aiimsRegistrationDataService.category === 2) {
                 this.registration_path = OPEN_REGISTRATION_PATH;
@@ -122,17 +146,6 @@ export class TrialWorkPageRegistrationComponent implements OnInit {
               this.userEligible = !res_data.data.excluded;
               if (this.userEligible) {
                 this.authService.activateChild(true);
-                if (res_data.data.next_step.link) {
-                  const stepNumber = res_data.data.next_step.step;
-                  const link = res_data.data.next_step.link;
-                  console.log('navigate to step 5');
-                  const navigation_step =
-                    this.registration_path + 'r/step-' + stepNumber;
-                  this.router.navigate(
-                    [navigation_step],
-                    {queryParams: {'link': link}}
-                  );
-                } else {
                   const stepNumber = res_data.data.next_step;
                   const navigation_step =
                     this.registration_path + 'r/step-' + stepNumber;
@@ -148,10 +161,10 @@ export class TrialWorkPageRegistrationComponent implements OnInit {
                   } else {
                     this.router.navigate([navigation_step]);
                   }
-                }
               } else {
                 // this.authService.activateChild(true);
                 // this.router.navigate([INELIGIBLE_FOR_TRIAL]);
+              }
               }
             },
             err => {
