@@ -98,12 +98,12 @@ export class AiimsRegistrationStepFourComponent implements OnInit {
     console.log('is chrome user', this.chrome_user);
 
     this.aiimsRegistrationDataService.aiimsUser = true;
-    if (this.router.url.includes('aiims532')) {
-      this.openLinksPage = false;
-    } else {
+    // REMOVING NOTIFICATION CRITERIA IN AIIMS RHISHIKESH ALSO MAKING IT SAME AS OPEN LINK
+    // if (this.router.url.includes('aiims532')) {
+    //   this.openLinksPage = false;
+    // } else {
       this.openLinksPage = true;
-      console.log(this.openLinksPage, ' new open links');
-    }
+    // }
     const smallDevice = window.matchMedia('(max-width: 767px)').matches;
     if (smallDevice || this.openLinksPage) {
       this.showPage = true;

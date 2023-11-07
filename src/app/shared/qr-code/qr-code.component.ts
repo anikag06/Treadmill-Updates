@@ -31,7 +31,7 @@ export class QrCodeComponent implements OnInit {
     // commented above code for generating qr and using saved images
     if (this.router.url === REGISTRATION_PATH) {
       this.imgPath = 'assets/trial-registration/qrcode.svg';
-    } else if (this.router.url === '/aiims532') {
+    } else if (this.router.url.includes('/aiims532')) {
       this.imgPath = 'assets/trial-registration/qrcode.svg';
     } else if (this.router.url === '/open' ) {
       console.log('reg path');
