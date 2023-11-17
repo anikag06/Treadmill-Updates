@@ -57,7 +57,8 @@ export class AiimsRegistrationStepFourComponent implements OnInit {
   addingToHomescreen = false;
   updatingPermissions = false;
   dialogRef!: MatDialogRef<CommonDialogComponent>;
-  errorMessage = 'Oops! You blocked notifications from TreadWill.';
+  // errorMessage = 'Oops! You blocked notifications from TreadWill.';
+  errorMessage = 'It looks like you have blocked notifications in your browser.';
   notificationHelp =
     'No problem, you can still allow notifications. See under the heading <b>Allow or block notifications from some sites</b> in ';
   notificationLink =
@@ -109,6 +110,7 @@ export class AiimsRegistrationStepFourComponent implements OnInit {
       this.showPage = true;
     }
     const notificationStatus = Notification.permission;
+    console.log('NOTIFICATION STATUS', Notification);
     // OPEN LINKS USERS (refer to all new links) USING BROWSER OTHER THAN CHROME WILL BYPASS NOTIFICATIONS AND INSTALL PROMPT
     // OPEN LINKS USERS USING BROWSER CHROME WILL ALSO BYPASS NOTIFICATIONS IN CASE NOTIFICATION STATUS IS DENIED
     if (this.chrome_user && notificationStatus === 'denied' && this.openLinksPage) {
@@ -152,6 +154,12 @@ export class AiimsRegistrationStepFourComponent implements OnInit {
         this.notificationHelp =
           'See how to allow notifications.See under the heading <b>Allow or block notifications from all sites</b> in ';
       } else {
+        // if SITE NOTIFICATIONS ARE GRANTED but chrome notifications are off
+        this.errorMessage =
+          'It looks like you have blocked notifications in your browser.';
+        this.notificationHelp =
+          '<b>Please enable notifications for Chrome app in your device. </b>' +
+          'Also see how to allow notifications for websites. See under the heading <b>Allow or block notifications from all sites</b> in ';
         // this.homeScreenPermission();
       }
       const dateNow = new Date();
