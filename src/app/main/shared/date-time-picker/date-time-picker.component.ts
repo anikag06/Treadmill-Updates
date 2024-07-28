@@ -161,28 +161,54 @@ export class DateTimePickerComponent
     this.formDateTime.push(this.formDataDays);
     const sameDate = this.isSameDate();
 
+    // const differDateMessage =
+    //   "I'll do this task at" +
+    //   '<br/>' +
+    //   '⏰ ' +
+    //   hourMinute +
+    //   '<br/>' +
+    //   ' on ' +
+    //   repeat +
+    //   '<br/>' +
+    //   ' from ' +
+    //   '📅 ' +
+    //   date;
+    // const sameDateMessage =
+    //   "I'll do this task at " +
+    //   '<br/>' + 
+    //   '⏰ ' +
+    //   hourMinute +
+    //   '<br/>' +
+    //   ' on ' +
+    //   repeat +
+    //   '<br/>' +
+    //   '📅 ' +
+    //   moment(this.startDate)
+    //     .format("Do MMM'YY")
+    //     .toString();
+
     const differDateMessage =
       "I'll do this task at" +
       '<br/>' +
-      '⏰ ' +
+      '&#x23F0 ' +
       hourMinute +
       '<br/>' +
       ' on ' +
       repeat +
       '<br/>' +
       ' from ' +
-      '📅 ' +
+      'U+1F4C5;' +
       date;
     const sameDateMessage =
       "I'll do this task at " +
-      '<br/>' +
-      '⏰ ' +
+      '<br/>' + 
+      '&#x23F0;' +
       hourMinute +
       '<br/>' +
       ' on ' +
       repeat +
       '<br/>' +
-      '📅 ' +
+      '&#x1F4C5;' +
       moment(this.startDate)
         .format("Do MMM'YY")
         .toString();

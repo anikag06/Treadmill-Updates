@@ -9,8 +9,12 @@
     <div class = "row" *ngIf = " this.usernameHeadingClicked">
 
       <div class = "col-12 col-lg-12   ">
+        <div class="row no-gutters justify-content-center">
+        </div>
        <form #usernameForm = "ngForm">
-      <mat-form-field class = "username-change-input">
+<!--         Tips: . Avoid special characters in username.-->
+
+         <mat-form-field class = "username-change-input">
         <mat-label class = "placeholder">
           username
         </mat-label>
@@ -20,9 +24,13 @@
           [(ngModel)] = "newUsername"
           (input) = "usernameAvailability()" >
         <mat-error>not</mat-error>
+           <mat-hint class = "success-msg"  *ngIf ="this.anonymousHint">
+             Use an anonymous username to maintain confidentiality</mat-hint>
        <mat-hint [ngClass] = "this.usernameAvailableStatus === true? 'success-msg':'not-success-msg'"
-                 *ngIf ="this.usernameAvailable === true || this.newUsername == !user.username || this.checkForWhiteSpace(this.newUsername)" >{{usernameAvailableMessage}}</mat-hint>
-       <mat-hint [ngClass] = "this.usernamePasswordStatus === true? 'success-msg':'not-success-msg'"
+                 *ngIf ="this.usernameAvailable === true || this.newUsername == !user.username || this.checkForWhiteSpace(this.newUsername)" >
+         {{usernameAvailableMessage}}</mat-hint>
+
+        <mat-hint [ngClass] = "this.usernamePasswordStatus === true? 'success-msg':'not-success-msg'"
                  *ngIf ="this.usernameAvailable === false">{{usernamePasswordCorrectMessage}}</mat-hint>
       </mat-form-field>&nbsp;&nbsp;&nbsp;&nbsp;
 

@@ -50,6 +50,7 @@ export class SettingsComponent implements OnInit {
   usernameAvailableStatus!: boolean;
   usernameInput = true;
   usernameAvailable = false;
+  anonymousHint = true;
   usernameAvailableMessage = '';
   usernamePasswordCorrectMessage = '';
   usernamePasswordStatus!: boolean;
@@ -171,6 +172,7 @@ export class SettingsComponent implements OnInit {
         }
         this.showLoadingUsernameChange = false;
         this.usernameAvailable = true;
+        this.anonymousHint = false;
         this.removeMsg();
       });
     this.usernamePasswordCorrectMessage = '';

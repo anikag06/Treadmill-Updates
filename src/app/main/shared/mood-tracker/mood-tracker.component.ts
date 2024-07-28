@@ -234,7 +234,8 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
             mood_type: i < 11 ? 'negative' : 'positive',
           };
           this.moodArray.push(moodObject);
-          const emoji = i < 11 ? '😞 ' : '😄 ';
+          // const emoji = i < 11 ? '😞 ' : '😄 ';
+          const emoji = i < 11 ? '&#x1F614;' : '&#x1F600;'
           chatMoodMessage +=
             emoji +
             rangeValue_str.trim().toLowerCase() +
@@ -252,7 +253,8 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
             strength: null,
             mood_type: 'neutral',
           };
-          const emoji = '😐 ';
+          // const emoji = '😐 ';
+          const emoji = '&#x1F610;';
           chatMoodMessage +=
             emoji + option_label_str.trim().toLowerCase() + ' ';
           this.moodArray.push(moodObject);
