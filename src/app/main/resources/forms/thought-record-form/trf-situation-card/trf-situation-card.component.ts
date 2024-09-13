@@ -114,6 +114,10 @@ export class TrfSituationCardComponent implements OnInit {
   }
 
   onSituationSubmit() {
+    if (
+      this.situationFormGroup.value['situation'] &&
+      this.situationFormGroup.value['situation'].trim().length > 0
+    ) {      
     const object = {
       situation: this.situationFormGroup.value['situation'],
     };
@@ -137,6 +141,7 @@ export class TrfSituationCardComponent implements OnInit {
         }
       });
     }
+  }
   }
 
   onShowContinueButton() {

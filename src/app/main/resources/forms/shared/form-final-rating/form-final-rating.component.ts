@@ -126,6 +126,11 @@ export class FormFinalRatingComponent implements OnInit {
   }
 
   onRealisticBeliefSubmit() {
+     if (
+      this.finalRatingForm.value['realistic'] &&
+      this.finalRatingForm.value['realistic'].trim().length > 0
+    ) {  
+    
     const realistic = this.finalRatingForm.value['realistic'];
     if (this.editRealistic && this.object) {
       this.providerService[this.service]
@@ -148,6 +153,7 @@ export class FormFinalRatingComponent implements OnInit {
           }
         });
     }
+  }
   }
 
   showRealisticBtn() {

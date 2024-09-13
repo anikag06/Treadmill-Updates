@@ -70,6 +70,10 @@ export class TrfBehaviorCardComponent implements OnInit {
   }
 
   onBehaviorSubmit() {
+       if (
+      this.behaviorFormGroup.value['behavior'] &&
+      this.behaviorFormGroup.value['behavior'].trim().length > 0
+    ) {   
     if (this.thought) {
       const object = {
         situation_id: this.thought.id,
@@ -96,6 +100,7 @@ export class TrfBehaviorCardComponent implements OnInit {
         });
       }
     }
+  }
   }
 
   onShowContinueButton() {

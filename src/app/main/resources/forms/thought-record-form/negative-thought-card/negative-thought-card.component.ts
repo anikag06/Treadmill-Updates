@@ -97,6 +97,10 @@ export class NegativeThoughtCardComponent implements OnInit {
   }
 
   onThoughtSubmit() {
+     if (
+      this.thoughtRecordForm.value['thought'] &&
+      this.thoughtRecordForm.value['thought'].trim().length > 0
+    ) {  
     const object = {
       situation_id: this.thought.id,
       thought: this.thoughtRecordForm.value['thought'],
@@ -116,6 +120,7 @@ export class NegativeThoughtCardComponent implements OnInit {
       });
     }
   }
+}
 
   onThoughtRatingSubmit() {
     const object = {
