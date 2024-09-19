@@ -35,6 +35,8 @@ export class EttbfBeliefComponent implements OnInit {
   user!: User;
   @Input() belief!: Belief;
   @Output() beliefClicked = new EventEmitter<boolean>();
+  @Output() beliefAdded = new EventEmitter<Belief>();
+
   @ViewChild('beliefTextArea', { static: false }) beliefTextArea!: ElementRef;
   @ViewChild(FormSliderComponent, { static: false })
   initialSlider!: FormSliderComponent;
@@ -124,6 +126,8 @@ export class EttbfBeliefComponent implements OnInit {
             this.belief = data;
             this.beliefResponse = data;
             this.beliefClicked.emit(this.beliefContinue);
+            this.beliefAdded.emit(this.belief);
+        
           },
           (error) => {
             console.error(error);

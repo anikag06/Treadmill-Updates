@@ -294,6 +294,8 @@ export class EttbfOutcomeComponent implements OnInit {
   }
 
   onExpectedOutcomeSubmit() {
+     if (this.expectedOutComeForm.value['expected_outcome'] 
+      && Object.entries(this.expectedOutComeForm.value['expected_outcome']).length > 0){
     this.showSpinner = true;
     const data = this.expectedOutComeForm.value['expected_outcome'];
     this.ettbfBeliefService
@@ -305,6 +307,7 @@ export class EttbfOutcomeComponent implements OnInit {
           this.showSpinner = false;
         }
       });
+    }
   }
 
   onShowExpectedBtn() {

@@ -5,6 +5,7 @@ import {
   Output,
   AfterViewInit,
   Input,
+  SimpleChanges,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 
@@ -143,13 +144,16 @@ export class ExperimentToTestBeliefFormComponent implements OnInit {
       this.showLoading = false;
     }, 1000);
   }
+   ngOnChanges(changes: SimpleChanges) {
+  }
 
   ngOnDestroy() {
     this.subscriptions.forEach(sub => {
       sub.unsubscribe();
     });
   }
-  onAddNewForm() {
+
+    onAddNewForm() {
     delete this.belief;
     delete this.outcome;
     delete this.task;
@@ -226,6 +230,9 @@ export class ExperimentToTestBeliefFormComponent implements OnInit {
   //   this.outcome = outcome;
   //   this.outcomeEditMode = false;
   // }
+  updateBelief(data: any) {
+    this.belief = data;
+  }
   taskLoaded(data: any) {
     if (data) {
       this.taskEmitted = true;

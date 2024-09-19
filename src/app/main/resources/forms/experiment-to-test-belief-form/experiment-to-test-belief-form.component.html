@@ -56,7 +56,7 @@
               <app-ettbf-belief [belief]="belief" (beliefClicked)="loadTasks($event)"></app-ettbf-belief>
             </div>
             <div class="card-body" *ngIf="!belief" (click)="onBeliefClick()">
-              <app-ettbf-belief (beliefClicked)="loadTasks($event)"></app-ettbf-belief>
+              <app-ettbf-belief (beliefAdded)="updateBelief($event)"  (beliefClicked)="loadTasks($event)"></app-ettbf-belief>
             </div>
           </div>
         </div>

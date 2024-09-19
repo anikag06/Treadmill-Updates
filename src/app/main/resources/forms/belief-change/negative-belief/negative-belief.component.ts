@@ -40,7 +40,7 @@ export class NegativeBeliefComponent implements OnInit {
   // sliderHeader = 'On a scale of 1-10, how strongly do you belief this?';
   minRating = 'Not at all';
   maxRating = 'Very Strongly';
-  scaleBelief = 'On a scale of 1-10, how strongly do you belief this?';
+  scaleBelief = 'On a scale of 1-10, how strongly do you believe this?';
   beliefRatingInitial = 1;
   showSliderButton = false;
   editMode = false;
