@@ -11,7 +11,7 @@ export const environment = {
   CHATBOT_API: 'https://bot.treadwill.org:8002',
   // CHATBOT_API: 'http://127.0.0.1:8000',
   // CHATBOT_API: 'https://botv2.treadwill.org:8004',
-  API_ENDPOINT: 'https://www.api.treadwill.org',
+  API_ENDPOINT: 'https://www.api.treadwill.org:8000',
   firebase: {
     apiKey: 'AIzaSyA2uLe3D1HIF3STgFuP7Spp0-UVwL-kK-c',
     authDomain: 'treadwill-81e2f.firebaseapp.com',

@@ -117,7 +117,10 @@ export class AiimsRegistrationStepFourComponent implements OnInit {
       this.chromeUserWithNotificationDisabled = true;
     }
 
-    if ((this.chrome_user && notificationStatus === 'denied' && this.openLinksPage) || (!this.chrome_user && this.openLinksPage)) {
+    
+    //REMOVING CHECK FOR NOTIFICATION AND CHROME USER, FOR USERS WITH NOTIFICATIONS ON THE APP SHOULD SHOW INSTALL PROMPT ELSE BYPASS AND REGISTER
+
+    // if ((this.chrome_user && notificationStatus === 'denied' && this.openLinksPage) || (!this.chrome_user && this.openLinksPage)) {
       this.openPagePrefencesSet = true;
       this.notificationsAllowed = 1;
 
@@ -141,46 +144,46 @@ export class AiimsRegistrationStepFourComponent implements OnInit {
     // this.notificationsPermission();
       this.homeScreenPermission();
 
-    }  else {
+  //   }  else {
 
-      // For AIIMS - WORK AS EARLIER
-      // OPEN LINKS USERS USING BROWSER CHROME WILL ALSO BYPASS NOTIFICATIONS IN CASE NOTIFICATION STATUS IS DENIED IF NOT THEN WORK AS EARLIER
+  //     // For AIIMS - WORK AS EARLIER
+  //     // OPEN LINKS USERS USING BROWSER CHROME WILL ALSO BYPASS NOTIFICATIONS IN CASE NOTIFICATION STATUS IS DENIED IF NOT THEN WORK AS EARLIER
 
-      // const notificationStatus = Notification.permission;
-      if (notificationStatus === 'denied') {
-        // this.showHelp = true;
-        this.errorMessage =
-          'It looks like you have blocked notifications in your browser.';
-        this.notificationHelp =
-          'See how to allow notifications.See under the heading <b>Allow or block notifications from all sites</b> in ';
-      } else {
-        // if SITE NOTIFICATIONS ARE GRANTED but chrome notifications are off
-        this.errorMessage =
-          'It looks like you have blocked notifications in your browser.';
-        this.notificationHelp =
-          '<b>Please enable notifications for Chrome app in your device. </b>' +
-          'Also see how to allow notifications for websites. See under the heading <b>Allow or block notifications from all sites</b> in ';
-        // this.homeScreenPermission();
-      }
-      const dateNow = new Date();
-      const dateTime = dateNow.toJSON();
-      this.starting_time = dateTime.replace('Z', '').replace('T', ' ');
+  //     // const notificationStatus = Notification.permission;
+  //     if (notificationStatus === 'denied') {
+  //       // this.showHelp = true;
+  //       this.errorMessage =
+  //         'It looks like you have blocked notifications in your browser.';
+  //       this.notificationHelp =
+  //         'See how to allow notifications.See under the heading <b>Allow or block notifications from all sites</b> in ';
+  //     } else {
+  //       // if SITE NOTIFICATIONS ARE GRANTED but chrome notifications are off
+  //       this.errorMessage =
+  //         'It looks like you have blocked notifications in your browser.';
+  //       this.notificationHelp =
+  //         '<b>Please enable notifications for Chrome app in your device. </b>' +
+  //         'Also see how to allow notifications for websites. See under the heading <b>Allow or block notifications from all sites</b> in ';
+  //       // this.homeScreenPermission();
+  //     }
+  //     const dateNow = new Date();
+  //     const dateTime = dateNow.toJSON();
+  //     this.starting_time = dateTime.replace('Z', '').replace('T', ' ');
 
-      this.participationID = this.aiimsRegistrationDataService.participationID;
-      this.fcmService.permit.subscribe(permit => {
-        this.notificationsAllowed = permit ? 1 : 0;
-        this.consentForm.controls['notificationsInfo'].setValue(
-          this.notificationsAllowed,
-        );
-        this.updatingPermissions = false;
-        this.showHelp = this.notificationsAllowed === 0;
-        this.changeDetector.detectChanges();
-        // this.activateSubmitButton();
-      });
-      this.starting_time = dateTime.replace('Z', '').replace('T', ' ');
-      this.placeholder_tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-      this.notificationsPermission();
-  }
+  //     this.participationID = this.aiimsRegistrationDataService.participationID;
+  //     this.fcmService.permit.subscribe(permit => {
+  //       this.notificationsAllowed = permit ? 1 : 0;
+  //       this.consentForm.controls['notificationsInfo'].setValue(
+  //         this.notificationsAllowed,
+  //       );
+  //       this.updatingPermissions = false;
+  //       this.showHelp = this.notificationsAllowed === 0;
+  //       this.changeDetector.detectChanges();
+  //       // this.activateSubmitButton();
+  //     });
+  //     this.starting_time = dateTime.replace('Z', '').replace('T', ' ');
+  //     this.placeholder_tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  //     this.notificationsPermission();
+  // }
 }
 
   step4DataSubmit() {
