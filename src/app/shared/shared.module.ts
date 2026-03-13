@@ -8,7 +8,10 @@ import { FormSliderComponent } from '@/main/resources/forms/shared/form-slider/f
 import { DateTimePickerComponent } from '@/main/shared/date-time-picker/date-time-picker.component';
 import { MoodTrackerComponent } from '@/main/shared/mood-tracker/mood-tracker.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { CongratsDialogComponent } from '@/main/resources/shared/congrats-dialog/congrats-dialog.component';
 import { ChatVideoComponent } from '@/main/chatbot/chat-window/chat-video/chat-video.component';
 import { ChatImageComponent } from '@/main/chatbot/chat-window/chat-image/chat-image.component';
@@ -57,8 +60,10 @@ import {
     QuestionnaireDeprecatedModule,
     MaterialModule,
     FormsModule,
-    OwlDateTimeModule,
-    OwlNativeDateTimeModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule,
+    MatFormFieldModule,
     MatProgressBarModule,
     ReactiveFormsModule,
     RouterModule,

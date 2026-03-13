@@ -42,7 +42,7 @@ export class SupportGroupsService {
     this.supportGroupItem$.next(post);
   }
 
-  tokenGetter(): Promise<string> {
+  tokenGetter(): Promise<string | null>{
     return localforage.getItem(TOKEN);
   }
 

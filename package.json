@@ -49,7 +49,6 @@
     "localforage": "^1.7.3",
     "luxon": "^1.21.3",
     "moment": "^2.24.0",
-    "ng-pick-datetime": "^7.0.0",
     "ng2-charts": "^2.3.0",
     "normalize.css": "^8.0.1",
     "npm": "^6.14.8",
