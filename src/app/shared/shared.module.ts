@@ -24,7 +24,7 @@ import { StepCompletedComponent } from '@/main/resources/shared/step-completed/s
 import { QuestionnaireComponent } from '@/shared/questionnaire/questionnaire.component';
 import { QuestionnaireItemComponent } from '@/shared/questionnaire/questionnaire-item/questionnaire-item.component';
 // import {QuestionnaireContainerComponent} from "@/shared/questionnaire-container/questionnaire-container.component";
-import { MatProgressBarModule } from '@angular/material';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { QuestionnaireResultComponent } from '@/shared/questionnaire/shared/questionnaire-result/questionnaire-result.component';
 import { CustomNavComponent } from '@/shared/questionnaire/shared/custom-nav/custom-nav.component';
 import {RouterModule} from "@angular/router";
